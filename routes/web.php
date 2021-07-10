@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\AdministracionController;
 
 Cache::flush();
 Session::flush();
@@ -63,3 +64,6 @@ Route::get('Pagolinea',[PaginaController::class, 'PagoLinea'])->name('Pagolinea'
 Route::get('puntosAtencion',[PaginaController::class, 'PuntosAtencion'])->name('puntosAtencion');
 Route::get('PUNTOSATENCION',[PaginaController::class, 'PuntosAtencion'])->name('PUNTOSATENCION');
 Route::get('Puntosatencion',[PaginaController::class, 'PuntosAtencion'])->name('Puntosatencion');
+
+Auth::routes();
+Route::get('login',[AdministracionController::class, 'Login'])->name('login');

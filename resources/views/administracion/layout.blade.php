@@ -2,7 +2,7 @@
 <html>
 <head>
     <html lang="{{ app()->getLocale() }}">
-    <title>GyP Bogotá - @yield('titulo')</title>
+    <title>Grúas y Parqueaderos Bogotá - @yield('titulo')</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
