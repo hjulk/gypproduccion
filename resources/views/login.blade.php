@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset("adminlte/plugins/fontawesome-free/css/all.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
-    <link rel="stylesheet" href="{{asset("adminlte/css/administracion.css")}}">
+    <link rel="stylesheet" href="{{asset("adminlte/css/login.css")}}">
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">

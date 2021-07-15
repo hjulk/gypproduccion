@@ -67,3 +67,5 @@ Route::get('Puntosatencion',[PaginaController::class, 'PuntosAtencion'])->name('
 
 Auth::routes();
 Route::get('login',[AdministracionController::class, 'Login'])->name('login');
+
+Route::get('home',[AdministracionController::class, 'Home'])->name('home');

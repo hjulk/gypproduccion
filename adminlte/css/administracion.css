@@ -1,24 +1,17 @@
-#logoLogin{
+#principalCard{
+    background-color: #879225 !important;
+}
+#enlace{
+    color: #879225 !important;
+}
+#notificacionesDashboard{
     width: 100%;
 }
-.login-page{
-    background-color: white !important;
+thead{
+    background: #879225 !important;
+    color: #ECF0F1;
 }
-.card {
-    box-shadow: none !important;
-}
-#olvidoContrasena{
-    color: #879225 !important;
-font-weight: 700;
-}
-.btn-primary {
-    color: #fff !important;
-    background-color: #879225 !important;
-    border-color: #4c531e !important;
-}
-.login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {
-    color: #879225 !important;
-}
-.login-box, .register-box {
-    width: 380px !important;
-}
+#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr{text-align:center;}
+#tituloCard{color:white !important;}
+#imgCard{text-align: center;}
+#textCard{}

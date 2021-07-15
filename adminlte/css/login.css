@@ -1,0 +1,24 @@
+#logoLogin{
+    width: 100%;
+}
+.login-page{
+    background-color: white !important;
+}
+.card {
+    box-shadow: none !important;
+}
+#olvidoContrasena{
+    color: #879225 !important;
+font-weight: 700;
+}
+.btn-primary {
+    color: #fff !important;
+    background-color: #879225 !important;
+    border-color: #9ea188 !important;
+}
+.login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {
+    color: #879225 !important;
+}
+.login-box, .register-box {
+    width: 380px !important;
+}

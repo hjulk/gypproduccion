@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="{{asset("adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/plugins/jqvmap/jqvmap.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
-    <link rel="stylesheet" href="{{asset("adminlte/css/bootstrap.min.css")}}">
-    <link rel="stylesheet" href="{{asset("Datatables/css/dataTables.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{asset("adminlte/css/administracion.css")}}">
+    <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
+    <link rel="stylesheet" href="{{asset("Datatables/Datatables/css/dataTables.bootstrap4.min.css")}}">
     <link rel="stylesheet" href="{{asset("Datatables/Responsive/css/responsive.bootstrap4.min.css")}}">
     <link rel="stylesheet" href="{{asset("Datatables/Buttons/css/buttons.dataTables.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
@@ -43,12 +44,12 @@
     <script src="{{asset("js/jquery-migrate.min.js")}}"></script>
     <script src="{{asset("adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("adminlte/js/adminlte.js")}}"></script>
-    <script src="{{asset("Datatables/js/jquery.dataTables.min.js")}}"></script>
-    <script src="{{asset("Datatables/js/dataTables.bootstrap4.min.js")}}"></script>
+    <script src="{{asset("Datatables/Datatables/js/jquery.dataTables.min.js")}}"></script>
+    <script src="{{asset("Datatables/Datatables/js/dataTables.bootstrap4.min.js")}}"></script>
     <script src="{{asset("Datatables/Responsive/js/dataTables.responsive.min.js")}}"></script>
     <script src="{{asset("Datatables/Responsive/js/responsive.bootstrap4.min.js")}}"></script>
     <script src="{{asset("Datatables/AutoFill/js/dataTables.autoFill.min.js")}}"></script>
-    <script src="{{asset("Datatables/js/jszip.min.js")}}"></script>
+    <script src="{{asset("Datatables/Datatables/js/jszip.min.js")}}"></script>
     <script src="{{asset("Datatables/Buttons/js/dataTables.buttons.min.js")}}"></script>
     <script src="{{asset("Datatables/Buttons/js/buttons.flash.min.js")}}"></script>
     <script src="{{asset("Datatables/Buttons/js/buttons.html5.min.js")}}"></script>
