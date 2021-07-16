@@ -69,3 +69,11 @@ Auth::routes();
 Route::get('login',[AdministracionController::class, 'Login'])->name('login');
 
 Route::get('home',[AdministracionController::class, 'Home'])->name('home');
+Route::get('dependencias',[AdministracionController::class, 'Dependencias'])->name('dependencias');
+Route::get('roles',[AdministracionController::class, 'Roles'])->name('roles');
+Route::get('usuarios',[AdministracionController::class, 'Usuarios'])->name('usuarios');
+
+Route::post('crearDependencia',[AdministracionController::class, 'CrearDependencia'])->name('crearDependencia');
+Route::post('actualizarDependencia',[AdministracionController::class, 'ActualizarDependencia'])->name('actualizarDependencia');
+Route::post('crearRol',[AdministracionController::class, 'CrearRol'])->name('crearRol');
+Route::post('actualizarRol',[AdministracionController::class, 'ActualizarRol'])->name('actualizarRol');

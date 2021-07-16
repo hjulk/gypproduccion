@@ -11,7 +11,10 @@ thead{
     background: #879225 !important;
     color: #ECF0F1;
 }
-#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr{text-align:center;}
+#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr{text-align:center;}
 #tituloCard{color:white !important;}
 #imgCard{text-align: center;}
-#textCard{}
+.modal-header{
+    background: #879225 !important;
+    color: #ECF0F1;
+}

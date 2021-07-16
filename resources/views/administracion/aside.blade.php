@@ -54,7 +54,7 @@
                     </a>
                     <ul class="nav nav-treeview" id="asideInicio">
                         <li class="nav-item" id="asideInicio">
-                            <a href="roles" class="nav-link">
+                            <a href="dependencias" class="nav-link">
                                 <i class="fas fa-building nav-icon" id="enlace"></i>
                                 <p>Dependencias</p>
                             </a>
