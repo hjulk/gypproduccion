@@ -39,7 +39,7 @@ Roles
                             </div>
                         </div>
                         <br>
-                        {!! Form::open(['url' => 'crearRol', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                        {!! Form::open(['url' => 'crearRol', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_rol']) !!}
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -49,7 +49,7 @@ Roles
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary float-right">Crear Rol</button>
+                                <button type="submit" class="btn btn-success float-right">Crear Rol</button>
                             </div>
                         {!!  Form::close() !!}
                     </div>
@@ -61,10 +61,10 @@ Roles
                         <table id="roles" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">Id</th>
-                                    <th style="text-align: center;">Nombre Rol</th>
-                                    <th style="text-align: center;">Estado</th>
-                                    <th style="text-align: center;">Editar</th>
+                                    <th>Id</th>
+                                    <th>Nombre Rol</th>
+                                    <th>Estado</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>

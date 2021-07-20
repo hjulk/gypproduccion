@@ -14,7 +14,7 @@ Dependencias
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home">Inicio</a></li>
-                    <li class="breadcrumb-item active">Roles</li>
+                    <li class="breadcrumb-item active">Dependencias</li>
                 </ol>
             </div>
         </div>
@@ -39,7 +39,7 @@ Dependencias
                             </div>
                         </div>
                         <br>
-                        {!! Form::open(['url' => 'crearDependencia', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                        {!! Form::open(['url' => 'crearDependencia', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_dependencia']) !!}
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">
@@ -49,7 +49,7 @@ Dependencias
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary float-right">Crear Dependencia</button>
+                                <button type="submit" class="btn btn-success float-right">Crear Dependencia</button>
                             </div>
                         {!!  Form::close() !!}
                     </div>
@@ -61,10 +61,10 @@ Dependencias
                         <table id="dependencias" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th style="text-align: center;">Id</th>
-                                    <th style="text-align: center;">Nombre Dependencia</th>
-                                    <th style="text-align: center;">Estado</th>
-                                    <th style="text-align: center;">Editar</th>
+                                    <th>Id</th>
+                                    <th>Nombre Dependencia</th>
+                                    <th>Estado</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>

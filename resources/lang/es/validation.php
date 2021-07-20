@@ -83,6 +83,20 @@ return array(
         'nombre_dependencia' => 'Nombre Dependencia',
         'nombre_dependencia_upd' => 'Nombre Dependencia',
         'nombre_rol' => 'Nombre Rol',
-        'nombre_rol_upd' => 'Nombre Rol'
+        'nombre_rol_upd' => 'Nombre Rol',
+        'estado' => 'Estado',
+        'estado_upd' => 'Estado',
+        'nombre_usuario' => 'Nombre Usuario',
+        'nombre_usuario_upd' => 'Nombre Usuario',
+        'correo' => 'Correo Electrónico',
+        'correo_upd' => 'Correo Electrónico',
+        'username' => 'Usuario',
+        'username_upd' => 'Usuario',
+        'password' => 'Contraseña',
+        'password_upd' => 'Contraseña',
+        'id_rol' => 'Rol',
+        'id_rol_upd' => 'Rol',
+        'id_dependencia' => 'Dependencia',
+        'id_dependencia_upd' => 'Dependencia'
     ),
 );

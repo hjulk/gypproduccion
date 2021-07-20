@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{asset("adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/login.css")}}">
+    <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
@@ -21,7 +22,7 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body">
-                {!! Form::open(['url' => 'trabajoNosotros', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
                 @csrf
                     <div class="input-group mb-3">
                         {!! Form::text('usuario',null,['class'=>'form-control','id'=>'usuario','placeholder'=>'Usuario','required']) !!}
@@ -32,7 +33,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        {!! Form::password('passwd',['class'=>'form-control','id'=>'passwd','placeholder'=>'Contraseña','required']) !!}
+                        {!! Form::password('password',['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña','required']) !!}
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -58,5 +59,21 @@
     <script src="{{asset("adminlte/plugins/jquery/jquery.min.js")}}"></script>
     <script src="{{asset("adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("adminlte/js/adminlte.min.js")}}"></script>
+    <script src="{{asset("js/toastr.min.js")}}"></script>
+    <script>
+        @if (session("mensaje"))
+            toastr.success("{{ session("mensaje") }}");
+        @endif
+
+        @if (session("precaucion"))
+            toastr.warning("{{ session("precaucion") }}");
+        @endif
+
+        @if (count($errors) > 0)
+            @foreach($errors -> all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+    </script>
 </body>
 </html>

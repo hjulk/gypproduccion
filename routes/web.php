@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\Admin\AdministradorController;
 use App\Http\Controllers\AdministracionController;
+use App\Http\Controllers\LoginController;
 
 Cache::flush();
 Session::flush();
@@ -66,14 +68,24 @@ Route::get('PUNTOSATENCION',[PaginaController::class, 'PuntosAtencion'])->name('
 Route::get('Puntosatencion',[PaginaController::class, 'PuntosAtencion'])->name('Puntosatencion');
 
 Auth::routes();
-Route::get('login',[AdministracionController::class, 'Login'])->name('login');
+Route::get('login',[LoginController::class, 'Login'])->name('login');
+Route::post('acceso',[LoginController::class, 'Acceso'])->name('acceso');
 
-Route::get('home',[AdministracionController::class, 'Home'])->name('home');
-Route::get('dependencias',[AdministracionController::class, 'Dependencias'])->name('dependencias');
-Route::get('roles',[AdministracionController::class, 'Roles'])->name('roles');
-Route::get('usuarios',[AdministracionController::class, 'Usuarios'])->name('usuarios');
+Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
+    Route::get('home',[AdministradorController::class, 'Home'])->name('home');
+    Route::get('dependencias',[AdministradorController::class, 'Dependencias'])->name('dependencias');
+    Route::get('roles',[AdministradorController::class, 'Roles'])->name('roles');
+    Route::get('usuarios',[AdministradorController::class, 'Usuarios'])->name('usuarios');
+    Route::get('logout', function() {
+        Auth::logout();
+        Session::flush();
+        return Redirect::to('login')->with('mensaje_login', 'Salida Segura');
+    });
+});
 
 Route::post('crearDependencia',[AdministracionController::class, 'CrearDependencia'])->name('crearDependencia');
 Route::post('actualizarDependencia',[AdministracionController::class, 'ActualizarDependencia'])->name('actualizarDependencia');
 Route::post('crearRol',[AdministracionController::class, 'CrearRol'])->name('crearRol');
 Route::post('actualizarRol',[AdministracionController::class, 'ActualizarRol'])->name('actualizarRol');
+Route::post('crearUsuario',[AdministracionController::class, 'CrearUsuario'])->name('crearUsuario');
+Route::post('actualizarUsuario',[AdministracionController::class, 'ActualizarUsuario'])->name('actualizarUsuario');
