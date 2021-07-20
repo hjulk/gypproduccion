@@ -10,6 +10,8 @@ use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\Admin\AdministradorController;
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\User\UsuarioController;
+use App\Http\Controllers\UsuariosController;
 
 Cache::flush();
 Session::flush();
@@ -70,6 +72,7 @@ Route::get('Puntosatencion',[PaginaController::class, 'PuntosAtencion'])->name('
 Auth::routes();
 Route::get('login',[LoginController::class, 'Login'])->name('login');
 Route::post('acceso',[LoginController::class, 'Acceso'])->name('acceso');
+Route::post('recuperarAcceso',[LoginController::class, 'RecuperarAcceso'])->name('recuperarAcceso');
 
 Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('home',[AdministradorController::class, 'Home'])->name('home');
@@ -83,9 +86,20 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     });
 });
 
+Route::group(['prefix' => 'user','namespace' => 'User'],function(){
+    Route::get('home',[UsuarioController::class, 'Home'])->name('home');
+    Route::get('profileUser',[UsuarioController::class, 'ProfileUser'])->name('profileUser');
+    Route::get('logout', function() {
+        Auth::logout();
+        Session::flush();
+        return Redirect::to('login')->with('mensaje_login', 'Salida Segura');
+    });
+});
+
 Route::post('crearDependencia',[AdministracionController::class, 'CrearDependencia'])->name('crearDependencia');
 Route::post('actualizarDependencia',[AdministracionController::class, 'ActualizarDependencia'])->name('actualizarDependencia');
 Route::post('crearRol',[AdministracionController::class, 'CrearRol'])->name('crearRol');
 Route::post('actualizarRol',[AdministracionController::class, 'ActualizarRol'])->name('actualizarRol');
 Route::post('crearUsuario',[AdministracionController::class, 'CrearUsuario'])->name('crearUsuario');
 Route::post('actualizarUsuario',[AdministracionController::class, 'ActualizarUsuario'])->name('actualizarUsuario');
+Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])->name('actualizarPerfil');

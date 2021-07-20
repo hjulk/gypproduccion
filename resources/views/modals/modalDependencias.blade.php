@@ -5,6 +5,7 @@
                 <h4 class="modal-title modal-title-primary">Actualizar Dependencia</h4>
             </div>
             {!! Form::open(['url' => 'actualizarDependencia', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-banner']) !!}
+            @csrf
             <div class="modal-body">
                 <div class="form-group">
                     <input type="hidden" name="id_d" id="idD_upd">

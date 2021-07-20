@@ -97,6 +97,8 @@ return array(
         'id_rol' => 'Rol',
         'id_rol_upd' => 'Rol',
         'id_dependencia' => 'Dependencia',
-        'id_dependencia_upd' => 'Dependencia'
+        'id_dependencia_upd' => 'Dependencia',
+        'administrador_upd' => 'Super Administrador',
+        'administrador' => 'Super Administrador'
     ),
 );

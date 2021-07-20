@@ -153,7 +153,7 @@ class Administracion extends Model
         $fecha_sistema  = date('Y-m-d H:i:s');
         $fechaCreacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
         $CrearUsuario = DB::Insert('INSERT INTO usuarios (NOMBRE_USUARIO,CORREO,USERNAME,PASSWORD,ID_ROL,ID_DEPENDENCIA,ESTADO,FECHA_CREACION,USUARIO_CREACION,ADMINISTRADOR)
-                                    VALUES (?,?,?,?,?,?,?,?,?)',
+                                    VALUES (?,?,?,?,?,?,?,?,?,?)',
                                     [$Nombre,$Correo,$Username,$Password,$Rol,$Dependencia,$Estado,$fechaCreacion,$Usuario,$Administrador]);
         return $CrearUsuario;
     }
@@ -186,5 +186,20 @@ class Administracion extends Model
     public static function BuscarPass($Usuario,$Password){
         $BuscarPass = DB::select('SELECT * FROM usuarios WHERE USERNAME = ? AND PASSWORD = ?', [$Usuario,$Password]);
         return $BuscarPass;
+    }
+
+    public static function BuscarUserEmail($Correo){
+        $BuscarUserEmail = DB::Select('SELECT * FROM usuarios WHERE CORREO = ?', [$Correo]);
+        return $BuscarUserEmail;
+    }
+
+    public static function RestablecerPassword($UserName,$UserEmail){
+        $RestablecerPassword = DB::Select('SELECT * FROM usuarios WHERE CORREO = ? AND USERNAME = ?', [$UserEmail,$UserName]);
+        return $RestablecerPassword;
+    }
+
+    public static function NuevaContrasena($idUser,$nuevaContrasena){
+        $NuevaContrasena = DB::Update('UPDATE usuarios SET PASSWORD = ? WHERE ID_USUARIO = ?', [$nuevaContrasena,$idUser]);
+        return $NuevaContrasena;
     }
 }

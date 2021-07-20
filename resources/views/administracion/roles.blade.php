@@ -40,6 +40,7 @@ Roles
                         </div>
                         <br>
                         {!! Form::open(['url' => 'crearRol', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_rol']) !!}
+                        @csrf
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">

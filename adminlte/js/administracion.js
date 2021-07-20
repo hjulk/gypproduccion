@@ -329,3 +329,20 @@ function obtener_datos_usuario(id) {
     $("#mod_administrador").val(Administrador);
     $("#mod_estado").val(Estado);
 }
+function mostrarContrasena(){
+    var tipo = document.getElementById("password");
+    if(tipo.type == "password"){
+        tipo.type = "text";
+    }else{
+        tipo.type = "password";
+    }
+}
+
+function mostrarContrasenaUpd(){
+    var tipo = document.getElementById("mod_password");
+    if(tipo.type == "password"){
+        tipo.type = "text";
+    }else{
+        tipo.type = "password";
+    }
+}

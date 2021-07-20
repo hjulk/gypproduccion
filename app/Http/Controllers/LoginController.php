@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -58,6 +59,11 @@ class LoginController extends Controller
                             $NombreRol = $valor->NOMBRE_ROL;
                         }
 
+                        $Dependencia = Administracion::ListarDependenciasId($idDependencia);
+                        foreach($Dependencia as $valor){
+                            $NombreDependencia = $valor->NOMBRE_DEPENDENCIA;
+                        }
+
                         Session::put('IdUsuario', $IdUsuario);
                         Session::put('NombreUsuario', $nombreUsuario);
                         Session::put('UserName', $userName);
@@ -67,8 +73,8 @@ class LoginController extends Controller
                         Session::put('FechaCreacion', $fechaCreacion);
                         Session::put('Administracion', $Administracion);
                         Session::put('NombreRol', $NombreRol);
+                        Session::put('NombreDependencia', $NombreDependencia);
                         Session::save();
-                        // return \Response::json(['valido'=>'true','rol'=>$rol]);
                         $usuario = Session::get('NombreUsuario');
                         switch($idRol){
                             Case 1: return Redirect::to('admin/home');
@@ -98,5 +104,119 @@ class LoginController extends Controller
                 return Redirect::to('login')->withErrors(['errors' => $verrors]);
             }
         }
+    }
+
+    public function RecuperarAcceso(Request $request){
+        $cadena = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()#.$@?';
+        $limite = strlen($cadena) - 1;
+        $b = '';
+        for ($i=0; $i < 8; $i++){
+            $b .= $cadena[rand(0, $limite)];
+        }
+        $UserName    = $request->username;
+        $UserEmail   = $request->correo;
+        $nuevaContrasena = Hash('sha512',$b);
+        if(!empty($UserName) || !empty($UserEmail)){
+
+            if(!empty($UserName) && empty($UserEmail)){
+
+                $BuscarUsuario = Administracion::BuscarUser($UserName);
+                if($BuscarUsuario){
+                    foreach($BuscarUsuario as $value){
+                        $idUser = $value->ID_USUARIO;
+                        $Correo = $value->CORREO;
+                        $Nombre = $value->NOMBRE_USUARIO;
+                    }
+                    $UpdatePassword = LoginController::UpdatePass($UserName,$Correo,$Nombre,$idUser,$nuevaContrasena,$b);
+                    if($UpdatePassword[1] == 'exito'){
+                        $verrors = $UpdatePassword[0];
+                        return Redirect::to('login')->with('mensaje', $verrors);
+                    }else{
+                        $verrors = $UpdatePassword[0];
+                        return Redirect::to('login')->withErrors('mensaje', $verrors);
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'El usuario '.$UserName.' NO se encuentra en la base de datos');
+                    return Redirect::to('login')->withErrors(['errors' => $verrors]);
+                }
+            }else if(empty($UserName) && !empty($UserEmail)){
+                $BuscarUsuario = Administracion::BuscarUserEmail($UserEmail);
+                if($BuscarUsuario){
+
+                    foreach($BuscarUsuario as $value){
+                        $idUser = $value->ID_USUARIO;
+                        $Nombre = $value->NOMBRE_USUARIO;
+                        $Correo = $value->CORREO;
+                        $UserName = $value->USERNAME;
+                    }
+                    $UpdatePassword = LoginController::UpdatePass($UserName,$Correo,$Nombre,$idUser,$nuevaContrasena,$b);
+                    if($UpdatePassword[1] == 'exito'){
+                        $verrors = $UpdatePassword[0];
+                        return Redirect::to('login')->with('mensaje', $verrors);
+                    }else{
+                        $verrors = $UpdatePassword[0];
+                        return Redirect::to('login')->withErrors('mensaje', $verrors);
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'El correo '.$UserEmail.' NO se encuentra en la base de datos');
+                    return Redirect::to('login')->withErrors(['errors' => $verrors]);
+                }
+            }else if(!empty($UserName) && !empty($UserEmail)){
+                $BuscarUsuario = Administracion::RestablecerPassword($UserName,$UserEmail);
+                if($BuscarUsuario){
+
+                    foreach($BuscarUsuario as $value){
+                        $idUser = $value->ID_USUARIO;
+                        $Nombre = $value->NOMBRE_USUARIO;
+                        $Correo = $value->CORREO;
+                        $UserName = $value->USERNAME;
+                    }
+                    $UpdatePassword = LoginController::UpdatePass($UserName,$Correo,$Nombre,$idUser,$nuevaContrasena,$b);
+                    if($UpdatePassword[1] == 'exito'){
+                        $verrors = $UpdatePassword[0];
+                        return Redirect::to('login')->with('mensaje', $verrors);
+                    }else{
+                        $verrors = $UpdatePassword[0];
+                        return Redirect::to('login')->withErrors('mensaje', $verrors);
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'El usuario '.$UserName.' y correo '.$UserEmail.' NO se encuentra en la base de datos');
+                    return Redirect::to('login')->withErrors(['errors' => $verrors]);
+                }
+            }
+        }else{
+            $verrors = array();
+            array_push($verrors, 'Debe diligenciar uno de los dos campos para realizar la solicitud de recuperación de contraseña');
+            return Redirect::to('login')->withErrors(['errors' => $verrors])->withInput();
+        }
+
+    }
+
+    public static function UpdatePass($UserName,$Correo,$Nombre,$idUser,$nuevaContrasena,$b){
+        $UpdatePassword = Administracion::NuevaContrasena($idUser,$nuevaContrasena);
+        $respuesta = array();
+        if($UpdatePassword){
+            $for = "$Correo";
+            $subject = "Recuperación de Contraseña";
+            Mail::send('Emails.CorreoRecuperacion',
+                    ['Contrasena' => $b,'NombreUser' => $UserName,'Usuario'=>$Nombre],
+                    function($msj) use($subject,$for){
+                        $msj->from("comunicaciones@gruasyparqueaderosbogota.com","Administración página GyP Bogotá");
+                        $msj->subject($subject);
+                        $msj->to($for);
+            });
+            if(count(Mail::failures()) === 0){
+                $respuesta = ['Se envio con exito la nueva contraseña al correo del usuario '.$UserName,'exito'];
+
+            }else{
+                $respuesta = ['Hubo un error al enviar su mensaje','error'];
+            }
+        }else{
+            $respuesta = ['Hubo un problema al recuperar la contraseña','error'];
+        }
+        return $respuesta;
     }
 }

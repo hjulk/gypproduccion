@@ -23,9 +23,19 @@
                         </p>
                     </li>
                     <li class="user-footer">
-                        <div class="pull-right">
-                            <a href="logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                        <div class="row">
+                            <div class="col-md-5" id="perilHeader">
+                                @if(Session::get('Rol') === 1)
+                                    <a href="usuarios" class="btn btn-default btn-flat">Perfil</a>
+                                @else
+                                    <a href="profileUser" class="btn btn-default btn-flat">Perfil</a>
+                                @endif
+                            </div>
+                            <div class="col-md-7" id="cerrarSesion">
+                                <a href="logout" class="btn btn-default btn-flat">Cerrar Sesión</a>
+                            </div>
                         </div>
+
                     </li>
                 </ul>
             </li>

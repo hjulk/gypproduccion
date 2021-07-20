@@ -34,17 +34,14 @@ Usuarios
                         </picture>
 
                         </div>
-                        <h3 class="profile-username text-center">Nina Mcintire</h3>
-                        <p class="text-muted text-center">Software Engineer</p>
+                        <h3 class="profile-username text-center">{!! Session::get('NombreUsuario') !!}</h3>
+                        <p class="text-muted text-center">{!! Session::get('NombreRol') !!}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                            <b>Followers</b> <a class="float-right" id="enlace">1,322</a>
+                            <b>Creado desde</b> <a class="float-right" id="enlace">{!! Session::get('FechaCreacion') !!}</a>
                             </li>
                             <li class="list-group-item">
-                            <b>Following</b> <a class="float-right" id="enlace">543</a>
-                            </li>
-                            <li class="list-group-item">
-                            <b>Friends</b> <a class="float-right" id="enlace">13,287</a>
+                            <b>Dependencia</b> <a class="float-right" id="enlace">{!! Session::get('NombreDependencia') !!}</a>
                             </li>
                         </ul>
                     </div>
@@ -58,6 +55,7 @@ Usuarios
                     </div>
                     <div class="card-body">
                         {!! Form::open(['url' => 'crearUsuario', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                        @csrf
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -79,6 +77,9 @@ Usuarios
                                     <div class="col-md-3">
                                         <label for="exampleInputEmail1">Contraseña</label>
                                         {!! Form::input('password','password',null,['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña','type'=>'password']) !!}
+                                        <div class="form-group-append">
+                                            <button id="show_password" class="btn btn-outline-primary" type="button" onclick="mostrarContrasena()"> <span class="fa fa-eye-slash icon"></span> Mostrar Contraseña</button>
+                                        </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label for="exampleInputEmail1">Rol</label>

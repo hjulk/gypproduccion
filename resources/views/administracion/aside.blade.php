@@ -46,6 +46,7 @@
                         <p>Visitas de Página</p>
                     </a>
                 </li>
+                @if(Session::get('Rol') === 1)
                 <li class="nav-item has-treeview" id="asideInicio">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-cog" id="enlace"></i>
@@ -73,7 +74,7 @@
                         </li>
                     </ul>
                 </li>
-
+                @endif
                 {{-- @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
                     <li class="nav-item" id="asideBanners">
                         <a href="banners" class="nav-link">

@@ -40,6 +40,7 @@ Dependencias
                         </div>
                         <br>
                         {!! Form::open(['url' => 'crearDependencia', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_dependencia']) !!}
+                        @csrf
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-8">

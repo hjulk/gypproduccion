@@ -22,3 +22,12 @@ font-weight: 700;
 .login-box, .register-box {
     width: 380px !important;
 }
+.modal-header{
+    background: #879225 !important;
+    color: #ECF0F1;
+}
+#logoPass{
+    text-align: center;
+}
+#imgAlerts{max-width: -webkit-fill-available;width:-moz-available;width: 20%}
+#exitoAlert,#errorAlert,#exitoTrabajo{text-align:center;font-size:2vh;font-weight: 600;}

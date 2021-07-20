@@ -35,9 +35,9 @@
                     <div class="input-group mb-3">
                         {!! Form::password('password',['class'=>'form-control','id'=>'password','placeholder'=>'Contraseña','required']) !!}
                         <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
+                            {{-- <div class="input-group-text"> --}}
+                                <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarContrasena()"> <span class="fa fa-eye-slash icon"></span> </button>
+                            {{-- </div> --}}
                         </div>
                     </div>
                     <div class="row">
@@ -48,7 +48,7 @@
                 {!!  Form::close() !!}
                 <br>
                 <p class="mb-1">
-                    <a href="recuperarContraseña" id="olvidoContrasena">Olvide mi contraseña</a>
+                    <a href="#" data-toggle="modal" data-target="#modal-recuperarPass" id="olvidoContrasena">Olvide mi contraseña</a>
                 </p>
                 <p class="mb-1">
                     <a href="{{ url('/') }}" id="olvidoContrasena">Volver a página principal</a>
@@ -56,22 +56,27 @@
             </div>
         </div>
     </div>
+    @include("modals.modalRecuperarPass")
     <script src="{{asset("adminlte/plugins/jquery/jquery.min.js")}}"></script>
     <script src="{{asset("adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("adminlte/js/adminlte.min.js")}}"></script>
     <script src="{{asset("js/toastr.min.js")}}"></script>
+    <script src="{{asset("adminlte/js/login.js")}}"></script>
     <script>
         @if (session("mensaje"))
-            toastr.success("{{ session("mensaje") }}");
+            $("#loginExitoso").modal("show");
+            document.getElementById("exitoAlert").innerHTML = "{{ session("mensaje") }}";
         @endif
 
         @if (session("precaucion"))
-            toastr.warning("{{ session("precaucion") }}");
+            $("#solicitudError").modal("show");
+            document.getElementById("errorAlert").innerHTML = "{{ session("precaucion") }}";
         @endif
 
         @if (count($errors) > 0)
+        $("#solicitudError").modal("show");
             @foreach($errors -> all() as $error)
-                toastr.error("{{ $error }}");
+                document.getElementById("errorAlert").innerHTML = "{{ $error }}";
             @endforeach
         @endif
     </script>

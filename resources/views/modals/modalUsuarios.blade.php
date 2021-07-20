@@ -5,6 +5,7 @@
                 <h4 class="modal-title modal-title-primary">Actualizar Usuario</h4>
             </div>
             {!! Form::open(['url' => 'actualizarUsuario', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-banner']) !!}
+            @csrf
             <div class="modal-body">
                 <div class="form-group">
                     <input type="hidden" name="id_user" id="idUser_upd">
@@ -33,6 +34,9 @@
                             <div class="col-md-3">
                                 <label for="exampleInputEmail1">Contraseña</label>
                                 {!! Form::input('password','password_upd',null,['class'=>'form-control','id'=>'mod_password','placeholder'=>'Contraseña','type'=>'password']) !!}
+                                <div class="form-group-append">
+                                    <button id="show_password" class="btn btn-outline-primary" type="button" onclick="mostrarContrasenaUpd()"> <span class="fa fa-eye-slash icon"></span> Mostrar Contraseña</button>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label for="exampleInputEmail1">Rol</label>
