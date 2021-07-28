@@ -99,6 +99,13 @@ return array(
         'id_dependencia' => 'Dependencia',
         'id_dependencia_upd' => 'Dependencia',
         'administrador_upd' => 'Super Administrador',
-        'administrador' => 'Super Administrador'
+        'administrador' => 'Super Administrador',
+        'notificationfile' => 'Archivo de Notificaciones',
+        'nombre_ciudadano' => 'Nombre Ciudadano',
+        'nombre_ciudadano_upd' => 'Nombre Ciudadano',
+        'placa' => 'Placa',
+        'placa_upd' => 'Placa',
+        'year_notification' => 'Año de Reporte',
+        'year_notification_upd' => 'Año de Reporte'
     ),
 );

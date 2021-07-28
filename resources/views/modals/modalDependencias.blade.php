@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 class="modal-title modal-title-primary">Actualizar Dependencia</h4>
             </div>
-            {!! Form::open(['url' => 'actualizarDependencia', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-banner']) !!}
+            {!! Form::open(['url' => 'actualizarDependencia', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-dependencia_upd']) !!}
             @csrf
             <div class="modal-body">
                 <div class="form-group">

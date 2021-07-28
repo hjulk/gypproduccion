@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 class="modal-title modal-title-primary">Actualizar Rol</h4>
             </div>
-            {!! Form::open(['url' => 'actualizarRol', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-banner']) !!}
+            {!! Form::open(['url' => 'actualizarRol', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-rol_upd']) !!}
             @csrf
             <div class="modal-body">
                 <div class="form-group">

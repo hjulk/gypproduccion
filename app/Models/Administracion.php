@@ -184,7 +184,7 @@ class Administracion extends Model
     }
 
     public static function BuscarPass($Usuario,$Password){
-        $BuscarPass = DB::select('SELECT * FROM usuarios WHERE USERNAME = ? AND PASSWORD = ?', [$Usuario,$Password]);
+        $BuscarPass = DB::Select('SELECT * FROM usuarios WHERE USERNAME = ? AND PASSWORD = ?', [$Usuario,$Password]);
         return $BuscarPass;
     }
 
@@ -201,5 +201,51 @@ class Administracion extends Model
     public static function NuevaContrasena($idUser,$nuevaContrasena){
         $NuevaContrasena = DB::Update('UPDATE usuarios SET PASSWORD = ? WHERE ID_USUARIO = ?', [$nuevaContrasena,$idUser]);
         return $NuevaContrasena;
+    }
+
+    public static function ListarNotificaciones(){
+        $ListarNotificaciones = DB::Select('SELECT * FROM notificaciones ORDER BY NOMBRE_CIUDADANO');
+        return $ListarNotificaciones;
+    }
+
+    public static function ListarNotificacionPlaca($Placa){
+        $ListarNotificacionPlaca = DB::Select('SELECT * FROM notificaciones WHERE PLACA = ?',[$Placa]);
+        return $ListarNotificacionPlaca;
+    }
+
+    public static function CargarNotificacion($NOMBRE_CIUDADANO,$PLACA,$YEAR_NOTIFICATION,$Estado,$IdUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $fechaCreacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+
+        $CargarNotificacion = DB::Insert("INSERT INTO notificaciones (NOMBRE_CIUDADANO,PLACA,YEAR_NOTIFICATION,ESTADO,FECHA_CREACION,USUARIO_CREACION)
+                                        VALUES ('$NOMBRE_CIUDADANO','$PLACA',$YEAR_NOTIFICATION,$Estado,'$fechaCreacion',$IdUser)");
+        return $CargarNotificacion;
+    }
+
+    public static function InactivarNotificaciones(){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $fecha_sistema1  = date('Y-m-d H:i:s');
+        $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema1));
+        $InactivarNotificaciones = DB::Update("UPDATE notificaciones SET ESTADO = 2, FECHA_MODIFICACION = '$fechaActualizacion' WHERE FECHA_CREACION < '$fechaCreacion'");
+        return $InactivarNotificaciones;
+    }
+
+    public static function ActualizarNotificacion($nombre_ciudadano,$placa,$year,$Estado,$IdUser,$IdNotificacion){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+        $ActualizarNotificacion = DB::update('UPDATE notificaciones SET
+                                            NOMBRE_CIUDADANO = ?,
+                                            PLACA = ?,
+                                            YEAR_NOTIFICATION = ?,
+                                            ESTADO = ?,
+                                            FECHA_MODIFICACION = ?,
+                                            USUARIO_MODIFICACION = ?
+                                            WHERE ID_NOTIFICACION = ?',
+                                            [$nombre_ciudadano,$placa,$year,$Estado,$fechaActualizacion ,$IdUser,$IdNotificacion]);;
+        return $ActualizarNotificacion;
     }
 }

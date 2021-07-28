@@ -12,7 +12,7 @@ thead{
     background: #879225 !important;
     color: #ECF0F1;
 }
-#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr{text-align:center;}
+#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr{text-align:center;}
 #tituloCard{color:white !important;}
 #imgCard{text-align: center;}
 .modal-header{
@@ -34,3 +34,5 @@ thead{
 #show_password{
     font-size: 12px;
 }
+#imgAlerts{max-width: -webkit-fill-available;width:-moz-available;width: 20%}
+#exitoAlert,#errorAlert,#exitoTrabajo{text-align:center;font-size:2vh;font-weight: 600;}

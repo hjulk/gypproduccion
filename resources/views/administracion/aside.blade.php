@@ -23,6 +23,12 @@
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">
+                    <a href="notificaciones" class="nav-link">
+                        <i class="fas fa-newspaper nav-icon" id="enlace"></i>
+                        <p>Notificaciones por Aviso</p>
+                    </a>
+                </li>
+                <li class="nav-item" id="asideInicio">
                     <a href="" class="nav-link">
                         <i class="fas fa-list-alt nav-icon" id="enlace"></i>
                         <p>Registro Contáctenos</p>
@@ -58,6 +64,12 @@
                             <a href="dependencias" class="nav-link">
                                 <i class="fas fa-building nav-icon" id="enlace"></i>
                                 <p>Dependencias</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="paginas" class="nav-link">
+                                <i class="fas fa-desktop nav-icon" id="enlace"></i>
+                                <p>Listado Páginas</p>
                             </a>
                         </li>
                         <li class="nav-item" id="asideInicio">

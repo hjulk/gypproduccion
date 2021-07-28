@@ -33,10 +33,10 @@ class AdministracionController extends Controller
                 array_push($verrors, 'Nombre de Dependencia ya existe');
                 return Redirect::to($url.'dependencias')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $Usuario = 1;
+                $Usuario = (int)Session::get('IdUsuario');
                 $crearDependencia = Administracion::CrearDependencia($Nombre,$Usuario);
                 if($crearDependencia){
-                    $verrors = 'Se creo la depenencia '.$Nombre.' con exito.';
+                    $verrors = 'Se creo la depenencia '.$Nombre.' con éxito.';
                     return Redirect::to($url.'dependencias')->with('mensaje', $verrors);
                 }else{
                     $verrors = array();
@@ -70,7 +70,7 @@ class AdministracionController extends Controller
                 array_push($verrors, 'Nombre de Dependencia ya existe');
                 return Redirect::to($url.'dependencias')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $Usuario = 1;
+                $Usuario = (int)Session::get('IdUsuario');
                 $EstadoUpd  = (int)$request->estado_upd;
                 if($EstadoUpd === 1){
                     $Estado = 1;
@@ -79,7 +79,7 @@ class AdministracionController extends Controller
                 }
                 $ActualizarDependencia = Administracion::ActualizarDependencia($Nombre,$Usuario,$Estado,$IdDependencia);
                 if($ActualizarDependencia){
-                    $verrors = 'Se actualizo la dependencia '.$Nombre.' con exito.';
+                    $verrors = 'Se actualizo la dependencia '.$Nombre.' con éxito.';
                     return Redirect::to($url.'dependencias')->with('mensaje', $verrors);
                 }else{
                     $verrors = array();
@@ -112,10 +112,10 @@ class AdministracionController extends Controller
                 array_push($verrors, 'Nombre de Rol ya existe');
                 return Redirect::to($url.'roles')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $Usuario = 1;
+                $Usuario = (int)Session::get('IdUsuario');
                 $CrearRol = Administracion::CrearRol($Nombre,$Usuario);
                 if($CrearRol){
-                    $verrors = 'Se creo el rol '.$Nombre.' con exito.';
+                    $verrors = 'Se creo el rol '.$Nombre.' con éxito.';
                     return Redirect::to($url.'roles')->with('mensaje', $verrors);
                 }else{
                     $verrors = array();
@@ -150,7 +150,7 @@ class AdministracionController extends Controller
                 array_push($verrors, 'Nombre de Rol ya existe');
                 return Redirect::to($url.'roles')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $Usuario = 1;
+                $Usuario = (int)Session::get('IdUsuario');
                 $EstadoUpd  = (int)$request->estado_upd;
                 if($EstadoUpd === 1){
                     $Estado = 1;
@@ -159,7 +159,7 @@ class AdministracionController extends Controller
                 }
                 $ActualizarRol = Administracion::ActualizarRol($Nombre,$Usuario,$Estado,$IdRol);
                 if($ActualizarRol){
-                    $verrors = 'Se actualizo el rol '.$Nombre.' con exito.';
+                    $verrors = 'Se actualizo el rol '.$Nombre.' con éxito.';
                     return Redirect::to($url.'roles')->with('mensaje', $verrors);
                 }else{
                     $verrors = array();
@@ -197,7 +197,7 @@ class AdministracionController extends Controller
             $Rol            = (int)$request->id_rol;
             $Dependencia    = (int)$request->id_dependencia;
             $Administrador  = (int)$request->administrador;
-            $Usuario = 1;
+            $Usuario = (int)Session::get('IdUsuario');
             $Estado = 1;
             $BuscarNombre = Administracion::BuscarUserByUsername($Username);
             if($BuscarNombre){
@@ -207,7 +207,7 @@ class AdministracionController extends Controller
             }else{
                 $CrearUsuario = Administracion::CrearUsuario($Nombre,$Correo,$Username,$Password,$Rol,$Dependencia,$Estado,$Usuario,$Administrador);
                 if($CrearUsuario){
-                    $verrors = 'Se creo el usuario '.$Nombre.' con exito.';
+                    $verrors = 'Se creo el usuario '.$Nombre.' con éxito.';
                     return Redirect::to($url.'usuarios')->with('mensaje', $verrors);
                 }else{
                     $verrors = array();
@@ -246,7 +246,7 @@ class AdministracionController extends Controller
             $Rol            = (int)$request->id_rol_upd;
             $Dependencia    = (int)$request->id_dependencia_upd;
             $Administrador  = (int)$request->administrador_upd;
-            $Usuario        = 1;
+            $Usuario        = (int)Session::get('IdUsuario');
             $Estado         = (int)$request->estado_upd;
             if($request->password_upd){
                 $Password   = hash('sha512', $request->password_upd);
@@ -266,7 +266,7 @@ class AdministracionController extends Controller
             }else{
                 $ActualizarUsuario = Administracion::ActualizarUsuario($IdUsuario,$Nombre,$Correo,$Username,$Password,$Rol,$Dependencia,$Estado,$Usuario,$Administrador);
                 if($ActualizarUsuario){
-                    $verrors = 'Se actualizo el usuario '.$Nombre.' con exito.';
+                    $verrors = 'Se actualizo el usuario '.$Nombre.' con éxito.';
                     return Redirect::to($url.'usuarios')->with('mensaje', $verrors);
                 }else{
                     $verrors = array();

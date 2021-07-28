@@ -209,7 +209,7 @@ class LoginController extends Controller
                         $msj->to($for);
             });
             if(count(Mail::failures()) === 0){
-                $respuesta = ['Se envio con exito la nueva contraseña al correo del usuario '.$UserName,'exito'];
+                $respuesta = ['Se envio con éxito la nueva contraseña al correo del usuario '.$UserName,'éxito'];
 
             }else{
                 $respuesta = ['Hubo un error al enviar su mensaje','error'];

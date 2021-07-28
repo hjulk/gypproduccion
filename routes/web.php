@@ -79,6 +79,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('dependencias',[AdministradorController::class, 'Dependencias'])->name('dependencias');
     Route::get('roles',[AdministradorController::class, 'Roles'])->name('roles');
     Route::get('usuarios',[AdministradorController::class, 'Usuarios'])->name('usuarios');
+    Route::get('notificaciones',[AdministradorController::class, 'Notificaciones'])->name('notificaciones');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -89,6 +90,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
 Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::get('home',[UsuarioController::class, 'Home'])->name('home');
     Route::get('profileUser',[UsuarioController::class, 'ProfileUser'])->name('profileUser');
+    Route::get('notificaciones',[UsuarioController::class, 'Notificaciones'])->name('notificaciones');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -103,3 +105,8 @@ Route::post('actualizarRol',[AdministracionController::class, 'ActualizarRol'])-
 Route::post('crearUsuario',[AdministracionController::class, 'CrearUsuario'])->name('crearUsuario');
 Route::post('actualizarUsuario',[AdministracionController::class, 'ActualizarUsuario'])->name('actualizarUsuario');
 Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])->name('actualizarPerfil');
+
+Route::post('cargarNotificacion',[UsuariosController::class, 'CargarNotificacion'])->name('cargarNotificacion');
+Route::post('cargarNotificacionManual',[UsuariosController::class, 'CargarNotificacionManual'])->name('cargarNotificacionManual');
+Route::post('actualizarNotificacion',[UsuariosController::class, 'ActualizarNotificacion'])->name('actualizarNotificacion');
+

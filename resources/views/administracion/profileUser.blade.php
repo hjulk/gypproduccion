@@ -54,7 +54,7 @@ Perfil Usuario
                         <h3 class="card-title" id="tituloCard"><strong>Crear Usuario</strong></h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['url' => 'actualizarPerfil', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                        {!! Form::open(['url' => 'actualizarPerfil', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-profile']) !!}
                         @csrf
                             <div class="form-group">
                                 <div class="row">

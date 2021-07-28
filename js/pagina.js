@@ -142,3 +142,15 @@ function myFunction() {
     jQuery(".ftco-cover-1.overlay").removeClass("ftco-cover-1 overlay").addClass("ftco-cover-1-contraste");
     console.log("Se activo contraste!!!");
   }
+  $('#form-trabajo').submit(function() {
+    var fileInputP = document.getElementById('hojaVida');
+    var Procedimientos = fileInputP.value;
+    if(Procedimientos){
+        var fileSize = $('#hojaVida')[0].files[0].size;
+        var sizekiloBytes = parseInt(fileSize / 1024);
+        if (sizekiloBytes >  $('#hojaVida').attr('size')) {
+            alert('El tamaño supera el limite permitido de 2mb');
+            return false;
+        }
+    }
+});

@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-md-7">
-                    {!! Form::open(['url' => 'trabajoNosotros', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                    {!! Form::open(['url' => 'trabajoNosotros', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-trabajo']) !!}
                     @csrf
                         <div class="form-group row">
                             <div class="col-md-6 mb-4 mb-lg-0">
@@ -90,7 +90,8 @@
                                 <label>Adjunte su hoja de vida en formato pdf, doc o docx *</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="file" name="hojaVida" id="hojaVida" accept=".pdf,.pdf-a,.doc,.docx" required class="form-control">
+                                <input type="file" name="hojaVida" id="hojaVida" accept=".pdf,.pdf-a,.doc,.docx" required class="form-control" size="2048">
+                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
                             </div>
                         </div>
                         <div class="form-group row">

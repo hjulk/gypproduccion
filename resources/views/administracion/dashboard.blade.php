@@ -166,7 +166,7 @@ Dashboard
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <a href="reporteCitasE" id="tituloCard"><h3 class="card-title"><b>Ingresar a menú de notificaciones por aviso <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                        <a href="notificaciones" id="tituloCard"><h3 class="card-title"><b>Ingresar a menú de notificaciones por aviso <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                     </div>
                     <div class="card-body">
                         <h3 class="card-title" id="enlace"><b>Ultimas 10 notificaciones</b></h3>

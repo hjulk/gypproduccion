@@ -203,4 +203,47 @@ class AdministradorController extends Controller
             }
         }
     }
+
+    public function Notificaciones(){
+        date_default_timezone_set('America/Bogota');
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('login');
+        }else{
+            if($RolUser != 1){
+                return Redirect::to('user/home');
+            }else{
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activo en página';
+                $Estado[2]  = 'Inactivo en página';
+                $ListarNotificaciones = Administracion::ListarNotificaciones();
+                $Notificaciones       = array();
+                $cont           = 0;
+                foreach($ListarNotificaciones as $value){
+                    $Notificaciones[$cont]['id'] = (int)$value->ID_NOTIFICACION;
+                    $Notificaciones[$cont]['nombre_ciudadano'] = $value->NOMBRE_CIUDADANO;
+                    $Notificaciones[$cont]['placa'] = $value->PLACA;
+                    $Notificaciones[$cont]['year'] = $value->YEAR_NOTIFICATION;
+                    $Notificaciones[$cont]['estado_activo']   = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if($State === 1){
+                        $Notificaciones[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $Notificaciones[$cont]['label']    = 'badge badge-success';
+                    }else{
+                        $Notificaciones[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $Notificaciones[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $Notificaciones[$cont]['fecha_creacion'] = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_MODIFICACION){
+                        $Notificaciones[$cont]['fecha_modificacion'] = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+                    }else{
+                        $Notificaciones[$cont]['fecha_modificacion'] = 'SIN ACTUALIZACIÓN';
+                    }
+                    $cont++;
+                }
+                return view('administracion.notificaciones',['Notificaciones' => $Notificaciones, 'Estado' => $Estado]);
+            }
+        }
+    }
 }

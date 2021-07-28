@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h4 class="modal-title modal-title-primary">Recuperar Contraseña</h4>
             </div>
-            {!! Form::open(['url' => 'recuperarAcceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-banner']) !!}
+            {!! Form::open(['url' => 'recuperarAcceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-login_upd']) !!}
             @csrf
             <div class="modal-body">
                 <div class="form-group">
