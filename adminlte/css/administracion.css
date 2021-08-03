@@ -8,11 +8,11 @@
 #notificacionesDashboard{
     width: 100%;
 }
-thead{
-    background: #879225 !important;
-    color: #ECF0F1;
-}
-#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr{text-align:center;}
+
+#notificacionesDashboard thead,#hojasVidaDashboard thead,#contactenosDashboard thead,#dependencias thead,#roles thead,#usuarios thead,#notificacionesAviso thead,#consultaNotificacionesAviso thead{background: #879225 !important;
+    color: #ECF0F1;}
+#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr,#consultaNotificacionesAviso tr{text-align:center;}
+#notificacionesDashboard,#hojasVidaDashboard,#contactenosDashboard,#dependencias,#roles,#usuarios,#notificacionesAviso,#consultaNotificacionesAviso{text-align:center;width: 100%;}
 #tituloCard{color:white !important;}
 #imgCard{text-align: center;}
 .modal-header{
@@ -36,3 +36,4 @@ thead{
 }
 #imgAlerts{max-width: -webkit-fill-available;width:-moz-available;width: 20%}
 #exitoAlert,#errorAlert,#exitoTrabajo{text-align:center;font-size:2vh;font-weight: 600;}
+/* #panelResultado{display: none;} */

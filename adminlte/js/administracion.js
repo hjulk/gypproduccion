@@ -334,6 +334,116 @@ $(document).ready(function () {
         }
     });
 
+    $('#consultaNotificacionesAviso').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal( {
+                        header: function ( row ) {
+                            var data = row.data();
+                            return 'Detalle Notificación '+data[0];
+                        }
+                    } ),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            },
+        lengthChange: false,
+        searching   : true,
+        ordering    : true,
+        info        : true,
+        autoWidth   : true,
+        rowReorder  : false,
+        order: [[ 0, "desc" ]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'collection',
+                text: 'Exportar',
+                buttons: [
+                    'copy',
+                    'excel',
+                    'csv',
+                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    {
+                        extend: 'print',
+                        customize: function ( win ) {
+                            $(win.document.body)
+                                .css( 'font-size', '10pt' );
+
+                            $(win.document.body).find( 'table' )
+                                .addClass( 'compact' )
+                                .css( 'font-size', 'inherit' );
+                        }
+                    }
+                ]
+            }],
+
+    });
+
+    $('#btnConsultaNotificaciones').click(function(){
+
+        var FechaInicio = $("#fechaInicio").val();
+        var FechaFin    = $("#fechaFin").val();
+        var tipo        = 'post';
+
+        $.ajax({
+            type: "post",
+            url : "consultaNotificacion",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
+            success : function(data){
+
+                var valido = data['valido'];
+                var errores = data['errors'];
+                var Resultado = data['results'];
+                if(valido === 'true'){
+                    window.open(data['results'], 'Download', '_blank');
+                }else{
+                    $.each(errores,function(key, value){
+                        if(value){
+                            toastr.error(value);
+                        }
+                    });
+                }
+            },
+
+            });
+        });
+
 });
 
 function obtener_datos_dependencia(id) {
@@ -404,6 +514,32 @@ $('#form-notificacion').submit(function() {
     }
 });
 
+$('#form-documento').submit(function() {
+    var fileInputP = document.getElementById('documento');
+    var Procedimientos = fileInputP.value;
+    if(Procedimientos){
+        var fileSize = $('#documento')[0].files[0].size;
+        var sizekiloBytes = parseInt(fileSize / 1024);
+        if (sizekiloBytes >  $('#documento').attr('size')) {
+            alert('El tamaño supera el limite permitido de 2mb');
+            return false;
+        }
+    }
+});
+
+$('#form-documento-upd').submit(function() {
+    var fileInputP = document.getElementById('documento_upd');
+    var Procedimientos = fileInputP.value;
+    if(Procedimientos){
+        var fileSize = $('#documento_upd')[0].files[0].size;
+        var sizekiloBytes = parseInt(fileSize / 1024);
+        if (sizekiloBytes >  $('#documento').attr('size')) {
+            alert('El tamaño supera el limite permitido de 2mb');
+            return false;
+        }
+    }
+});
+
 function soloNumero(evt){
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
@@ -446,3 +582,4 @@ function obtener_datos_notificacion(id) {
     $("#mod_year_notification").val(Year);
     $("#mod_estado").val(Estado);
 }
+

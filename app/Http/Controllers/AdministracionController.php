@@ -12,12 +12,7 @@ use Illuminate\Support\Facades\Session;
 class AdministracionController extends Controller
 {
     public function CrearDependencia(Request $request){
-        $RolUser        = (int)Session::get('Rol');
-        if($RolUser === 1){
-            $url = 'admin/';
-        }else{
-            $url = 'user/';
-        }
+        $url = AdministracionController::FindUrl();
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_dependencia'    =>  'required'
@@ -48,12 +43,7 @@ class AdministracionController extends Controller
     }
 
     public function ActualizarDependencia(Request $request){
-        $RolUser        = (int)Session::get('Rol');
-        if($RolUser === 1){
-            $url = 'admin/';
-        }else{
-            $url = 'user/';
-        }
+        $url = AdministracionController::FindUrl();
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_dependencia_upd'    =>  'required',
@@ -91,12 +81,7 @@ class AdministracionController extends Controller
     }
 
     public function CrearRol(Request $request){
-        $RolUser        = (int)Session::get('Rol');
-        if($RolUser === 1){
-            $url = 'admin/';
-        }else{
-            $url = 'user/';
-        }
+        $url = AdministracionController::FindUrl();
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_rol'    =>  'required'
@@ -127,12 +112,7 @@ class AdministracionController extends Controller
     }
 
     public function ActualizarRol(Request $request){
-        $RolUser        = (int)Session::get('Rol');
-        if($RolUser === 1){
-            $url = 'admin/';
-        }else{
-            $url = 'user/';
-        }
+        $url = AdministracionController::FindUrl();
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_rol_upd'    =>  'required',
@@ -171,12 +151,7 @@ class AdministracionController extends Controller
     }
 
     public function CrearUsuario(Request $request){
-        $RolUser        = (int)Session::get('Rol');
-        if($RolUser === 1){
-            $url = 'admin/';
-        }else{
-            $url = 'user/';
-        }
+        $url = AdministracionController::FindUrl();
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_usuario' => 'required',
@@ -219,12 +194,7 @@ class AdministracionController extends Controller
     }
 
     public function ActualizarUsuario(Request $request){
-        $RolUser        = (int)Session::get('Rol');
-        if($RolUser === 1){
-            $url = 'admin/';
-        }else{
-            $url = 'user/';
-        }
+        $url = AdministracionController::FindUrl();
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_usuario_upd' => 'required',
@@ -275,5 +245,17 @@ class AdministracionController extends Controller
                 }
             }
         }
+    }
+
+    public static function FindUrl(){
+        $RolUser = (int)Session::get('Rol');
+        if($RolUser === 1){
+            $url = 'admin/';
+        }else if($RolUser === 0){
+            return Redirect::to('login');
+        }else{
+            return Redirect::to('user/home');
+        }
+        return $url;
     }
 }

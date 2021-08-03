@@ -248,4 +248,32 @@ class Administracion extends Model
                                             [$nombre_ciudadano,$placa,$year,$Estado,$fechaActualizacion ,$IdUser,$IdNotificacion]);;
         return $ActualizarNotificacion;
     }
+
+    public static function ConsultarNotificaciones($fechaInicial,$fechaFinal){
+        $fechaInicio    = date('Y-m-d', strtotime($fechaInicial));
+        $fechaFin       = date('Y-m-d', strtotime($fechaFinal));
+        if ($fechaInicio === $fechaFin) {
+            $fecha = "WHERE FECHA_CREACION LIKE '%$fechaInicio%'";
+        } else {
+            $fecha = "WHERE FECHA_CREACION BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
+        }
+        $ConsultarNotificaciones = DB::Select("SELECT * FROM notificaciones $fecha");
+        return $ConsultarNotificaciones;
+    }
+
+    public static function ListarDocumentos(){
+        $ListarDocumentos = DB::select('SELECT * FROM documentos ORDER BY NOMBRE_DOCUMENTO');
+        return $ListarDocumentos;
+    }
+
+    public static function CargarDocumento($NombreDocumento,$Ubicacion,$IdUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CargarDocumento = DB::Insert('INSERT INTO documentos
+                                    (NOMBRE_DOCUMENTO,UBICACION,ESTADO,FECHA_CREACION,USUARIO_CREACION)
+                                    VALUES (?,?,?,?,?)',
+                                    [$NombreDocumento,$Ubicacion,1,$fechaCreacion,$IdUser]);
+        return $CargarDocumento;
+    }
 }

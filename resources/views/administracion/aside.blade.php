@@ -17,15 +17,15 @@
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">
-                    <a href="" class="nav-link">
+                    <a href="documentos" class="nav-link">
                         <i class="fas fa-file nav-icon" id="enlace"></i>
                         <p>Documentos</p>
                     </a>
                 </li>
-                <li class="nav-item" id="asideInicio">
+                <li class="nav-item " id="asideInicio">
                     <a href="notificaciones" class="nav-link">
-                        <i class="fas fa-newspaper nav-icon" id="enlace"></i>
-                        <p>Notificaciones por Aviso</p>
+                        <i class="nav-icon fas fa-newspaper" id="enlace"></i>
+                        <p>Notificaciones Aviso</p>
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">

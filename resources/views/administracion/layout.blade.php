@@ -19,9 +19,13 @@
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/administracion.css")}}">
     <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
+    <link rel="stylesheet" href="{{asset("Datatables/Datatables/css/jquery.dataTables.min.css")}}">
     <link rel="stylesheet" href="{{asset("Datatables/Datatables/css/dataTables.bootstrap4.min.css")}}">
     <link rel="stylesheet" href="{{asset("Datatables/Responsive/css/responsive.bootstrap4.min.css")}}">
     <link rel="stylesheet" href="{{asset("Datatables/Buttons/css/buttons.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/AutoFill/css/autofill.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/RowReorder/css/rowReorder.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/RowReorder/css/rowReorder.bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     @yield('styles')
@@ -40,20 +44,22 @@
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
     </div>
-    <script src="{{asset("adminlte/plugins/jquery/jquery.min.js")}}"></script>
+    <script src="{{asset("js/jquery.min.js")}}"></script>
     <script src="{{asset("js/jquery-migrate.min.js")}}"></script>
+    <script src="{{asset("js/jquery.js")}}"></script>
     <script src="{{asset("adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("adminlte/js/adminlte.js")}}"></script>
     <script src="{{asset("Datatables/Datatables/js/jquery.dataTables.min.js")}}"></script>
-    <script src="{{asset("Datatables/Datatables/js/dataTables.bootstrap4.min.js")}}"></script>
+    <script src="{{asset("DataTables/Datatables/js/dataTables.bootstrap4.min.js")}}"></script>
     <script src="{{asset("Datatables/Responsive/js/dataTables.responsive.min.js")}}"></script>
-    <script src="{{asset("Datatables/Responsive/js/responsive.bootstrap4.min.js")}}"></script>
-    <script src="{{asset("Datatables/AutoFill/js/dataTables.autoFill.min.js")}}"></script>
-    <script src="{{asset("Datatables/Datatables/js/jszip.min.js")}}"></script>
-    <script src="{{asset("Datatables/Buttons/js/dataTables.buttons.min.js")}}"></script>
-    <script src="{{asset("Datatables/Buttons/js/buttons.flash.min.js")}}"></script>
-    <script src="{{asset("Datatables/Buttons/js/buttons.html5.min.js")}}"></script>
-    <script src="{{asset("Datatables/Buttons/js/buttons.print.min.js")}}"></script>
+    <script src="{{asset("DataTables/Buttons/js/dataTables.buttons.min.js")}}"></script>
+    <script src="{{asset("DataTables/Buttons/js/buttons.html5.min.js")}}"></script>
+    <script src="{{asset("DataTables/Buttons/js/buttons.print.min.js")}}"></script>
+    <script src="{{asset("DataTables/JsZip/jszip.min.js")}}"></script>
+    <script src="{{asset("DataTables/PdfMake/pdfmake.min.js")}}"></script>
+    <script src="{{asset("DataTables/PdfMake/vfs_fonts.js")}}"></script>
+    <script src="{{asset("DataTables/AutoFill/js/dataTables.autoFill.min.js")}}"></script>
+    <script src="{{asset("DataTables/RowReorder/js/dataTables.rowReorder.min.js")}}"></script>
     <script src="{{asset("js/toastr.min.js")}}"></script>
     <script src="{{asset("adminlte/js/administracion.js")}}"></script>
 

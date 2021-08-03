@@ -51,6 +51,16 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+        'csv' => [
+            'driver' => 'local',
+            'root' => storage_path('csv'),
+            'visibility' => 'private',
+        ],
+        'documentos' => [
+            'driver' => 'local',
+            'root' => 'documentos',
+            'visibility' => 'public',
+        ]
 
     ],
 

@@ -106,6 +106,12 @@ return array(
         'placa' => 'Placa',
         'placa_upd' => 'Placa',
         'year_notification' => 'Año de Reporte',
-        'year_notification_upd' => 'Año de Reporte'
+        'year_notification_upd' => 'Año de Reporte',
+        'fechaInicio' => 'Fecha Inicio',
+        'fechaFin' => 'Fecha Fin',
+        'nombre_documento' => 'Nombre Documento',
+        'nombre_documento_upd' => 'Nombre Documento',
+        'documento' => 'Documento',
+        'documento_upd' => 'Documento'
     ),
 );

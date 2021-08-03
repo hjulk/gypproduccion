@@ -23,7 +23,7 @@ Notificaciones
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header" id="principalCard">
                         <h3 class="card-title" id="tituloCard"><strong>Cargue masiva de notificaciones</strong></h3>
@@ -33,9 +33,9 @@ Notificaciones
                         @csrf
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-9">
+                                    <div class="col-md-10">
                                         <label>Archivo de notificaciones en formato txt o csv *</label>
-                                        <input type="file" name="notificationfile" id="notificationfile" accept=".txt,.csv" required class="form-control" size="2048">
+                                        <input type="file" name="notificationfile" id="notificationfile" accept=".txt,.csv" required class="form-control" size="2048" required>
                                         <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@ Notificaciones
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header" id="principalCard">
                         <h3 class="card-title" id="tituloCard"><strong>Cargue manual de notificación</strong></h3>
@@ -55,27 +55,58 @@ Notificaciones
                     <div class="card-body">
                         {!! Form::open(['url' => 'cargarNotificacionManual', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion-manual']) !!}
                         @csrf
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Nombre Ciudadano</label>
+                                    {!! Form::text('nombre_ciudadano',null,['class'=>'form-control','id'=>'nombre_ciudadano','placeholder'=>'Nombre Ciudadano','required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>Placa Vehículo</label>
+                                    {!! Form::text('placa',null,['class'=>'form-control','id'=>'placa','placeholder'=>'Placa Vehículo','required','maxlength="6" oninput="if(this.value.length > this.maxLength)
+                                    this.value = this.value.slice(0, this.maxLength)";','onkeypress="return check(event);"']) !!}
+                                    <div align="right"><small class="text-muted">Escriba la placa sin guión.</small><span id="cntDescripHechos" align="right"> </span></div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label>Año de Reporte</label>
+                                    {!! Form::text('year_notification',null,['class'=>'form-control','id'=>'year_notification','placeholder'=>'Año','onkeypress="return soloNumero(event)"','maxlength="4" oninput="if(this.value.length > this.maxLength)
+                                    this.value = this.value.slice(0, this.maxLength)";','required']) !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success float-left">Crear</button>
+                        </div>
+                        {!!  Form::close() !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header" id="principalCard">
+                        <h3 class="card-title" id="tituloCard"><strong>Generar reporte de notificaciones cargadas</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        {!! Form::open(['id' => 'consultarNotificacion','name' => 'consultarNotificacion','files' => true,'autocomplete' => 'off','method'=>'post','enctype'=>'multipart/form-data']) !!}
+                        @csrf
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Nombre Ciudadano</label>
-                                        {!! Form::text('nombre_ciudadano',null,['class'=>'form-control','id'=>'nombre_ciudadano','placeholder'=>'Nombre Ciudadano','required']) !!}
+                                    <div class="col-md-5">
+                                        <label>Fecha Inicial</label>
+                                        {!! Form::date('fechaInicio',null,['class'=>'form-control','id'=>'fechaInicio','required']) !!}
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>Placa Vehículo</label>
-                                        {!! Form::text('placa',null,['class'=>'form-control','id'=>'placa','placeholder'=>'Placa Vehículo','required','maxlength="6" oninput="if(this.value.length > this.maxLength)
-                                        this.value = this.value.slice(0, this.maxLength)";','onkeypress="return check(event);"']) !!}
-                                        <div align="right"><small class="text-muted">Escriba la placa sin guión.</small><span id="cntDescripHechos" align="right"> </span></div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label>Año de Reporte</label>
-                                        {!! Form::text('year_notification',null,['class'=>'form-control','id'=>'year_notification','placeholder'=>'Año','onkeypress="return soloNumero(event)"','maxlength="4" oninput="if(this.value.length > this.maxLength)
-                                        this.value = this.value.slice(0, this.maxLength)";','required']) !!}
+                                    <div class="col-md-5">
+                                        <label>Fecha Final</label>
+                                        {!! Form::date('fechaFin',null,['class'=>'form-control','id'=>'fechaFin','required']) !!}
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-success float-left">Crear</button>
+                                <button type="submit" class="btn btn-primary float-left">Generar Reporte</button>
                             </div>
                         {!!  Form::close() !!}
                     </div>
