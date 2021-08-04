@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/administracion.css")}}">
     <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
-    <link rel="stylesheet" href="{{asset("Datatables/Datatables/css/jquery.dataTables.min.css")}}">
-    <link rel="stylesheet" href="{{asset("Datatables/Datatables/css/dataTables.bootstrap4.min.css")}}">
-    <link rel="stylesheet" href="{{asset("Datatables/Responsive/css/responsive.bootstrap4.min.css")}}">
-    <link rel="stylesheet" href="{{asset("Datatables/Buttons/css/buttons.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/DataTables/css/jquery.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/DataTables/css/dataTables.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/Responsive/css/responsive.bootstrap4.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/Buttons/css/buttons.dataTables.min.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/AutoFill/css/autofill.dataTables.min.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/RowReorder/css/rowReorder.dataTables.min.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/RowReorder/css/rowReorder.bootstrap.min.css")}}">
@@ -49,9 +49,9 @@
     <script src="{{asset("js/jquery.js")}}"></script>
     <script src="{{asset("adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("adminlte/js/adminlte.js")}}"></script>
-    <script src="{{asset("Datatables/Datatables/js/jquery.dataTables.min.js")}}"></script>
-    <script src="{{asset("DataTables/Datatables/js/dataTables.bootstrap4.min.js")}}"></script>
-    <script src="{{asset("Datatables/Responsive/js/dataTables.responsive.min.js")}}"></script>
+    <script src="{{asset("DataTables/DataTables/js/jquery.dataTables.min.js")}}"></script>
+    <script src="{{asset("DataTables/DataTables/js/dataTables.bootstrap4.min.js")}}"></script>
+    <script src="{{asset("DataTables/Responsive/js/dataTables.responsive.min.js")}}"></script>
     <script src="{{asset("DataTables/Buttons/js/dataTables.buttons.min.js")}}"></script>
     <script src="{{asset("DataTables/Buttons/js/buttons.html5.min.js")}}"></script>
     <script src="{{asset("DataTables/Buttons/js/buttons.print.min.js")}}"></script>

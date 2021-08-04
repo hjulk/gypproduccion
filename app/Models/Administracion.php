@@ -276,4 +276,34 @@ class Administracion extends Model
                                     [$NombreDocumento,$Ubicacion,1,$fechaCreacion,$IdUser]);
         return $CargarDocumento;
     }
+
+    public static function ActualizarDocumento($IdDocumento,$NombreDocumento,$Ubicacion,$IdUser,$Estado){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+        if($Ubicacion){
+            $ActualizarDocumento = DB::update('UPDATE documentos SET
+                                            NOMBRE_DOCUMENTO = ?,
+                                            UBICACION = ?,
+                                            ESTADO = ?,
+                                            FECHA_MODIFICACION = ?,
+                                            USUARIO_MODIFICACION = ?
+                                            WHERE ID_DOCUMENTO = ?',
+                                            [$NombreDocumento,$Ubicacion,$Estado,$fechaActualizacion,$IdUser,$IdDocumento]);
+        }else{
+            $ActualizarDocumento = DB::update('UPDATE documentos SET
+            NOMBRE_DOCUMENTO = ?,
+            ESTADO = ?,
+            FECHA_MODIFICACION = ?,
+            USUARIO_MODIFICACION = ?
+            WHERE ID_DOCUMENTO = ?',
+            [$NombreDocumento,$Estado,$fechaActualizacion,$IdUser,$IdDocumento]);
+        }
+        return $ActualizarDocumento;
+    }
+
+    public static function BuscarUbicacion($IdDocumento){
+        $BuscarUbicacion = DB::select('SELECT * FROM documentos WHERE ID_DOCUMENTO = ?',[$IdDocumento]);
+        return $BuscarUbicacion;
+    }
 }

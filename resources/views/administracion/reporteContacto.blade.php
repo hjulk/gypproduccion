@@ -1,7 +1,7 @@
 @extends("administracion.layout")
 
 @section('titulo')
-Documentos
+Reporte Contáctenos
 @endsection
 
 @section('contenido')
@@ -9,12 +9,12 @@ Documentos
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><i class="fas fa-file nav-icon" id="enlace"></i> Documentos</h1>
+                <h1 class="m-0 text-dark"><i class="fas fa-list-alt nav-icon" id="enlace"></i> Reporte Contáctenos</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home">Inicio</a></li>
-                    <li class="breadcrumb-item active">Documentos</li>
+                    <li class="breadcrumb-item active">Reporte Contáctenos</li>
                 </ol>
             </div>
         </div>
@@ -30,31 +30,23 @@ Documentos
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6" id="imgCard">
-                                <picture>
-                                    <source srcset="{{asset("images/documentos.webp") }}" type="image/webp"/>
-                                    <source srcset="{{asset("images/documentos.png") }}" type="image/png"/>
-                                    <img src="{{asset("images/documentos.webp") }}" id="imgCard" alt="Documentos" class="img-responsive"/>
-                                </picture>
-                            </div>
                             <div class="col-md-6">
-                                {!! Form::open(['url' => 'crearDocumento', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-documento']) !!}
+                                {!! Form::open(['id' => 'consultarContacto','name' => 'consultarContacto','files' => true,'autocomplete' => 'off','method'=>'post','enctype'=>'multipart/form-data']) !!}
                                 @csrf
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="exampleInputEmail1">Nombre Documento</label>
-                                                {!! Form::text('nombre_documento',null,['class'=>'form-control','id'=>'nombre_documento','placeholder'=>'Nombre Documento','required']) !!}
+                                            <div class="col-md-5">
+                                                <label>Fecha Inicial</label>
+                                                {!! Form::date('fechaInicio',null,['class'=>'form-control','id'=>'fechaInicio','required']) !!}
                                             </div>
-                                            <div class="col-md-6">
-                                                <label>Archivo en formato pdf</label>
-                                                <input type="file" name="documento" id="documento" accept=".pdf" required class="form-control" size="2048" required>
-                                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
+                                            <div class="col-md-5">
+                                                <label>Fecha Final</label>
+                                                {!! Form::date('fechaFin',null,['class'=>'form-control','id'=>'fechaFin','required']) !!}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-success float-right">Crear Documento</button>
+                                        {!! Form::button('Consultar',array('class'=>'btn btn-primary pull-right','id'=>'btnConsultaContacto','tabindex'=>'16')) !!}
                                     </div>
                                 {!!  Form::close() !!}
                             </div>
@@ -67,20 +59,18 @@ Documentos
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="roles" class="display table dt-responsive nowrap" style="width: 100%;">
+                        <table id="reporteContacto" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nombre Documento</th>
-                                    <th>Estado</th>
-                                    <th>Descargar</th>
-                                    <th>Fecha de Cargue</th>
-                                    <th>Fecha Actualización</th>
-                                    <th>Editar</th>
+                                    <th>Nombre Ciudadano</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Mensaje</th>
+                                    <th>Fecha de Envió</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($Documentos as $value)
+                                {{-- @foreach($Documentos as $value)
                                     <tr>
                                         <td>{{$value['id']}}</td>
                                         <td>{{$value['nombre_documento']}}</td>
@@ -93,7 +83,7 @@ Documentos
                                         <input type="hidden" value="{{$value['nombre_documento']}}" id="nombre_documento{{$value['id']}}">
                                         <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -102,7 +92,6 @@ Documentos
         </div>
     </div>
 </section>
-@include("modals.modalDocumento")
 @endsection
 @section('scripts')
 <script>

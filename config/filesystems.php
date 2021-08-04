@@ -58,7 +58,7 @@ return [
         ],
         'documentos' => [
             'driver' => 'local',
-            'root' => 'documentos',
+            'root' => storage_path('documentos'),
             'visibility' => 'public',
         ]
 

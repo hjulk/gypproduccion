@@ -9,10 +9,10 @@
     width: 100%;
 }
 
-#notificacionesDashboard thead,#hojasVidaDashboard thead,#contactenosDashboard thead,#dependencias thead,#roles thead,#usuarios thead,#notificacionesAviso thead,#consultaNotificacionesAviso thead{background: #879225 !important;
+#notificacionesDashboard thead,#hojasVidaDashboard thead,#contactenosDashboard thead,#dependencias thead,#roles thead,#usuarios thead,#notificacionesAviso thead,#consultaNotificacionesAviso thead,#reporteContacto thead{background: #879225 !important;
     color: #ECF0F1;}
-#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr,#consultaNotificacionesAviso tr{text-align:center;}
-#notificacionesDashboard,#hojasVidaDashboard,#contactenosDashboard,#dependencias,#roles,#usuarios,#notificacionesAviso,#consultaNotificacionesAviso{text-align:center;width: 100%;}
+#notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr,#consultaNotificacionesAviso tr,#reporteContacto tr{text-align:center;}
+#notificacionesDashboard,#hojasVidaDashboard,#contactenosDashboard,#dependencias,#roles,#usuarios,#notificacionesAviso,#consultaNotificacionesAviso,#reportecontacto{text-align:center;width: 100%;}
 #tituloCard{color:white !important;}
 #imgCard{text-align: center;}
 .modal-header{

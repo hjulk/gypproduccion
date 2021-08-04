@@ -361,10 +361,20 @@ class AdministradorController extends Controller
                         $Documentos[$cont]['estado']   = 'INACTIVO EN PÁGINA';
                         $Documentos[$cont]['label']    = 'badge badge-danger';
                     }
+                    $Documentos[$cont]['fecha_cargue'] = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_MODIFICACION){
+                        $Documentos[$cont]['fecha_modificacion'] = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+                    }else{
+                        $Documentos[$cont]['fecha_modificacion'] = 'SIN ACTUALIZACIÓN';
+                    }
                     $cont++;
                 }
                 return view('administracion.documentos',['Documentos' => $Documentos, 'Estado' => $Estado]);
             }
         }
+    }
+
+    public function ReporteContacto(){
+        return view('administracion.reporteContacto');
     }
 }

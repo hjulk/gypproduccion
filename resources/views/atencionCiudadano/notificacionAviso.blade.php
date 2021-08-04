@@ -5,8 +5,8 @@
 @endsection
 
 @section('styles')
-    <link rel="stylesheet" href="{{asset("Datatables/DataTables/css/jquery.dataTables.min.css")}}">
-    <link rel="stylesheet" href="{{asset("Datatables/Responsive/css/responsive.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/DataTables/css/jquery.dataTables.min.css")}}">
+    <link rel="stylesheet" href="{{asset("DataTables/Responsive/css/responsive.dataTables.min.css")}}">
 @endsection
 
 @section('barraInformacion')
@@ -94,7 +94,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset("Datatables/DataTables/js/jquery.dataTables.min.js")}}"></script>
-    <script src="{{asset("Datatables/Responsive/js/dataTables.responsive.min.js")}}"></script>
+    <script src="{{asset("DataTables/DataTables/js/jquery.dataTables.min.js")}}"></script>
+    <script src="{{asset("DataTables/Responsive/js/dataTables.responsive.min.js")}}"></script>
     <script src="{{asset("js/notificaciones.js")}}"></script>
 @endsection

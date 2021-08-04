@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Administracion;
+use Dotenv\Store\File\Paths;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -140,21 +141,23 @@ class UsuariosController extends Controller
         if ($validator->fails()) {
             return Redirect::to($url.'documentos')->withErrors($validator)->withInput();
         }else{
+            date_default_timezone_set('America/Bogota');
+            $fecha_sistema  = date('Y-m-d');
+            $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
             $NombreDocumento = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento));
             $file = $request->file('documento');
-            $destinationPath    = public_path().'\documentos';
             $extension          = $file->getClientOriginalExtension();
             $name               = $file->getClientOriginalName();
             $nombrearchivo      = pathinfo($name, PATHINFO_FILENAME);
             $nombrearchivo      = UsuariosController::eliminar_tildes($nombrearchivo);
-            $filename           = $NombreDocumento.'.'.$extension;
-            $uploadSuccess      = $file->move($destinationPath, $filename);
+            $filename           = $NombreDocumento.'_'.$fechaCreacion.'.'.$extension;
+            $uploadSuccess      = $file->move('documentos', $filename);
             $archivofoto        = file_get_contents($uploadSuccess);
             $NombreFoto         = $filename;
-            $Ubicacion          = '../public/documentos/'.$NombreFoto;
+            $Ubicacion          = '../documentos/'.$NombreFoto;
             $CargarDocumento = Administracion::CargarDocumento($NombreDocumento,$Ubicacion,$IdUser);
             if($CargarDocumento){
-                $verrors = 'Se creo con éxito el documento '.$NombreFoto;
+                $verrors = 'Se creo con éxito el documento '.$NombreDocumento;
                 return Redirect::to($url.'documentos')->with('mensaje', $verrors);
             }else{
                 $verrors = array();
@@ -164,18 +167,50 @@ class UsuariosController extends Controller
         }
     }
 
-    public function ActualziarDocumento(Request $request){
+    public function ActualizarDocumento(Request $request){
         $url = UsuariosController::FindUrl();
         $IdUser     = (int)Session::get('IdUsuario');
         $validator = Validator::make($request->all(), [
             'nombre_documento_upd'  =>  'required',
-            'documento_upd' => 'required',
             'estado_upd' => 'required'
         ]);
         if ($validator->fails()) {
             return Redirect::to($url.'documentos')->withErrors($validator)->withInput();
         }else{
-
+            date_default_timezone_set('America/Bogota');
+            $fecha_sistema  = date('Y-m-d');
+            $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
+            $NombreDocumento = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento_upd));
+            $Estado = (int)$request->estado_upd;
+            $IdDocumento = (int)$request->id_documento;
+            if($request->file('documento_upd')){
+                $Buscarubicacion = Administracion::BuscarUbicacion($IdDocumento);
+                foreach($Buscarubicacion as $value){
+                    $Documento = str_replace("../documentos/",'',$value->UBICACION);
+                }
+                unlink('documentos'.'/'.$Documento);
+                $file          = $request->file('documento_upd');
+                $extension     = $file->getClientOriginalExtension();
+                $name          = $file->getClientOriginalName();
+                $nombrearchivo = pathinfo($name, PATHINFO_FILENAME);
+                $nombrearchivo = UsuariosController::eliminar_tildes($nombrearchivo);
+                $filename      = $NombreDocumento.'_'.$fechaCreacion.'.'.$extension;
+                $uploadSuccess = $file->move('documentos', $filename);
+                $archivofoto   = file_get_contents($uploadSuccess);
+                $NombreFoto    = $filename;
+                $Ubicacion     = '../documentos/'.$NombreFoto;
+            }else{
+                $Ubicacion = null;
+            }
+            $ActualizarDocumento = Administracion::ActualizarDocumento($IdDocumento,$NombreDocumento,$Ubicacion,$IdUser,$Estado);
+            if($ActualizarDocumento){
+                $verrors = 'Se actualizó con éxito el documento '.$NombreDocumento;
+                return Redirect::to($url.'documentos')->with('mensaje', $verrors);
+            }else{
+                $verrors = array();
+                array_push($verrors, 'Hubo un problema al actualizar el documento');
+                return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withRequest();
+            }
         }
     }
 

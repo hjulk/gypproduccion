@@ -106,7 +106,7 @@ Notificaciones
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary float-left">Generar Reporte</button>
+                                {!! Form::button('Generar Reporte',array('class'=>'btn btn-primary pull-right','id'=>'btnConsultaNotificaciones','tabindex'=>'16')) !!}
                             </div>
                         {!!  Form::close() !!}
                     </div>

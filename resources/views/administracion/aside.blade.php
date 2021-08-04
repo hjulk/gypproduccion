@@ -29,7 +29,7 @@
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">
-                    <a href="" class="nav-link">
+                    <a href="reporteContacto" class="nav-link">
                         <i class="fas fa-list-alt nav-icon" id="enlace"></i>
                         <p>Registro Contáctenos</p>
                     </a>

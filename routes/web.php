@@ -83,6 +83,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('consultaNotificaciones',[AdministradorController::class, 'ConsultaNotificaciones'])->name('consultaNotificaciones');
     Route::post('consultaNotificacion',[AdministradorController::class, 'ConsultaNotificacion'])->name('consultaNotificacion');
     Route::get('documentos',[AdministradorController::class, 'Documentos'])->name('documentos');
+    Route::get('reporteContacto',[AdministradorController::class, 'ReporteContacto'])->name('reporteContacto');
+    Route::post('consultaDocumento',[AdministradorController::class, 'ConsultaDocumento'])->name('consultaDocumento');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -97,6 +99,8 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::get('consultaNotificaciones',[UsuarioController::class, 'ConsultaNotificaciones'])->name('consultaNotificaciones');
     Route::post('consultaNotificacion',[UsuarioController::class, 'ConsultaNotificacion'])->name('consultaNotificacion');
     Route::get('documentos',[UsuarioController::class, 'Documentos'])->name('documentos');
+    Route::get('reporteContacto',[UsuarioController::class, 'ReporteContacto'])->name('reporteContacto');
+    Route::post('consultaDocumento',[UsuarioController::class, 'ConsultaDocumento'])->name('consultaDocumento');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
