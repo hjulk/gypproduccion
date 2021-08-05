@@ -51,6 +51,29 @@ Notificaciones
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body" id="panelResultado">
+                        <table id="consultaNotificacionesAviso" class="display table dt-responsive nowrap" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre Ciudadano</th>
+                                    <th>Placa</th>
+                                    <th>Año de Notificación</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Cargue</th>
+                                    <th>Fecha de Actualización</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 @include("modals.modalAlertas")

@@ -209,7 +209,7 @@ class Administracion extends Model
     }
 
     public static function ListarNotificacionPlaca($Placa){
-        $ListarNotificacionPlaca = DB::Select('SELECT * FROM notificaciones WHERE PLACA = ?',[$Placa]);
+        $ListarNotificacionPlaca = DB::Select('SELECT * FROM notificaciones WHERE PLACA = ? AND ESTADO = 1',[$Placa]);
         return $ListarNotificacionPlaca;
     }
 
@@ -257,13 +257,23 @@ class Administracion extends Model
         } else {
             $fecha = "WHERE FECHA_CREACION BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
         }
-        $ConsultarNotificaciones = DB::Select("SELECT * FROM notificaciones $fecha");
+        $ConsultarNotificaciones = DB::Select("SELECT * FROM notificaciones $fecha ORDER BY FECHA_CREACION DESC");
         return $ConsultarNotificaciones;
     }
 
     public static function ListarDocumentos(){
         $ListarDocumentos = DB::select('SELECT * FROM documentos ORDER BY NOMBRE_DOCUMENTO');
         return $ListarDocumentos;
+    }
+
+    public static function BuscarDocumentoNombre($NombreDocumento){
+        $BuscarDocumentoNombre = DB::select("SELECT * FROM documentos WHERE NOMBRE_DOCUMENTO LIKE '%$NombreDocumento%'");
+        return $BuscarDocumentoNombre;
+    }
+
+    public static function BuscarDocumentoNombreId($NombreDocumento,$idDocumento){
+        $BuscarDocumentoNombre = DB::select("SELECT * FROM documentos WHERE NOMBRE_DOCUMENTO LIKE '%$NombreDocumento%' AND ID_DOCUMENTO NOT IN ($idDocumento)");
+        return $BuscarDocumentoNombre;
     }
 
     public static function CargarDocumento($NombreDocumento,$Ubicacion,$IdUser){
@@ -305,5 +315,121 @@ class Administracion extends Model
     public static function BuscarUbicacion($IdDocumento){
         $BuscarUbicacion = DB::select('SELECT * FROM documentos WHERE ID_DOCUMENTO = ?',[$IdDocumento]);
         return $BuscarUbicacion;
+    }
+
+    public static function ConsultaContactenos($fechaInicial,$fechaFinal){
+        $fechaInicio    = date('Y-m-d', strtotime($fechaInicial));
+        $fechaFin       = date('Y-m-d', strtotime($fechaFinal));
+        if ($fechaInicio === $fechaFin) {
+            $fecha = "WHERE FECHA_CREACION LIKE '%$fechaInicio%'";
+        } else {
+            $fecha = "WHERE FECHA_CREACION BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
+        }
+        $ConsultaContactenos = DB::Select("SELECT * FROM form_contacto $fecha ORDER BY 2 DESC");
+        return $ConsultaContactenos;
+    }
+
+    public static function ConsultaHojaVida($fechaInicial,$fechaFinal){
+        $fechaInicio    = date('Y-m-d', strtotime($fechaInicial));
+        $fechaFin       = date('Y-m-d', strtotime($fechaFinal));
+        if ($fechaInicio === $fechaFin) {
+            $fecha = "WHERE FECHA_CREACION LIKE '%$fechaInicio%'";
+        } else {
+            $fecha = "WHERE FECHA_CREACION BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
+        }
+        $ConsultaHojaVida = DB::Select("SELECT * FROM form_trabajo $fecha ORDER BY 2 DESC");
+        return $ConsultaHojaVida;
+    }
+
+    public static function ConsultaVisitas($fechaInicial,$fechaFinal){
+        $fechaInicio    = date('Y-m-d', strtotime($fechaInicial));
+        $fechaFin       = date('Y-m-d', strtotime($fechaFinal));
+        if ($fechaInicio === $fechaFin) {
+            $fecha = "WHERE FECHA LIKE '%$fechaInicio%'";
+        } else {
+            $fecha = "WHERE FECHA BETWEEN '$fechaInicio 00:00:00' AND '$fechaFin 23:59:59'";
+        }
+        $ConsultaVisitas = DB::Select("SELECT * FROM visitas_pagina $fecha ORDER BY 4 DESC");
+        return $ConsultaVisitas;
+    }
+
+    public static function ListadoPaginas(){
+        $ListadoPaginas = DB::select('SELECT * FROM paginas ORDER BY NOMBRE_PAGINA');
+        return $ListadoPaginas;
+    }
+
+    public static function ListadoSubpaginas(){
+        $ListadoSubpaginas = DB::select('SELECT * FROM subpaginas ORDER BY NOMBRE_SUBPAGINA');
+        return $ListadoSubpaginas;
+    }
+
+    public static function ListadoPaginasActivas(){
+        $ListadoPaginasActivas = DB::select('SELECT * FROM paginas WHERE ESTADO = 1 ORDER BY 2');
+        return $ListadoPaginasActivas;
+    }
+
+    public static function BuscarPageByName($Nombre){
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM paginas WHERE NOMBRE_PAGINA LIKE '%$Nombre%'");
+        return $BuscarUserByUsernameId;
+    }
+
+    public static function BuscarPageByNameId($Nombre,$IdPagina){
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM paginas WHERE NOMBRE_PAGINA LIKE '%$Nombre%' AND ID_PAGINA NOT IN ($IdPagina)");
+        return $BuscarUserByUsernameId;
+    }
+
+    public static function BuscarIdPagina($Page){
+        $BuscarIdPagina = DB::select('SELECT * FROM paginas WHERE ID_PAGINA = ?',[$Page]);
+        return $BuscarIdPagina;
+    }
+
+    public static function CrearPagina($NombrePagina,$Estado,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearPagina = DB::insert('INSERT INTO paginas (NOMBRE_PAGINA, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                    VALUES (?,?,?,?)',
+                                    [$NombrePagina,$Estado,$fechaCreacion,$Usuario]);
+        return $CrearPagina;
+    }
+
+    public static function ActualizarPagina($NombrePagina,$Estado,$idPagina,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+        $ActualizarPagina = DB::update("UPDATE paginas SET NOMBRE_PAGINA = '$NombrePagina',
+        ESTADO = $Estado, FECHA_MODIFICACION = '$fechaActualizacion', USUARIO_MODIFICACION = $Usuario
+        WHERE ID_PAGINA = $idPagina");
+        return $ActualizarPagina;
+    }
+
+    public static function BuscarSubPageByName($Nombre){
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE NOMBRE_SUBPAGINA LIKE '%$Nombre%'");
+        return $BuscarUserByUsernameId;
+    }
+
+    public static function BuscarSubPageByNameId($Nombre,$IdSubpagina){
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE NOMBRE_SUBPAGINA LIKE '%$Nombre%' AND ID_SUBPAGINA NOT IN ($IdSubpagina)");
+        return $BuscarUserByUsernameId;
+    }
+
+    public static function CrearSubpagina($NombreSubpagina,$IdPagina,$Estado,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearSubpagina = DB::insert('INSERT INTO subpaginas (NOMBRE_SUBPAGINA, ID_PAGINA, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                    VALUES (?,?,?,?,?)',
+                                    [$NombreSubpagina,$IdPagina,$Estado,$fechaCreacion,$Usuario]);
+        return $CrearSubpagina;
+    }
+
+    public static function ActualizarSubpagina($NombrePagina,$Estado,$idPagina,$Usuario,$IdSubpagina){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+        $ActualizarSubpagina = DB::update("UPDATE subpaginas SET NOMBRE_SUBPAGINA = '$NombrePagina', ID_PAGINA = $idPagina,
+        ESTADO = $Estado, FECHA_MODIFICACION = '$fechaActualizacion', USUARIO_MODIFICACION = $Usuario
+        WHERE ID_SUBPAGINA = $IdSubpagina");
+        return $ActualizarSubpagina;
     }
 }

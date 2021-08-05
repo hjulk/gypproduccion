@@ -84,7 +84,12 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::post('consultaNotificacion',[AdministradorController::class, 'ConsultaNotificacion'])->name('consultaNotificacion');
     Route::get('documentos',[AdministradorController::class, 'Documentos'])->name('documentos');
     Route::get('reporteContacto',[AdministradorController::class, 'ReporteContacto'])->name('reporteContacto');
-    Route::post('consultaDocumento',[AdministradorController::class, 'ConsultaDocumento'])->name('consultaDocumento');
+    Route::post('consultaContacto',[AdministradorController::class, 'ConsultaContacto'])->name('consultaContacto');
+    Route::get('reporteHojaVida',[AdministradorController::class, 'ReporteHojaVida'])->name('reporteHojaVida');
+    Route::post('consultaHojaVida',[AdministradorController::class, 'ConsultaHojaVida'])->name('consultaHojaVida');
+    Route::get('reporteVisitas',[AdministradorController::class, 'ReporteVisitas'])->name('reporteVisitas');
+    Route::post('consultaVisitas',[AdministradorController::class, 'ConsultaVisitas'])->name('consultaVisitas');
+    Route::get('paginas',[AdministradorController::class, 'Paginas'])->name('paginas');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -100,7 +105,11 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::post('consultaNotificacion',[UsuarioController::class, 'ConsultaNotificacion'])->name('consultaNotificacion');
     Route::get('documentos',[UsuarioController::class, 'Documentos'])->name('documentos');
     Route::get('reporteContacto',[UsuarioController::class, 'ReporteContacto'])->name('reporteContacto');
-    Route::post('consultaDocumento',[UsuarioController::class, 'ConsultaDocumento'])->name('consultaDocumento');
+    Route::post('consultaContacto',[UsuarioController::class, 'ConsultaContacto'])->name('consultaContacto');
+    Route::get('reporteHojaVida',[UsuarioController::class, 'ReporteHojaVida'])->name('reporteHojaVida');
+    Route::post('consultaHojaVida',[UsuarioController::class, 'ConsultaHojaVida'])->name('consultaHojaVida');
+    Route::get('reporteVisitas',[UsuarioController::class, 'ReporteVisitas'])->name('reporteVisitas');
+    Route::post('consultaVisitas',[UsuarioController::class, 'ConsultaVisitas'])->name('consultaVisitas');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -114,6 +123,10 @@ Route::post('crearRol',[AdministracionController::class, 'CrearRol'])->name('cre
 Route::post('actualizarRol',[AdministracionController::class, 'ActualizarRol'])->name('actualizarRol');
 Route::post('crearUsuario',[AdministracionController::class, 'CrearUsuario'])->name('crearUsuario');
 Route::post('actualizarUsuario',[AdministracionController::class, 'ActualizarUsuario'])->name('actualizarUsuario');
+Route::post('crearPagina',[AdministracionController::class, 'CrearPagina'])->name('crearPagina');
+Route::post('actualizarPagina',[AdministracionController::class, 'ActualizarPagina'])->name('actualizarPagina');
+Route::post('crearSubPagina',[AdministracionController::class, 'CrearSubpagina'])->name('crearSubPagina');
+Route::post('actualizarSubpagina',[AdministracionController::class, 'ActualizarSubpagina'])->name('actualizarSubpagina');
 
 Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])->name('actualizarPerfil');
 Route::post('cargarNotificacion',[UsuariosController::class, 'CargarNotificacion'])->name('cargarNotificacion');

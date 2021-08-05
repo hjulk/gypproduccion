@@ -23,7 +23,7 @@ Notificaciones
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header" id="principalCard">
                         <h3 class="card-title" id="tituloCard"><strong>Cargue masiva de notificaciones</strong></h3>
@@ -47,7 +47,7 @@ Notificaciones
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header" id="principalCard">
                         <h3 class="card-title" id="tituloCard"><strong>Cargue manual de notificación</strong></h3>
@@ -81,33 +81,6 @@ Notificaciones
                         <div class="box-footer">
                             <button type="submit" class="btn btn-success float-left">Crear</button>
                         </div>
-                        {!!  Form::close() !!}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header" id="principalCard">
-                        <h3 class="card-title" id="tituloCard"><strong>Generar reporte de notificaciones cargadas</strong></h3>
-                    </div>
-                    <div class="card-body">
-                        {!! Form::open(['id' => 'consultarNotificacion','name' => 'consultarNotificacion','files' => true,'autocomplete' => 'off','method'=>'post','enctype'=>'multipart/form-data']) !!}
-                        @csrf
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <label>Fecha Inicial</label>
-                                        {!! Form::date('fechaInicio',null,['class'=>'form-control','id'=>'fechaInicio','required']) !!}
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label>Fecha Final</label>
-                                        {!! Form::date('fechaFin',null,['class'=>'form-control','id'=>'fechaFin','required']) !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="box-footer">
-                                {!! Form::button('Generar Reporte',array('class'=>'btn btn-primary pull-right','id'=>'btnConsultaNotificaciones','tabindex'=>'16')) !!}
-                            </div>
                         {!!  Form::close() !!}
                     </div>
                 </div>

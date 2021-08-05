@@ -29,7 +29,7 @@ Dashboard
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" id="principalCard">
-                                <a href="banners" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Documentos <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                                <a href="documentos" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Documentos <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -49,7 +49,7 @@ Dashboard
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" id="principalCard">
-                                <a href="banners" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Imágenes <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                                <a href="" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Imágenes <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -69,7 +69,7 @@ Dashboard
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" id="principalCard">
-                                <a href="banners" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Visitas Página <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                                <a href="reporteVisitas" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Visitas Página <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -90,7 +90,7 @@ Dashboard
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <a href="reporteCitasE" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Formulario Contáctenos <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                        <a href="reporteContacto" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Formulario Contáctenos <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                     </div>
                     <div class="card-body">
                         <h3 class="card-title" id="enlace"><b>Ultimos 10 mensajes</b></h3>
@@ -125,7 +125,7 @@ Dashboard
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <a href="reporteCitasE" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Formulario Hojas de Vida <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                        <a href="reporteHojasVida" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Formulario Hojas de Vida <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                     </div>
                     <div class="card-body">
                         <h3 class="card-title" id="enlace"><b>Ultimas 10 hojas de vida recibidas</b></h3>
@@ -162,6 +162,7 @@ Dashboard
                 </div>
             </div>
         </div>
+        @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 3))
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -197,7 +198,7 @@ Dashboard
                 </div>
             </div>
         </div>
-        {{-- @endif --}}
+        @endif
     </div>
 </section>
 

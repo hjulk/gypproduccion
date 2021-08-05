@@ -90,14 +90,24 @@ class UsuariosController extends Controller
             $placa              = strtoupper($request->placa);
             $year               = (int)$request->year_notification;
             $Estado             = 1;
-            $CargarNotificacion = Administracion::CargarNotificacion($nombre_ciudadano,$placa,$year,$Estado,$IdUser);
-            if($CargarNotificacion){
-                $verrors = 'Se cargo con éxito la notificación para '.$nombre_ciudadano;
-                return Redirect::to($url.'notificaciones')->with('mensaje', $verrors);
-            }else{
+            $buscarPlaca = Administracion::ListarNotificacionPlaca($placa);
+            if($buscarPlaca){
+                foreach($buscarPlaca as $row){
+                    $NombreCiudadano = $row->NOMBRE_CIUDADANO;
+                }
                 $verrors = array();
-                array_push($verrors, 'Hubo un problema al crear la notificación');
-                return Redirect::to($url.'notificaciones')->withErrors(['errors' => $verrors])->withRequest();
+                array_push($verrors, 'La placa '.$placa.' ya se encuentra registrada y activa para el ciudadano '.$NombreCiudadano);
+                return Redirect::to($url.'notificaciones')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $CargarNotificacion = Administracion::CargarNotificacion($nombre_ciudadano,$placa,$year,$Estado,$IdUser);
+                if($CargarNotificacion){
+                    $verrors = 'Se cargo con éxito la notificación para '.$nombre_ciudadano;
+                    return Redirect::to($url.'notificaciones')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear la notificación');
+                    return Redirect::to($url.'notificaciones')->withErrors(['errors' => $verrors])->withRequest();
+                }
             }
         }
     }
@@ -144,25 +154,32 @@ class UsuariosController extends Controller
             date_default_timezone_set('America/Bogota');
             $fecha_sistema  = date('Y-m-d');
             $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
-            $NombreDocumento = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento));
-            $file = $request->file('documento');
-            $extension          = $file->getClientOriginalExtension();
-            $name               = $file->getClientOriginalName();
-            $nombrearchivo      = pathinfo($name, PATHINFO_FILENAME);
-            $nombrearchivo      = UsuariosController::eliminar_tildes($nombrearchivo);
-            $filename           = $NombreDocumento.'_'.$fechaCreacion.'.'.$extension;
-            $uploadSuccess      = $file->move('documentos', $filename);
-            $archivofoto        = file_get_contents($uploadSuccess);
-            $NombreFoto         = $filename;
-            $Ubicacion          = '../documentos/'.$NombreFoto;
-            $CargarDocumento = Administracion::CargarDocumento($NombreDocumento,$Ubicacion,$IdUser);
-            if($CargarDocumento){
-                $verrors = 'Se creo con éxito el documento '.$NombreDocumento;
-                return Redirect::to($url.'documentos')->with('mensaje', $verrors);
-            }else{
+            $NombreDocumento = strtoupper($request->nombre_documento);
+            $BuscarDocumentoNombre = Administracion::BuscarDocumentoNombre($NombreDocumento);
+            if($BuscarDocumentoNombre){
                 $verrors = array();
-                array_push($verrors, 'Hubo un problema al crear el documento');
-                return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withRequest();
+                array_push($verrors, 'Nombre de documento ya se encuentra creado');
+                return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $file = $request->file('documento');
+                $extension          = $file->getClientOriginalExtension();
+                $name               = $file->getClientOriginalName();
+                $nombrearchivo      = pathinfo($name, PATHINFO_FILENAME);
+                $nombrearchivo      = UsuariosController::eliminar_tildes($nombrearchivo);
+                $filename           = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento)).'_'.$fechaCreacion.'.'.$extension;
+                $uploadSuccess      = $file->move('documentos', $filename);
+                $archivofoto        = file_get_contents($uploadSuccess);
+                $NombreFoto         = $filename;
+                $Ubicacion          = '../documentos/'.$NombreFoto;
+                $CargarDocumento = Administracion::CargarDocumento($NombreDocumento,$Ubicacion,$IdUser);
+                if($CargarDocumento){
+                    $verrors = 'Se creo con éxito el documento '.strtoupper($request->nombre_documento);
+                    return Redirect::to($url.'documentos')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear el documento');
+                    return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withRequest();
+                }
             }
         }
     }
@@ -183,33 +200,40 @@ class UsuariosController extends Controller
             $NombreDocumento = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento_upd));
             $Estado = (int)$request->estado_upd;
             $IdDocumento = (int)$request->id_documento;
-            if($request->file('documento_upd')){
-                $Buscarubicacion = Administracion::BuscarUbicacion($IdDocumento);
-                foreach($Buscarubicacion as $value){
-                    $Documento = str_replace("../documentos/",'',$value->UBICACION);
-                }
-                unlink('documentos'.'/'.$Documento);
-                $file          = $request->file('documento_upd');
-                $extension     = $file->getClientOriginalExtension();
-                $name          = $file->getClientOriginalName();
-                $nombrearchivo = pathinfo($name, PATHINFO_FILENAME);
-                $nombrearchivo = UsuariosController::eliminar_tildes($nombrearchivo);
-                $filename      = $NombreDocumento.'_'.$fechaCreacion.'.'.$extension;
-                $uploadSuccess = $file->move('documentos', $filename);
-                $archivofoto   = file_get_contents($uploadSuccess);
-                $NombreFoto    = $filename;
-                $Ubicacion     = '../documentos/'.$NombreFoto;
-            }else{
-                $Ubicacion = null;
-            }
-            $ActualizarDocumento = Administracion::ActualizarDocumento($IdDocumento,$NombreDocumento,$Ubicacion,$IdUser,$Estado);
-            if($ActualizarDocumento){
-                $verrors = 'Se actualizó con éxito el documento '.$NombreDocumento;
-                return Redirect::to($url.'documentos')->with('mensaje', $verrors);
-            }else{
+            $BuscarDocumentoNombre = Administracion::BuscarDocumentoNombreId($NombreDocumento,$IdDocumento);
+            if($BuscarDocumentoNombre){
                 $verrors = array();
-                array_push($verrors, 'Hubo un problema al actualizar el documento');
-                return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withRequest();
+                array_push($verrors, 'Nombre de documento ya se encuentra creado');
+                return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                if($request->file('documento_upd')){
+                    $Buscarubicacion = Administracion::BuscarUbicacion($IdDocumento);
+                    foreach($Buscarubicacion as $value){
+                        $Documento = str_replace("../documentos/",'',$value->UBICACION);
+                    }
+                    unlink('documentos'.'/'.$Documento);
+                    $file          = $request->file('documento_upd');
+                    $extension     = $file->getClientOriginalExtension();
+                    $name          = $file->getClientOriginalName();
+                    $nombrearchivo = pathinfo($name, PATHINFO_FILENAME);
+                    $nombrearchivo = UsuariosController::eliminar_tildes($nombrearchivo);
+                    $filename      = $NombreDocumento.'_'.$fechaCreacion.'.'.$extension;
+                    $uploadSuccess = $file->move('documentos', $filename);
+                    $archivofoto   = file_get_contents($uploadSuccess);
+                    $NombreFoto    = $filename;
+                    $Ubicacion     = '../documentos/'.$NombreFoto;
+                }else{
+                    $Ubicacion = null;
+                }
+                $ActualizarDocumento = Administracion::ActualizarDocumento($IdDocumento,$NombreDocumento,$Ubicacion,$IdUser,$Estado);
+                if($ActualizarDocumento){
+                    $verrors = 'Se actualizó con éxito el documento '.strtoupper($request->nombre_documento_upd);
+                    return Redirect::to($url.'documentos')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar el documento');
+                    return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withRequest();
+                }
             }
         }
     }

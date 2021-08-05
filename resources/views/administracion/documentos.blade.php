@@ -103,6 +103,7 @@ Documentos
     </div>
 </section>
 @include("modals.modalDocumento")
+@include("modals.modalAlertas")
 @endsection
 @section('scripts')
 <script>

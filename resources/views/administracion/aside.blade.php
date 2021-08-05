@@ -16,18 +16,38 @@
                         <p>Inicio</p>
                     </a>
                 </li>
+                @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
                 <li class="nav-item" id="asideInicio">
                     <a href="documentos" class="nav-link">
                         <i class="fas fa-file nav-icon" id="enlace"></i>
                         <p>Documentos</p>
                     </a>
                 </li>
-                <li class="nav-item " id="asideInicio">
-                    <a href="notificaciones" class="nav-link">
+                @endif
+                @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 3))
+                <li class="nav-item has-treeview" id="asideInicio">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-newspaper" id="enlace"></i>
-                        <p>Notificaciones Aviso</p>
+                        <p>Notificaciones Aviso<i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview" id="asideInicio">
+                        <li class="nav-item" id="asideInicio">
+                            <a href="notificaciones" class="nav-link">
+                                <i class="fas fa-newspaper nav-icon" id="enlace"></i>
+                                <p>Cargue de Notificaciones</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="consultaNotificaciones" class="nav-link">
+                                <i class="fas fa-list-alt nav-icon" id="enlace"></i>
+                                <p>Reporte de Notificaciones</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                @endif
+                @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
                 <li class="nav-item" id="asideInicio">
                     <a href="reporteContacto" class="nav-link">
                         <i class="fas fa-list-alt nav-icon" id="enlace"></i>
@@ -35,7 +55,7 @@
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">
-                    <a href="" class="nav-link">
+                    <a href="reporteHojaVida" class="nav-link">
                         <i class="fas fa-list-alt nav-icon" id="enlace"></i>
                         <p>Registros Hojas de Vida</p>
                     </a>
@@ -47,11 +67,12 @@
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">
-                    <a href="" class="nav-link">
+                    <a href="reporteVisitas" class="nav-link">
                         <i class="fas fa-laptop-code nav-icon" id="enlace"></i>
                         <p>Visitas de Página</p>
                     </a>
                 </li>
+                @endif
                 @if(Session::get('Rol') === 1)
                 <li class="nav-item has-treeview" id="asideInicio">
                     <a href="#" class="nav-link">
@@ -87,63 +108,6 @@
                     </ul>
                 </li>
                 @endif
-                {{-- @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
-                    <li class="nav-item" id="asideBanners">
-                        <a href="banners" class="nav-link">
-                            <i class="fas fa-images nav-icon"></i>
-                            <p>Banners</p>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="asideComunicados">
-                        <a href="comunicados" class="nav-link">
-                            <i class="fas fa-file nav-icon"></i>
-                            <p>Comunicados</p>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="asideDatos">
-                        <a href="datos" class="nav-link">
-                            <i class="fas fa-table nav-icon"></i>
-                            <p>Datos Servisalud</p>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="asideNoticias">
-                        <a href="noticias" class="nav-link">
-                            <i class="far fa-newspaper nav-icon"></i>
-                            <p>Noticias</p>
-                        </a>
-                    </li>
-                @endif
-                @if((Session::get('Rol') === 3) || (Session::get('Rol') === 1))
-                    <li class="nav-item" id="asideBanners">
-                        <a href="reporteCitasE" class="nav-link">
-                            <i class="fas fa-list nav-icon"></i>
-                            <p>Reporte Citas Especilaidades</p>
-                        </a>
-                    </li>
-                @endif
-                @if(Session::get('Rol') === 1)
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-cog"></i>
-                            <p>Administración<i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="usuarios" class="nav-link">
-                                    <i class="fas fa-users nav-icon"></i>
-                                    <p>Usuarios</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="roles" class="nav-link">
-                                    <i class="fas fa-user-secret nav-icon"></i>
-                                    <p>Roles</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif --}}
             </ul>
         </nav>
     </div>

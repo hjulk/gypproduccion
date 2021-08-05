@@ -26,7 +26,7 @@ Reporte Contáctenos
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <h3 class="card-title" id="tituloCard"><strong>Cargar Documento</strong></h3>
+                        <h3 class="card-title" id="tituloCard"><strong>Reporte Contáctenos</strong></h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -58,7 +58,7 @@ Reporte Contáctenos
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" id="panelResultado">
                         <table id="reporteContacto" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
@@ -70,20 +70,6 @@ Reporte Contáctenos
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach($Documentos as $value)
-                                    <tr>
-                                        <td>{{$value['id']}}</td>
-                                        <td>{{$value['nombre_documento']}}</td>
-                                        <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>
-                                        <td><a href="{{$value['ubicacion']}}" download><i class="fas fa-download"></i></a></td>
-                                        <td>{{$value['fecha_cargue']}}</td>
-                                        <td>{{$value['fecha_modificacion']}}</td>
-                                        <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-documentoUpd" onclick="obtener_datos_documento('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
-                                        <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['nombre_documento']}}" id="nombre_documento{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
-                                    </tr>
-                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -92,6 +78,7 @@ Reporte Contáctenos
         </div>
     </div>
 </section>
+@include("modals.modalAlertas")
 @endsection
 @section('scripts')
 <script>

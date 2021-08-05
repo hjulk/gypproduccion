@@ -86,6 +86,7 @@ return array(
         'nombre_rol_upd' => 'Nombre Rol',
         'estado' => 'Estado',
         'estado_upd' => 'Estado',
+        'estado_pupd' => 'Estado',
         'nombre_usuario' => 'Nombre Usuario',
         'nombre_usuario_upd' => 'Nombre Usuario',
         'correo' => 'Correo Electrónico',
@@ -112,6 +113,12 @@ return array(
         'nombre_documento' => 'Nombre Documento',
         'nombre_documento_upd' => 'Nombre Documento',
         'documento' => 'Documento',
-        'documento_upd' => 'Documento'
+        'documento_upd' => 'Documento',
+        'nombre_pagina' => 'Nombre Página',
+        'nombre_pagina_upd' => 'Nombre Página',
+        'nombre_subpagina' => 'Nombre Subpágina',
+        'nombre_subpagina_upd' => 'Nombre Subpágina',
+        'id_pagina' => 'Página Principal',
+        'id_pagina_upd' => 'Página Principal'
     ),
 );

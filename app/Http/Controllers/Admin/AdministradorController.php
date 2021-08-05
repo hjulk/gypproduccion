@@ -250,6 +250,10 @@ class AdministradorController extends Controller
         }
     }
 
+    public function ConsultaNotificaciones(){
+        return view('administracion.consultaNotificaciones');
+    }
+
     public function ConsultaNotificacion(Request $request){
         $RolUser = (int)Session::get('Rol');
         if($RolUser === 1){
@@ -267,67 +271,42 @@ class AdministradorController extends Controller
         }else{
             $fechaInicial = $request->fechaInicio;
             $fechaFinal   = $request->fechaFin;
-            $ConsultaNotificacion = Administracion::ConsultarNotificaciones($fechaInicial,$fechaFinal);
-
-            if($ConsultaNotificacion){
-
-                $Notificaciones = array();
-                $cont = 0;
-
-                foreach($ConsultaNotificacion as $noti){
-                    $Notificaciones[$cont]['ID_NOTIFICACION'] = (int)$noti->ID_NOTIFICACION;
-                    $Notificaciones[$cont]['NOMBRE_CIUDADANO'] = utf8_decode($noti->NOMBRE_CIUDADANO);
-                    $Notificaciones[$cont]['PLACA'] = $noti->PLACA;
-                    $Notificaciones[$cont]['YEAR_NOTIFICATION'] = $noti->YEAR_NOTIFICATION;
-                    $State  = (int)$noti->ESTADO;
-                    if($State === 1){
-                        $Notificaciones[$cont]['ESTADO']   = utf8_decode('ACTIVO EN PÁGINA');
+            if($fechaFinal < $fechaInicial){
+                $verrors = array();
+                array_push($verrors, 'Fecha Final es menor a Fecha Incial');
+                return Response::json(['valido'=>'false','errors'=>$verrors]);
+            }else{
+                $ConsultaNotificacion = Administracion::ConsultarNotificaciones($fechaInicial,$fechaFinal);
+                $resultado = json_decode(json_encode($ConsultaNotificacion), true);
+                foreach($resultado as &$value) {
+                    if($value['FECHA_MODIFICACION']){
+                        $value['FECHA_MODIFICACION']    = date('d/m/Y h:i A', strtotime($value['FECHA_MODIFICACION']));
                     }else{
-                        $Notificaciones[$cont]['ESTADO']   = utf8_decode('INACTIVO EN PÁGINA');
+                        $value['FECHA_MODIFICACION']    = 'SIN FECHA DE MODIFICACIÓN';
                     }
-                    $Notificaciones[$cont]['FECHA_CREACION'] = date('d/m/Y h:i A', strtotime($noti->FECHA_CREACION));
-                    if($noti->FECHA_MODIFICACION){
-                        $Notificaciones[$cont]['FECHA_MODIFICACION'] = date('d/m/Y h:i A', strtotime($noti->FECHA_MODIFICACION));
+                    $value['FECHA_CREACION']    = date('d/m/Y h:i A', strtotime($value['FECHA_CREACION']));
+                    if($value['ESTADO'] == 1){
+                        $value['ESTADO']  = 'ACTIVO EN PÁGINA';
                     }else{
-                        $Notificaciones[$cont]['FECHA_MODIFICACION'] = utf8_decode('SIN ACTUALIZACIÓN');
+                        $value['ESTADO']   = 'INACTIVO EN PÁGINA';
                     }
-                    $cont++;
                 }
-                $fileName = 'Notificaciones_Pagina_'.$fechaInicial.'_'.$fechaFinal.'.csv';
-                $headers = array(
-                    "Content-type"        => "text/csv",
-                    "Content-Disposition" => "attachment; filename=$fileName",
-                    "Pragma"              => "no-cache",
-                    "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-                    "Expires"             => "0"
-                );
 
-                $columns = array(utf8_decode('ID_NOTIFICACIÓN'),'NOMBRE_CIUDADANO','PLACA',utf8_decode('AÑO_REPORTE_RECLAMACIÓN'),'ESTADO',utf8_decode('FECHA_CREACIÓN'),utf8_decode('FECHA_MODIFICACIÓN'));
-
-                $file = fopen(storage_path('/csv/'.$fileName), 'w');
-                fputcsv($file, $columns);
-
-                foreach($Notificaciones as $item) {
-                    fputcsv($file, $item);
-                }
-                fclose($file);
-
-                $prueba = response()->make(Storage::disk('csv')->get($fileName), 200, $headers);
-
-                $file2 = '..\storage\csv\Notificaciones_Pagina_'.$fechaInicial.'_'.$fechaFinal.'.csv';
-                $archivo = "csv$file2";
-
-                if($prueba){
-                    return Response::json(['valido'=>'true','results'=>$file2]);
+                $aResultado = json_encode($resultado);
+                Session::put('results', $aResultado);
+                if($ConsultaNotificacion){
+                    if($aResultado){
+                        return Response::json(['valido'=>'true','results'=>$aResultado]);
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'No hay datos que mostrar');
+                        return Response::json(['valido'=>'false','errors'=>$verrors]);
+                    }
                 }else{
                     $verrors = array();
                     array_push($verrors, 'No hay datos que mostrar');
                     return Response::json(['valido'=>'false','errors'=>$verrors]);
                 }
-            }else{
-                $verrors = array();
-                array_push($verrors, 'No hay datos que mostrar');
-                return Response::json(['valido'=>'false','errors'=>$verrors]);
             }
         }
     }
@@ -376,5 +355,230 @@ class AdministradorController extends Controller
 
     public function ReporteContacto(){
         return view('administracion.reporteContacto');
+    }
+
+    public function ConsultaContacto(Request $request){
+        $RolUser = (int)Session::get('Rol');
+        if($RolUser === 1){
+            $url = 'admin/';
+        }else{
+            $url = 'user/';
+        }
+        $validator = Validator::make($request->all(), [
+            'fechaInicio'  =>  'required',
+            'fechaFin'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            $verrors = $validator->errors();
+            return Response::json(['valido'=>'false','errors'=>$verrors]);
+        }else{
+            $fechaInicial = $request->fechaInicio;
+            $fechaFinal   = $request->fechaFin;
+            if($fechaFinal < $fechaInicial){
+                $verrors = array();
+                array_push($verrors, 'Fecha Final es menor a Fecha Incial');
+                return Response::json(['valido'=>'false','errors'=>$verrors]);
+            }else{
+                $ConsultaContactenos = Administracion::ConsultaContactenos($fechaInicial,$fechaFinal);
+                $resultado = json_decode(json_encode($ConsultaContactenos), true);
+                foreach($resultado as &$value) {
+                    $value['FECHA_CREACION']    = date('d/m/Y h:i A', strtotime($value['FECHA_CREACION']));
+                }
+
+                $aResultado = json_encode($resultado);
+                Session::put('results', $aResultado);
+                if($ConsultaContactenos){
+                    if($aResultado){
+                        return Response::json(['valido'=>'true','results'=>$aResultado]);
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'No hay datos que mostrar');
+                        return Response::json(['valido'=>'false','errors'=>$verrors]);
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'No hay datos que mostrar');
+                    return Response::json(['valido'=>'false','errors'=>$verrors]);
+                }
+            }
+        }
+    }
+
+    public function ReporteHojaVida(){
+        return view('administracion.reporteHojaVida');
+    }
+
+    public function ConsultaHojaVida(Request $request){
+        $RolUser = (int)Session::get('Rol');
+        if($RolUser === 1){
+            $url = 'admin/';
+        }else{
+            $url = 'user/';
+        }
+        $validator = Validator::make($request->all(), [
+            'fechaInicio'  =>  'required',
+            'fechaFin'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            $verrors = $validator->errors();
+            return Response::json(['valido'=>'false','errors'=>$verrors]);
+        }else{
+            $fechaInicial = $request->fechaInicio;
+            $fechaFinal   = $request->fechaFin;
+            if($fechaFinal < $fechaInicial){
+                $verrors = array();
+                array_push($verrors, 'Fecha Final es menor a Fecha Incial');
+                return Response::json(['valido'=>'false','errors'=>$verrors]);
+            }else{
+                $ConsultaHojaVida = Administracion::ConsultaHojaVida($fechaInicial,$fechaFinal);
+                $resultado = json_decode(json_encode($ConsultaHojaVida), true);
+                foreach($resultado as &$value) {
+                    $value['FECHA_CREACION']    = date('d/m/Y h:i A', strtotime($value['FECHA_CREACION']));
+                    if($value['ID_DOCUMENTO']){
+                        $ConsultarTipoDocumento = Administracion::tipoDocumento((int)$value['ID_DOCUMENTO']);
+                        foreach($ConsultarTipoDocumento as $row){
+                            $value['ID_DOCUMENTO'] = $row->NOMBRE_DOCUMENTO;
+                        }
+                    }
+                }
+
+                $aResultado = json_encode($resultado);
+                Session::put('results', $aResultado);
+                if($ConsultaHojaVida){
+                    if($aResultado){
+                        return Response::json(['valido'=>'true','results'=>$aResultado]);
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'No hay datos que mostrar');
+                        return Response::json(['valido'=>'false','errors'=>$verrors]);
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'No hay datos que mostrar');
+                    return Response::json(['valido'=>'false','errors'=>$verrors]);
+                }
+            }
+        }
+    }
+
+    public function ReporteVisitas(){
+        return view('administracion.visitasPagina');
+    }
+
+    public function ConsultaVisitas(Request $request){
+        $RolUser = (int)Session::get('Rol');
+        if($RolUser === 1){
+            $url = 'admin/';
+        }else{
+            $url = 'user/';
+        }
+        $validator = Validator::make($request->all(), [
+            'fechaInicio'  =>  'required',
+            'fechaFin'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            $verrors = $validator->errors();
+            return Response::json(['valido'=>'false','errors'=>$verrors]);
+        }else{
+            $fechaInicial = $request->fechaInicio;
+            $fechaFinal   = $request->fechaFin;
+            if($fechaFinal < $fechaInicial){
+                $verrors = array();
+                array_push($verrors, 'Fecha Final es menor a Fecha Incial');
+                return Response::json(['valido'=>'false','errors'=>$verrors]);
+            }else{
+                $ConsultaVisitas = Administracion::ConsultaVisitas($fechaInicial,$fechaFinal);
+                $resultado = json_decode(json_encode($ConsultaVisitas), true);
+                foreach($resultado as &$value) {
+                    $value['FECHA']    = date('d/m/Y h:i A', strtotime($value['FECHA']));
+                    // if($value['PAGINA'] === '/'){
+                    //     $value['PAGINA'] = 'inicio';
+                    // }else{
+                    //     $value['PAGINA'] = str_replace("/",'',$value['PAGINA']);
+                    // }
+                    if($value['PAGINA'] === '/gypproduccion/'){
+                        $value['PAGINA'] = 'inicio';
+                    }else{
+                        $value['PAGINA'] = str_replace("/gypproduccion/",'',$value['PAGINA']);
+                    }
+                }
+
+                $aResultado = json_encode($resultado);
+                Session::put('results', $aResultado);
+                if($ConsultaVisitas){
+                    if($aResultado){
+                        return Response::json(['valido'=>'true','results'=>$aResultado]);
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'No hay datos que mostrar');
+                        return Response::json(['valido'=>'false','errors'=>$verrors]);
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'No hay datos que mostrar');
+                    return Response::json(['valido'=>'false','errors'=>$verrors]);
+                }
+            }
+        }
+    }
+
+    public function Paginas(){
+        $Estado = array();
+        $Estado[''] = 'Seleccione:';
+        $Estado[1]  = 'Activa';
+        $Estado[2]  = 'Inactiva';
+        $ListadoPaginas = Administracion::ListadoPaginas();
+        $contP = 0;
+        $Paginas = array();
+        foreach($ListadoPaginas as $value){
+            $Paginas[$contP]['id'] = (int)$value->ID_PAGINA;
+            $Paginas[$contP]['nombre_pagina'] = $value->NOMBRE_PAGINA;
+            $Paginas[$contP]['estado_activo']   = (int)$value->ESTADO;
+            $State  = (int)$value->ESTADO;
+            if($State === 1){
+                $Paginas[$contP]['estado']   = 'ACTIVO EN PÁGINA';
+                $Paginas[$contP]['label']    = 'badge badge-success';
+            }else{
+                $Paginas[$contP]['estado']   = 'INACTIVO EN PÁGINA';
+                $Paginas[$contP]['label']    = 'badge badge-danger';
+            }
+            $contP++;
+        }
+        $ListadoSubpaginas = Administracion::ListadoSubpaginas();
+        $contS = 0;
+        $Subpaginas = array();
+        foreach($ListadoSubpaginas as $values){
+            $Subpaginas[$contS]['id'] = (int)$values->ID_SUBPAGINA;
+            $Subpaginas[$contS]['nombre_subpagina'] = $values->NOMBRE_SUBPAGINA;
+            $Subpaginas[$contS]['estado_activo']   = (int)$values->ESTADO;
+            $State  = (int)$values->ESTADO;
+            if($State === 1){
+                $Subpaginas[$contS]['estado']   = 'ACTIVO EN PÁGINA';
+                $Subpaginas[$contS]['label']    = 'badge badge-success';
+            }else{
+                $Subpaginas[$contS]['estado']   = 'INACTIVO EN PÁGINA';
+                $Subpaginas[$contS]['label']    = 'badge badge-danger';
+            }
+            $Subpaginas[$contS]['id_pagina'] = (int)$values->ID_PAGINA;
+            $Page  = (int)$values->ID_PAGINA;
+            $BuscarIdPagina = Administracion::BuscarIdPagina($Page);
+            if($BuscarIdPagina){
+                foreach($BuscarIdPagina as $rows){
+                    $Subpaginas[$contS]['pagina'] = $rows->NOMBRE_PAGINA;
+                }
+            }else{
+                $Subpaginas[$contS]['pagina'] = 'SIN PAGINA PRINCIPAL';
+            }
+            $contS++;
+        }
+        $ListaPaginas = array();
+        $ListaPaginas[''] = 'Seleccione:';
+        $ListadoPaginasActivas = Administracion::ListadoPaginasActivas();
+        if($ListadoPaginasActivas){
+            foreach($ListadoPaginasActivas as $row){
+                $ListaPaginas[$row->ID_PAGINA] = $row->NOMBRE_PAGINA;
+            }
+        }
+        return view('administracion.paginas',['Estado' => $Estado,'Paginas' => $Paginas,'Subpaginas' => $Subpaginas,'ListaPaginas' => $ListaPaginas]);
     }
 }

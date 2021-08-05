@@ -412,36 +412,144 @@ $(document).ready(function () {
 
     });
 
+    $('#btnConsultaNotificaciones').click(function(){
+
+        var FechaInicio = $("#fechaInicio").val();
+        var FechaFin    = $("#fechaFin").val();
+        var tipo        = 'post';
+
+        $.ajax({
+            type: "post",
+            url : "consultaNotificacion",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
+            success : function(data){
+                var valido  = data['valido'];
+                var errores = data['errors'];
+                if(valido === 'true'){
+                    var Resultado = jQuery.parseJSON(data['results']);
+                    $('#panelResultado').show();
+                    $('#consultaNotificacionesAviso').DataTable().destroy();
+                    $('#consultaNotificacionesAviso').DataTable({
+                        data: Resultado,
+                        responsive: {
+                            details: {
+                                display: $.fn.dataTable.Responsive.display.modal( {
+                                    header: function ( row ) {
+                                        var data = row.data();
+                                        return 'Detalle Solicitud ';
+                                    }
+                                } ),
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                    tableClass: 'table'
+                                })
+                            }
+                        },
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 0 },
+                            { responsivePriority: 2, targets: -1 }],
+                        lengthChange: false,
+                        searching   : true,
+                        ordering    : true,
+                        info        : true,
+                        autoWidth   : false,
+                        processing  : true,
+                        rowReorder  : false,
+                        order: [[ 1, "asc" ]],
+                        columns: [
+                                { "data": "ID_NOTIFICACION" },
+                                { "data": "NOMBRE_CIUDADANO" },
+                                { "data": "PLACA" },
+                                { "data": "YEAR_NOTIFICATION" },
+                                { "data": "ESTADO" },
+                                { "data": "FECHA_CREACION" },
+                                { "data": "FECHA_MODIFICACION" },
+                                ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'collection',
+                                text: 'Exportar',
+                                buttons: [
+                                    'copy',
+                                    'excel',
+                                    'csv',
+                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    {
+                                        extend: 'print',
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '10pt' );
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
+                                ]
+                            }],
+                        language: {
+                            processing: "Procesando...",
+                            search: "Buscar:",
+                            lengthMenu: "Mostrar _MENU_ registros.",
+                            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+                            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando...",
+                            zeroRecords: "No se encontraron resultados",
+                            emptyTable: "Ningún dato disponible en esta tabla",
+                            row: "Registro",
+                            export: "Exportar",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Anterior",
+                                next: "Siguiente",
+                                last: "Ultimo"
+                            },
+                            aria: {
+                                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                                sortDescending: ": Activar para ordenar la columna de manera descendente"
+                            },
+                            select: {
+                                row: "registro",
+                                selected: "seleccionado"
+                            }
+                        }
+                    });
+                }else{
+                    $.each(errores,function(key, value){
+                        if(value){
+                            toastr.error(value);
+                        }
+                    });
+                    $('#panelResultado').hide();
+                }
+            },
+
+        });
+    });
+
     $('#reporteContacto').DataTable({
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive: {
-                details: {
-                    display: $.fn.dataTable.Responsive.display.modal( {
-                        header: function ( row ) {
-                            var data = row.data();
-                            return 'Detalle Notificación '+data[0];
-                        }
-                    } ),
-                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table'
-                    })
-                }
-            },
+        responsive  : true,
         lengthChange: false,
         searching   : true,
         ordering    : true,
-        info        : true,
-        autoWidth   : true,
+        info        : false,
+        autoWidth   : false,
         rowReorder  : false,
         order: [[ 0, "desc" ]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
+            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -486,11 +594,10 @@ $(document).ready(function () {
                         }
                     }
                 ]
-            }],
-
+            }]
     });
 
-    $('#btnConsultaNotificaciones').click(function(){
+    $('#btnConsultaContacto').click(function(){
 
         var FechaInicio = $("#fechaInicio").val();
         var FechaFin    = $("#fechaFin").val();
@@ -498,30 +605,575 @@ $(document).ready(function () {
 
         $.ajax({
             type: "post",
-            url : "consultaNotificacion",
+            url : "consultaContacto",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
             success : function(data){
-
-                var valido = data['valido'];
+                var valido  = data['valido'];
                 var errores = data['errors'];
-                var Resultado = data['results'];
                 if(valido === 'true'){
-                    window.open(data['results'], 'Download', '_blank');
+                    var Resultado = jQuery.parseJSON(data['results']);
+                    $('#panelResultado').show();
+                    $('#reporteContacto').DataTable().destroy();
+                    $('#reporteContacto').DataTable({
+                        data: Resultado,
+                        responsive: {
+                            details: {
+                                display: $.fn.dataTable.Responsive.display.modal( {
+                                    header: function ( row ) {
+                                        var data = row.data();
+                                        return 'Detalle Solicitud ';
+                                    }
+                                } ),
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                    tableClass: 'table'
+                                })
+                            }
+                        },
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 1 },
+                            { responsivePriority: 2, targets: -1 }],
+                        lengthChange: false,
+                        searching   : true,
+                        ordering    : true,
+                        info        : true,
+                        autoWidth   : false,
+                        processing  : true,
+                        rowReorder  : false,
+                        aoColumnDefs: [
+                            { "sWidth": "10%", "aTargets": [ 3 ] }
+                        ],
+                        order: [[ 1, "asc" ]],
+                        columns: [
+                                { "data": "ID_CONTACTO" },
+                                { "data": "NOMBRE_CIUDADANO" },
+                                { "data": "CORREO" },
+                                { "data": "MENSAJE" },
+                                { "data": "FECHA_CREACION" }
+                                ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'collection',
+                                text: 'Exportar',
+                                buttons: [
+                                    'copy',
+                                    'excel',
+                                    'csv',
+                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    {
+                                        extend: 'print',
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '10pt' );
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
+                                ]
+                            }],
+                        language: {
+                            processing: "Procesando...",
+                            search: "Buscar:",
+                            lengthMenu: "Mostrar _MENU_ registros.",
+                            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+                            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando...",
+                            zeroRecords: "No se encontraron resultados",
+                            emptyTable: "Ningún dato disponible en esta tabla",
+                            row: "Registro",
+                            export: "Exportar",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Anterior",
+                                next: "Siguiente",
+                                last: "Ultimo"
+                            },
+                            aria: {
+                                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                                sortDescending: ": Activar para ordenar la columna de manera descendente"
+                            },
+                            select: {
+                                row: "registro",
+                                selected: "seleccionado"
+                            }
+                        }
+                    });
                 }else{
                     $.each(errores,function(key, value){
                         if(value){
                             toastr.error(value);
                         }
                     });
+                    $('#panelResultado').hide();
                 }
-            },
-
-            });
+            }
         });
+    });
 
+    $('#reporteHojaVida').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive  : true,
+        lengthChange: false,
+        searching   : true,
+        ordering    : true,
+        info        : false,
+        autoWidth   : false,
+        rowReorder  : false,
+        order: [[ 0, "desc" ]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
+            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'collection',
+                text: 'Exportar',
+                buttons: [
+                    'copy',
+                    'excel',
+                    'csv',
+                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    {
+                        extend: 'print',
+                        customize: function ( win ) {
+                            $(win.document.body)
+                                .css( 'font-size', '10pt' );
+
+                            $(win.document.body).find( 'table' )
+                                .addClass( 'compact' )
+                                .css( 'font-size', 'inherit' );
+                        }
+                    }
+                ]
+            }]
+    });
+
+    $('#btnConsultaHojaVida').click(function(){
+
+        var FechaInicio = $("#fechaInicio").val();
+        var FechaFin    = $("#fechaFin").val();
+        var tipo        = 'post';
+
+        $.ajax({
+            type: "post",
+            url : "consultaHojaVida",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
+            success : function(data){
+                var valido  = data['valido'];
+                var errores = data['errors'];
+                if(valido === 'true'){
+                    var Resultado = jQuery.parseJSON(data['results']);
+                    $('#panelResultado').show();
+                    $('#reporteHojaVida').DataTable().destroy();
+                    $('#reporteHojaVida').DataTable({
+                        data: Resultado,
+                        responsive: {
+                            details: {
+                                display: $.fn.dataTable.Responsive.display.modal( {
+                                    header: function ( row ) {
+                                        var data = row.data();
+                                        return 'Detalle Solicitud ';
+                                    }
+                                } ),
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                    tableClass: 'table'
+                                })
+                            }
+                        },
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 1 },
+                            { responsivePriority: 2, targets: -1 }],
+                        lengthChange: false,
+                        searching   : true,
+                        ordering    : true,
+                        info        : true,
+                        autoWidth   : false,
+                        processing  : true,
+                        rowReorder  : false,
+                        aoColumnDefs: [
+                            { "sWidth": "10%", "aTargets": [ 3 ] }
+                        ],
+                        order: [[ 1, "asc" ]],
+                        columns: [
+                                { "data": "ID_TRABAJO" },
+                                { "data": "NOMBRE_CIUDADANO" },
+                                { "data": "ID_DOCUMENTO" },
+                                { "data": "IDENTIFICACION" },
+                                { "data": "DIRECCION" },
+                                { "data": "CORREO" },
+                                { "data": "TELEFONO" },
+                                { "data": "PROFESION" },
+                                { "data": "DOCUMENTO" },
+                                { "data": "FECHA_CREACION" }
+                                ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'collection',
+                                text: 'Exportar',
+                                buttons: [
+                                    'copy',
+                                    'excel',
+                                    'csv',
+                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    {
+                                        extend: 'print',
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '10pt' );
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
+                                ]
+                            }],
+                        language: {
+                            processing: "Procesando...",
+                            search: "Buscar:",
+                            lengthMenu: "Mostrar _MENU_ registros.",
+                            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+                            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando...",
+                            zeroRecords: "No se encontraron resultados",
+                            emptyTable: "Ningún dato disponible en esta tabla",
+                            row: "Registro",
+                            export: "Exportar",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Anterior",
+                                next: "Siguiente",
+                                last: "Ultimo"
+                            },
+                            aria: {
+                                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                                sortDescending: ": Activar para ordenar la columna de manera descendente"
+                            },
+                            select: {
+                                row: "registro",
+                                selected: "seleccionado"
+                            }
+                        }
+                    });
+                }else{
+                    $.each(errores,function(key, value){
+                        if(value){
+                            toastr.error(value);
+                        }
+                    });
+                    $('#panelResultado').hide();
+                }
+            }
+        });
+    });
+
+    $('#reporteVisitas').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive  : true,
+        lengthChange: false,
+        searching   : true,
+        ordering    : true,
+        info        : false,
+        autoWidth   : false,
+        rowReorder  : false,
+        order: [[ 0, "desc" ]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
+            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'collection',
+                text: 'Exportar',
+                buttons: [
+                    'copy',
+                    'excel',
+                    'csv',
+                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    {
+                        extend: 'print',
+                        customize: function ( win ) {
+                            $(win.document.body)
+                                .css( 'font-size', '10pt' );
+
+                            $(win.document.body).find( 'table' )
+                                .addClass( 'compact' )
+                                .css( 'font-size', 'inherit' );
+                        }
+                    }
+                ]
+            }]
+    });
+
+    $('#btnConsultaVisitas').click(function(){
+
+        var FechaInicio = $("#fechaInicio").val();
+        var FechaFin    = $("#fechaFin").val();
+        var tipo        = 'post';
+
+        $.ajax({
+            type: "post",
+            url : "consultaVisitas",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
+            success : function(data){
+                var valido  = data['valido'];
+                var errores = data['errors'];
+                if(valido === 'true'){
+                    var Resultado = jQuery.parseJSON(data['results']);
+                    $('#panelResultado').show();
+                    $('#reporteVisitas').DataTable().destroy();
+                    $('#reporteVisitas').DataTable({
+                        data: Resultado,
+                        responsive: {
+                            details: {
+                                display: $.fn.dataTable.Responsive.display.modal( {
+                                    header: function ( row ) {
+                                        var data = row.data();
+                                        return 'Detalle Solicitud ';
+                                    }
+                                } ),
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                    tableClass: 'table'
+                                })
+                            }
+                        },
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 1 },
+                            { responsivePriority: 2, targets: -1 }],
+                        lengthChange: false,
+                        searching   : true,
+                        ordering    : true,
+                        info        : true,
+                        autoWidth   : false,
+                        processing  : true,
+                        rowReorder  : false,
+                        aoColumnDefs: [
+                            { "sWidth": "10%", "aTargets": [ 3 ] }
+                        ],
+                        order: [[ 1, "asc" ]],
+                        columns: [
+                                { "data": "ID_VISITA" },
+                                { "data": "IP" },
+                                { "data": "PAGINA" },
+                                { "data": "FECHA" }
+                                ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'collection',
+                                text: 'Exportar',
+                                buttons: [
+                                    'copy',
+                                    'excel',
+                                    'csv',
+                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    {
+                                        extend: 'print',
+                                        customize: function ( win ) {
+                                            $(win.document.body)
+                                                .css( 'font-size', '10pt' );
+
+                                            $(win.document.body).find( 'table' )
+                                                .addClass( 'compact' )
+                                                .css( 'font-size', 'inherit' );
+                                        }
+                                    }
+                                ]
+                            }],
+                        language: {
+                            processing: "Procesando...",
+                            search: "Buscar:",
+                            lengthMenu: "Mostrar _MENU_ registros.",
+                            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+                            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando...",
+                            zeroRecords: "No se encontraron resultados",
+                            emptyTable: "Ningún dato disponible en esta tabla",
+                            row: "Registro",
+                            export: "Exportar",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Anterior",
+                                next: "Siguiente",
+                                last: "Ultimo"
+                            },
+                            aria: {
+                                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                                sortDescending: ": Activar para ordenar la columna de manera descendente"
+                            },
+                            select: {
+                                row: "registro",
+                                selected: "seleccionado"
+                            }
+                        }
+                    });
+                }else{
+                    $.each(errores,function(key, value){
+                        if(value){
+                            toastr.error(value);
+                        }
+                    });
+                    $('#panelResultado').hide();
+                }
+            }
+        });
+    });
+
+    $('#pagina').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive  : true,
+        lengthChange: false,
+        searching   : true,
+        ordering    : true,
+        info        : false,
+        autoWidth   : false,
+        rowReorder  : false,
+        order: [[ 1, "asc" ]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
+            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
+
+    $('#subpagina').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive  : true,
+        lengthChange: false,
+        searching   : true,
+        ordering    : true,
+        info        : false,
+        autoWidth   : false,
+        rowReorder  : false,
+        order: [[ 1, "asc" ]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
+            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
 });
 
 function obtener_datos_dependencia(id) {
@@ -667,5 +1319,25 @@ function obtener_datos_documento(id) {
 
     $("#idDocumento_upd").val(id);
     $("#mod_nombre_documento").val(NombreDocumento);
+    $("#mod_estado").val(Estado);
+}
+
+function obtener_datos_pagina(id) {
+    var NombrePagina  = $("#nombre_pagina" + id).val();
+    var Estado  = $("#estado_activo" + id).val();
+
+    $("#idPagina_upd").val(id);
+    $("#mod_nombre_pagina").val(NombrePagina);
+    $("#mod_estado_p").val(Estado);
+}
+
+function obtener_datos_subpagina(id) {
+    var NombrePagina  = $("#nombre_subpagina" + id).val();
+    var IdPagina  = $("#id_pagina" + id).val();
+    var Estado  = $("#estado_activo" + id).val();
+
+    $("#idSubpagina_upd").val(id);
+    $("#mod_nombre_subpagina").val(NombrePagina);
+    $("#mod_id_pagina").val(IdPagina);
     $("#mod_estado").val(Estado);
 }

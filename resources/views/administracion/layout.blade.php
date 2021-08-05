@@ -14,8 +14,8 @@
     <meta http-equiv="Cache-control" content="max-age=31536000">
     <link type="image/x-icon" rel="icon" href="{{asset("images/favicon.png")}}">
     <link rel="stylesheet" href="{{asset("adminlte/plugins/fontawesome-free/css/all.min.css")}}">
-    <link rel="stylesheet" href="{{asset("adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
-    <link rel="stylesheet" href="{{asset("adminlte/plugins/jqvmap/jqvmap.min.css")}}">
+    {{-- <link rel="stylesheet" href="{{asset("adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css")}}">
+    <link rel="stylesheet" href="{{asset("adminlte/plugins/jqvmap/jqvmap.min.css")}}"> --}}
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/administracion.css")}}">
     <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
@@ -46,12 +46,12 @@
     </div>
     <script src="{{asset("js/jquery.min.js")}}"></script>
     <script src="{{asset("js/jquery-migrate.min.js")}}"></script>
-    <script src="{{asset("js/jquery.js")}}"></script>
     <script src="{{asset("adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("adminlte/js/adminlte.js")}}"></script>
     <script src="{{asset("DataTables/DataTables/js/jquery.dataTables.min.js")}}"></script>
     <script src="{{asset("DataTables/DataTables/js/dataTables.bootstrap4.min.js")}}"></script>
     <script src="{{asset("DataTables/Responsive/js/dataTables.responsive.min.js")}}"></script>
+    <script src="{{asset("DataTables/Responsive/js/responsive.bootstrap4.min.js")}}"></script>
     <script src="{{asset("DataTables/Buttons/js/dataTables.buttons.min.js")}}"></script>
     <script src="{{asset("DataTables/Buttons/js/buttons.html5.min.js")}}"></script>
     <script src="{{asset("DataTables/Buttons/js/buttons.print.min.js")}}"></script>

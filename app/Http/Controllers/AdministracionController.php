@@ -247,6 +247,142 @@ class AdministracionController extends Controller
         }
     }
 
+    public function CrearPagina(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_pagina' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'paginas')->withErrors($validator)->withInput();
+        }else{
+            $NombrePagina = $request->nombre_pagina;
+            $BuscarNombrePagina = Administracion::BuscarPageByName($NombrePagina);
+            if($BuscarNombrePagina){
+                $verrors = array();
+                array_push($verrors, 'Nombre de Página ya existe');
+                return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $Usuario = (int)Session::get('IdUsuario');
+                $Estado = 1;
+                $CrearPagina = Administracion::CrearPagina($NombrePagina,$Estado,$Usuario);
+                if($CrearPagina){
+                    $verrors = 'Se creo la página '.$NombrePagina.' con éxito.';
+                    return Redirect::to($url.'paginas')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear la página');
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                }
+            }
+        }
+    }
+
+    public function ActualizarPagina(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_pagina_upd' => 'required',
+            'estado_pupd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'paginas')->withErrors($validator)->withInput();
+        }else{
+            $NombrePagina = $request->nombre_pagina_upd;
+            $Usuario = (int)Session::get('IdUsuario');
+            $Estado = (int)$request->estado_pupd;
+            $idPagina = (int)$request->id_pagina;
+            $BuscarNombrePagina = Administracion::BuscarPageByNameId($NombrePagina,$idPagina);
+            if($BuscarNombrePagina){
+                $verrors = array();
+                array_push($verrors, 'Nombre de Página ya existe');
+                return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarPagina = Administracion::ActualizarPagina($NombrePagina,$Estado,$idPagina,$Usuario);
+                if($ActualizarPagina){
+                    $verrors = 'Se actualizó la página '.$NombrePagina.' con éxito.';
+                    return Redirect::to($url.'paginas')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar la página');
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                }
+            }
+        }
+    }
+
+    public function CrearSubpagina(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_subpagina' => 'required',
+            'id_pagina' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'paginas')->withErrors($validator)->withInput();
+        }else{
+            $NombreSubpagina = $request->nombre_subpagina;
+            $BuscarSubPageByName = Administracion::BuscarSubPageByName($NombreSubpagina);
+            if($BuscarSubPageByName){
+                $verrors = array();
+                array_push($verrors, 'Nombre de Página ya existe');
+                return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $Usuario = (int)Session::get('IdUsuario');
+                $IdPagina = (int)$request->id_pagina;
+                $Estado = 1;
+                $CrearSubpagina = Administracion::CrearSubpagina($NombreSubpagina,$IdPagina,$Estado,$Usuario);
+                if($CrearSubpagina){
+                    $verrors = 'Se creo la subpágina '.$NombreSubpagina.' con éxito.';
+                    return Redirect::to($url.'paginas')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear la subpágina');
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                }
+            }
+        }
+    }
+
+    public function ActualizarSubpagina(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_subpagina_upd' => 'required',
+            'id_pagina_upd' => 'required',
+            'estado_upd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'paginas')->withErrors($validator)->withInput();
+        }else{
+            $NombrePagina = $request->nombre_subpagina_upd;
+            $Usuario = (int)Session::get('IdUsuario');
+            $Estado = (int)$request->estado_upd;
+            $idSubpagina = (int)$request->id_subpagina;
+            $idPagina = (int)$request->id_pagina_upd;
+            $BuscarNombrePagina = Administracion::BuscarSubPageByNameId($NombrePagina,$idSubpagina);
+            if($BuscarNombrePagina){
+                $verrors = array();
+                array_push($verrors, 'Nombre de Subpágina ya existe');
+                return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarPagina = Administracion::ActualizarSubpagina($NombrePagina,$Estado,$idPagina,$Usuario,$idSubpagina);
+                if($ActualizarPagina){
+                    $verrors = 'Se actualizó la subpágina '.$NombrePagina.' con éxito.';
+                    return Redirect::to($url.'paginas')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar la subpágina');
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                }
+            }
+        }
+    }
+
     public static function FindUrl(){
         $RolUser = (int)Session::get('Rol');
         if($RolUser === 1){
