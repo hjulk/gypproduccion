@@ -45,9 +45,9 @@
                     <div class="row">
                         <div class="col-md-12" id="pageImage">
                             <picture>
-                                <source srcset="{{asset("images/quotes-v4.webp") }}" type="image/webp"/>
-                                <source srcset="{{asset("images/quotes-v4.png") }}" type="image/png"/>
-                                <img src="{{asset("images/quotes-v4.webp") }}" id="consultaLiquidacionImg" alt="Cunsulta Liquidación" class="img-responsive"/>
+                                <source srcset="{{asset("images/tramites/consulta_liquidacion/quotes-v4.webp") }}" type="image/webp"/>
+                                <source srcset="{{asset("images/tramites/consulta_liquidacion/quotes-v4.png") }}" type="image/png"/>
+                                <img src="{{asset("images/tramites/consulta_liquidacion/quotes-v4.webp") }}" id="consultaLiquidacionImg" alt="Cunsulta Liquidación" class="img-responsive"/>
                             </picture>
                         </div>
                     </div>
@@ -56,9 +56,9 @@
                         <div class="col-md-12" id="pageImage">
                             <a href="https://cmovilgyp.com/wliquidacion/" target="_blank">
                                 <picture>
-                                    <source srcset="{{asset("images/por_placa.webp") }}" type="image/webp"/>
-                                    <source srcset="{{asset("images/por_placa.png") }}" type="image/png"/>
-                                    <img src="{{asset("images/por_placa.webp") }}" alt="Cunsulta Liquidación" class="img-responsive"/>
+                                    <source srcset="{{asset("images/tramites/consulta_liquidacion/por_placa.webp") }}" type="image/webp"/>
+                                    <source srcset="{{asset("images/tramites/consulta_liquidacion/por_placa.png") }}" type="image/png"/>
+                                    <img src="{{asset("images/tramites/consulta_liquidacion/por_placa.webp") }}" alt="Cunsulta Liquidación" class="img-responsive"/>
                                 </picture>
                             </a>
                         </div>
@@ -68,9 +68,9 @@
                         <div class="col-md-12" id="pageImage">
                             <a href="https://cmovilgyp.com/wliquidacion/"target="_blank">
                                 <picture>
-                                    <source srcset="{{asset("images/397x77.webp") }}" type="image/webp"/>
-                                    <source srcset="{{asset("images/397x77.jpg") }}" type="image/jpg"/>
-                                    <img src="{{asset("images/397x77.webp") }}" alt="Cunsulta Liquidación" class="img-responsive" id="consultaLiquidacionImg2"/>
+                                    <source srcset="{{asset("images/tramites/consulta_liquidacion/397x77.webp") }}" type="image/webp"/>
+                                    <source srcset="{{asset("images/tramites/consulta_liquidacion/397x77.jpg") }}" type="image/jpg"/>
+                                    <img src="{{asset("images/tramites/consulta_liquidacion/397x77.webp") }}" alt="Cunsulta Liquidación" class="img-responsive" id="consultaLiquidacionImg2"/>
                                 </picture>
                             </a>
                         </div>

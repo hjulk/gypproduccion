@@ -23,6 +23,7 @@ Dashboard
 </section>
 <section class="content">
     <div class="container-fluid">
+        @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
@@ -49,7 +50,7 @@ Dashboard
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" id="principalCard">
-                                <a href="" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Imágenes <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                                <a href="imagenes" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Imágenes <i class="fa fa-arrow-circle-right"></i></b></h3></a>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -85,7 +86,6 @@ Dashboard
                 </div>
             </div>
         </div>
-        {{-- @if(Session::get('Rol') === 1) --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -162,6 +162,7 @@ Dashboard
                 </div>
             </div>
         </div>
+        @endif
         @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 3))
         <div class="row">
             <div class="col-md-12">

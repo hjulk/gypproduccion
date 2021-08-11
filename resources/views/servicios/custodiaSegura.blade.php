@@ -69,9 +69,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0106T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0106T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0106T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/C0106T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/C0106T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/custodia_segura/C0106T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -91,9 +91,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0084T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0084T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0084T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/C0084T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/C0084T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/custodia_segura/C0084T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -113,9 +113,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/atencion_ciudadano.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/atencion_ciudadano.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/atencion_ciudadano.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/atencion_ciudadano.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/atencion_ciudadano.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/custodia_segura/atencion_ciudadano.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -135,9 +135,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0080T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0080T01.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0080T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/C0080T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/custodia_segura/C0080T01.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/custodia_segura/C0080T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>

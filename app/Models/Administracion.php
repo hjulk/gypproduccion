@@ -408,8 +408,18 @@ class Administracion extends Model
         return $BuscarUserByUsernameId;
     }
 
+    public static function BuscarSubPageById($IdSubpagina){
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE ID_SUBPAGINA = $IdSubpagina");
+        return $BuscarUserByUsernameId;
+    }
+
     public static function BuscarSubPageByNameId($Nombre,$IdSubpagina){
         $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE NOMBRE_SUBPAGINA LIKE '%$Nombre%' AND ID_SUBPAGINA NOT IN ($IdSubpagina)");
+        return $BuscarUserByUsernameId;
+    }
+
+    public static function BuscarIdSubpagina($idPagina){
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE ID_PAGINA = $idPagina");
         return $BuscarUserByUsernameId;
     }
 
@@ -431,5 +441,64 @@ class Administracion extends Model
         ESTADO = $Estado, FECHA_MODIFICACION = '$fechaActualizacion', USUARIO_MODIFICACION = $Usuario
         WHERE ID_SUBPAGINA = $IdSubpagina");
         return $ActualizarSubpagina;
+    }
+
+    public static function ListadoImagenes(){
+        $ListadoImagenes = DB::select("SELECT * FROM imagenes ORDER BY 2 ASC");
+        return $ListadoImagenes;
+    }
+
+    public static function ListadoImagenesName($NombreImagen){
+        $ListadoImagenesName = DB::select("SELECT * FROM imagenes WHERE NOMBRE_IMAGEN LIKE '%$NombreImagen%'");
+        return $ListadoImagenesName;
+    }
+
+    public static function ListadoImagenesNameId($NombreImagen,$IdImagen){
+        $ListadoImagenesNameId = DB::select("SELECT * FROM imagenes WHERE NOMBRE_IMAGEN LIKE '%$NombreImagen%' AND ID_IMAGEN NOT IN ($IdImagen)");
+        return $ListadoImagenesNameId;
+    }
+
+    public static function ListadoImagenesId($IdImagen){
+        $ListadoImagenesId = DB::select("SELECT * FROM imagenes WHERE ID_IMAGEN = $IdImagen");
+        return $ListadoImagenesId;
+    }
+
+    public static function CrearImagen($Nombre,$carpeta,$IdPagina,$IdSubpagina,$IdUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearImagen = DB::insert('INSERT INTO imagenes (NOMBRE_IMAGEN,UBICACION,ID_PAGINA,ID_SUBPAGINA,ESTADO,FECHA_CREACION,USUARIO_CREACION)
+                                    VALUES (?,?,?,?,?,?,?)',
+                                    [$Nombre,$carpeta,$IdPagina,$IdSubpagina,1,$fechaCreacion,$IdUser]);
+        return $CrearImagen;
+    }
+
+    public static function ActualizarImagen($Nombre,$path,$IdPagina,$IdSubpagina,$IdUser,$Estado,$IdImagen){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+        if($path){
+            $ActualizarImagen = DB::update('UPDATE imagenes SET
+            NOMBRE_IMAGEN = ?,
+            UBICACION = ?,
+            ESTADO = ?,
+            FECHA_MODIFICACION = ?,
+            USUARIO_MODIFICACION = ?,
+            ID_PAGINA = ?,
+            ID_SUBPAGINA = ?
+            WHERE ID_IMAGEN = ?',
+            [$Nombre,$path,$Estado,$fechaActualizacion,$IdUser,$IdPagina,$IdSubpagina,$IdImagen]);
+        }else{
+            $ActualizarImagen = DB::update('UPDATE imagenes SET
+            NOMBRE_IMAGEN = ?,
+            ESTADO = ?,
+            FECHA_MODIFICACION = ?,
+            USUARIO_MODIFICACION = ?,
+            ID_PAGINA = ?,
+            ID_SUBPAGINA = ?
+            WHERE ID_IMAGEN = ?',
+            [$Nombre,$Estado,$fechaActualizacion,$IdUser,$IdPagina,$IdSubpagina,$IdImagen]);
+        }
+        return $ActualizarImagen;
     }
 }

@@ -44,17 +44,17 @@
             <div class="row">
                 <div class="col-md-6">
                     <picture>
-                        <source srcset="{{asset("images/C0086T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0086T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0086T01.webp") }}" id="imagenPagina" alt="Mensaje de texto de alerta"/>
+                        <source srcset="{{asset("images/servicios/mensajes/C0086T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/mensajes/C0086T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/mensajes/C0086T01.webp") }}" id="imagenPagina" alt="Mensaje de texto de alerta"/>
                     </picture>
                     <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
                 <div class="col-md-6">
                     <picture>
-                        <source srcset="{{asset("images/mensaje_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/mensaje_1.png") }}" type="image/png"/>
-                        <img src="{{asset("images/mensaje_1.webp") }}" id="imagenPagina" alt="Mensaje de texto de alerta"/>
+                        <source srcset="{{asset("images/servicios/mensajes/mensaje_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/mensajes/mensaje_1.png") }}" type="image/png"/>
+                        <img src="{{asset("images/servicios/mensajes/mensaje_1.webp") }}" id="imagenPagina" alt="Mensaje de texto de alerta"/>
                     </picture>
                     <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>

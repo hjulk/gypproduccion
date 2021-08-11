@@ -581,4 +581,83 @@ class AdministradorController extends Controller
         }
         return view('administracion.paginas',['Estado' => $Estado,'Paginas' => $Paginas,'Subpaginas' => $Subpaginas,'ListaPaginas' => $ListaPaginas]);
     }
+
+    public function Imagenes(){
+        $Estado = array();
+        $Estado[''] = 'Seleccione:';
+        $Estado[1]  = 'Activa';
+        $Estado[2]  = 'Inactiva';
+        $ListaPaginas = array();
+        $ListaPaginas[''] = 'Seleccione:';
+        $ListadoPaginasActivas = Administracion::ListadoPaginasActivas();
+        if($ListadoPaginasActivas){
+            foreach($ListadoPaginasActivas as $row){
+                $ListaPaginas[$row->ID_PAGINA] = $row->NOMBRE_PAGINA;
+            }
+        }
+        $ListadoSubpaginas = array();
+        $ListadoSubpaginas[''] = 'Seleccione:';
+        $ListadoImagenes = Administracion::ListadoImagenes();
+        $cont = 0;
+        $Imagenes = array();
+        foreach($ListadoImagenes as $value){
+            $Imagenes[$cont]['id'] = (int)$value->ID_IMAGEN;
+            $Imagenes[$cont]['nombre_imagen'] = $value->NOMBRE_IMAGEN;
+            $Imagenes[$cont]['ubicacion'] = $value->UBICACION;
+            $Imagenes[$cont]['fecha_cargue']    = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+            if($value->FECHA_MODIFICACION){
+                $Imagenes[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+            }else{
+                $Imagenes[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+            }
+            $Imagenes[$cont]['estado_activo']   = (int)$value->ESTADO;
+            $State  = (int)$value->ESTADO;
+            if($State === 1){
+                $Imagenes[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                $Imagenes[$cont]['label']    = 'badge badge-success';
+            }else{
+                $Imagenes[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                $Imagenes[$cont]['label']    = 'badge badge-danger';
+            }
+            $Imagenes[$cont]['id_pagina']   = (int)$value->ID_PAGINA;
+            $ListarPagina = Administracion::BuscarIdPagina((int)$value->ID_PAGINA);
+            if($ListarPagina){
+                foreach($ListarPagina as $rowp){
+                    $Imagenes[$cont]['nombre_pagina'] = $rowp->NOMBRE_PAGINA;
+                }
+            }else{
+                $Imagenes[$cont]['nombre_pagina'] = 'SIN NOMBRE DE PÁGINA';
+            }
+            $Imagenes[$cont]['id_subpagina'] = (int)$value->ID_SUBPAGINA;
+            if((int)$value->ID_SUBPAGINA === 0){
+                $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
+            }else{
+                $ListarSubpagina = Administracion::BuscarSubPageById((int)$value->ID_SUBPAGINA);
+                if($ListarSubpagina){
+                    foreach($ListarSubpagina as $rows){
+                        $Imagenes[$cont]['nombre_subpagina'] = $rows->NOMBRE_SUBPAGINA;
+                    }
+                }else{
+                    $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
+                }
+            }
+            $cont++;
+        }
+        return view('administracion.imagenes',['Estado' => $Estado,'ListaPaginas' => $ListaPaginas,'ListadoSubpaginas' => $ListadoSubpaginas,'Imagenes' => $Imagenes]);
+    }
+
+    public function buscarSubpagina(Request $request){
+        $idPagina   = (int)$request->id_pagina;
+        $Subpaginas = array();
+        $BuscarSubpagina = Administracion::BuscarIdSubpagina($idPagina);
+        if($BuscarSubpagina){
+            foreach ($BuscarSubpagina as $row){
+                $Subpaginas[$row->ID_SUBPAGINA] = $row->NOMBRE_SUBPAGINA;
+            }
+            return Response::json(array('valido'=>'true','Subpaginas'=>$Subpaginas));
+        }else{
+            return Response::json(array('valido'=>'false','Subpaginas'=>null));
+        }
+
+    }
 }

@@ -48,9 +48,9 @@
             <div class="row" id="imagesBeneficios">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0082T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0082T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0082T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0082T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0082T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/beneficios/C0082T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -68,9 +68,9 @@
             <div class="row" id="imagesBeneficios">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0083T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0083T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0083T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0083T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0083T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/beneficios/C0083T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -89,9 +89,9 @@
             <div class="row" id="imagesBeneficios">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0106T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0106T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0106T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0106T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0106T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/beneficios/C0106T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -109,9 +109,9 @@
             <div class="row" id="imagesBeneficios">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/parqueadero.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/parqueadero.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/parqueadero.webp") }}" id="imagenPagina" alt="Beneficios"/>
+                        <source srcset="{{asset("images/servicios/beneficios/parqueadero.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/beneficios/parqueadero.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/beneficios/parqueadero.webp") }}" id="imagenPagina" alt="Beneficios"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -129,9 +129,9 @@
             <div class="row" id="imagesBeneficios">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0101T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0101T01.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0101T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0101T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/beneficios/C0101T01.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/beneficios/C0101T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>

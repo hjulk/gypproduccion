@@ -13,7 +13,7 @@
                             <ul class="dropdown arrow-top">
                                 <li><a href="../normatividad" class="nav-link">Normatividad</a></li>
                                 <li><a href="../nosotros" class="nav-link">Nosotros</a></li>
-                                <li><a href="{{asset("images/Organigrama.jpg")}}" target="_blank" title="Organigrama" class="nav-link">Organigrama</a></li>
+                                <li><a href="{{asset("images/gyp/Organigrama.jpg")}}" target="_blank" title="Organigrama" class="nav-link">Organigrama</a></li>
                             </ul>
                         </li>
                         <li class="has-children">

@@ -36,9 +36,9 @@
 <section class="ftco-section" id="sectionPage">
     <div class="container" id="imagePage">
         <picture>
-            <source srcset="{{asset("images/PASOS_PARA_RETIRAR_EL_VEHICULO.webp") }}" type="image/webp"/>
-            <source srcset="{{asset("images/PASOS_PARA_RETIRAR_EL_VEHICULO.jpg") }}" type="image/jpg"/>
-            <img src="{{asset("images/PASOS_PARA_RETIRAR_EL_VEHICULO.webp") }}" id="imagenPagina" alt="Proceso Retiro"/>
+            <source srcset="{{asset("images/servicios/proceso_retiro/PASOS_PARA_RETIRAR_EL_VEHICULO.webp") }}" type="image/webp"/>
+            <source srcset="{{asset("images/servicios/proceso_retiro/PASOS_PARA_RETIRAR_EL_VEHICULO.jpg") }}" type="image/jpg"/>
+            <img src="{{asset("images/servicios/proceso_retiro/PASOS_PARA_RETIRAR_EL_VEHICULO.webp") }}" id="imagenPagina" alt="Proceso Retiro"/>
         </picture>
         <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
     </div>

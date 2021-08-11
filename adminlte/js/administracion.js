@@ -1174,6 +1174,48 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('#imagenes').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive  : true,
+        lengthChange: false,
+        searching   : true,
+        ordering    : true,
+        info        : false,
+        autoWidth   : false,
+        rowReorder  : false,
+        order: [[ 1, "asc" ]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
+            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
 });
 
 function obtener_datos_dependencia(id) {
@@ -1339,5 +1381,104 @@ function obtener_datos_subpagina(id) {
     $("#idSubpagina_upd").val(id);
     $("#mod_nombre_subpagina").val(NombrePagina);
     $("#mod_id_pagina").val(IdPagina);
+    $("#mod_estado").val(Estado);
+}
+
+function subpaginaFuncion() {
+    var selectBox = document.getElementById("id_pagina");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    var tipo = 'post';
+    var select = document.getElementById("id_subpagina");
+
+    $.ajax({
+        url: 'buscarSubpagina',
+        type: "get",
+        data: {_method: tipo, id_pagina: selectedValue},
+        success: function (data) {
+            var vValido = data['valido'];
+            if (vValido === 'true') {
+                document.getElementById("inputSubpagina").style.display = "block";
+                var ListUsuario = data['Subpaginas'];
+                select.options.length = 0;
+                for (index in ListUsuario) {
+                    select.options[select.options.length] = new Option(ListUsuario[index], index);
+                }
+                document.getElementById("id_subpagina").value = '';
+                document.getElementById("id_subpagina").required = true;
+            }else{
+                document.getElementById("inputSubpagina").style.display = "none";
+                select.options.length = 0;
+                document.getElementById("id_subpagina").value = '';
+                document.getElementById("id_subpagina").required = false;
+            }
+        }
+    });
+}
+
+$('#imagen').change(function(){
+    var clone = $(this).clone();
+    clone.attr('id', 'imagen1');
+    clone.attr('name', 'imagen1');
+    $('#field2_area').html(clone);
+});
+
+$('#mod_imagen_upd').change(function(){
+    var clone = $(this).clone();
+    clone.attr('id', 'imagen2');
+    clone.attr('name', 'imagen2');
+    $('#field2_area1').html(clone);
+});
+
+function subpaginaFuncionUpd() {
+    var selectBox = document.getElementById("mod_id_pagina");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    var tipo = 'post';
+    var select = document.getElementById("mod_id_subpagina");
+
+    $.ajax({
+        url: 'buscarSubpagina',
+        type: "get",
+        data: {_method: tipo, id_pagina: selectedValue},
+        success: function (data) {
+            var vValido = data['valido'];
+            if (vValido === 'true') {
+                document.getElementById("mod_inputSubpagina").style.display = "block";
+                var ListUsuario = data['Subpaginas'];
+                select.options.length = 0;
+                for (index in ListUsuario) {
+                    select.options[select.options.length] = new Option(ListUsuario[index], index);
+                }
+                document.getElementById("mod_id_subpagina").value = '';
+                document.getElementById("mod_id_subpagina").required = true;
+            }else{
+                document.getElementById("mod_inputSubpagina").style.display = "none";
+                select.options.length = 0;
+                document.getElementById("mod_id_subpagina").value = '';
+                document.getElementById("mod_id_subpagina").required = false;
+            }
+        }
+    });
+}
+
+function actualizarImagen(){
+    if (document.getElementById('activarImagen').checked){
+        document.getElementById("imageUpdate").style.display = "block";
+        document.getElementById("mod_imagen_upd").required = true;
+    }else{
+        document.getElementById("imageUpdate").style.display = "none";
+        document.getElementById("mod_imagen_upd").required = false;
+    }
+}
+
+function obtener_datos_imagen(id) {
+    var NombreImagen  = $("#nombre_imagen" + id).val();
+    var IdPagina  = $("#id_pagina" + id).val();
+    var IdSubpagina  = $("#id_subpagina" + id).val();
+    var Estado  = $("#estado_activo" + id).val();
+
+    $("#idImagen_upd").val(id);
+    $("#mod_nombre_imagen").val(NombreImagen);
+    $("#mod_id_pagina").val(IdPagina)
+    $("#mod_id_subpagina").val(IdSubpagina);
     $("#mod_estado").val(Estado);
 }

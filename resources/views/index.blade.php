@@ -25,9 +25,9 @@
     <section class="ftco-section" id="sectionPage">
         <div class="container" id="imagePage">
             <picture>
-                <source srcset="{{asset("images/PENDON_RETIRAR_DEL_PATIO_ARTE_FINAL.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/PENDON_RETIRAR_DEL_PATIO_ARTE_FINAL.jpg") }}" type="image/jpg"/>
-                <img src="{{asset("images/PENDON_RETIRAR_DEL_PATIO_ARTE_FINAL.webp") }}" id="imagenPagina" alt="Inicio"/>
+                <source srcset="{{asset("images/home/PENDON_RETIRAR_DEL_PATIO_ARTE_FINAL.webp") }}" type="image/webp"/>
+                <source srcset="{{asset("images/home/PENDON_RETIRAR_DEL_PATIO_ARTE_FINAL.jpg") }}" type="image/jpg"/>
+                <img src="{{asset("images/home/PENDON_RETIRAR_DEL_PATIO_ARTE_FINAL.webp") }}" id="imagenPagina" alt="Inicio"/>
             </picture>
             <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
         </div>
@@ -130,9 +130,9 @@
     <section class="ftco-section" id="sectionPage">
         <div class="container" id="imagePage">
             <picture>
-                <source srcset="{{asset("images/PQR_PENDON.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/PQR_PENDON.jpg") }}" type="image/jpg"/>
-                <img src="{{asset("images/PQR_PENDON.webp") }}" id="imagenPagina" alt="pqrs"/>
+                <source srcset="{{asset("images/home/PQR_PENDON.webp") }}" type="image/webp"/>
+                <source srcset="{{asset("images/home/PQR_PENDON.jpg") }}" type="image/jpg"/>
+                <img src="{{asset("images/home/PQR_PENDON.webp") }}" id="imagenPagina" alt="pqrs"/>
             </picture>
             <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
         </div>

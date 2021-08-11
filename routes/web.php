@@ -90,6 +90,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('reporteVisitas',[AdministradorController::class, 'ReporteVisitas'])->name('reporteVisitas');
     Route::post('consultaVisitas',[AdministradorController::class, 'ConsultaVisitas'])->name('consultaVisitas');
     Route::get('paginas',[AdministradorController::class, 'Paginas'])->name('paginas');
+    Route::get('imagenes',[AdministradorController::class, 'Imagenes'])->name('imagenes');
+    Route::get('buscarSubpagina',[AdministradorController::class, 'BuscarSubpagina'])->name('buscarSubpagina');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -110,6 +112,8 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::post('consultaHojaVida',[UsuarioController::class, 'ConsultaHojaVida'])->name('consultaHojaVida');
     Route::get('reporteVisitas',[UsuarioController::class, 'ReporteVisitas'])->name('reporteVisitas');
     Route::post('consultaVisitas',[UsuarioController::class, 'ConsultaVisitas'])->name('consultaVisitas');
+    Route::get('imagenes',[UsuarioController::class, 'Imagenes'])->name('imagenes');
+    Route::get('buscarSubpagina',[UsuarioController::class, 'BuscarSubpagina'])->name('buscarSubpagina');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -134,5 +138,7 @@ Route::post('cargarNotificacionManual',[UsuariosController::class, 'CargarNotifi
 Route::post('actualizarNotificacion',[UsuariosController::class, 'ActualizarNotificacion'])->name('actualizarNotificacion');
 Route::post('crearDocumento',[UsuariosController::class, 'CrearDocumento'])->name('crearDocumento');
 Route::post('actualizarDocumento',[UsuariosController::class, 'ActualizarDocumento'])->name('actualizarDocumento');
+Route::post('crearImagen',[UsuariosController::class, 'CrearImagen'])->name('crearImagen');
+Route::post('actualizarImagen',[UsuariosController::class, 'ActualizarImagen'])->name('actualizarImagen');
 
 

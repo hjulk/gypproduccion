@@ -39,34 +39,12 @@
         </div>
     </section>
     <br>
-    {{-- <section class="ftco-section" id="sectionPage">
-        <div class="container" id="imagePage">
-            <picture>
-                <source srcset="{{asset("images/monitoreo_camara.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/monitoreo_camara.jpg") }}" type="image/jpg"/>
-                <img src="{{asset("images/monitoreo_camara.webp") }}" id="imagenPagina" alt="Monitoreo Cámara"/>
-            </picture>
-            <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
-        </div>
-    </section>
-    <br>
     <section class="ftco-section" id="sectionPage">
         <div class="container" id="imagePage">
             <picture>
-                <source srcset="{{asset("images/monitoreo_camara_1.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/monitoreo_camara_1.jpg") }}" type="image/jpg"/>
-                <img src="{{asset("images/monitoreo_camara_1.webp") }}" id="imagenPagina" alt="Monitoreo Cámara"/>
-            </picture>
-            <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
-        </div>
-    </section>
-    <br> --}}
-    <section class="ftco-section" id="sectionPage">
-        <div class="container" id="imagePage">
-            <picture>
-                <source srcset="{{asset("images/monitoreo_camara_2.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/monitoreo_camara_2.jpg") }}" type="image/jpg"/>
-                <img src="{{asset("images/monitoreo_camara_2.webp") }}" id="imagenPagina" alt="Monitoreo Cámara"/>
+                <source srcset="{{asset("images/servicios/monitoreo_camaras/monitoreo_camara_2.webp") }}" type="image/webp"/>
+                <source srcset="{{asset("images/servicios/monitoreo_camaras/monitoreo_camara_2.jpg") }}" type="image/jpg"/>
+                <img src="{{asset("images/servicios/monitoreo_camaras/monitoreo_camara_2.webp") }}" id="imagenPagina" alt="Monitoreo Cámara"/>
             </picture>
             <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
         </div>

@@ -75,17 +75,17 @@
             <div class="row">
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M207_Extrapesado_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M207_Extrapesado_1.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M207_Extrapesado_1.webp") }}" id="imagesGruas" alt="Gancho Extrapesado"/>
+                        <source srcset="{{asset("images/servicios/gruas/M207_Extrapesado_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M207_Extrapesado_1.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M207_Extrapesado_1.webp") }}" id="imagesGruas" alt="Gancho Extrapesado"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M207_Extrapesado_2.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M207_Extrapesado_2.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M207_Extrapesado_2.webp") }}" id="imagesGruas" alt="Gancho Extrapesado"/>
+                        <source srcset="{{asset("images/servicios/gruas/M207_Extrapesado_2.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M207_Extrapesado_2.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M207_Extrapesado_2.webp") }}" id="imagesGruas" alt="Gancho Extrapesado"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -102,17 +102,17 @@
             <div class="row">
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M203_Gancho_P_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M203_Gancho_P_1.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M203_Gancho_P_1.webp") }}" id="imagesGruas" alt="Gancho Pesado"/>
+                        <source srcset="{{asset("images/servicios/gruas/M203_Gancho_P_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M203_Gancho_P_1.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M203_Gancho_P_1.webp") }}" id="imagesGruas" alt="Gancho Pesado"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M203_Gancho_P_2.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M203_Gancho_P_2.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M203_Gancho_P_2.webp") }}" id="imagesGruas" alt="Gancho Pesado"/>
+                        <source srcset="{{asset("images/servicios/gruas/M203_Gancho_P_2.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M203_Gancho_P_2.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M203_Gancho_P_2.webp") }}" id="imagesGruas" alt="Gancho Pesado"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -129,17 +129,17 @@
             <div class="row">
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M147_Planchon_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M147_Planchon_1.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M147_Planchon_1.webp") }}" id="imagesGruas" alt="Grúas de planchón"/>
+                        <source srcset="{{asset("images/servicios/gruas/M147_Planchon_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M147_Planchon_1.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M147_Planchon_1.webp") }}" id="imagesGruas" alt="Grúas de planchón"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M147_Planchon_2.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M147_Planchon_2.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M147_Planchon_2.webp") }}" id="imagesGruas" alt="Grúas de planchón"/>
+                        <source srcset="{{asset("images/servicios/gruas/M147_Planchon_2.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M147_Planchon_2.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M147_Planchon_2.webp") }}" id="imagesGruas" alt="Grúas de planchón"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -156,17 +156,17 @@
             <div class="row">
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas//M118_P_Motos_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M118_P_Motos_1.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M118_P_Motos_1.webp") }}" id="imagesGruas" alt="Grúas de planchón para motocicletas"/>
+                        <source srcset="{{asset("images/servicios/gruas//M118_P_Motos_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M118_P_Motos_1.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M118_P_Motos_1.webp") }}" id="imagesGruas" alt="Grúas de planchón para motocicletas"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M118_P_Motos_2.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M118_P_Motos_2.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M118_P_Motos_2.webp") }}" id="imagesGruas" alt="Grúas de planchón para motocicletas"/>
+                        <source srcset="{{asset("images/servicios/gruas/M118_P_Motos_2.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M118_P_Motos_2.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M118_P_Motos_2.webp") }}" id="imagesGruas" alt="Grúas de planchón para motocicletas"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -184,17 +184,17 @@
             <div class="row">
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M194_Izaje_Lateral_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M194_Izaje_Lateral_1.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M194_Izaje_Lateral_1.webp") }}" id="imagesGruas" alt="Grúas de Izaje Lateral"/>
+                        <source srcset="{{asset("images/servicios/gruas/M194_Izaje_Lateral_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M194_Izaje_Lateral_1.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M194_Izaje_Lateral_1.webp") }}" id="imagesGruas" alt="Grúas de Izaje Lateral"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
                 <div class="col-md-6" style="align-self: center;">
                     <picture>
-                        <source srcset="{{asset("images/gruas/M194_Izaje_Lateral_2.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gruas/M194_Izaje_Lateral_2.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gruas/M194_Izaje_Lateral_2.webp") }}" id="imagesGruas" alt="Grúas de Izaje Lateral"/>
+                        <source srcset="{{asset("images/servicios/gruas/M194_Izaje_Lateral_2.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/gruas/M194_Izaje_Lateral_2.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/gruas/M194_Izaje_Lateral_2.webp") }}" id="imagesGruas" alt="Grúas de Izaje Lateral"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>

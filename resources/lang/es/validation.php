@@ -119,6 +119,12 @@ return array(
         'nombre_subpagina' => 'Nombre Subpágina',
         'nombre_subpagina_upd' => 'Nombre Subpágina',
         'id_pagina' => 'Página Principal',
-        'id_pagina_upd' => 'Página Principal'
+        'id_pagina_upd' => 'Página Principal',
+        'id_subpagina' => 'Subpágina',
+        'id_subpagina_upd' => 'Subpágina',
+        'nombre_imagen' => 'Nombre Imagen',
+        'nombre_imagen_upd' => 'Nombre Imagen',
+        'imagen' => 'Archivo de la imagen',
+        'imagen_upd' => 'Archivo de la imagen'
     ),
 );

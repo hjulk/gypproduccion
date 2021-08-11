@@ -37,11 +37,11 @@
         <div class="container" id="imagePage">
             <a href="https://www.movilidadbogota.gov.co/web/content/liquidacion_de_servicios_de_parqueadero_y_gruas" target="_blank">
                 <picture>
-                    <source srcset="{{asset("images/ORDEN-SALIDA-VEHICULO_V2.webp") }}" type="image/webp"/>
-                    <source srcset="{{asset("images/ORDEN-SALIDA-VEHICULO_V2.jpg") }}" type="image/jpg"/>
-                    <img src="{{asset("images/ORDEN-SALIDA-VEHICULO_V2.webp") }}" id="imagenPagina" alt="Pago en Línea"/>
+                    <source srcset="{{asset("images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.webp") }}" type="image/webp"/>
+                    <source srcset="{{asset("images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.jpg") }}" type="image/jpg"/>
+                    <img src="{{asset("images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.webp") }}" id="imagenPagina" alt="Pago en Línea"/>
                 </picture>
-                <img src="images/ORDEN-SALIDA-VEHICULO_V2.jpg" alt="" id="imagenPagina">
+                <img src="images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.jpg" alt="" id="imagenPagina">
             </a>
             <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
         </div>

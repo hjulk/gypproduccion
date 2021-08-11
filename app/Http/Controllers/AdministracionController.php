@@ -36,7 +36,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al crear la dependencia');
-                    return Redirect::to($url.'dependencias')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'dependencias')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -74,7 +74,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al actualizar la dependencia');
-                    return Redirect::to($url.'dependencias')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'dependencias')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -105,7 +105,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al crear el rol');
-                    return Redirect::to($url.'roles')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'roles')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -144,7 +144,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al actualizar el rol');
-                    return Redirect::to($url.'roles')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'roles')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -187,7 +187,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al crear el usuario');
-                    return Redirect::to($url.'usuarios')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'usuarios')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -241,7 +241,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al actualizar el usuario');
-                    return Redirect::to($url.'usuarios')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'usuarios')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -273,7 +273,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al crear la página');
-                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -307,7 +307,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al actualizar la página');
-                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -341,7 +341,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al crear la subpágina');
-                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }
@@ -377,7 +377,7 @@ class AdministracionController extends Controller
                 }else{
                     $verrors = array();
                     array_push($verrors, 'Hubo un problema al actualizar la subpágina');
-                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withRequest();
+                    return Redirect::to($url.'paginas')->withErrors(['errors' => $verrors])->withInput();
                 }
             }
         }

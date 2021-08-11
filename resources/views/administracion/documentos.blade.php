@@ -85,7 +85,7 @@ Documentos
                                         <td>{{$value['id']}}</td>
                                         <td>{{$value['nombre_documento']}}</td>
                                         <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>
-                                        <td><a href="{{$value['ubicacion']}}" download><i class="fas fa-download"></i></a></td>
+                                        <td><a href="{{$value['ubicacion']}}" target="_blank"><i class="fas fa-download"></i></a></td>
                                         <td>{{$value['fecha_cargue']}}</td>
                                         <td>{{$value['fecha_modificacion']}}</td>
                                         <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-documentoUpd" onclick="obtener_datos_documento('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>

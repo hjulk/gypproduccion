@@ -36,9 +36,9 @@
 <section class="ftco-section" id="sectionPage">
     <div class="container" id="imagePage">
         <picture>
-            <source srcset="{{asset("images/tarifas.webp") }}" type="image/webp"/>
-            <source srcset="{{asset("images/tarifas.jpg") }}" type="image/jpg"/>
-            <img src="{{asset("images/tarifas.webp") }}" id="imagenPagina" alt="Tarifas"/>
+            <source srcset="{{asset("images/servicios/tarifas/tarifas.webp") }}" type="image/webp"/>
+            <source srcset="{{asset("images/servicios/tarifas/tarifas.jpg") }}" type="image/jpg"/>
+            <img src="{{asset("images/servicios/tarifas/tarifas.webp") }}" id="imagenPagina" alt="Tarifas"/>
         </picture>
         <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
     </div>

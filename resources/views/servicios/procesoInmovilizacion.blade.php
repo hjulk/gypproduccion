@@ -51,9 +51,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/policia_plataforma.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/policia_plataforma.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/policia_plataforma.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/policia_plataforma.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/policia_plataforma.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/policia_plataforma.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -73,9 +73,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/asignacion_grua.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/asignacion_grua.png") }}" type="image/png"/>
-                        <img src="{{asset("images/asignacion_grua.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/asignacion_grua.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/asignacion_grua.png") }}" type="image/png"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/asignacion_grua.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -95,9 +95,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/grabar_video.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/grabar_video.png") }}" type="image/png"/>
-                        <img src="{{asset("images/grabar_video.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/grabar_video.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/grabar_video.png") }}" type="image/png"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/grabar_video.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -117,9 +117,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/sellos.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/sellos.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/sellos.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/sellos.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/sellos.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/sellos.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -139,9 +139,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/asegurar_vehiculo.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/asegurar_vehiculo.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/asegurar_vehiculo.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/asegurar_vehiculo.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/asegurar_vehiculo.jpg") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/asegurar_vehiculo.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -161,9 +161,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/C0076T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/C0076T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/C0076T01.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/C0076T01.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/C0076T01.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/C0076T01.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>
@@ -183,9 +183,9 @@
             <div class="row" id="imagesCustodia">
                 <div class="col-md-12" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/IMG_3962.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/IMG_3962.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/IMG_3962.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/IMG_3962.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/servicios/proceso_inmovilizacion/IMG_3962.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/servicios/proceso_inmovilizacion/IMG_3962.webp") }}" id="imagenPagina" alt="Proceso Inmovilización"/>
                     </picture>
                     <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
                 </div>

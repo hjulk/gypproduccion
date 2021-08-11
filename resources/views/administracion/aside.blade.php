@@ -23,6 +23,12 @@
                         <p>Documentos</p>
                     </a>
                 </li>
+                <li class="nav-item" id="asideInicio">
+                    <a href="imagenes" class="nav-link">
+                        <i class="fas fa-file-image nav-icon" id="enlace"></i>
+                        <p>Imágenes</p>
+                    </a>
+                </li>
                 @endif
                 @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 3))
                 <li class="nav-item has-treeview" id="asideInicio">
@@ -58,12 +64,6 @@
                     <a href="reporteHojaVida" class="nav-link">
                         <i class="fas fa-list-alt nav-icon" id="enlace"></i>
                         <p>Registros Hojas de Vida</p>
-                    </a>
-                </li>
-                <li class="nav-item" id="asideInicio">
-                    <a href="" class="nav-link">
-                        <i class="fas fa-file-image nav-icon" id="enlace"></i>
-                        <p>Imágenes</p>
                     </a>
                 </li>
                 <li class="nav-item" id="asideInicio">

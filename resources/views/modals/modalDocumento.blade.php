@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label>Archivo en formato pdf</label>
-                            <input type="file" name="documento_upd" id="mod_documento_upd" accept=".pdf" required class="form-control" size="2048">
+                            <input type="file" name="documento_upd" id="mod_documento_upd" accept=".pdf" class="form-control" size="2048">
                             <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
                         </div>
                     </div>
