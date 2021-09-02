@@ -17,7 +17,7 @@ class UsuarioController extends Controller
     public function Home(){
         $RolUser        = (int)Session::get('Rol');
         if($RolUser === 0){
-            return Redirect::to('login');
+             return Redirect::to('/');
         }else{
             if($RolUser == 1){
                 return Redirect::to('admin/home');
@@ -71,7 +71,7 @@ class UsuarioController extends Controller
     public function ProfileUser(){
         $RolUser        = (int)Session::get('Rol');
         if($RolUser === 0){
-            return Redirect::to('login');
+             return Redirect::to('/');
         }else{
             if($RolUser == 1){
                 return Redirect::to('admin/home');
@@ -87,7 +87,7 @@ class UsuarioController extends Controller
         date_default_timezone_set('America/Bogota');
         $RolUser        = (int)Session::get('Rol');
         if($RolUser === 0){
-            return Redirect::to('login');
+             return Redirect::to('/');
         }else{
             if($RolUser == 1){
                 return Redirect::to('admin/home');
@@ -127,7 +127,18 @@ class UsuarioController extends Controller
     }
 
     public function ConsultaNotificaciones(){
-        return view('administracion.consultaNotificaciones');
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('/');
+        }else{
+            if($RolUser == 1){
+                return Redirect::to('admin/home');
+            }else if($RolUser >= 3){
+                return Redirect::to('user/home');
+            }else{
+                return view('administracion.consultaNotificaciones');
+            }
+        }
     }
 
     public function ConsultaNotificacion(Request $request){
@@ -191,10 +202,12 @@ class UsuarioController extends Controller
         date_default_timezone_set('America/Bogota');
         $RolUser        = (int)Session::get('Rol');
         if($RolUser === 0){
-            return Redirect::to('login');
+             return Redirect::to('/');
         }else{
             if($RolUser == 1){
                 return Redirect::to('admin/home');
+            }else if($RolUser >= 3){
+                return Redirect::to('user/home');
             }else{
                 $Estado = array();
                 $Estado[''] = 'Seleccione:';
@@ -230,7 +243,18 @@ class UsuarioController extends Controller
     }
 
     public function ReporteContacto(){
-        return view('administracion.reporteContacto');
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+             return Redirect::to('/');
+        }else{
+            if($RolUser == 1){
+                return Redirect::to('admin/home');
+            }else if($RolUser >= 3){
+                return Redirect::to('user/home');
+            }else{
+                return view('administracion.reporteContacto');
+            }
+        }
     }
 
     public static function FindUrl(){
@@ -238,7 +262,7 @@ class UsuarioController extends Controller
         if($RolUser === 1){
             $url = 'admin/';
         }else if($RolUser === 0){
-            return Redirect::to('login');
+             return Redirect::to('/');
         }else{
             $url = 'user/';
         }
@@ -293,7 +317,18 @@ class UsuarioController extends Controller
     }
 
     public function ReporteHojaVida(){
-        return view('administracion.reporteHojaVida');
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('/');
+        }else{
+            if($RolUser == 1){
+                return Redirect::to('admin/home');
+            }else if($RolUser >= 3){
+                return Redirect::to('user/home');
+            }else{
+                return view('administracion.reporteHojaVida');
+            }
+        }
     }
 
     public function ConsultaHojaVida(Request $request){
@@ -350,7 +385,18 @@ class UsuarioController extends Controller
     }
 
     public function ReporteVisitas(){
-        return view('administracion.visitasPagina');
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+             return Redirect::to('/');
+        }else{
+            if($RolUser == 1){
+                return Redirect::to('admin/home');
+            }else if($RolUser >= 3){
+                return Redirect::to('user/home');
+            }else{
+                return view('administracion.visitasPagina');
+            }
+        }
     }
 
     public function ConsultaVisitas(Request $request){
@@ -411,67 +457,78 @@ class UsuarioController extends Controller
     }
 
     public function Imagenes(){
-        $Estado = array();
-        $Estado[''] = 'Seleccione:';
-        $Estado[1]  = 'Activa';
-        $Estado[2]  = 'Inactiva';
-        $ListaPaginas = array();
-        $ListaPaginas[''] = 'Seleccione:';
-        $ListadoPaginasActivas = Administracion::ListadoPaginasActivas();
-        if($ListadoPaginasActivas){
-            foreach($ListadoPaginasActivas as $row){
-                $ListaPaginas[$row->ID_PAGINA] = $row->NOMBRE_PAGINA;
-            }
-        }
-        $ListadoSubpaginas = array();
-        $ListadoSubpaginas[''] = 'Seleccione:';
-        $ListadoImagenes = Administracion::ListadoImagenes();
-        $cont = 0;
-        $Imagenes = array();
-        foreach($ListadoImagenes as $value){
-            $Imagenes[$cont]['id'] = (int)$value->ID_IMAGEN;
-            $Imagenes[$cont]['nombre_imagen'] = $value->NOMBRE_IMAGEN;
-            $Imagenes[$cont]['ubicacion'] = $value->UBICACION;
-            $Imagenes[$cont]['fecha_cargue']    = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
-            if($value->FECHA_MODIFICACION){
-                $Imagenes[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+             return Redirect::to('/');
+        }else{
+            if($RolUser == 1){
+                return Redirect::to('admin/home');
+            }else if($RolUser >= 3){
+                return Redirect::to('user/home');
             }else{
-                $Imagenes[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
-            }
-            $Imagenes[$cont]['estado_activo']   = (int)$value->ESTADO;
-            $State  = (int)$value->ESTADO;
-            if($State === 1){
-                $Imagenes[$cont]['estado']   = 'ACTIVO EN PÁGINA';
-                $Imagenes[$cont]['label']    = 'badge badge-success';
-            }else{
-                $Imagenes[$cont]['estado']   = 'INACTIVO EN PÁGINA';
-                $Imagenes[$cont]['label']    = 'badge badge-danger';
-            }
-            $Imagenes[$cont]['id_pagina']   = (int)$value->ID_PAGINA;
-            $ListarPagina = Administracion::BuscarIdPagina((int)$value->ID_PAGINA);
-            if($ListarPagina){
-                foreach($ListarPagina as $rowp){
-                    $Imagenes[$cont]['nombre_pagina'] = $rowp->NOMBRE_PAGINA;
-                }
-            }else{
-                $Imagenes[$cont]['nombre_pagina'] = 'SIN NOMBRE DE PÁGINA';
-            }
-            $Imagenes[$cont]['id_subpagina'] = (int)$value->ID_SUBPAGINA;
-            if((int)$value->ID_SUBPAGINA === 0){
-                $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
-            }else{
-                $ListarSubpagina = Administracion::BuscarSubPageById((int)$value->ID_SUBPAGINA);
-                if($ListarSubpagina){
-                    foreach($ListarSubpagina as $rows){
-                        $Imagenes[$cont]['nombre_subpagina'] = $rows->NOMBRE_SUBPAGINA;
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activa';
+                $Estado[2]  = 'Inactiva';
+                $ListaPaginas = array();
+                $ListaPaginas[''] = 'Seleccione:';
+                $ListadoPaginasActivas = Administracion::ListadoPaginasActivas();
+                if($ListadoPaginasActivas){
+                    foreach($ListadoPaginasActivas as $row){
+                        $ListaPaginas[$row->ID_PAGINA] = $row->NOMBRE_PAGINA;
                     }
-                }else{
-                    $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
                 }
+                $ListadoSubpaginas = array();
+                $ListadoSubpaginas[''] = 'Seleccione:';
+                $ListadoImagenes = Administracion::ListadoImagenes();
+                $cont = 0;
+                $Imagenes = array();
+                foreach($ListadoImagenes as $value){
+                    $Imagenes[$cont]['id'] = (int)$value->ID_IMAGEN;
+                    $Imagenes[$cont]['nombre_imagen'] = $value->NOMBRE_IMAGEN;
+                    $Imagenes[$cont]['ubicacion'] = $value->UBICACION;
+                    $Imagenes[$cont]['fecha_cargue']    = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_MODIFICACION){
+                        $Imagenes[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+                    }else{
+                        $Imagenes[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $Imagenes[$cont]['estado_activo']   = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if($State === 1){
+                        $Imagenes[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $Imagenes[$cont]['label']    = 'badge badge-success';
+                    }else{
+                        $Imagenes[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $Imagenes[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $Imagenes[$cont]['id_pagina']   = (int)$value->ID_PAGINA;
+                    $ListarPagina = Administracion::BuscarIdPagina((int)$value->ID_PAGINA);
+                    if($ListarPagina){
+                        foreach($ListarPagina as $rowp){
+                            $Imagenes[$cont]['nombre_pagina'] = $rowp->NOMBRE_PAGINA;
+                        }
+                    }else{
+                        $Imagenes[$cont]['nombre_pagina'] = 'SIN NOMBRE DE PÁGINA';
+                    }
+                    $Imagenes[$cont]['id_subpagina'] = (int)$value->ID_SUBPAGINA;
+                    if((int)$value->ID_SUBPAGINA === 0){
+                        $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
+                    }else{
+                        $ListarSubpagina = Administracion::BuscarSubPageById((int)$value->ID_SUBPAGINA);
+                        if($ListarSubpagina){
+                            foreach($ListarSubpagina as $rows){
+                                $Imagenes[$cont]['nombre_subpagina'] = $rows->NOMBRE_SUBPAGINA;
+                            }
+                        }else{
+                            $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
+                        }
+                    }
+                    $cont++;
+                }
+                return view('administracion.imagenes',['Estado' => $Estado,'ListaPaginas' => $ListaPaginas,'ListadoSubpaginas' => $ListadoSubpaginas,'Imagenes' => $Imagenes]);
             }
-            $cont++;
         }
-        return view('administracion.imagenes',['Estado' => $Estado,'ListaPaginas' => $ListaPaginas,'ListadoSubpaginas' => $ListadoSubpaginas,'Imagenes' => $Imagenes]);
     }
 
     public function buscarSubpagina(Request $request){

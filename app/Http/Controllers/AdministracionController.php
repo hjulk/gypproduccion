@@ -388,7 +388,7 @@ class AdministracionController extends Controller
         if($RolUser === 1){
             $url = 'admin/';
         }else if($RolUser === 0){
-            return Redirect::to('login');
+             return Redirect::to('/');
         }else{
             return Redirect::to('user/home');
         }

@@ -110,7 +110,7 @@ class LoginController extends Controller
         $cadena = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()#.$@?';
         $limite = strlen($cadena) - 1;
         $b = '';
-        for ($i=0; $i < 8; $i++){
+        for ($i=0; $i < 10; $i++){
             $b .= $cadena[rand(0, $limite)];
         }
         $UserName    = $request->username;
@@ -137,7 +137,7 @@ class LoginController extends Controller
                     }
                 }else{
                     $verrors = array();
-                    array_push($verrors, 'El usuario '.$UserName.' NO se encuentra en la base de datos');
+                    array_push($verrors, 'El usuario '.$UserName.' No se encuentra en la base de datos');
                     return Redirect::to('login')->withErrors(['errors' => $verrors]);
                 }
             }else if(empty($UserName) && !empty($UserEmail)){
@@ -160,7 +160,7 @@ class LoginController extends Controller
                     }
                 }else{
                     $verrors = array();
-                    array_push($verrors, 'El correo '.$UserEmail.' NO se encuentra en la base de datos');
+                    array_push($verrors, 'El correo '.$UserEmail.' No se encuentra en la base de datos');
                     return Redirect::to('login')->withErrors(['errors' => $verrors]);
                 }
             }else if(!empty($UserName) && !empty($UserEmail)){
@@ -174,16 +174,17 @@ class LoginController extends Controller
                         $UserName = $value->USERNAME;
                     }
                     $UpdatePassword = LoginController::UpdatePass($UserName,$Correo,$Nombre,$idUser,$nuevaContrasena,$b);
+
                     if($UpdatePassword[1] == 'exito'){
                         $verrors = $UpdatePassword[0];
                         return Redirect::to('login')->with('mensaje', $verrors);
                     }else{
                         $verrors = $UpdatePassword[0];
-                        return Redirect::to('login')->withErrors('mensaje', $verrors);
+                        return Redirect::to('login')->withErrors('mensaje', $verrors)->withInput();
                     }
                 }else{
                     $verrors = array();
-                    array_push($verrors, 'El usuario '.$UserName.' y correo '.$UserEmail.' NO se encuentra en la base de datos');
+                    array_push($verrors, 'El usuario '.$UserName.' y correo '.$UserEmail.' No se encuentra en la base de datos');
                     return Redirect::to('login')->withErrors(['errors' => $verrors]);
                 }
             }
@@ -209,7 +210,7 @@ class LoginController extends Controller
                         $msj->to($for);
             });
             if(count(Mail::failures()) === 0){
-                $respuesta = ['Se envio con éxito la nueva contraseña al correo del usuario '.$UserName,'éxito'];
+                $respuesta = ['Se envio con éxito la nueva contraseña al correo del usuario '.$UserName,'exito'];
 
             }else{
                 $respuesta = ['Hubo un error al enviar su mensaje','error'];
@@ -218,5 +219,6 @@ class LoginController extends Controller
             $respuesta = ['Hubo un problema al recuperar la contraseña','error'];
         }
         return $respuesta;
+
     }
 }

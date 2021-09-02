@@ -74,7 +74,7 @@
         @endif
 
         @if (count($errors) > 0)
-        $("#solicitudError").modal("show");
+            $("#solicitudError").modal("show");
             @foreach($errors -> all() as $error)
                 document.getElementById("errorAlert").innerHTML = "{{ $error }}";
             @endforeach
