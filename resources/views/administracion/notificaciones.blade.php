@@ -24,6 +24,54 @@ Notificaciones
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <h3 class="card-title" id="tituloCard"><strong>Cargue masiva de notificaciones</strong></h3>
+                            </div>
+                            <div class="card-body">
+                                {!! Form::open(['url' => 'cargarNotificacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion']) !!}
+                                @csrf
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <label>Archivo de notificaciones en formato txt o csv *</label>
+                                                <input type="file" name="notificationfile" id="notificationfile" accept=".txt,.csv" required class="form-control" size="2048" required>
+                                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="submit" class="btn btn-success float-left">Cargar</button>
+                                    </div>
+                                {!!  Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {!! Form::open(['url' => 'inactivarNotificaciones', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion']) !!}
+                            @csrf
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>¿Desea inactivar todas las notificaciones?</label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        {!! Form::select('activacionNotificacion',$Activacion,null,['class'=>'form-control','id'=>'activacionNotificacion']) !!}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-success float-left">Actualizar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {!!  Form::close() !!}
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="col-md-6">
                 <div class="card">
                     <div class="card-header" id="principalCard">
                         <h3 class="card-title" id="tituloCard"><strong>Cargue masiva de notificaciones</strong></h3>
@@ -46,7 +94,7 @@ Notificaciones
                         {!!  Form::close() !!}
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header" id="principalCard">
@@ -86,6 +134,31 @@ Notificaciones
                 </div>
             </div>
         </div>
+        {{-- <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" id="principalCard">
+                        <h3 class="card-title" id="tituloCard"><strong>Inactivar notificaciones</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        {!! Form::open(['url' => 'cargarNotificacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion']) !!}
+                        @csrf
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label>¿Desea inactivar todas las notificaciones?</label>
+                                        {!! Form::select('activacion',$Activacion,null,['class'=>'form-control','id'=>'activacion']) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success float-left">Cargar</button>
+                            </div>
+                        {!!  Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div> --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

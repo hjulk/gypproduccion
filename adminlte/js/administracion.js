@@ -5,32 +5,32 @@ $(document).ready(function () {
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -2 }],
         responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal( {
-                            header: function ( row ) {
-                                var data = row.data();
-                                return 'Detalle Solicitud ';
-                            }
-                        } ),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                            tableClass: 'table'
-                        })
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Detalle Solicitud ';
                     }
-                },
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         lengthChange: false,
-        searching   : false,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        paging      : false,
-        order: [[ 0, "desc" ]],
+        searching: false,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        paging: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -60,32 +60,32 @@ $(document).ready(function () {
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -2 }],
         responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal( {
-                            header: function ( row ) {
-                                var data = row.data();
-                                return 'Detalle Solicitud ';
-                            }
-                        } ),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                            tableClass: 'table'
-                        })
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Detalle Solicitud ';
                     }
-                },
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         lengthChange: false,
-        searching   : false,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        paging      : false,
-        order: [[ 0, "desc" ]],
+        searching: false,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        paging: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -115,32 +115,32 @@ $(document).ready(function () {
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -2 }],
         responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal( {
-                            header: function ( row ) {
-                                var data = row.data();
-                                return 'Detalle Solicitud ';
-                            }
-                        } ),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                            tableClass: 'table'
-                        })
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Detalle Solicitud ';
                     }
-                },
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         lengthChange: false,
-        searching   : false,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        paging      : false,
-        order: [[ 0, "desc" ]],
+        searching: false,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        paging: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -169,20 +169,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -211,20 +211,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -253,20 +253,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -295,21 +295,21 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: true,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: false,
+        rowReorder: false,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-        order: [[ 01, "asc" ]],
+        order: [[01, "asc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -339,25 +339,25 @@ $(document).ready(function () {
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
         responsive: {
-                details: {
-                    display: $.fn.dataTable.Responsive.display.modal( {
-                        header: function ( row ) {
-                            var data = row.data();
-                            return 'Detalle Notificación '+data[0];
-                        }
-                    } ),
-                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table'
-                    })
-                }
-            },
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Detalle Notificación ' + data[0];
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : true,
-        autoWidth   : true,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: true,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
@@ -395,16 +395,16 @@ $(document).ready(function () {
                     'copy',
                     'excel',
                     'csv',
-                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                     {
                         extend: 'print',
-                        customize: function ( win ) {
+                        customize: function (win) {
                             $(win.document.body)
-                                .css( 'font-size', '10pt' );
+                                .css('font-size', '10pt');
 
-                            $(win.document.body).find( 'table' )
-                                .addClass( 'compact' )
-                                .css( 'font-size', 'inherit' );
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
                         }
                     }
                 ]
@@ -412,23 +412,23 @@ $(document).ready(function () {
 
     });
 
-    $('#btnConsultaNotificaciones').click(function(){
+    $('#btnConsultaNotificaciones').click(function () {
 
         var FechaInicio = $("#fechaInicio").val();
-        var FechaFin    = $("#fechaFin").val();
-        var tipo        = 'post';
+        var FechaFin = $("#fechaFin").val();
+        var tipo = 'post';
 
         $.ajax({
             type: "post",
-            url : "consultaNotificacion",
+            url: "consultaNotificacion",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
-            success : function(data){
-                var valido  = data['valido'];
+            data: { _method: tipo, fechaInicio: FechaInicio, fechaFin: FechaFin },
+            success: function (data) {
+                var valido = data['valido'];
                 var errores = data['errors'];
-                if(valido === 'true'){
+                if (valido === 'true') {
                     var Resultado = jQuery.parseJSON(data['results']);
                     $('#panelResultado').show();
                     $('#consultaNotificacionesAviso').DataTable().destroy();
@@ -436,12 +436,12 @@ $(document).ready(function () {
                         data: Resultado,
                         responsive: {
                             details: {
-                                display: $.fn.dataTable.Responsive.display.modal( {
-                                    header: function ( row ) {
+                                display: $.fn.dataTable.Responsive.display.modal({
+                                    header: function (row) {
                                         var data = row.data();
                                         return 'Detalle Solicitud ';
                                     }
-                                } ),
+                                }),
                                 renderer: $.fn.dataTable.Responsive.renderer.tableAll({
                                     tableClass: 'table'
                                 })
@@ -451,22 +451,22 @@ $(document).ready(function () {
                             { responsivePriority: 1, targets: 0 },
                             { responsivePriority: 2, targets: -1 }],
                         lengthChange: false,
-                        searching   : true,
-                        ordering    : true,
-                        info        : true,
-                        autoWidth   : false,
-                        processing  : true,
-                        rowReorder  : false,
-                        order: [[ 1, "asc" ]],
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        autoWidth: false,
+                        processing: true,
+                        rowReorder: false,
+                        order: [[1, "asc"]],
                         columns: [
-                                { "data": "ID_NOTIFICACION" },
-                                { "data": "NOMBRE_CIUDADANO" },
-                                { "data": "PLACA" },
-                                { "data": "YEAR_NOTIFICATION" },
-                                { "data": "ESTADO" },
-                                { "data": "FECHA_CREACION" },
-                                { "data": "FECHA_MODIFICACION" },
-                                ],
+                            { "data": "ID_NOTIFICACION" },
+                            { "data": "NOMBRE_CIUDADANO" },
+                            { "data": "PLACA" },
+                            { "data": "YEAR_NOTIFICATION" },
+                            { "data": "ESTADO" },
+                            { "data": "FECHA_CREACION" },
+                            { "data": "FECHA_MODIFICACION" },
+                        ],
                         dom: 'Bfrtip',
                         buttons: [
                             {
@@ -476,16 +476,16 @@ $(document).ready(function () {
                                     'copy',
                                     'excel',
                                     'csv',
-                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                                     {
                                         extend: 'print',
-                                        customize: function ( win ) {
+                                        customize: function (win) {
                                             $(win.document.body)
-                                                .css( 'font-size', '10pt' );
+                                                .css('font-size', '10pt');
 
-                                            $(win.document.body).find( 'table' )
-                                                .addClass( 'compact' )
-                                                .css( 'font-size', 'inherit' );
+                                            $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
                                         }
                                     }
                                 ]
@@ -519,9 +519,248 @@ $(document).ready(function () {
                             }
                         }
                     });
-                }else{
-                    $.each(errores,function(key, value){
-                        if(value){
+                } else {
+                    $.each(errores, function (key, value) {
+                        if (value) {
+                            toastr.error(value);
+                        }
+                    });
+                    $('#panelResultado').hide();
+                }
+            },
+
+        });
+    });
+
+    $('#desfijaciones').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: true,
+        lengthChange: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: false,
+        rowReorder: false,
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        order: [[01, "asc"]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
+
+    $('#consultaDesfijaciones').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Detalle Notificación ' + data[0];
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: true,
+        rowReorder: false,
+        order: [[0, "desc"]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'collection',
+                text: 'Exportar',
+                buttons: [
+                    'copy',
+                    'excel',
+                    'csv',
+                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
+                    {
+                        extend: 'print',
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css('font-size', '10pt');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ]
+            }],
+
+    });
+
+    $('#btnConsultaDesfijaciones').click(function () {
+
+        var FechaInicio = $("#fechaInicio").val();
+        var FechaFin = $("#fechaFin").val();
+        var tipo = 'post';
+
+        $.ajax({
+            type: "post",
+            url: "consultaDesfijacion",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: { _method: tipo, fechaInicio: FechaInicio, fechaFin: FechaFin },
+            success: function (data) {
+                var valido = data['valido'];
+                var errores = data['errors'];
+                if (valido === 'true') {
+                    var Resultado = jQuery.parseJSON(data['results']);
+                    $('#panelResultado').show();
+                    $('#consultaDesfijaciones').DataTable().destroy();
+                    $('#consultaDesfijaciones').DataTable({
+                        data: Resultado,
+                        responsive: {
+                            details: {
+                                display: $.fn.dataTable.Responsive.display.modal({
+                                    header: function (row) {
+                                        var data = row.data();
+                                        return 'Detalle Solicitud ';
+                                    }
+                                }),
+                                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                                    tableClass: 'table'
+                                })
+                            }
+                        },
+                        columnDefs: [
+                            { responsivePriority: 1, targets: 0 },
+                            { responsivePriority: 2, targets: -1 }],
+                        lengthChange: false,
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        autoWidth: false,
+                        processing: true,
+                        rowReorder: false,
+                        order: [[1, "asc"]],
+                        columns: [
+                            { "data": "ID_DESFIJACION" },
+                            { "data": "CONTENIDO" },
+                            { "data": "ESTADO" },
+                            { "data": "FECHA_CREACION" },
+                            { "data": "FECHA_MODIFICACION" },
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'collection',
+                                text: 'Exportar',
+                                buttons: [
+                                    'copy',
+                                    'excel',
+                                    'csv',
+                                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
+                                    {
+                                        extend: 'print',
+                                        customize: function (win) {
+                                            $(win.document.body)
+                                                .css('font-size', '10pt');
+
+                                            $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
+                                        }
+                                    }
+                                ]
+                            }],
+                        language: {
+                            processing: "Procesando...",
+                            search: "Buscar:",
+                            lengthMenu: "Mostrar _MENU_ registros.",
+                            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+                            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+                            infoPostFix: "",
+                            loadingRecords: "Cargando...",
+                            zeroRecords: "No se encontraron resultados",
+                            emptyTable: "Ningún dato disponible en esta tabla",
+                            row: "Registro",
+                            export: "Exportar",
+                            paginate: {
+                                first: "Primero",
+                                previous: "Anterior",
+                                next: "Siguiente",
+                                last: "Ultimo"
+                            },
+                            aria: {
+                                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                                sortDescending: ": Activar para ordenar la columna de manera descendente"
+                            },
+                            select: {
+                                row: "registro",
+                                selected: "seleccionado"
+                            }
+                        }
+                    });
+                } else {
+                    $.each(errores, function (key, value) {
+                        if (value) {
                             toastr.error(value);
                         }
                     });
@@ -536,20 +775,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -581,39 +820,39 @@ $(document).ready(function () {
                     'copy',
                     'excel',
                     'csv',
-                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                     {
                         extend: 'print',
-                        customize: function ( win ) {
+                        customize: function (win) {
                             $(win.document.body)
-                                .css( 'font-size', '10pt' );
+                                .css('font-size', '10pt');
 
-                            $(win.document.body).find( 'table' )
-                                .addClass( 'compact' )
-                                .css( 'font-size', 'inherit' );
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
                         }
                     }
                 ]
             }]
     });
 
-    $('#btnConsultaContacto').click(function(){
+    $('#btnConsultaContacto').click(function () {
 
         var FechaInicio = $("#fechaInicio").val();
-        var FechaFin    = $("#fechaFin").val();
-        var tipo        = 'post';
+        var FechaFin = $("#fechaFin").val();
+        var tipo = 'post';
 
         $.ajax({
             type: "post",
-            url : "consultaContacto",
+            url: "consultaContacto",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
-            success : function(data){
-                var valido  = data['valido'];
+            data: { _method: tipo, fechaInicio: FechaInicio, fechaFin: FechaFin },
+            success: function (data) {
+                var valido = data['valido'];
                 var errores = data['errors'];
-                if(valido === 'true'){
+                if (valido === 'true') {
                     var Resultado = jQuery.parseJSON(data['results']);
                     $('#panelResultado').show();
                     $('#reporteContacto').DataTable().destroy();
@@ -621,12 +860,12 @@ $(document).ready(function () {
                         data: Resultado,
                         responsive: {
                             details: {
-                                display: $.fn.dataTable.Responsive.display.modal( {
-                                    header: function ( row ) {
+                                display: $.fn.dataTable.Responsive.display.modal({
+                                    header: function (row) {
                                         var data = row.data();
                                         return 'Detalle Solicitud ';
                                     }
-                                } ),
+                                }),
                                 renderer: $.fn.dataTable.Responsive.renderer.tableAll({
                                     tableClass: 'table'
                                 })
@@ -636,23 +875,23 @@ $(document).ready(function () {
                             { responsivePriority: 1, targets: 1 },
                             { responsivePriority: 2, targets: -1 }],
                         lengthChange: false,
-                        searching   : true,
-                        ordering    : true,
-                        info        : true,
-                        autoWidth   : false,
-                        processing  : true,
-                        rowReorder  : false,
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        autoWidth: false,
+                        processing: true,
+                        rowReorder: false,
                         aoColumnDefs: [
-                            { "sWidth": "10%", "aTargets": [ 3 ] }
+                            { "sWidth": "10%", "aTargets": [3] }
                         ],
-                        order: [[ 1, "asc" ]],
+                        order: [[1, "asc"]],
                         columns: [
-                                { "data": "ID_CONTACTO" },
-                                { "data": "NOMBRE_CIUDADANO" },
-                                { "data": "CORREO" },
-                                { "data": "MENSAJE" },
-                                { "data": "FECHA_CREACION" }
-                                ],
+                            { "data": "ID_CONTACTO" },
+                            { "data": "NOMBRE_CIUDADANO" },
+                            { "data": "CORREO" },
+                            { "data": "MENSAJE" },
+                            { "data": "FECHA_CREACION" }
+                        ],
                         dom: 'Bfrtip',
                         buttons: [
                             {
@@ -662,16 +901,16 @@ $(document).ready(function () {
                                     'copy',
                                     'excel',
                                     'csv',
-                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                                     {
                                         extend: 'print',
-                                        customize: function ( win ) {
+                                        customize: function (win) {
                                             $(win.document.body)
-                                                .css( 'font-size', '10pt' );
+                                                .css('font-size', '10pt');
 
-                                            $(win.document.body).find( 'table' )
-                                                .addClass( 'compact' )
-                                                .css( 'font-size', 'inherit' );
+                                            $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
                                         }
                                     }
                                 ]
@@ -705,9 +944,9 @@ $(document).ready(function () {
                             }
                         }
                     });
-                }else{
-                    $.each(errores,function(key, value){
-                        if(value){
+                } else {
+                    $.each(errores, function (key, value) {
+                        if (value) {
                             toastr.error(value);
                         }
                     });
@@ -721,20 +960,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -766,39 +1005,39 @@ $(document).ready(function () {
                     'copy',
                     'excel',
                     'csv',
-                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                     {
                         extend: 'print',
-                        customize: function ( win ) {
+                        customize: function (win) {
                             $(win.document.body)
-                                .css( 'font-size', '10pt' );
+                                .css('font-size', '10pt');
 
-                            $(win.document.body).find( 'table' )
-                                .addClass( 'compact' )
-                                .css( 'font-size', 'inherit' );
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
                         }
                     }
                 ]
             }]
     });
 
-    $('#btnConsultaHojaVida').click(function(){
+    $('#btnConsultaHojaVida').click(function () {
 
         var FechaInicio = $("#fechaInicio").val();
-        var FechaFin    = $("#fechaFin").val();
-        var tipo        = 'post';
+        var FechaFin = $("#fechaFin").val();
+        var tipo = 'post';
 
         $.ajax({
             type: "post",
-            url : "consultaHojaVida",
+            url: "consultaHojaVida",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
-            success : function(data){
-                var valido  = data['valido'];
+            data: { _method: tipo, fechaInicio: FechaInicio, fechaFin: FechaFin },
+            success: function (data) {
+                var valido = data['valido'];
                 var errores = data['errors'];
-                if(valido === 'true'){
+                if (valido === 'true') {
                     var Resultado = jQuery.parseJSON(data['results']);
                     $('#panelResultado').show();
                     $('#reporteHojaVida').DataTable().destroy();
@@ -806,12 +1045,12 @@ $(document).ready(function () {
                         data: Resultado,
                         responsive: {
                             details: {
-                                display: $.fn.dataTable.Responsive.display.modal( {
-                                    header: function ( row ) {
+                                display: $.fn.dataTable.Responsive.display.modal({
+                                    header: function (row) {
                                         var data = row.data();
                                         return 'Detalle Solicitud ';
                                     }
-                                } ),
+                                }),
                                 renderer: $.fn.dataTable.Responsive.renderer.tableAll({
                                     tableClass: 'table'
                                 })
@@ -821,28 +1060,28 @@ $(document).ready(function () {
                             { responsivePriority: 1, targets: 1 },
                             { responsivePriority: 2, targets: -1 }],
                         lengthChange: false,
-                        searching   : true,
-                        ordering    : true,
-                        info        : true,
-                        autoWidth   : false,
-                        processing  : true,
-                        rowReorder  : false,
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        autoWidth: false,
+                        processing: true,
+                        rowReorder: false,
                         aoColumnDefs: [
-                            { "sWidth": "10%", "aTargets": [ 3 ] }
+                            { "sWidth": "10%", "aTargets": [3] }
                         ],
-                        order: [[ 1, "asc" ]],
+                        order: [[1, "asc"]],
                         columns: [
-                                { "data": "ID_TRABAJO" },
-                                { "data": "NOMBRE_CIUDADANO" },
-                                { "data": "ID_DOCUMENTO" },
-                                { "data": "IDENTIFICACION" },
-                                { "data": "DIRECCION" },
-                                { "data": "CORREO" },
-                                { "data": "TELEFONO" },
-                                { "data": "PROFESION" },
-                                { "data": "DOCUMENTO" },
-                                { "data": "FECHA_CREACION" }
-                                ],
+                            { "data": "ID_TRABAJO" },
+                            { "data": "NOMBRE_CIUDADANO" },
+                            { "data": "ID_DOCUMENTO" },
+                            { "data": "IDENTIFICACION" },
+                            { "data": "DIRECCION" },
+                            { "data": "CORREO" },
+                            { "data": "TELEFONO" },
+                            { "data": "PROFESION" },
+                            { "data": "DOCUMENTO" },
+                            { "data": "FECHA_CREACION" }
+                        ],
                         dom: 'Bfrtip',
                         buttons: [
                             {
@@ -852,16 +1091,16 @@ $(document).ready(function () {
                                     'copy',
                                     'excel',
                                     'csv',
-                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                                     {
                                         extend: 'print',
-                                        customize: function ( win ) {
+                                        customize: function (win) {
                                             $(win.document.body)
-                                                .css( 'font-size', '10pt' );
+                                                .css('font-size', '10pt');
 
-                                            $(win.document.body).find( 'table' )
-                                                .addClass( 'compact' )
-                                                .css( 'font-size', 'inherit' );
+                                            $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
                                         }
                                     }
                                 ]
@@ -895,9 +1134,9 @@ $(document).ready(function () {
                             }
                         }
                     });
-                }else{
-                    $.each(errores,function(key, value){
-                        if(value){
+                } else {
+                    $.each(errores, function (key, value) {
+                        if (value) {
                             toastr.error(value);
                         }
                     });
@@ -911,20 +1150,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 0, "desc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[0, "desc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -956,39 +1195,39 @@ $(document).ready(function () {
                     'copy',
                     'excel',
                     'csv',
-                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                     {
                         extend: 'print',
-                        customize: function ( win ) {
+                        customize: function (win) {
                             $(win.document.body)
-                                .css( 'font-size', '10pt' );
+                                .css('font-size', '10pt');
 
-                            $(win.document.body).find( 'table' )
-                                .addClass( 'compact' )
-                                .css( 'font-size', 'inherit' );
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
                         }
                     }
                 ]
             }]
     });
 
-    $('#btnConsultaVisitas').click(function(){
+    $('#btnConsultaVisitas').click(function () {
 
         var FechaInicio = $("#fechaInicio").val();
-        var FechaFin    = $("#fechaFin").val();
-        var tipo        = 'post';
+        var FechaFin = $("#fechaFin").val();
+        var tipo = 'post';
 
         $.ajax({
             type: "post",
-            url : "consultaVisitas",
+            url: "consultaVisitas",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data : {_method: tipo,fechaInicio: FechaInicio,fechaFin: FechaFin},
-            success : function(data){
-                var valido  = data['valido'];
+            data: { _method: tipo, fechaInicio: FechaInicio, fechaFin: FechaFin },
+            success: function (data) {
+                var valido = data['valido'];
                 var errores = data['errors'];
-                if(valido === 'true'){
+                if (valido === 'true') {
                     var Resultado = jQuery.parseJSON(data['results']);
                     $('#panelResultado').show();
                     $('#reporteVisitas').DataTable().destroy();
@@ -996,12 +1235,12 @@ $(document).ready(function () {
                         data: Resultado,
                         responsive: {
                             details: {
-                                display: $.fn.dataTable.Responsive.display.modal( {
-                                    header: function ( row ) {
+                                display: $.fn.dataTable.Responsive.display.modal({
+                                    header: function (row) {
                                         var data = row.data();
                                         return 'Detalle Solicitud ';
                                     }
-                                } ),
+                                }),
                                 renderer: $.fn.dataTable.Responsive.renderer.tableAll({
                                     tableClass: 'table'
                                 })
@@ -1011,22 +1250,22 @@ $(document).ready(function () {
                             { responsivePriority: 1, targets: 1 },
                             { responsivePriority: 2, targets: -1 }],
                         lengthChange: false,
-                        searching   : true,
-                        ordering    : true,
-                        info        : true,
-                        autoWidth   : false,
-                        processing  : true,
-                        rowReorder  : false,
+                        searching: true,
+                        ordering: true,
+                        info: true,
+                        autoWidth: false,
+                        processing: true,
+                        rowReorder: false,
                         aoColumnDefs: [
-                            { "sWidth": "10%", "aTargets": [ 3 ] }
+                            { "sWidth": "10%", "aTargets": [3] }
                         ],
-                        order: [[ 1, "asc" ]],
+                        order: [[1, "asc"]],
                         columns: [
-                                { "data": "ID_VISITA" },
-                                { "data": "IP" },
-                                { "data": "PAGINA" },
-                                { "data": "FECHA" }
-                                ],
+                            { "data": "ID_VISITA" },
+                            { "data": "IP" },
+                            { "data": "PAGINA" },
+                            { "data": "FECHA" }
+                        ],
                         dom: 'Bfrtip',
                         buttons: [
                             {
@@ -1036,16 +1275,16 @@ $(document).ready(function () {
                                     'copy',
                                     'excel',
                                     'csv',
-                                    {extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL'},
+                                    { extend: 'pdfHtml5', orientation: 'landscape', pageSize: 'LEGAL' },
                                     {
                                         extend: 'print',
-                                        customize: function ( win ) {
+                                        customize: function (win) {
                                             $(win.document.body)
-                                                .css( 'font-size', '10pt' );
+                                                .css('font-size', '10pt');
 
-                                            $(win.document.body).find( 'table' )
-                                                .addClass( 'compact' )
-                                                .css( 'font-size', 'inherit' );
+                                            $(win.document.body).find('table')
+                                                .addClass('compact')
+                                                .css('font-size', 'inherit');
                                         }
                                     }
                                 ]
@@ -1079,9 +1318,9 @@ $(document).ready(function () {
                             }
                         }
                     });
-                }else{
-                    $.each(errores,function(key, value){
-                        if(value){
+                } else {
+                    $.each(errores, function (key, value) {
+                        if (value) {
                             toastr.error(value);
                         }
                     });
@@ -1095,20 +1334,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 1, "asc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[1, "asc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -1137,20 +1376,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 1, "asc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[1, "asc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -1179,20 +1418,20 @@ $(document).ready(function () {
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
             { responsivePriority: 2, targets: -1 }],
-        responsive  : true,
+        responsive: true,
         lengthChange: false,
-        searching   : true,
-        ordering    : true,
-        info        : false,
-        autoWidth   : false,
-        rowReorder  : false,
-        order: [[ 1, "asc" ]],
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[1, "asc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros.",
-            info: "Mostrando tickets del _START_ al _END_ de un total de _TOTAL_ tickets",
-            infoEmpty: "Mostrando tickets del 0 al 0 de 0 tickets",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
             infoFiltered: "(filtrado de un total de _MAX_ registros)",
             infoPostFix: "",
             loadingRecords: "Cargando...",
@@ -1219,8 +1458,8 @@ $(document).ready(function () {
 });
 
 function obtener_datos_dependencia(id) {
-    var Nombre  = $("#nombre_dependencia" + id).val();
-    var Estado  = $("#estado_activo" + id).val();
+    var Nombre = $("#nombre_dependencia" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idD_upd").val(id);
     $("#mod_nombre_dependencia").val(Nombre);
@@ -1228,8 +1467,8 @@ function obtener_datos_dependencia(id) {
 }
 
 function obtener_datos_rol(id) {
-    var Nombre  = $("#nombre_rol" + id).val();
-    var Estado  = $("#estado_activo" + id).val();
+    var Nombre = $("#nombre_rol" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idR_upd").val(id);
     $("#mod_nombre_rol").val(Nombre);
@@ -1237,13 +1476,13 @@ function obtener_datos_rol(id) {
 }
 
 function obtener_datos_usuario(id) {
-    var Nombre      = $("#nombre_usuario" + id).val();
-    var Correo      = $("#correo" + id).val();
-    var Usuario     = $("#username" + id).val();
-    var Rol         = $("#id_rol" + id).val();
+    var Nombre = $("#nombre_usuario" + id).val();
+    var Correo = $("#correo" + id).val();
+    var Usuario = $("#username" + id).val();
+    var Rol = $("#id_rol" + id).val();
     var Dependencia = $("#id_dependencia" + id).val();
     var Administrador = $("#id_administrador" + id).val();
-    var Estado      = $("#estado_activo" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idUser_upd").val(id);
     $("#mod_nombre_usuario").val(Nombre);
@@ -1255,64 +1494,64 @@ function obtener_datos_usuario(id) {
     $("#mod_estado").val(Estado);
 }
 
-function mostrarContrasena(){
+function mostrarContrasena() {
     var tipo = document.getElementById("password");
-    if(tipo.type == "password"){
+    if (tipo.type == "password") {
         tipo.type = "text";
-    }else{
+    } else {
         tipo.type = "password";
     }
 }
 
-function mostrarContrasenaUpd(){
+function mostrarContrasenaUpd() {
     var tipo = document.getElementById("mod_password");
-    if(tipo.type == "password"){
+    if (tipo.type == "password") {
         tipo.type = "text";
-    }else{
+    } else {
         tipo.type = "password";
     }
 }
 
-$('#form-notificacion').submit(function() {
+$('#form-notificacion').submit(function () {
     var fileInputP = document.getElementById('notificationfile');
     var Procedimientos = fileInputP.value;
-    if(Procedimientos){
+    if (Procedimientos) {
         var fileSize = $('#notificationfile')[0].files[0].size;
         var sizekiloBytes = parseInt(fileSize / 1024);
-        if (sizekiloBytes >  $('#notificationfile').attr('size')) {
+        if (sizekiloBytes > $('#notificationfile').attr('size')) {
             alert('El tamaño supera el limite permitido de 2mb');
             return false;
         }
     }
 });
 
-$('#form-documento').submit(function() {
+$('#form-documento').submit(function () {
     var fileInputP = document.getElementById('documento');
     var Procedimientos = fileInputP.value;
-    if(Procedimientos){
+    if (Procedimientos) {
         var fileSize = $('#documento')[0].files[0].size;
         var sizekiloBytes = parseInt(fileSize / 1024);
-        if (sizekiloBytes >  $('#documento').attr('size')) {
+        if (sizekiloBytes > $('#documento').attr('size')) {
             alert('El tamaño supera el limite permitido de 2mb');
             return false;
         }
     }
 });
 
-$('#form-documento-upd').submit(function() {
+$('#form-documento-upd').submit(function () {
     var fileInputP = document.getElementById('documento_upd');
     var Procedimientos = fileInputP.value;
-    if(Procedimientos){
+    if (Procedimientos) {
         var fileSize = $('#documento_upd')[0].files[0].size;
         var sizekiloBytes = parseInt(fileSize / 1024);
-        if (sizekiloBytes >  $('#documento').attr('size')) {
+        if (sizekiloBytes > $('#documento').attr('size')) {
             alert('El tamaño supera el limite permitido de 2mb');
             return false;
         }
     }
 });
 
-function soloNumero(evt){
+function soloNumero(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
@@ -1320,33 +1559,33 @@ function soloNumero(evt){
 }
 
 function check(e) {
-    key=e.keyCode || e.which;
+    key = e.keyCode || e.which;
 
-    teclado=String.fromCharCode(key).toLowerCase();
+    teclado = String.fromCharCode(key).toLowerCase();
 
-    letras="abcdefghijklmnñopqrstuvwxyz0123456789";
+    letras = "abcdefghijklmnñopqrstuvwxyz0123456789";
 
-    especiales="8-37-38-46-164-46";
+    especiales = "8-37-38-46-164-46";
 
-    teclado_especial=false;
+    teclado_especial = false;
 
-    for(var i in especiales){
-        if(key==especiales[i]){
-            teclado_especial=true;
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial = true;
             break;
         }
     }
 
-    if(letras.indexOf(teclado)==-1 && !teclado_especial){
+    if (letras.indexOf(teclado) == -1 && !teclado_especial) {
         return false;
     }
 }
 
 function obtener_datos_notificacion(id) {
     var NombreCiudadano = $("#nombre_ciudadano" + id).val();
-    var Placa           = $("#placa" + id).val();
-    var Year            = $("#year" + id).val();
-    var Estado          = $("#estado_activo" + id).val();
+    var Placa = $("#placa" + id).val();
+    var Year = $("#year" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idNotificacion_upd").val(id);
     $("#mod_nombre_ciudadano").val(NombreCiudadano);
@@ -1357,7 +1596,7 @@ function obtener_datos_notificacion(id) {
 
 function obtener_datos_documento(id) {
     var NombreDocumento = $("#nombre_documento" + id).val();
-    var Estado          = $("#estado_activo" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idDocumento_upd").val(id);
     $("#mod_nombre_documento").val(NombreDocumento);
@@ -1365,8 +1604,8 @@ function obtener_datos_documento(id) {
 }
 
 function obtener_datos_pagina(id) {
-    var NombrePagina  = $("#nombre_pagina" + id).val();
-    var Estado  = $("#estado_activo" + id).val();
+    var NombrePagina = $("#nombre_pagina" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idPagina_upd").val(id);
     $("#mod_nombre_pagina").val(NombrePagina);
@@ -1374,9 +1613,9 @@ function obtener_datos_pagina(id) {
 }
 
 function obtener_datos_subpagina(id) {
-    var NombrePagina  = $("#nombre_subpagina" + id).val();
-    var IdPagina  = $("#id_pagina" + id).val();
-    var Estado  = $("#estado_activo" + id).val();
+    var NombrePagina = $("#nombre_subpagina" + id).val();
+    var IdPagina = $("#id_pagina" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idSubpagina_upd").val(id);
     $("#mod_nombre_subpagina").val(NombrePagina);
@@ -1393,7 +1632,7 @@ function subpaginaFuncion() {
     $.ajax({
         url: 'buscarSubpagina',
         type: "get",
-        data: {_method: tipo, id_pagina: selectedValue},
+        data: { _method: tipo, id_pagina: selectedValue },
         success: function (data) {
             var vValido = data['valido'];
             if (vValido === 'true') {
@@ -1405,7 +1644,7 @@ function subpaginaFuncion() {
                 }
                 document.getElementById("id_subpagina").value = '';
                 document.getElementById("id_subpagina").required = true;
-            }else{
+            } else {
                 document.getElementById("inputSubpagina").style.display = "none";
                 select.options.length = 0;
                 document.getElementById("id_subpagina").value = '';
@@ -1415,14 +1654,14 @@ function subpaginaFuncion() {
     });
 }
 
-$('#imagen').change(function(){
+$('#imagen').change(function () {
     var clone = $(this).clone();
     clone.attr('id', 'imagen1');
     clone.attr('name', 'imagen1');
     $('#field2_area').html(clone);
 });
 
-$('#mod_imagen_upd').change(function(){
+$('#mod_imagen_upd').change(function () {
     var clone = $(this).clone();
     clone.attr('id', 'imagen2');
     clone.attr('name', 'imagen2');
@@ -1438,7 +1677,7 @@ function subpaginaFuncionUpd() {
     $.ajax({
         url: 'buscarSubpagina',
         type: "get",
-        data: {_method: tipo, id_pagina: selectedValue},
+        data: { _method: tipo, id_pagina: selectedValue },
         success: function (data) {
             var vValido = data['valido'];
             if (vValido === 'true') {
@@ -1450,7 +1689,7 @@ function subpaginaFuncionUpd() {
                 }
                 document.getElementById("mod_id_subpagina").value = '';
                 document.getElementById("mod_id_subpagina").required = true;
-            }else{
+            } else {
                 document.getElementById("mod_inputSubpagina").style.display = "none";
                 select.options.length = 0;
                 document.getElementById("mod_id_subpagina").value = '';
@@ -1460,25 +1699,35 @@ function subpaginaFuncionUpd() {
     });
 }
 
-function actualizarImagen(){
-    if (document.getElementById('activarImagen').checked){
+function actualizarImagen() {
+    if (document.getElementById('activarImagen').checked) {
         document.getElementById("imageUpdate").style.display = "block";
         document.getElementById("mod_imagen_upd").required = true;
-    }else{
+    } else {
         document.getElementById("imageUpdate").style.display = "none";
         document.getElementById("mod_imagen_upd").required = false;
     }
 }
 
 function obtener_datos_imagen(id) {
-    var NombreImagen  = $("#nombre_imagen" + id).val();
-    var IdPagina  = $("#id_pagina" + id).val();
-    var IdSubpagina  = $("#id_subpagina" + id).val();
-    var Estado  = $("#estado_activo" + id).val();
+    var NombreImagen = $("#nombre_imagen" + id).val();
+    var IdPagina = $("#id_pagina" + id).val();
+    var IdSubpagina = $("#id_subpagina" + id).val();
+    var Estado = $("#estado_activo" + id).val();
 
     $("#idImagen_upd").val(id);
     $("#mod_nombre_imagen").val(NombreImagen);
     $("#mod_id_pagina").val(IdPagina)
     $("#mod_id_subpagina").val(IdSubpagina);
     $("#mod_estado").val(Estado);
+}
+
+function obtener_datos_desfijacion(id) {
+    var Contenido = $("#contenido" + id).val();
+    var Estado = $("#estado_activo" + id).val();
+
+    $("#idDesfijacion_upd").val(id);
+    $("#mod_contenidoDesfijacion").val(Contenido);
+    $("#mod_estado").val(Estado);
+    $('#mod_contenidoDesfijacion').summernote('code', Contenido);
 }

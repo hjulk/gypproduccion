@@ -82,6 +82,9 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('notificaciones',[AdministradorController::class, 'Notificaciones'])->name('notificaciones');
     Route::get('consultaNotificaciones',[AdministradorController::class, 'ConsultaNotificaciones'])->name('consultaNotificaciones');
     Route::post('consultaNotificacion',[AdministradorController::class, 'ConsultaNotificacion'])->name('consultaNotificacion');
+    Route::get('desfijaciones',[AdministradorController::class, 'Desfijaciones'])->name('desfijaciones');
+    Route::get('consultaDesfijaciones',[AdministradorController::class, 'ConsultaDesfijaciones'])->name('consultaDesfijaciones');
+    Route::post('consultaDesfijacion',[AdministradorController::class, 'ConsultaDesfijacion'])->name('conultaDesfijacion');
     Route::get('documentos',[AdministradorController::class, 'Documentos'])->name('documentos');
     Route::get('reporteContacto',[AdministradorController::class, 'ReporteContacto'])->name('reporteContacto');
     Route::post('consultaContacto',[AdministradorController::class, 'ConsultaContacto'])->name('consultaContacto');
@@ -105,6 +108,9 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::get('notificaciones',[UsuarioController::class, 'Notificaciones'])->name('notificaciones');
     Route::get('consultaNotificaciones',[UsuarioController::class, 'ConsultaNotificaciones'])->name('consultaNotificaciones');
     Route::post('consultaNotificacion',[UsuarioController::class, 'ConsultaNotificacion'])->name('consultaNotificacion');
+    Route::get('desfijaciones',[UsuarioController::class, 'Desfijaciones'])->name('desfijaciones');
+    Route::get('consultaDesfijaciones',[UsuarioController::class, 'ConsultaDesfijaciones'])->name('consultaDesfijaciones');
+    Route::post('consultaDesfijacion',[UsuarioController::class, 'ConsultaDesfijacion'])->name('conultaDesfijacion');
     Route::get('documentos',[UsuarioController::class, 'Documentos'])->name('documentos');
     Route::get('reporteContacto',[UsuarioController::class, 'ReporteContacto'])->name('reporteContacto');
     Route::post('consultaContacto',[UsuarioController::class, 'ConsultaContacto'])->name('consultaContacto');
@@ -136,9 +142,11 @@ Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])-
 Route::post('cargarNotificacion',[UsuariosController::class, 'CargarNotificacion'])->name('cargarNotificacion');
 Route::post('cargarNotificacionManual',[UsuariosController::class, 'CargarNotificacionManual'])->name('cargarNotificacionManual');
 Route::post('actualizarNotificacion',[UsuariosController::class, 'ActualizarNotificacion'])->name('actualizarNotificacion');
+Route::post('inactivarNotificaciones',[UsuariosController::class, 'InactivarNotificaciones'])->name('inactivarNotificaciones');
 Route::post('crearDocumento',[UsuariosController::class, 'CrearDocumento'])->name('crearDocumento');
 Route::post('actualizarDocumento',[UsuariosController::class, 'ActualizarDocumento'])->name('actualizarDocumento');
 Route::post('crearImagen',[UsuariosController::class, 'CrearImagen'])->name('crearImagen');
 Route::post('actualizarImagen',[UsuariosController::class, 'ActualizarImagen'])->name('actualizarImagen');
-
+Route::post('crearDesfijacion',[UsuariosController::class, 'CrearDesfijacion'])->name('crearDesfijacion');
+Route::post('actualizarDesfijacion',[UsuariosController::class, 'ActualizarDesfijacion'])->name('actualizarDesfijacion');
 

@@ -125,6 +125,8 @@ return array(
         'nombre_imagen' => 'Nombre Imagen',
         'nombre_imagen_upd' => 'Nombre Imagen',
         'imagen' => 'Archivo de la imagen',
-        'imagen_upd' => 'Archivo de la imagen'
+        'imagen_upd' => 'Archivo de la imagen',
+        'contenidoDesfijacion' => 'Texto Desfijación',
+        'contenidoDesfijacion_upd' => 'Texto Desfijación'
     ),
 );

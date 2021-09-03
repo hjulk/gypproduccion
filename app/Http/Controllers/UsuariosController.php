@@ -142,6 +142,77 @@ class UsuariosController extends Controller
         }
     }
 
+    public function InactivarNotificaciones(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d');
+        $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
+        $Activacion = (int)$request->activacionNotificacion;
+        if($Activacion){
+            if($Activacion === 2){
+                return Redirect::to($url.'notificaciones');
+            }else{
+                $InactivarNotificacion = Administracion::InactivarNotificacionesAll($IdUser);
+                if($InactivarNotificacion){
+                    $verrors = 'Se inactivaron todas las notificaciones';
+                    return Redirect::to($url.'notificaciones')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear la notificación');
+                    return Redirect::to($url.'notificaciones')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function CrearDesfijacion(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'contenidoDesfijacion'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url.'desfijaciones')->withErrors($validator)->withInput();
+        }else{
+            $Contenido          = $request->contenidoDesfijacion;
+            $CrearDesfijacion = Administracion::CrearDesfijacion($Contenido,$IdUser);
+            if($CrearDesfijacion){
+                $verrors = 'Se creo con exito la desfijación';
+                return Redirect::to($url.'desfijaciones')->with('mensaje', $verrors);
+            }else{
+                $verrors = array();
+                array_push($verrors, 'Hubo un problema al crear la desfijación');
+                return Redirect::to($url.'desfijaciones')->withErrors(['errors' => $verrors])->withInput();
+            }
+        }
+    }
+
+    public function ActualizarDesfijacion(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'contenidoDesfijacion_upd'  =>  'required',
+            'estado_upd' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url.'desfijaciones')->withErrors($validator)->withInput();
+        }else{
+            $Contenido  = $request->contenidoDesfijacion_upd;
+            $Estado     = (int)$request->estado_upd;
+            $IdDesfijacion  = (int)$request->id_desfijacion;
+            $ActualizarDesfijacion = Administracion::ActualizarDesfijacion($Contenido,$Estado,$IdUser,$IdDesfijacion);
+            if($ActualizarDesfijacion){
+                $verrors = 'Se actualizó con exito la desfijación';
+                return Redirect::to($url.'desfijaciones')->with('mensaje', $verrors);
+            }else{
+                $verrors = array();
+                array_push($verrors, 'Hubo un problema al actualizar la desfijación');
+                return Redirect::to($url.'desfijaciones')->withErrors(['errors' => $verrors])->withInput();
+            }
+        }
+    }
+
     public function CrearDocumento(Request $request){
         $url = UsuariosController::FindUrl();
         $IdUser     = (int)Session::get('IdUsuario');

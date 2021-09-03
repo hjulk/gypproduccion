@@ -11,11 +11,12 @@
 
 #notificacionesDashboard thead,#hojasVidaDashboard thead,#contactenosDashboard thead,#dependencias thead,#roles thead,
 #usuarios thead,#notificacionesAviso thead,#consultaNotificacionesAviso thead,#reporteContacto thead,#reporteHojaVida thead,
-#reporteVisitas thead,#pagina thead,#subpagina thead,#imagenes thead{background: #879225 !important;color: #ECF0F1;}
+#reporteVisitas thead,#pagina thead,#subpagina thead,#imagenes thead,#desfijaciones thead,#consultaDesfijaciones thead{background: #879225 !important;color: #ECF0F1;text-align:center !important;}
 #notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr,
 #consultaNotificacionesAviso tr,#reporteContacto tr,#reporteHojaVida tr,#reporteVisitas tr,#pagina tr,#subpagina tr,#imagenes tr{text-align:center;}
 #notificacionesDashboard,#hojasVidaDashboard,#contactenosDashboard,#dependencias,#roles,#usuarios,#notificacionesAviso,
 #consultaNotificacionesAviso,#reporteContacto,#reporteHojaVida,#reporteVisitas,#pagina,#subpagina,#imagenes{text-align:center;width: 100%;}
+#desfijaciones,#consultaDesfijaciones{text-align:justify;width: 100%;}
 
 #tituloCard{color:white !important;}
 #imgCard{text-align: center;}

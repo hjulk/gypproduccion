@@ -52,6 +52,27 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview" id="asideInicio">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-download" id="enlace"></i>
+                        <p>Desfijaciones<i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" id="asideInicio">
+                        <li class="nav-item" id="asideInicio">
+                            <a href="desfijaciones" class="nav-link">
+                                <i class="fas fa-file-download nav-icon" id="enlace"></i>
+                                <p>Crear Desfijación</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="consultaDesfijaciones" class="nav-link">
+                                <i class="fas fa-list-alt nav-icon" id="enlace"></i>
+                                <p>Reporte de Desfijaciones</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @endif
                 @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
                 <li class="nav-item" id="asideInicio">
