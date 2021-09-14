@@ -266,8 +266,8 @@ class AdministradorController extends Controller
         if ($RolUser === 0) {
             return Redirect::to('/');
         } else {
-            if ($RolUser == 1) {
-                return Redirect::to('admin/home');
+            if ($RolUser != 1) {
+                return Redirect::to('user/home');
             } else {
                 $Estado = array();
                 $Estado[''] = 'Seleccione:';
@@ -774,6 +774,46 @@ class AdministradorController extends Controller
             return Response::json(array('valido' => 'true', 'Subpaginas' => $Subpaginas));
         } else {
             return Response::json(array('valido' => 'false', 'Subpaginas' => null));
+        }
+    }
+
+    public function TipoDocumento(){
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('/');
+        }else{
+            if($RolUser != 1){
+                return Redirect::to('user/home');
+            }else{
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activo';
+                $Estado[2]  = 'Inactivo';
+                $ListadoTipoDocumentos = Administracion::ListadoTipoDocumentos();
+                $cont = 0;
+                $TipoDocumentos = array();
+                foreach($ListadoTipoDocumentos as $value){
+                    $TipoDocumentos[$cont]['id'] = $value->ID_TYPE_DOCUMENT;
+                    $TipoDocumentos[$cont]['nombre_documento'] = $value->NOMBRE_DOCUMENTO;
+                    $TipoDocumentos[$cont]['estado_activo']   = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if ($State === 1) {
+                        $TipoDocumentos[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $TipoDocumentos[$cont]['label']    = 'badge badge-success';
+                    } else {
+                        $TipoDocumentos[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $TipoDocumentos[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $TipoDocumentos[$cont]['fecha_cargue']  = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_MODIFICACION){
+                        $TipoDocumentos[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+                    }else{
+                        $TipoDocumentos[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $cont++;
+                }
+                return view('administracion.tipoDocumento',['Estado' => $Estado,'TipoDocumentos' => $TipoDocumentos]);
+            }
         }
     }
 }

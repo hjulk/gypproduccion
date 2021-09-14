@@ -66,6 +66,14 @@
                         con el fin de llevar a cabo la conciliación y dar cierre a las reclamaciones
                         interpuestas.
                         </p>
+                        <p>
+                            {{-- @if($BotonDesfijacion === 1)
+                                <a href="#" class="btn btn-primary" title="Editar" data-toggle="modal" data-target="#modal-desfijacion">Aviso Desfijación</a>
+                            @endif --}}
+                            @if($BotonDesfijacion)
+                                {!! $BotonDesfijacion !!}
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
@@ -92,7 +100,7 @@
         </div>
     </section>
 @endsection
-
+{{-- @include("modalDesfijacion") --}}
 @section('scripts')
     <script src="{{asset("DataTables/DataTables/js/jquery.dataTables.min.js")}}"></script>
     <script src="{{asset("DataTables/Responsive/js/dataTables.responsive.min.js")}}"></script>

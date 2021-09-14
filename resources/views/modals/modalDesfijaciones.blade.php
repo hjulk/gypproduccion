@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title modal-title-primary">Actualizar Desfijación</h4>
+                <h4 class="modal-title modal-title-primary">Actualizar Aviso de Desfijación</h4>
             </div>
             {!! Form::open(['url' => 'actualizarDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-rol_upd']) !!}
             @csrf

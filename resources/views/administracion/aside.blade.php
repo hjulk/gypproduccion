@@ -109,6 +109,12 @@
                             </a>
                         </li>
                         <li class="nav-item" id="asideInicio">
+                            <a href="tipoDocumento" class="nav-link">
+                                <i class="fas fa-file nav-icon" id="enlace"></i>
+                                <p>Nombre Documento</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
                             <a href="paginas" class="nav-link">
                                 <i class="fas fa-desktop nav-icon" id="enlace"></i>
                                 <p>Listado Páginas</p>

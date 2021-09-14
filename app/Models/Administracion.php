@@ -664,4 +664,48 @@ class Administracion extends Model
         $ConsultaVisitas = DB::Select("SELECT * FROM desfijaciones $fecha ORDER BY 1 DESC");
         return $ConsultaVisitas;
     }
+
+    public static function ListadoTipoDocumentos(){
+        $ListadoTipoDocumentos = DB::Select('SELECT * FROM documents_type ORDER BY NOMBRE_DOCUMENTO');
+        return $ListadoTipoDocumentos;
+    }
+
+    public static function CrearDocumentType($NombreDocumento,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearDocumentType = DB::insert('INSERT INTO documents_type (NOMBRE_DOCUMENTO, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                        VALUES (?,?,?,?)',
+                                        [$NombreDocumento,1,$fechaCreacion,$Usuario]);
+        return $CrearDocumentType;
+    }
+
+    public static function BuscarDocumentTypeName($NombreDocumento){
+        $ListadoTipoDocumentos = DB::Select("SELECT * FROM documents_type WHERE NOMBRE_DOCUMENTO = '$NombreDocumento'");
+        return $ListadoTipoDocumentos;
+    }
+
+    public static function BuscarDocumentTypeNameId($NombreDocumento,$IdDocumento){
+        $ListadoTipoDocumentos = DB::Select("SELECT * FROM documents_type
+        WHERE NOMBRE_DOCUMENTO = '$NombreDocumento'
+        AND ID_TYPE_DOCUMENT NOT IN ($IdDocumento)");
+        return $ListadoTipoDocumentos;
+    }
+
+    public static function ActualizarDocumentType($NombreDocumento,$Estado,$Usuario,$IdDocumento)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $ActualizarDocumentType = DB::update(
+            'UPDATE documents_type SET
+            NOMBRE_DOCUMENTO = ?,
+            ESTADO = ?,
+            FECHA_MODIFICACION = ?,
+            USUARIO_MODIFICACION = ?
+            WHERE ID_TYPE_DOCUMENT = ?',
+            [$NombreDocumento, $Estado, $fechaCreacion, $Usuario, $IdDocumento]
+        );
+        return $ActualizarDocumentType;
+    }
 }

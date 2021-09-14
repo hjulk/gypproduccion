@@ -16,121 +16,180 @@ use Illuminate\Support\Facades\App;
 
 class PaginaController extends Controller
 {
-    public function Inicio(){
+    public function Inicio()
+    {
         $ObtenerVisitas         = GYPBogota::GetVisitas();
-        foreach($ObtenerVisitas as $value){
-            $Visitas = (int)$value->CONTADOR;        }
+        foreach ($ObtenerVisitas as $value) {
+            $Visitas = (int)$value->CONTADOR;
+        }
 
-        return view('index',['Visitas' => $Visitas]);
+        return view('index', ['Visitas' => $Visitas]);
     }
 
-    public function Trabajo(){
+    public function Trabajo()
+    {
         $ListaDocumento  = GYPBogota::TipoDocumento();
         $TipoDocumento = array();
         $TipoDocumento[''] = 'Tipo de Documento *';
-        foreach ($ListaDocumento as $row){
+        foreach ($ListaDocumento as $row) {
             $TipoDocumento[$row->ID_DOCUMENTO] = $row->NOMBRE_DOCUMENTO;
         }
 
-        return view('trabajo',['TipoDocumento'=>$TipoDocumento]);
+        return view('trabajo', ['TipoDocumento' => $TipoDocumento]);
     }
 
-    public function MapaSitio(){
+    public function MapaSitio()
+    {
         return view('mapaSitio');
     }
 
     // GYP
 
-    public function Normatividad(){
+    public function Normatividad()
+    {
 
         return view('gyp.normatividad');
     }
 
-    public function Nosotros(){
+    public function Nosotros()
+    {
 
         return view('gyp.nosotros');
     }
 
     // ATENCIÓN AL CIUDADANO
 
-    public function Contacto(){
+    public function Contacto()
+    {
 
         return view('atencionCiudadano.contacto');
     }
 
-    public function NotificacionAviso(){
+    public function NotificacionAviso()
+    {
         $ListarNotificaciones = GYPBogota::ListarNotificaciones();
         $Notificaciones = array();
         $cont           = 0;
-        foreach($ListarNotificaciones as $value){
+        foreach ($ListarNotificaciones as $value) {
             $Notificaciones[$cont]['NOMBRE'] = $value->NOMBRE_CIUDADANO;
             $Notificaciones[$cont]['PLACA'] = $value->PLACA;
             $Notificaciones[$cont]['YEAR'] = $value->YEAR_NOTIFICATION;
             $cont++;
         }
-        return view('atencionCiudadano.notificacionAviso',['Notificaciones' => $Notificaciones]);
+        $ListarDesfijacionActiva = GYPBogota::ListarDesfijacionActiva();
+        $Desfijacion = array();
+        $contD          = 0;
+        // $BotonDesfijacion = 0;
+        // if ($ListarDesfijacionActiva) {
+        //     $BotonDesfijacion = 1;
+        //     foreach ($ListarDesfijacionActiva as $value) {
+        //         $Desfijacion[$contD]['CONTENIDO'] = $value->CONTENIDO;
+        //         $contD++;
+        //     }
+        // }
+        $BotonDesfijacion = null;
+        $texto = null;
+        if ($ListarDesfijacionActiva) {
+            foreach ($ListarDesfijacionActiva as $value) {
+                $texto = $value->CONTENIDO;
+            }
+            $BotonDesfijacion = '<a href="#" class="btn btn-primary" title="Editar" data-toggle="modal" data-target="#modal-desfijacion">Aviso Desfijación</a>
+            <div class="modal fade bd-example-modal-xl" id="modal-desfijacion" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title modal-title-primary">CONSTANCIA DESFIJACIÓN
+                        <br>NOTIFICACIÓN POR AVISO</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            '.$texto.'
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary pull-left" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>';
+        }
+        return view('atencionCiudadano.notificacionAviso', ['Notificaciones' => $Notificaciones, 'Desfijacion' => $Desfijacion, 'BotonDesfijacion' => $BotonDesfijacion]);
     }
 
     // SERVICIOS
 
-    public function Beneficios(){
+    public function Beneficios()
+    {
 
         return view('servicios.beneficios');
     }
 
-    public function CustodiaSegura(){
+    public function CustodiaSegura()
+    {
         return view('servicios.custodiaSegura');
     }
 
-    public function Gruas(){
+    public function Gruas()
+    {
         return view('servicios.gruas');
     }
 
-    public function NuestrosServicios(){
+    public function NuestrosServicios()
+    {
         return view('servicios.nuestrosServicios');
     }
 
-    public function ProcesoInmovilizacion(){
+    public function ProcesoInmovilizacion()
+    {
         return view('servicios.procesoInmovilizacion');
     }
 
-    public function ProcesoRetiro(){
+    public function ProcesoRetiro()
+    {
         return view('servicios.procesoRetiro');
     }
 
-    public function Tarifas(){
+    public function Tarifas()
+    {
         return view('servicios.tarifas');
     }
 
-    public function MonitoreoCamara(){
+    public function MonitoreoCamara()
+    {
         return view('servicios.monitoreoCamaras');
     }
 
-    public function MensajeSms(){
+    public function MensajeSms()
+    {
         return view('servicios.mensajeSms');
     }
 
     // TRAMITES
 
-    public function ConsultaLiquidacion(){
+    public function ConsultaLiquidacion()
+    {
         return view('tramites.consultaLiquidacion');
     }
 
-    public function PagoLinea(){
+    public function PagoLinea()
+    {
         return view('tramites.pagoLinea');
     }
 
-    public function PuntosAtencion(){
+    public function PuntosAtencion()
+    {
         return view('tramites.puntosAtencion');
     }
 
-    public function CrearVisita(Request $request){
+    public function CrearVisita(Request $request)
+    {
         $Ip_client = $_SERVER['REMOTE_ADDR'];
         $pagina = $request->pagina;
-        GYPBogota::CrearVisita($Ip_client,$pagina);
+        GYPBogota::CrearVisita($Ip_client, $pagina);
     }
 
-    public function Contactenos(Request $request){
+    public function Contactenos(Request $request)
+    {
         date_default_timezone_set('America/Bogota');
 
         $validator = Validator::make($request->all(), [
@@ -139,46 +198,49 @@ class PaginaController extends Controller
             'correo'            =>  'required|email',
             'mensaje'           =>  'required',
             'check-contacto'    =>  'required'
-            ]);
+        ]);
 
         if ($validator->fails()) {
             return Redirect::to('contacto')->withErrors($validator)->withInput();
-        }else{
+        } else {
 
             $Nombres = $request->nombres;
             $Apellidos = $request->apellidos;
-            $NombreUsuario = $Nombres.' '.$Apellidos;
+            $NombreUsuario = $Nombres . ' ' . $Apellidos;
             $Correo = $request->correo;
             $Mensaje = $request->mensaje;
 
             $CorreoDestino  = "denuncias@gypbogota.com";
             $subject    = "Mensaje de $NombreUsuario";
-            Mail::send('Emails.CorreoContacto',
-            ['NombreUsuario' => $NombreUsuario,'Email' => $Correo,'Mensaje' => $Mensaje],
-            function($msj) use($subject,$Correo,$NombreUsuario,$CorreoDestino){
-                $msj->from($Correo,"Gruas y Parqueaderos Bogotá S.A.S");
-                $msj->subject($subject);
-                $msj->addCC($Correo);
-                $msj->to($CorreoDestino);
-            });
+            Mail::send(
+                'Emails.CorreoContacto',
+                ['NombreUsuario' => $NombreUsuario, 'Email' => $Correo, 'Mensaje' => $Mensaje],
+                function ($msj) use ($subject, $Correo, $NombreUsuario, $CorreoDestino) {
+                    $msj->from($Correo, "Gruas y Parqueaderos Bogotá S.A.S");
+                    $msj->subject($subject);
+                    $msj->addCC($Correo);
+                    $msj->to($CorreoDestino);
+                }
+            );
 
-            if(count(Mail::failures()) === 0){
+            if (count(Mail::failures()) === 0) {
                 $Contacto  = GYPBogota::Contactenos($NombreUsuario, $Correo, $Mensaje);
-                if($Contacto){
-                    $verrors = $NombreUsuario.' su mensaje fue enviado con éxito';
+                if ($Contacto) {
+                    $verrors = $NombreUsuario . ' su mensaje fue enviado con éxito';
                     return Redirect::to('contacto')->with('mensaje', $verrors);
-                }else{
+                } else {
                     $verrors = 'Hubo un error al enviar su mensaje';
                     return Redirect::to('contacto')->with('precaucion', $verrors);
                 }
-            }else{
+            } else {
                 $verrors = 'Hubo un error al enviar su mensaje';
                 return Redirect::to('contacto')->with('precaucion', $verrors);
             }
         }
     }
 
-    public function TrabajoNosotros(Request $request){
+    public function TrabajoNosotros(Request $request)
+    {
         date_default_timezone_set('America/Bogota');
 
         $validator = Validator::make($request->all(), [
@@ -191,19 +253,19 @@ class PaginaController extends Controller
             'profesion'             =>  'required',
             'correo'                =>  'required|email',
             'check-trabajo'        =>  'required'
-            ]);
+        ]);
 
         if ($validator->fails()) {
             return Redirect::to('trabajo')->withErrors($validator)->withInput();
-        }else{
+        } else {
 
             $Nombres = $request->nombres;
             $Apellidos = $request->apellidos;
-            $NombreUsuario = $Nombres.' '.$Apellidos;
+            $NombreUsuario = $Nombres . ' ' . $Apellidos;
             $Correo = $request->correo;
             $TipoDocumento = $request->tipo_documento;
             $NombreTipoDocumento = GYPBogota::TipoDocumentoId($TipoDocumento);
-            foreach($NombreTipoDocumento as $value){
+            foreach ($NombreTipoDocumento as $value) {
                 $NombreDocumento = $value->NOMBRE_DOCUMENTO;
             }
             $Documento = $request->documentoIdentidad;
@@ -215,74 +277,81 @@ class PaginaController extends Controller
             $filename           = null;
             if ($HojaVida) {
                 $file               = $HojaVida;
-                $destinationPath    = public_path().'/documentos/HV';
+                $destinationPath    = public_path() . '/documentos/HV';
                 $extension          = $file->getClientOriginalExtension();
                 $name               = $file->getClientOriginalName();
                 $nombrearchivo      = pathinfo($name, PATHINFO_FILENAME);
                 $nombrearchivo      = PaginaController::eliminar_tildes($nombrearchivo);
                 $nombreUsuario      = PaginaController::eliminar_tildes($NombreUsuario);
-                $filename           = 'Hoja_Vida_'.$nombreUsuario.'.'.$extension;
+                $filename           = 'Hoja_Vida_' . $nombreUsuario . '.' . $extension;
                 $uploadSuccess      = $file->move($destinationPath, $filename);
                 $archivofoto        = file_get_contents($uploadSuccess);
                 $NombreFoto         = $filename;
             }
             $CorreoDestino  = "coordinadorgh@gypbogota.com";
             $subject    = "Hoja de vida de $NombreUsuario";
-            Mail::send('Emails.CorreoTrabajo',
-            ['NombreUsuario' => $NombreUsuario,'Email' => $Correo,'TipoDocumento' => $NombreDocumento,'Identificacion' => $Documento,'Direccion' => $Direccion,'Telefono' => $Telefono,'Profesion' => $Profesion],
-            function($msj) use($subject,$Correo,$filename,$NombreUsuario,$CorreoDestino){
-                $msj->from($Correo,"Gruas y Parqueaderos Bogotá S.A.S");
-                $msj->subject($subject);
-                $msj->addCC($Correo);
-                $msj->to($CorreoDestino);
-                $msj->attach(public_path('/documentos/HV').'/'.$filename);
-            });
+            Mail::send(
+                'Emails.CorreoTrabajo',
+                ['NombreUsuario' => $NombreUsuario, 'Email' => $Correo, 'TipoDocumento' => $NombreDocumento, 'Identificacion' => $Documento, 'Direccion' => $Direccion, 'Telefono' => $Telefono, 'Profesion' => $Profesion],
+                function ($msj) use ($subject, $Correo, $filename, $NombreUsuario, $CorreoDestino) {
+                    $msj->from($Correo, "Gruas y Parqueaderos Bogotá S.A.S");
+                    $msj->subject($subject);
+                    $msj->addCC($Correo);
+                    $msj->to($CorreoDestino);
+                    $msj->attach(public_path('/documentos/HV') . '/' . $filename);
+                }
+            );
 
-            if(count(Mail::failures()) === 0){
-                unlink(public_path('/documentos/HV').'/'.$filename);
+            if (count(Mail::failures()) === 0) {
+                unlink(public_path('/documentos/HV') . '/' . $filename);
                 $Trabajo  = GYPBogota::Trabajo($NombreUsuario, $Correo, $TipoDocumento, $Documento, $Direccion, $Telefono, $Profesion, $NombreFoto);
-                if($Trabajo){
-                    $verrors = $NombreUsuario.' su solicitud fue enviada con éxito';
+                if ($Trabajo) {
+                    $verrors = $NombreUsuario . ' su solicitud fue enviada con éxito';
                     return Redirect::to('trabajo')->with('mensaje', $verrors);
-                }else{
+                } else {
                     $verrors = 'Hubo un error al enviar su hoja de vida';
                     return Redirect::to('trabajo')->with('precaucion', $verrors);
                 }
-            }else{
+            } else {
                 $verrors = 'Hubo un error al enviar su hoja de vida';
                 return Redirect::to('trabajo')->with('precaucion', $verrors);
             }
         }
     }
 
-    public static function eliminar_tildes($nombrearchivo){
+    public static function eliminar_tildes($nombrearchivo)
+    {
 
         $cadena = $nombrearchivo;
         $cadena = str_replace(
-            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä','Ã¡'),
-            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A','a'),
+            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä', 'Ã¡'),
+            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A', 'a'),
             $cadena
         );
 
         $cadena = str_replace(
-            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë','Ã©'),
-            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E','e'),
-            $cadena );
+            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë', 'Ã©'),
+            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E', 'e'),
+            $cadena
+        );
 
         $cadena = str_replace(
-            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î','Ã­'),
-            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I','i'),
-            $cadena );
+            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î', 'Ã­'),
+            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I', 'i'),
+            $cadena
+        );
 
         $cadena = str_replace(
-            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô','Ã³'),
-            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O','o'),
-            $cadena );
+            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô', 'Ã³'),
+            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O', 'o'),
+            $cadena
+        );
 
         $cadena = str_replace(
-            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü','Ãº'),
-            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U','u'),
-            $cadena );
+            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü', 'Ãº'),
+            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U', 'u'),
+            $cadena
+        );
 
         $cadena = str_replace(
             array('ñ', 'Ñ', 'ç', 'Ç'),
@@ -297,8 +366,8 @@ class PaginaController extends Controller
         );
 
         $cadena = str_replace(
-            array("'", '‘','a€“'),
-            array(' ', ' ','-'),
+            array("'", '‘', 'a€“'),
+            array(' ', ' ', '-'),
             $cadena
         );
 

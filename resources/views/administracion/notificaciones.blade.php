@@ -60,7 +60,7 @@ Notificaciones
                                         <label>¿Desea inactivar todas las notificaciones?</label>
                                     </div>
                                     <div class="col-md-2">
-                                        {!! Form::select('activacionNotificacion',$Activacion,null,['class'=>'form-control','id'=>'activacionNotificacion']) !!}
+                                        {!! Form::select('activacionNotificacion',$Activacion,null,['class'=>'form-control','id'=>'activacionNotificacion','required']) !!}
                                     </div>
                                     <div class="col-md-4">
                                         <button type="submit" class="btn btn-success float-left">Actualizar</button>

@@ -95,6 +95,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('paginas',[AdministradorController::class, 'Paginas'])->name('paginas');
     Route::get('imagenes',[AdministradorController::class, 'Imagenes'])->name('imagenes');
     Route::get('buscarSubpagina',[AdministradorController::class, 'BuscarSubpagina'])->name('buscarSubpagina');
+    Route::get('tipoDocumento',[AdministradorController::class, 'TipoDocumento'])->name('tipoDocumento');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -137,6 +138,8 @@ Route::post('crearPagina',[AdministracionController::class, 'CrearPagina'])->nam
 Route::post('actualizarPagina',[AdministracionController::class, 'ActualizarPagina'])->name('actualizarPagina');
 Route::post('crearSubPagina',[AdministracionController::class, 'CrearSubpagina'])->name('crearSubPagina');
 Route::post('actualizarSubpagina',[AdministracionController::class, 'ActualizarSubpagina'])->name('actualizarSubpagina');
+Route::post('crearTipoDocumento',[AdministracionController::class, 'CrearTipoDocumento'])->name('crearTipoDocumento');
+Route::post('actualizarTipoDocumento',[AdministracionController::class, 'ActualizarTipoDocumento'])->name('actualizarTipoDocumento');
 
 Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])->name('actualizarPerfil');
 Route::post('cargarNotificacion',[UsuariosController::class, 'CargarNotificacion'])->name('cargarNotificacion');

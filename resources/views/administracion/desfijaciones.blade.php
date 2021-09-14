@@ -30,7 +30,7 @@ Nesfijaciones
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <h3 class="card-title" id="tituloCard"><strong>Crear Desfijación</strong></h3>
+                        <h3 class="card-title" id="tituloCard"><strong>Crear Aviso de Desfijación</strong></h3>
                     </div>
                     <div class="card-body">
                         {!! Form::open(['url' => 'crearDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-desfijacion']) !!}
@@ -70,7 +70,7 @@ Nesfijaciones
                                 @foreach($Desfijaciones as $value)
                                     <tr>
                                         <td>{{$value['id']}}</td>
-                                        <td>{!!$value['contenido']!!}</td>
+                                        <td style="text-align: justify !important;">{!!$value['contenido']!!}</td>
                                         <td>{{$value['fecha_creacion']}}</td>
                                         <td>{{$value['fecha_modificacion']}}</td>
                                         <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>

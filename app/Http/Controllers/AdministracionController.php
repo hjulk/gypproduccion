@@ -383,6 +383,70 @@ class AdministracionController extends Controller
         }
     }
 
+    public function CrearTipoDocumento(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_documento' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoDocumento')->withErrors($validator)->withInput();
+        }else{
+            $NombreDocumento = $request->nombre_documento;
+            $Usuario = (int)Session::get('IdUsuario');
+            $BuscarDocumento = Administracion::BuscarDocumentTypeName($NombreDocumento);
+            if($BuscarDocumento){
+                $verrors = array();
+                array_push($verrors, 'Nombre de documento ya existe');
+                return Redirect::to($url.'tipoDocumento')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $CrearDocumento = Administracion::CrearDocumentType($NombreDocumento,$Usuario);
+                if($CrearDocumento){
+                    $verrors = 'Se creo el tipo de documento '.$NombreDocumento.' con éxito.';
+                    return Redirect::to($url.'tipoDocumento')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear el tipo de documento');
+                    return Redirect::to($url.'tipoDocumento')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarTipoDocumento(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_documento_upd' => 'required',
+            'estado_upd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoDocumento')->withErrors($validator)->withInput();
+        }else{
+            $NombreDocumento = $request->nombre_documento_upd;
+            $Usuario = (int)Session::get('IdUsuario');
+            $Estado = (int)$request->estado_upd;
+            $IdDocumento = (int)$request->id_tipoDocumento;
+            $BuscarDocumento = Administracion::BuscarDocumentTypeNameId($NombreDocumento,$IdDocumento);
+            if($BuscarDocumento){
+                $verrors = array();
+                array_push($verrors, 'Nombre de documento ya existe');
+                return Redirect::to($url.'tipoDocumento')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarDocumento = Administracion::ActualizarDocumentType($NombreDocumento,$Estado,$Usuario,$IdDocumento);
+                if($ActualizarDocumento){
+                    $verrors = 'Se actualizo el tipo de documento '.$NombreDocumento.' con éxito.';
+                    return Redirect::to($url.'tipoDocumento')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar el nombre de  documento');
+                    return Redirect::to($url.'tipoDocumento')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
     public static function FindUrl(){
         $RolUser = (int)Session::get('Rol');
         if($RolUser === 1){
