@@ -30,23 +30,27 @@ Documentos
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6" id="imgCard">
+                            <div class="col-md-4" id="imgCard">
                                 <picture>
                                     <source srcset="{{asset("images/documentos.webp") }}" type="image/webp"/>
                                     <source srcset="{{asset("images/documentos.png") }}" type="image/png"/>
                                     <img src="{{asset("images/documentos.webp") }}" id="imgCard" alt="Documentos" class="img-responsive"/>
                                 </picture>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 {!! Form::open(['url' => 'crearDocumento', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-documento']) !!}
                                 @csrf
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label for="exampleInputEmail1">Nombre Documento</label>
                                                 {!! Form::text('nombre_documento',null,['class'=>'form-control','id'=>'nombre_documento','placeholder'=>'Nombre Documento','required']) !!}
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label for="exampleInputEmail1">Tipo Documento</label>
+                                                {!! Form::select('tipo_documento',$TipoDocumentos,null,['class'=>'form-control','id'=>'tipo_documento','required']) !!}
+                                            </div>
+                                            <div class="col-md-5">
                                                 <label>Archivo en formato pdf</label>
                                                 <input type="file" name="documento" id="documento" accept=".pdf" required class="form-control" size="2048" required>
                                                 <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>

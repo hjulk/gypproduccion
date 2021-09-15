@@ -76,4 +76,14 @@ class GYPBogota extends Model
         $ListarDesfijacionActiva = DB::Select("SELECT * FROM desfijaciones WHERE ESTADO = 1");
         return $ListarDesfijacionActiva;
     }
+
+    public static function DocumentoPoliticaHSEQ(){
+        $DocumentoPoliticaHSEQ = DB::Select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = 1 AND ESTADO = 1");
+        return $DocumentoPoliticaHSEQ;
+    }
+
+    public static function DocumentoProteccionDatos(){
+        $DocumentoProteccionDatos = DB::Select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = 3 AND ESTADO = 1");
+        return $DocumentoProteccionDatos;
+    }
 }

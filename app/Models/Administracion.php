@@ -344,45 +344,54 @@ class Administracion extends Model
         return $BuscarDocumentoNombre;
     }
 
-    public static function CargarDocumento($NombreDocumento, $Ubicacion, $IdUser)
+    public static function CargarDocumento($NombreDocumento, $Ubicacion, $TipoDocumento, $IdUser)
     {
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i');
         $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        DB::update('UPDATE documentos SET
+                    ESTADO = ?,
+                    FECHA_MODIFICACION = ?,
+                    USUARIO_MODIFICACION = ?
+                    WHERE ID_TYPE_DOCUMENT = ?',
+                    [2,$TipoDocumento,$fechaCreacion,$IdUser]);
         $CargarDocumento = DB::Insert(
             'INSERT INTO documentos
-                                    (NOMBRE_DOCUMENTO,UBICACION,ESTADO,FECHA_CREACION,USUARIO_CREACION)
-                                    VALUES (?,?,?,?,?)',
-            [$NombreDocumento, $Ubicacion, 1, $fechaCreacion, $IdUser]
+            (NOMBRE_DOCUMENTO,ID_TYPE_DOCUMENT,UBICACION,ESTADO,FECHA_CREACION,USUARIO_CREACION)
+            VALUES (?,?,?,?,?,?)',
+            [$NombreDocumento, $TipoDocumento, $Ubicacion, 1, $fechaCreacion, $IdUser]
         );
         return $CargarDocumento;
     }
 
-    public static function ActualizarDocumento($IdDocumento, $NombreDocumento, $Ubicacion, $IdUser, $Estado)
+    public static function ActualizarDocumento($IdDocumento, $NombreDocumento, $Ubicacion, $TipoDocumento, $IdUser, $Estado)
     {
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i:s');
         $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+
         if ($Ubicacion) {
             $ActualizarDocumento = DB::update(
                 'UPDATE documentos SET
-                                            NOMBRE_DOCUMENTO = ?,
-                                            UBICACION = ?,
-                                            ESTADO = ?,
-                                            FECHA_MODIFICACION = ?,
-                                            USUARIO_MODIFICACION = ?
-                                            WHERE ID_DOCUMENTO = ?',
-                [$NombreDocumento, $Ubicacion, $Estado, $fechaActualizacion, $IdUser, $IdDocumento]
+                NOMBRE_DOCUMENTO = ?,
+                ID_TYPE_DOCUMENT = ?,
+                UBICACION = ?,
+                ESTADO = ?,
+                FECHA_MODIFICACION = ?,
+                USUARIO_MODIFICACION = ?
+                WHERE ID_DOCUMENTO = ?',
+                [$NombreDocumento, $TipoDocumento, $Ubicacion, $Estado, $fechaActualizacion, $IdUser, $IdDocumento]
             );
         } else {
             $ActualizarDocumento = DB::update(
                 'UPDATE documentos SET
             NOMBRE_DOCUMENTO = ?,
+            ID_TYPE_DOCUMENT = ?,
             ESTADO = ?,
             FECHA_MODIFICACION = ?,
             USUARIO_MODIFICACION = ?
             WHERE ID_DOCUMENTO = ?',
-                [$NombreDocumento, $Estado, $fechaActualizacion, $IdUser, $IdDocumento]
+                [$NombreDocumento, $TipoDocumento, $Estado, $fechaActualizacion, $IdUser, $IdDocumento]
             );
         }
         return $ActualizarDocumento;
@@ -667,6 +676,11 @@ class Administracion extends Model
 
     public static function ListadoTipoDocumentos(){
         $ListadoTipoDocumentos = DB::Select('SELECT * FROM documents_type ORDER BY NOMBRE_DOCUMENTO');
+        return $ListadoTipoDocumentos;
+    }
+
+    public static function ListadoTipoDocumentosActivos(){
+        $ListadoTipoDocumentos = DB::Select('SELECT * FROM documents_type WHERE ESTADO = 1 ORDER BY NOMBRE_DOCUMENTO');
         return $ListadoTipoDocumentos;
     }
 

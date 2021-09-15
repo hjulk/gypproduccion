@@ -218,6 +218,7 @@ class UsuariosController extends Controller
         $IdUser     = (int)Session::get('IdUsuario');
         $validator = Validator::make($request->all(), [
             'nombre_documento'  =>  'required',
+            'tipo_documento'  =>  'required',
             'documento' => 'required'
         ]);
         if ($validator->fails()) {
@@ -227,6 +228,7 @@ class UsuariosController extends Controller
             $fecha_sistema  = date('Y-m-d');
             $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
             $NombreDocumento = strtoupper($request->nombre_documento);
+            $TipoDocumento = (int)$request->tipo_documento;
             $BuscarDocumentoNombre = Administracion::BuscarDocumentoNombre($NombreDocumento);
             if($BuscarDocumentoNombre){
                 $verrors = array();
@@ -243,7 +245,7 @@ class UsuariosController extends Controller
                 $archivofoto        = file_get_contents($uploadSuccess);
                 $NombreFoto         = $filename;
                 $Ubicacion          = '../documentos/'.$NombreFoto;
-                $CargarDocumento = Administracion::CargarDocumento($NombreDocumento,$Ubicacion,$IdUser);
+                $CargarDocumento = Administracion::CargarDocumento($NombreDocumento,$Ubicacion,$TipoDocumento,$IdUser);
                 if($CargarDocumento){
                     $verrors = 'Se creo con éxito el documento '.strtoupper($request->nombre_documento);
                     return Redirect::to($url.'documentos')->with('mensaje', $verrors);
@@ -261,6 +263,7 @@ class UsuariosController extends Controller
         $IdUser     = (int)Session::get('IdUsuario');
         $validator = Validator::make($request->all(), [
             'nombre_documento_upd'  =>  'required',
+            'tipo_documento_upd'  =>  'required',
             'estado_upd' => 'required'
         ]);
         if ($validator->fails()) {
@@ -270,6 +273,7 @@ class UsuariosController extends Controller
             $fecha_sistema  = date('Y-m-d');
             $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
             $NombreDocumento = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento_upd));
+            $TipoDocumento = (int)$request->tipo_documento_upd;
             $Estado = (int)$request->estado_upd;
             $IdDocumento = (int)$request->id_documento;
             $BuscarDocumentoNombre = Administracion::BuscarDocumentoNombreId($NombreDocumento,$IdDocumento);
@@ -298,7 +302,7 @@ class UsuariosController extends Controller
                 }else{
                     $Ubicacion = null;
                 }
-                $ActualizarDocumento = Administracion::ActualizarDocumento($IdDocumento,$NombreDocumento,$Ubicacion,$IdUser,$Estado);
+                $ActualizarDocumento = Administracion::ActualizarDocumento($IdDocumento,$NombreDocumento,$Ubicacion,$TipoDocumento,$IdUser,$Estado);
                 if($ActualizarDocumento){
                     $verrors = 'Se actualizó con éxito el documento '.strtoupper($request->nombre_documento_upd);
                     return Redirect::to($url.'documentos')->with('mensaje', $verrors);

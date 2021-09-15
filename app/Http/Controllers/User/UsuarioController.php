@@ -363,7 +363,13 @@ class UsuarioController extends Controller
                     }
                     $cont++;
                 }
-                return view('administracion.documentos', ['Documentos' => $Documentos, 'Estado' => $Estado]);
+                $ListadoTipoDocumentosActivos = Administracion::ListadoTipoDocumentosActivos();
+                $TipoDocumentos = array();
+                $TipoDocumentos[''] = 'Seleccione:';
+                foreach ($ListadoTipoDocumentosActivos as $row) {
+                    $TipoDocumentos[$row->ID_TYPE_DOCUMENT] = $row->NOMBRE_DOCUMENTO;
+                }
+                return view('administracion.documentos', ['Documentos' => $Documentos, 'Estado' => $Estado,'TipoDocumentos' => $TipoDocumentos]);
             }
         }
     }

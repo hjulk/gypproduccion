@@ -63,7 +63,9 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <p id="texto-contactenos">
-                                    <input type="checkbox" id="check-contacto" name="check-contacto" value="1" required> Autorizo de forma libre, consciente, expresa e informada el tratamiento de mi información personal de acuerdo a las finalidades establecidas en el aviso de privacidad y la política de tratamiento de datos personales, las cuales ustedes puede consultar <a href="documentos/PROTECCION_DATOS.pdf" style="color: #000000 !important;font-weight: 600;" target="_blank">aquí</a>.
+                                    <input type="checkbox" id="check-contacto" name="check-contacto" value="1" required> Autorizo de forma libre, consciente, expresa e informada el tratamiento de mi información personal de acuerdo a las finalidades establecidas en el aviso de privacidad y la política de tratamiento de datos personales, las cuales ustedes puede consultar @if($ProteccionDatos)
+                                    {!! $ProteccionDatos !!}
+                                @endif
                                 </p>
                             </div>
                         </div>
