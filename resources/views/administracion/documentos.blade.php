@@ -42,6 +42,12 @@ Documentos
                                 @csrf
                                     <div class="form-group">
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="exampleInputEmail1">Solo debe haber un documento activo por tipo de documento, excepto los documentos de normatividad.</label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
                                             <div class="col-md-4">
                                                 <label for="exampleInputEmail1">Nombre Documento</label>
                                                 {!! Form::text('nombre_documento',null,['class'=>'form-control','id'=>'nombre_documento','placeholder'=>'Nombre Documento','required']) !!}
@@ -77,6 +83,7 @@ Documentos
                                     <th>Id</th>
                                     <th>Nombre Documento</th>
                                     <th>Estado</th>
+                                    <th>Tipo Documento</th>
                                     <th>Descargar</th>
                                     <th>Fecha de Cargue</th>
                                     <th>Fecha Actualización</th>
@@ -89,12 +96,14 @@ Documentos
                                         <td>{{$value['id']}}</td>
                                         <td>{{$value['nombre_documento']}}</td>
                                         <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>
+                                        <td>{{$value['nombre_tipo_documento']}}</td>
                                         <td><a href="{{$value['ubicacion']}}" target="_blank"><i class="fas fa-download"></i></a></td>
                                         <td>{{$value['fecha_cargue']}}</td>
                                         <td>{{$value['fecha_modificacion']}}</td>
                                         <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-documentoUpd" onclick="obtener_datos_documento('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
                                         <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
                                         <input type="hidden" value="{{$value['nombre_documento']}}" id="nombre_documento{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['tipo_documento']}}" id="tipo_documento{{$value['id']}}">
                                         <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
                                     </tr>
                                 @endforeach

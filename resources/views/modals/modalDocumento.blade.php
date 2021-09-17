@@ -10,11 +10,15 @@
                 <div class="form-group">
                     <input type="hidden" name="id_documento" id="idDocumento_upd">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <label for="exampleInputEmail1">Nombre Documento</label>
                             {!! Form::text('nombre_documento_upd',null,['class'=>'form-control','id'=>'mod_nombre_documento','placeholder'=>'Nombre Documento','required']) !!}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Tipo Documento</label>
+                            {!! Form::select('tipo_documento_upd',$TipoDocumentos,null,['class'=>'form-control','id'=>'mod_tipo_documento']) !!}
+                        </div>
+                        <div class="col-md-6">
                             <label for="exampleInputEmail1">Estado</label>
                             {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado']) !!}
                         </div>

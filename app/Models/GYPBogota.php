@@ -86,4 +86,9 @@ class GYPBogota extends Model
         $DocumentoProteccionDatos = DB::Select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = 3 AND ESTADO = 1");
         return $DocumentoProteccionDatos;
     }
+
+    public static function ListarNormatividades(){
+        $ListarNormatividades = DB::Select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = 2 AND ESTADO = 1");
+        return $ListarNormatividades;
+    }
 }

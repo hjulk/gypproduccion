@@ -409,6 +409,16 @@ class AdministradorController extends Controller
                     } else {
                         $Documentos[$cont]['fecha_modificacion'] = 'SIN ACTUALIZACIÓN';
                     }
+                    $Documentos[$cont]['tipo_documento']   = (int)$value->ID_TYPE_DOCUMENT;
+                    $IdTipoDocumento = (int)$value->ID_TYPE_DOCUMENT;
+                    $ListadoTipoDocumentosActivosById = Administracion::ListadoTipoDocumentosActivosById($IdTipoDocumento);
+                    if($ListadoTipoDocumentosActivosById){
+                        foreach($ListadoTipoDocumentosActivosById as $rowT){
+                            $Documentos[$cont]['nombre_tipo_documento'] = $rowT->NOMBRE_DOCUMENTO;
+                        }
+                    }else{
+                        $Documentos[$cont]['nombre_tipo_documento'] = 'SIN TIPO DE DOCUMENTO';
+                    }
                     $cont++;
                 }
                 $ListadoTipoDocumentosActivos = Administracion::ListadoTipoDocumentosActivos();
@@ -593,16 +603,16 @@ class AdministradorController extends Controller
                 $resultado = json_decode(json_encode($ConsultaVisitas), true);
                 foreach ($resultado as &$value) {
                     $value['FECHA']    = date('d/m/Y h:i A', strtotime($value['FECHA']));
-                    // if($value['PAGINA'] === '/'){
-                    //     $value['PAGINA'] = 'inicio';
-                    // }else{
-                    //     $value['PAGINA'] = str_replace("/",'',$value['PAGINA']);
-                    // }
-                    if ($value['PAGINA'] === '/gypproduccion/') {
+                    if($value['PAGINA'] === '/'){
                         $value['PAGINA'] = 'inicio';
-                    } else {
-                        $value['PAGINA'] = str_replace("/gypproduccion/", '', $value['PAGINA']);
+                    }else{
+                        $value['PAGINA'] = str_replace("/",'',$value['PAGINA']);
                     }
+                    // if ($value['PAGINA'] === '/gypproduccion/') {
+                    //     $value['PAGINA'] = 'inicio';
+                    // } else {
+                    //     $value['PAGINA'] = str_replace("/gypproduccion/", '', $value['PAGINA']);
+                    // }
                 }
 
                 $aResultado = json_encode($resultado);

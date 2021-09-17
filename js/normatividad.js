@@ -1,4 +1,4 @@
-if (window.innerWidth >= 991) {
+if (window.innerWidth >= 1131) {
     document.write('<section class="ftco-section" id="idSectionNormatividad">' +
       '<div class="container" id="containerNormatividad">' +
       '<iframe src="documentos/PLAN_ANTICORRUPCION.pdf#toolbar=0" type="application/pdf" width="100%" height="600px"></iframe>' +
@@ -9,7 +9,7 @@ if (window.innerWidth >= 991) {
       '<iframe src="documentos/INFORMACION_TECNOLOGIA.pdf#toolbar=0" type="application/pdf" width="100%" height="600px"></iframe>' +
       '</div>' +
       '</section>');
-} else if (window.innerWidth <= 991) {
+} else if (window.innerWidth <= 1131) {
     document.write('<section class="ftco-section" id="idSectionNormatividad">' +
       '<div class="container" id="containerNormatividad">' +
       '<div class="row">' +

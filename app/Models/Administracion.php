@@ -340,7 +340,13 @@ class Administracion extends Model
 
     public static function BuscarDocumentoNombreId($NombreDocumento, $idDocumento)
     {
-        $BuscarDocumentoNombre = DB::select("SELECT * FROM documentos WHERE NOMBRE_DOCUMENTO LIKE '%$NombreDocumento%' AND ID_DOCUMENTO NOT IN ($idDocumento)");
+        $BuscarDocumentoNombre = DB::select("SELECT * FROM documentos WHERE NOMBRE_DOCUMENTO = '$NombreDocumento' AND ID_DOCUMENTO NOT IN ($idDocumento)");
+        return $BuscarDocumentoNombre;
+    }
+
+    public static function BuscarDocumentoNombreById($idDocumento,$idTipoDocumento)
+    {
+        $BuscarDocumentoNombre = DB::select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = $idTipoDocumento AND ID_DOCUMENTO NOT IN ($idDocumento) AND ESTADO = 1");
         return $BuscarDocumentoNombre;
     }
 
@@ -353,8 +359,9 @@ class Administracion extends Model
                     ESTADO = ?,
                     FECHA_MODIFICACION = ?,
                     USUARIO_MODIFICACION = ?
-                    WHERE ID_TYPE_DOCUMENT = ?',
-                    [2,$TipoDocumento,$fechaCreacion,$IdUser]);
+                    WHERE ID_TYPE_DOCUMENT = ?
+                    AND ID_TYPE_DOCUMENT NOT IN (2)',
+                    [2,$fechaCreacion,$IdUser,$TipoDocumento]);
         $CargarDocumento = DB::Insert(
             'INSERT INTO documentos
             (NOMBRE_DOCUMENTO,ID_TYPE_DOCUMENT,UBICACION,ESTADO,FECHA_CREACION,USUARIO_CREACION)
@@ -682,6 +689,11 @@ class Administracion extends Model
     public static function ListadoTipoDocumentosActivos(){
         $ListadoTipoDocumentos = DB::Select('SELECT * FROM documents_type WHERE ESTADO = 1 ORDER BY NOMBRE_DOCUMENTO');
         return $ListadoTipoDocumentos;
+    }
+
+    public static function ListadoTipoDocumentosActivosById($IdDocumento){
+        $ListadoTipoDocumentosActivosById = DB::Select("SELECT * FROM documents_type WHERE ESTADO = 1 AND ID_TYPE_DOCUMENT = $IdDocumento");
+        return $ListadoTipoDocumentosActivosById;
     }
 
     public static function CrearDocumentType($NombreDocumento,$Usuario){

@@ -1650,10 +1650,12 @@ function obtener_datos_notificacion(id) {
 
 function obtener_datos_documento(id) {
     var NombreDocumento = $("#nombre_documento" + id).val();
+    var TipoDocumento = $("#tipo_documento" + id).val();
     var Estado = $("#estado_activo" + id).val();
 
     $("#idDocumento_upd").val(id);
     $("#mod_nombre_documento").val(NombreDocumento);
+    $("#mod_tipo_documento").val(TipoDocumento);
     $("#mod_estado").val(Estado);
 }
 

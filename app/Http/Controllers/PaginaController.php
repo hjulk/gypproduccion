@@ -23,7 +23,7 @@ class PaginaController extends Controller
             $Visitas = (int)$value->CONTADOR;
         }
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('index', ['Visitas' => $Visitas,'PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function Trabajo()
@@ -36,27 +36,75 @@ class PaginaController extends Controller
         }
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
         $ProteccionDatos = PaginaController::ProteccionDatos();
-        return view('trabajo', ['TipoDocumento' => $TipoDocumento,'PoliticaHSEQ' => $PoliticaHSEQ, 'ProteccionDatos' => $ProteccionDatos]);
+        return view('trabajo', ['TipoDocumento' => $TipoDocumento, 'PoliticaHSEQ' => $PoliticaHSEQ, 'ProteccionDatos' => $ProteccionDatos]);
     }
 
     public function MapaSitio()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('mapaSitio',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('mapaSitio', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     // GYP
 
     public function Normatividad()
     {
+        $PHP_SELF = null;
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('gyp.normatividad',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        $ListarNormatividad = GYPBogota::ListarNormatividades();
+        if (!isset($_GET['size'])) {
+            echo "<script language=\"JavaScript\">
+                document.location=\"$PHP_SELF?size=\"+window.innerWidth;
+            </script>";
+        } else {
+            if (isset($_GET['size'])) {
+                if ($_GET['size'] >= 1131) {
+                    $Normatividad = null;
+                    $cont = 0;
+                    if ($ListarNormatividad) {
+                        foreach ($ListarNormatividad as $value) {
+                            $Normatividad[$cont]['documentos'] = '<section class="ftco-section" id="idSectionNormatividad">
+                            <div class="container" id="containerNormatividad">
+                            <iframe src="' . str_replace('../', '', $value->UBICACION) . '#toolbar=0" type="application/pdf" width="100%" height="600px"></iframe>
+                            </div>
+                            </section>';
+                            $cont++;
+                        }
+                    }
+                    return view('gyp.normatividad', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Normatividad' => $Normatividad]);
+                } else {
+                    $NormatividadMobile = null;
+                    $contM = 0;
+                    if ($ListarNormatividad) {
+                        foreach ($ListarNormatividad as &$value) {
+                            $NormatividadMobile[$contM]['documentos'] = '
+                            <section class="ftco-section" id="idSectionNormatividad">
+                                <div class="container" id="containerNormatividad">
+                                    <div class="row">
+                                        <div class="col-md-3" id="imgNormatividad">
+                                            <a href="' . str_replace('../', '', $value->UBICACION) . '" target="_blank">
+                                                <img src="images/doc.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <p>' . strtoupper($value->NOMBRE_DOCUMENTO) . '</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>';
+                            $contM++;
+                        }
+                    }
+                    return view('gyp.normatividad', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Normatividad' => $NormatividadMobile]);
+                }
+            }
+        }
     }
 
     public function Nosotros()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('gyp.nosotros',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('gyp.nosotros', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     // ATENCIÓN AL CIUDADANO
@@ -65,7 +113,7 @@ class PaginaController extends Controller
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
         $ProteccionDatos = PaginaController::ProteccionDatos();
-        return view('atencionCiudadano.contacto',['PoliticaHSEQ' => $PoliticaHSEQ, 'ProteccionDatos' => $ProteccionDatos]);
+        return view('atencionCiudadano.contacto', ['PoliticaHSEQ' => $PoliticaHSEQ, 'ProteccionDatos' => $ProteccionDatos]);
     }
 
     public function NotificacionAviso()
@@ -106,7 +154,7 @@ class PaginaController extends Controller
                     </div>
                     <div class="modal-body">
                         <p>
-                            '.$texto.'
+                            ' . $texto . '
                         </p>
                     </div>
                     <div class="modal-footer">
@@ -117,7 +165,7 @@ class PaginaController extends Controller
         </div>';
         }
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('atencionCiudadano.notificacionAviso', ['Notificaciones' => $Notificaciones, 'Desfijacion' => $Desfijacion, 'BotonDesfijacion' => $BotonDesfijacion,'PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('atencionCiudadano.notificacionAviso', ['Notificaciones' => $Notificaciones, 'Desfijacion' => $Desfijacion, 'BotonDesfijacion' => $BotonDesfijacion, 'PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     // SERVICIOS
@@ -125,55 +173,55 @@ class PaginaController extends Controller
     public function Beneficios()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.beneficios',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.beneficios', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function CustodiaSegura()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.custodiaSegura',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.custodiaSegura', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function Gruas()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.gruas',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.gruas', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function NuestrosServicios()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.nuestrosServicios',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.nuestrosServicios', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function ProcesoInmovilizacion()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.procesoInmovilizacion',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.procesoInmovilizacion', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function ProcesoRetiro()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.procesoRetiro',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.procesoRetiro', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function Tarifas()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.tarifas',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.tarifas', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function MonitoreoCamara()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.monitoreoCamaras',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.monitoreoCamaras', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function MensajeSms()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('servicios.mensajeSms',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('servicios.mensajeSms', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     // TRAMITES
@@ -181,19 +229,19 @@ class PaginaController extends Controller
     public function ConsultaLiquidacion()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('tramites.consultaLiquidacion',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('tramites.consultaLiquidacion', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function PagoLinea()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('tramites.pagoLinea',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('tramites.pagoLinea', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function PuntosAtencion()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        return view('tramites.puntosAtencion',['PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('tramites.puntosAtencion', ['PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     public function CrearVisita(Request $request)
@@ -389,30 +437,32 @@ class PaginaController extends Controller
         return $cadena;
     }
 
-    public static function PoliticaHSEQ(){
+    public static function PoliticaHSEQ()
+    {
         $ListarDocumento = GYPBogota::DocumentoPoliticaHSEQ();
         $ubicacion = null;
-        if($ListarDocumento){
-            foreach($ListarDocumento as $value){
-                $documento = str_replace('../','',$value->UBICACION);
+        if ($ListarDocumento) {
+            foreach ($ListarDocumento as $value) {
+                $documento = str_replace('../', '', $value->UBICACION);
             }
-            $ubicacion = '<li><a href="'.$documento.'" target="_blank">Política HSEQ</a></li>';
-        }else{
-            $ubicacion = '<li><a href="#" target="_blank">Política HSEQ</a></li>';
+            $ubicacion = '<li><a href="' . $documento . '" target="_blank">Política HSEQ</a></li>';
+        } else {
+            $ubicacion = '<li><a href="#">Política HSEQ</a></li>';
         }
         return $ubicacion;
     }
 
-    public static function ProteccionDatos(){
+    public static function ProteccionDatos()
+    {
         $ListarDocumento = GYPBogota::DocumentoProteccionDatos();
         $ubicacion = null;
-        if($ListarDocumento){
-            foreach($ListarDocumento as $value){
-                $documento = str_replace('../','',$value->UBICACION);
+        if ($ListarDocumento) {
+            foreach ($ListarDocumento as $value) {
+                $documento = str_replace('../', '', $value->UBICACION);
             }
-            $ubicacion = '<a href="'.$documento.'" style="color: #000000 !important;font-weight: 600;" target="_blank">aquí</a>.';
-        }else{
-            $ubicacion = '<a href="#" style="color: #000000 !important;font-weight: 600;" target="_blank">aquí</a>.';
+            $ubicacion = '<a href="' . $documento . '" style="color: #000000 !important;font-weight: 600;" target="_blank">aquí</a>.';
+        } else {
+            $ubicacion = '<a href="#" style="color: #000000 !important;font-weight: 600;">aquí</a>.';
         }
         return $ubicacion;
     }

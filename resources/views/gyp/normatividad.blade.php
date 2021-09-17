@@ -31,7 +31,13 @@
 @endsection
 
 @section('contenido')
-    <script src="{{asset("js/normatividad.js")}}"></script>
+    @if($Normatividad)
+        @foreach($Normatividad as $value)
+            {!! $value['documentos'] !!}
+        @endforeach
+    @else
+        <script src="{{asset("js/normatividad.js")}}"></script>
+    @endif
 @endsection
 
 @section('scripts')

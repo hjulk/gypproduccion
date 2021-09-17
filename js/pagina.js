@@ -4,116 +4,118 @@ $.ajaxSetup({
     }
 });
 
+
 $(document).ready(function () {
     var page = location.pathname;
     var tipo = 'get';
     $.ajax({
         url: "crearVisita",
         type: "get",
-        data: {_method: tipo, pagina: page},
+        data: { _method: tipo, pagina: page },
         success: function (data) {
         }
     });
 });
 
 function check(e) {
-    key=e.keyCode || e.which;
+    key = e.keyCode || e.which;
 
-    teclado=String.fromCharCode(key).toLowerCase();
+    teclado = String.fromCharCode(key).toLowerCase();
 
-    letras="abcdefghijklmnñopqrstuvwxyz ";
+    letras = "abcdefghijklmnñopqrstuvwxyz ";
 
-    especiales="8-37-38-46-164-46";
+    especiales = "8-37-38-46-164-46";
 
-    teclado_especial=false;
+    teclado_especial = false;
 
-    for(var i in especiales){
-        if(key==especiales[i]){
-            teclado_especial=true;
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            teclado_especial = true;
             break;
         }
     }
 
-    if(letras.indexOf(teclado)==-1 && !teclado_especial){
+    if (letras.indexOf(teclado) == -1 && !teclado_especial) {
         return false;
     }
 }
 
-function numero(event){
-    if(event.charCode >= 48 && event.charCode <= 57){
+function numero(event) {
+    if (event.charCode >= 48 && event.charCode <= 57) {
         return true;
     }
     return false;
 
 }
 
-function noPuntoComa( event ) {
+function noPuntoComa(event) {
 
-  var e = event || window.event;
-  var key = e.keyCode || e.which;
+    var e = event || window.event;
+    var key = e.keyCode || e.which;
 
-  if ( key === 110 || key === 190 || key === 188 ) {
+    if (key === 110 || key === 190 || key === 188) {
 
-     e.preventDefault();
-  }
+        e.preventDefault();
+    }
 }
 
 
 function myFunction() {
     document.getElementsByClassName("site-navbar")[0].classList.toggle("responsive");
-  }
-  jQuery(document).ready(function () {
+}
+
+jQuery(document).ready(function () {
     jQuery('.content-tabs li a').click(function (e) {
-      e.preventDefault();
-      jQuery(this).tab('show');
+        e.preventDefault();
+        jQuery(this).tab('show');
     });
-  });
+});
 
-  function inHijos(o, s) {
+function inHijos(o, s) {
     jQuery(o).children().each(function (idx, el) {
-      inHijos(el, s);
-      jQuery(el).css('font-size', (parseInt(jQuery(el).css('font-size').replace('px', '')) + s) + 'px');
-      // jQuery("#logoNavbar").css("width", "9.5%");
-      jQuery("#logoNavbar").css("margin-top", "0px");
-      jQuery("#logoNavbar").css("width", "23%");
-      jQuery("#logoNavbar").prop("src", "images/MARCA-BOGOTA-EMPRESA.png");
-      if (window.innerWidth <= 991) {
-        jQuery("#logoNavbar").css("margin-top", "-34px");
-        jQuery("#logoNavbar").css("width", "70%");
-      }
+        inHijos(el, s);
+        jQuery(el).css('font-size', (parseInt(jQuery(el).css('font-size').replace('px', '')) + s) + 'px');
+        // jQuery("#logoNavbar").css("width", "9.5%");
+        jQuery("#logoNavbar").css("margin-top", "0px");
+        jQuery("#logoNavbar").css("width", "23%");
+        jQuery("#logoNavbar").prop("src", "images/MARCA-BOGOTA-EMPRESA.png");
+        if (window.innerWidth <= 991) {
+            jQuery("#logoNavbar").css("margin-top", "-34px");
+            jQuery("#logoNavbar").css("width", "70%");
+        }
     });
-  }
+}
 
-  function setFSize(val) {
+function setFSize(val) {
     if (val <= 0) {
-      localStorage.removeItem("fontSize");
+        localStorage.removeItem("fontSize");
     } else {
-      localStorage.fontSize = val;
+        localStorage.fontSize = val;
     }
     location.reload();
-  }
+}
 
-  function switchContraste() {
+function switchContraste() {
     if (localStorage.contraste) {
-      localStorage.removeItem("contraste");
+        localStorage.removeItem("contraste");
     } else {
-      localStorage.contraste = true;
+        localStorage.contraste = true;
     }
     location.reload();
-  }
+}
 
-  if (localStorage.fontSize) {
+if (localStorage.fontSize) {
     inHijos(jQuery("body"), parseInt(localStorage.fontSize));
-  }
+}
 
-  function inHijosContraste(o) {
+function inHijosContraste(o) {
     jQuery(o).children().each(function (idx, el) {
-      inHijosContraste(el);
-      jQuery(el).css('font-size', (parseInt(jQuery(el).css('font-size').replace('px', '')) + s) + 'px');
+        inHijosContraste(el);
+        jQuery(el).css('font-size', (parseInt(jQuery(el).css('font-size').replace('px', '')) + s) + 'px');
     });
-  }
+}
 
-  if (localStorage.contraste) {
+if (localStorage.contraste) {
     var styles = "css/contraste.css";
     var newSS = document.createElement('link');
     newSS.rel = 'stylesheet';
@@ -141,14 +143,15 @@ function myFunction() {
     jQuery(".ftco-navbar-light").css("background-color", "black");
     jQuery(".ftco-cover-1.overlay").removeClass("ftco-cover-1 overlay").addClass("ftco-cover-1-contraste");
     console.log("Se activo contraste!!!");
-  }
-  $('#form-trabajo').submit(function() {
+}
+
+$('#form-trabajo').submit(function () {
     var fileInputP = document.getElementById('hojaVida');
     var Procedimientos = fileInputP.value;
-    if(Procedimientos){
+    if (Procedimientos) {
         var fileSize = $('#hojaVida')[0].files[0].size;
         var sizekiloBytes = parseInt(fileSize / 1024);
-        if (sizekiloBytes >  $('#hojaVida').attr('size')) {
+        if (sizekiloBytes > $('#hojaVida').attr('size')) {
             alert('El tamaño supera el limite permitido de 2mb');
             return false;
         }

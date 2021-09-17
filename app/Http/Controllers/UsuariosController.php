@@ -272,11 +272,19 @@ class UsuariosController extends Controller
             date_default_timezone_set('America/Bogota');
             $fecha_sistema  = date('Y-m-d');
             $fechaCreacion  = date('Y-m-d', strtotime($fecha_sistema));
-            $NombreDocumento = UsuariosController::eliminar_tildes(strtoupper($request->nombre_documento_upd));
+            $NombreDocumento = strtoupper($request->nombre_documento_upd);
             $TipoDocumento = (int)$request->tipo_documento_upd;
             $Estado = (int)$request->estado_upd;
             $IdDocumento = (int)$request->id_documento;
             $BuscarDocumentoNombre = Administracion::BuscarDocumentoNombreId($NombreDocumento,$IdDocumento);
+            $BuscarDocumentoEstado = Administracion::BuscarDocumentoNombreById($IdDocumento,$TipoDocumento);
+            if(($Estado === 1) && ($TipoDocumento != 2)){
+                if($BuscarDocumentoEstado){
+                    $verrors = array();
+                    array_push($verrors, 'Solo debe haber un documento activo por el tipo de documento seleccionado');
+                    return Redirect::to($url.'documentos')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
             if($BuscarDocumentoNombre){
                 $verrors = array();
                 array_push($verrors, 'Nombre de documento ya se encuentra creado');
