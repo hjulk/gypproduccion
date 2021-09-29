@@ -91,4 +91,99 @@ class GYPBogota extends Model
         $ListarNormatividades = DB::Select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = 2 AND ESTADO = 1");
         return $ListarNormatividades;
     }
+
+    public static function ImagesBeneficios(){
+        $ImagesBeneficios = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 6 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImagesBeneficios;
+    }
+
+    public static function ImagesCustodia(){
+        $ImagesCustodia = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 7 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImagesCustodia;
+    }
+
+    public static function GruaExtraPesado(){
+        $GruaExtraPesado = DB::select('SELECT * FROM imagenes
+            WHERE ID_SUBPAGINA = 8
+            AND ID_PAGINA = 4
+            AND ESTADO = 1
+            AND ID_GRUA IN (1,2)
+            ORDER BY 13 ASC');
+        return $GruaExtraPesado;
+    }
+
+    public static function GruaPesado(){
+        $GruaPesado = DB::select('SELECT * FROM imagenes
+            WHERE ID_SUBPAGINA = 8
+            AND ID_PAGINA = 4
+            AND ESTADO = 1
+            AND ID_GRUA IN (3,4)
+            ORDER BY 13 ASC');
+        return $GruaPesado;
+    }
+
+    public static function GruaPlanchon(){
+        $GruaPlanchon = DB::select('SELECT * FROM imagenes
+            WHERE ID_SUBPAGINA = 8
+            AND ID_PAGINA = 4
+            AND ESTADO = 1
+            AND ID_GRUA IN (5,6)
+            ORDER BY 13 ASC');
+        return $GruaPlanchon;
+    }
+
+    public static function GruaPlanchonMoto(){
+        $GruaPlanchon = DB::select('SELECT * FROM imagenes
+            WHERE ID_SUBPAGINA = 8
+            AND ID_PAGINA = 4
+            AND ESTADO = 1
+            AND ID_GRUA IN (7,8)
+            ORDER BY 13 ASC');
+        return $GruaPlanchon;
+    }
+
+    public static function GruaIzajeLateral(){
+        $GruaPlanchon = DB::select('SELECT * FROM imagenes
+            WHERE ID_SUBPAGINA = 8
+            AND ID_PAGINA = 4
+            AND ESTADO = 1
+            AND ID_GRUA IN (9,10)
+            ORDER BY 13 ASC');
+        return $GruaPlanchon;
+    }
+
+    public static function ImgProcesoInmovilizacion(){
+        $ImgProcesoInmovilizacion = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 11 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgProcesoInmovilizacion;
+    }
+
+    public static function ImgProcesoRetiro(){
+        $ImgProcesoRetiro = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 12 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgProcesoRetiro;
+    }
+
+    public static function ImgTarifas(){
+        $ImgTarifas = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 13 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgTarifas;
+    }
+
+    public static function ImgMonitoreo(){
+        $ImgMonitoreo = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 10 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgMonitoreo;
+    }
+
+    public static function ImgMensajes(){
+        $ImgMensajes = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 9 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgMensajes;
+    }
+
+    public static function ImgPagoLinea(){
+        $ImgPagoLinea = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 15 AND ID_PAGINA = 5 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgPagoLinea;
+    }
+
+    public static function ImagenOrganigrama(){
+        $ImgagenOrganigrama = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 5 AND ID_PAGINA = 2 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgagenOrganigrama;
+    }
 }

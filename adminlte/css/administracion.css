@@ -11,11 +11,11 @@
 
 #notificacionesDashboard thead,#hojasVidaDashboard thead,#contactenosDashboard thead,#dependencias thead,#roles thead,
 #usuarios thead,#notificacionesAviso thead,#consultaNotificacionesAviso thead,#reporteContacto thead,#reporteHojaVida thead,
-#reporteVisitas thead,#pagina thead,#subpagina thead,#imagenes thead,#desfijaciones thead,#consultaDesfijaciones thead,#tipoDocumentos thead{background: #879225 !important;color: #ECF0F1;text-align:center !important;}
+#reporteVisitas thead,#pagina thead,#subpagina thead,#imagenes thead,#desfijaciones thead,#consultaDesfijaciones thead,#tipoDocumentos thead,#tipoGruas thead{background: #879225 !important;color: #ECF0F1;text-align:center !important;}
 #notificacionesDashboard tr,#hojasVidaDashboard tr,#contactenosDashboard tr,#dependencias tr,#roles tr,#usuarios tr,#notificacionesAviso tr,
-#consultaNotificacionesAviso tr,#reporteContacto tr,#reporteHojaVida tr,#reporteVisitas tr,#pagina tr,#subpagina tr,#imagenes tr,#tipoDocumentos tr{text-align:center;}
+#consultaNotificacionesAviso tr,#reporteContacto tr,#reporteHojaVida tr,#reporteVisitas tr,#pagina tr,#subpagina tr,#imagenes tr,#tipoDocumentos tr,#tipoGruas tr{text-align:center;}
 #notificacionesDashboard,#hojasVidaDashboard,#contactenosDashboard,#dependencias,#roles,#usuarios,#notificacionesAviso,
-#consultaNotificacionesAviso,#reporteContacto,#reporteHojaVida,#reporteVisitas,#pagina,#subpagina,#imagenes,#desfijaciones,#consultaDesfijaciones,#tipoDocumentos{text-align:center;width: 100%;}
+#consultaNotificacionesAviso,#reporteContacto,#reporteHojaVida,#reporteVisitas,#pagina,#subpagina,#imagenes,#desfijaciones,#consultaDesfijaciones,#tipoDocumentos,#tipoGruas{text-align:center;width: 100%;}
 
 #tituloCard{color:white !important;}
 #imgCard{text-align: center;}
@@ -41,4 +41,4 @@
 #imgAlerts{max-width: -webkit-fill-available;width:-moz-available;width: 20%}
 #exitoAlert,#errorAlert,#exitoTrabajo{text-align:center;font-size:2vh;font-weight: 600;}
 /* #panelResultado{display: none;} */
-#inputSubpagina,#mod_inputSubpagina,#imageUpdate{display: none;}
+#inputSubpagina,#mod_inputSubpagina,#imageUpdate,#campoTextoImagen,#campoTextoImagenUpd,#id_tipo_grua,#inputGrua,#activacionTexto,#inputGruaUpd,#inputSubpaginaUpd,#activacionTextoUpd,#campoOrdenImagenUpd{display: none;}

@@ -3,7 +3,9 @@
 @section('titulo')
 Imágenes
 @endsection
-
+@section('styles')
+    <link rel="stylesheet" href="{{asset("adminlte/plugins/summernote/summernote-bs4.css")}}">
+@endsection
 @section('contenido')
 <section class="content-header">
     <div class="container-fluid">
@@ -30,39 +32,57 @@ Imágenes
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4" id="imgCard">
-                                <picture>
-                                    <source srcset="{{asset("images/images_menu.webp") }}" type="image/webp"/>
-                                    <source srcset="{{asset("images/images_menu.png") }}" type="image/png"/>
-                                    <img src="{{asset("images/images_menu.webp") }}" id="imgCard" alt="Imagenes" class="img-responsive"/>
-                                </picture>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 {!! Form::open(['url' => 'crearImagen', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-imagen']) !!}
                                 @csrf
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <label for="exampleInputEmail1">Nombre Imagen</label>
                                                 {!! Form::text('nombre_imagen',null,['class'=>'form-control','id'=>'nombre_imagen','placeholder'=>'Nombre Imagen','required']) !!}
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <label>Página Principal</label>
                                                 {!! Form::select('id_pagina',$ListaPaginas,null,['class'=>'form-control','id'=>'id_pagina','required','onchange'=>'subpaginaFuncion();']) !!}
                                             </div>
-                                            <div class="col-md-4" id="inputSubpagina">
+                                            <div class="col-md-3" id="inputSubpagina">
                                                 <label>Subpágina</label>
-                                                {!! Form::select('id_subpagina',$ListadoSubpaginas,null,['class'=>'form-control','id'=>'id_subpagina']) !!}
+                                                {!! Form::select('id_subpagina',$ListadoSubpaginas,null,['class'=>'form-control','id'=>'id_subpagina','onchange'=>'mostrarGrua();']) !!}
+                                            </div>
+                                            <div class="col-md-3" id="inputGrua">
+                                                <label>Tipo Grúa</label>
+                                                {!! Form::select('id_tipo_grua',$TipoGruas,null,['class'=>'form-control','id'=>'id_tipo_grua']) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" id="activacionTexto">
+                                            <input type="checkbox" id="activarTexto" name="activarTexto" onclick="activarTextoImagen();"/> Agregar texto o descripción
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-9" id="campoTextoImagen">
+                                                <label>A continuación escriba el texto o descripción de la imagen</label>
+                                                {!! Form::textarea('textoImagenForm',null,['class'=>'form-control','id'=>'textoImagenForm','placeholder'=>'Ingrese el contenido la desfijación','rows'=>'4', 'cols' => '100']) !!}
+                                            </div>
+                                            <div class="col-md-3" id="campoOrdenImagen">
+                                                <label>Orden o lugar de ubicación en la página</label>
+                                                {!! Form::select('id_ordenPagina',$OrdenImagenes,null,['class'=>'form-control','id'=>'id_ordenPagina','required']) !!}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-7">
+                                            <div class="col-md-6">
                                                 <label>Archivo de Imagen</label>
                                                 <input type="file" name="imagen" id="imagen" accept=".jpg,.png" required class="form-control" size="2048" required>
                                                 <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
                                                 <span id="field2_area" hidden><input type="file" id="imagen1" name="imagen1" class="form-control"/></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Pie de Imagen</label>
+                                                {!! Form::text('pie_imagen',$PiePagina,['class'=>'form-control','id'=>'pie_imagen','placeholder'=>'Pie de Imagen','required']) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -88,6 +108,7 @@ Imágenes
                                     <th>Descargar</th>
                                     <th>Página Principal</th>
                                     <th>Subpágina</th>
+                                    <th>Orden en Página</th>
                                     <th>Estado</th>
                                     <th>Fecha de Cargue</th>
                                     <th>Fecha Actualización</th>
@@ -102,6 +123,7 @@ Imágenes
                                         <td><a href="{{$value['ubicacion']}}" target="_blank"><i class="fas fa-download"></i></a></td>
                                         <td>{{$value['nombre_pagina']}}</td>
                                         <td>{{$value['nombre_subpagina']}}</td>
+                                        <td>{{$value['id_ordenPagina']}}</td>
                                         <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>
                                         <td>{{$value['fecha_cargue']}}</td>
                                         <td>{{$value['fecha_modificacion']}}</td>
@@ -111,6 +133,10 @@ Imágenes
                                         <input type="hidden" value="{{$value['id_pagina']}}" id="id_pagina{{$value['id']}}">
                                         <input type="hidden" value="{{$value['id_subpagina']}}" id="id_subpagina{{$value['id']}}">
                                         <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['textoImagenForm']}}" id="textoImagenForm{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['id_ordenPagina']}}" id="id_ordenPagina{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['pie_imagen']}}" id="pie_imagen{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['id_grua']}}" id="id_grua{{$value['id']}}">
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -125,6 +151,8 @@ Imágenes
 @include("modals.modalAlertas")
 @endsection
 @section('scripts')
+<script src="{{asset("adminlte/plugins/summernote/summernote-bs4.min.js")}}"></script>
+<script src="{{asset("adminlte/plugins/summernote/lang/summernote-es-ES.js")}}"></script>
 <script>
     @if (session("mensaje"))
         $("#modalExitoso").modal("show");
@@ -142,5 +170,33 @@ Imágenes
             document.getElementById("errorAlert").innerHTML = "{{ $error }}";
         @endforeach
     @endif
+</script>
+<script>
+
+     $(document).ready(function() {
+        // Summernote
+        $('#textoImagenForm').summernote({
+  toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['strikethrough', 'superscript', 'subscript']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']]
+  ]
+});
+        $('#mod_textoImagenForm').summernote({
+  toolbar: [
+    // [groupName, [list of button]]
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['font', ['strikethrough', 'superscript', 'subscript']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']]
+  ]
+});
+    });
 </script>
 @endsection

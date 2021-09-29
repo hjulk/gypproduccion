@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5" data-aos-delay="100">
-                    {!! Form::open(['url' => 'contactenos', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                    {!! Form::open(['url' => 'contactenos', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-contacto']) !!}
                     @csrf
                         <div class="form-group row">
                             <div class="col-md-6 mb-4 mb-lg-0">

@@ -126,6 +126,12 @@
                                 <p>Roles</p>
                             </a>
                         </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="tipoGrua" class="nav-link">
+                                <i class="fas fa-truck nav-icon" id="enlace"></i>
+                                <p>Tipos de Grúa</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="usuarios" class="nav-link">
                                 <i class="fas fa-users nav-icon" id="enlace"></i>

@@ -33,20 +33,31 @@
 @endsection
 
 @section('contenido')
-    <section class="ftco-section" id="sectionPage">
-        <div class="container" id="imagePage">
-            <a href="https://www.movilidadbogota.gov.co/web/content/liquidacion_de_servicios_de_parqueadero_y_gruas" target="_blank">
-                <picture>
-                    <source srcset="{{asset("images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.webp") }}" type="image/webp"/>
-                    <source srcset="{{asset("images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.jpg") }}" type="image/jpg"/>
-                    <img src="{{asset("images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.webp") }}" id="imagenPagina" alt="Pago en Línea"/>
-                </picture>
-                <img src="images/tramites/pago_linea/ORDEN-SALIDA-VEHICULO_V2.jpg" alt="" id="imagenPagina">
-            </a>
-            <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
-        </div>
-    </section>
-    <br>
+    @if($ImgPagoLinea)
+        @foreach($ImgPagoLinea as $images)
+            <section class="ftco-section" id="sectionPage">
+                <div class="container" id="imagePage">
+                    <a href="https://www.movilidadbogota.gov.co/web/content/liquidacion_de_servicios_de_parqueadero_y_gruas" target="_blank">
+                        @if(strpos($images->UBICACION, '.jpg') !== false)
+                            <picture>
+                                <source srcset="{!! str_replace("../", "", $images->UBICACION_WEBP) !!}" type="image/webp"/>
+                                <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
+                                <img src="{!! str_replace("../", "", $images->UBICACION_WEBP) !!}" id="imagenPagina" alt="Pago en Línea"/>
+                            </picture>
+                        @else
+                            <picture>
+                                <source srcset="{!! str_replace("../", "", $images->UBICACION_WEBP) !!}" type="image/webp"/>
+                                <source srcset="{{ $images->UBICACION }}" type="image/png"/>
+                                <img src="{!! str_replace("../", "", $images->UBICACION_WEBP) !!}" id="imagenPagina" alt="Pago en Línea"/>
+                            </picture>
+                        @endif
+                    </a>
+                    <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                </div>
+            </section>
+            <br>
+        @endforeach
+    @endif
 @endsection
 
 @section('scripts')

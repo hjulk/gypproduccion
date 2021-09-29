@@ -113,12 +113,6 @@ Nesfijaciones
     @endif
 </script>
 <script>
-    {{--  $(document).ready(function () {
-
-         CKEDITOR.replace('contenido')
-         CKEDITOR.replace('contenido_upd')
-
-     });  --}}
 
      $(document).ready(function() {
         // Summernote

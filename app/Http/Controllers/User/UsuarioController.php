@@ -636,7 +636,7 @@ class UsuarioController extends Controller
                 foreach ($ListadoImagenes as $value) {
                     $Imagenes[$cont]['id'] = (int)$value->ID_IMAGEN;
                     $Imagenes[$cont]['nombre_imagen'] = $value->NOMBRE_IMAGEN;
-                    $Imagenes[$cont]['ubicacion'] = $value->UBICACION;
+                    $Imagenes[$cont]['ubicacion'] = '../'.$value->UBICACION;
                     $Imagenes[$cont]['fecha_cargue']    = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
                     if ($value->FECHA_MODIFICACION) {
                         $Imagenes[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
@@ -674,9 +674,32 @@ class UsuarioController extends Controller
                             $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
                         }
                     }
+                    $Imagenes[$cont]['textoImagenForm'] = $value->TEXTO_IMAGEN;
+                    $Imagenes[$cont]['id_ordenPagina'] = (int)$value->ORDEN_IMAGEN;
+                    $Imagenes[$cont]['pie_imagen'] = $value->PIE_IMAGEN;
+                    $Imagenes[$cont]['id_grua'] = (int)$value->ID_GRUA;
                     $cont++;
                 }
-                return view('administracion.imagenes', ['Estado' => $Estado, 'ListaPaginas' => $ListaPaginas, 'ListadoSubpaginas' => $ListadoSubpaginas, 'Imagenes' => $Imagenes]);
+                $OrdenImagenes = array();
+                $OrdenImagenes[''] = 'Seleccione:';
+                $ListadoOrdenImagenes = Administracion::ListarOrdenImagenes();
+                if ($ListadoOrdenImagenes) {
+                    foreach ($ListadoOrdenImagenes as $rowO) {
+                        $OrdenImagenes[$rowO->ID_ORDEN] = $rowO->NOMBRE;
+                    }
+                }
+                $PiePagina = 'Foto: GyP Bogotá S.A.S - Año: '.date("Y");
+                $TipoGruas = array();
+                $TipoGruas[''] = 'Seleccione:';
+                $ListadoGruas = Administracion::ListadoTipoGruasActivos();
+                if ($ListadoGruas) {
+                    foreach ($ListadoGruas as $rowO) {
+                        $TipoGruas[$rowO->ID_GRUA] = $rowO->NOMBRE_GRUA;
+                    }
+                }
+                return view('administracion.imagenes', ['Estado' => $Estado, 'ListaPaginas' => $ListaPaginas,
+                'ListadoSubpaginas' => $ListadoSubpaginas, 'Imagenes' => $Imagenes, 'OrdenImagenes' => $OrdenImagenes,
+                'PiePagina' => $PiePagina,'TipoGruas' => $TipoGruas]);
             }
         }
     }

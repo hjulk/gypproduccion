@@ -38,106 +38,38 @@
             <h3 id="titlesubServicios">¿YA CONOCES EL MODELO DE GRÚAS Y PARQUEADEROS EN BOGOTÁ?</h3>
         </div>
     </section>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">Monitoreo de los procesos por medio de GPS desde un centro de control.</p>
+    @if($ImagenesBeneficios)
+        @foreach($ImagenesBeneficios as $images)
+            <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
+                <div class="container">
+                    <div class="row" id="pageImage">
+                        <div class="col-md-12">
+                            {!! $images->TEXTO_IMAGEN !!}
+                        </div>
+                    </div>
+                    <div class="row" id="imagesBeneficios">
+                        <div class="col-md-12" id="pageImage">
+                            @if(strpos($images->UBICACION, '.jpg') !== false)
+                                <picture>
+                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
+                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Beneficios"/>
+                                </picture>
+                            @else
+                                <picture>
+                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                                    <source srcset="{{ $images->UBICACION }}" type="image/png"/>
+                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Beneficios"/>
+                                </picture>
+                            @endif
+                            <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/beneficios/C0082T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/beneficios/C0082T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/beneficios/C0082T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">Grúas nuevas y dotadas con cámaras para registrar en tiempo real el proceso de inmovilización.</p>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/beneficios/C0083T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/beneficios/C0083T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/beneficios/C0083T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">4.500 m<sup>2</sup> de espacio cubierto para la protección de las motocicletas de la intemperie.
-                    </p>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/beneficios/C0106T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/beneficios/C0106T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/beneficios/C0106T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">Más de 46.000 m<sup>2</sup> de parqueadero.</p>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/beneficios/parqueadero.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/beneficios/parqueadero.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/beneficios/parqueadero.webp") }}" id="imagenPagina" alt="Beneficios"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">Instalaciones amplias, cómodas y modernas para un óptimo servicio.</p>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/beneficios/C0101T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/beneficios/C0101T01.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/beneficios/C0101T01.webp") }}" id="imagenPagina" alt="Beneficios"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+            <br>
+        @endforeach
+    @endif
     <br>
 @endsection
 

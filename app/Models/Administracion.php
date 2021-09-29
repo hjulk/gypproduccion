@@ -529,7 +529,7 @@ class Administracion extends Model
 
     public static function BuscarIdSubpagina($idPagina)
     {
-        $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE ID_PAGINA = $idPagina");
+        $BuscarUserByUsernameId = DB::select("SELECT * FROM subpaginas WHERE ID_PAGINA = $idPagina AND ESTADO = 1 ORDER BY 2 ASC");
         return $BuscarUserByUsernameId;
     }
 
@@ -581,20 +581,30 @@ class Administracion extends Model
         return $ListadoImagenesId;
     }
 
-    public static function CrearImagen($Nombre, $carpeta, $IdPagina, $IdSubpagina, $IdUser)
+    public static function CrearImagen($Nombre, $carpeta, $path1,$IdPagina, $IdSubpagina, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua)
     {
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i');
         $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
-        $CrearImagen = DB::insert(
-            'INSERT INTO imagenes (NOMBRE_IMAGEN,UBICACION,ID_PAGINA,ID_SUBPAGINA,ESTADO,FECHA_CREACION,USUARIO_CREACION)
-                                    VALUES (?,?,?,?,?,?,?)',
-            [$Nombre, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser]
-        );
+        if($TextoImagen){
+            $CrearImagen = DB::insert(
+                'INSERT INTO imagenes (NOMBRE_IMAGEN,UBICACION,UBICACION_WEBP,ID_PAGINA,ID_SUBPAGINA,ESTADO,
+                FECHA_CREACION,USUARIO_CREACION,TEXTO_IMAGEN,ORDEN_IMAGEN,PIE_IMAGEN,ID_GRUA)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+                [$Nombre, $path1, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua]
+            );
+        }else{
+            $CrearImagen = DB::insert(
+                'INSERT INTO imagenes (NOMBRE_IMAGEN,UBICACION,UBICACION_WEBP,ID_PAGINA,ID_SUBPAGINA,ESTADO,
+                FECHA_CREACION,USUARIO_CREACION,ORDEN_IMAGEN,PIE_IMAGEN,ID_GRUA)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                [$Nombre, $path1, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser, $OrdenImagen, $pieImagen, $IdGrua]
+            );
+        }
         return $CrearImagen;
     }
 
-    public static function ActualizarImagen($Nombre, $path, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen)
+    public static function ActualizarImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua)
     {
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i:s');
@@ -604,13 +614,18 @@ class Administracion extends Model
                 'UPDATE imagenes SET
             NOMBRE_IMAGEN = ?,
             UBICACION = ?,
+            UBICACION_WEBP = ?,
             ESTADO = ?,
             FECHA_MODIFICACION = ?,
             USUARIO_MODIFICACION = ?,
             ID_PAGINA = ?,
-            ID_SUBPAGINA = ?
+            ID_SUBPAGINA = ?,
+            TEXTO_IMAGEN = ?,
+            ORDEN_IMAGEN = ?,
+            PIE_IMAGEN = ?,
+            ID_GRUA = ?
             WHERE ID_IMAGEN = ?',
-                [$Nombre, $path, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $IdImagen]
+                [$Nombre, $path, $path1, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $IdImagen]
             );
         } else {
             $ActualizarImagen = DB::update(
@@ -620,9 +635,13 @@ class Administracion extends Model
             FECHA_MODIFICACION = ?,
             USUARIO_MODIFICACION = ?,
             ID_PAGINA = ?,
-            ID_SUBPAGINA = ?
+            ID_SUBPAGINA = ?,
+            TEXTO_IMAGEN = ?,
+            ORDEN_IMAGEN = ?,
+            PIE_IMAGEN = ?,
+            ID_GRUA = ?
             WHERE ID_IMAGEN = ?',
-                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $IdImagen]
+                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $IdImagen]
             );
         }
         return $ActualizarImagen;
@@ -733,5 +752,158 @@ class Administracion extends Model
             [$NombreDocumento, $Estado, $fechaCreacion, $Usuario, $IdDocumento]
         );
         return $ActualizarDocumentType;
+    }
+
+    public static function ListarOrdenImagenes(){
+        $ListarOrdenImagenes = DB::select('SELECT * FROM orden_imagenes WHERE ESTADO = ?', [1]);
+        return $ListarOrdenImagenes;
+    }
+
+    public static function ListarOrdenSubpagina($OrdenImagen,$IdSubpagina){
+        $ListarOrdenSubpagina = DB::select('SELECT * FROM imagenes WHERE ORDEN_IMAGEN = ? AND ID_SUBPAGINA = ? AND ESTADO = 1',
+                                [$OrdenImagen,$IdSubpagina]);
+        return $ListarOrdenSubpagina;
+    }
+
+    public static function ListarOrdenPagina($OrdenImagen,$IdPagina){
+        $ListarOrdenPagina = DB::select('SELECT * FROM imagenes WHERE ORDEN_IMAGEN = ? AND ID_PAGINA = ? AND ESTADO = 1 AND ID_SUBPAGINA = 0',
+                                [$OrdenImagen,$IdPagina]);
+        return $ListarOrdenPagina;
+    }
+
+    public static function ListarOrdenSubpaginaId($OrdenImagen,$IdPagina,$IdSubpagina,$IdImagen){
+        $ListarOrdenSubpagina = DB::select('SELECT * FROM imagenes
+                                WHERE ORDEN_IMAGEN = ?
+                                AND ID_PAGINA = ?
+                                AND ID_SUBPAGINA = ?
+                                AND ESTADO = 1
+                                AND ID_IMAGEN NOT IN (?)',
+                                [$OrdenImagen,$IdPagina,$IdSubpagina,$IdImagen]);
+        return $ListarOrdenSubpagina;
+    }
+
+    public static function ListadoTipoGruas(){
+        $ListadoTipoGruas = DB::Select('SELECT * FROM tipo_grua ORDER BY NOMBRE_GRUA');
+        return $ListadoTipoGruas;
+    }
+
+    public static function ListadoTipoGruasActivos(){
+        $ListadoTipoGruas = DB::Select('SELECT * FROM tipo_grua WHERE ESTADO = 1 ORDER BY NOMBRE_GRUA');
+        return $ListadoTipoGruas;
+    }
+
+    public static function ListadoTipoGruasActivosById($IdGrua){
+        $ListadoTipoGruasActivosById = DB::Select("SELECT * FROM tipo_grua WHERE ESTADO = 1 AND ID_GRUA = $IdGrua");
+        return $ListadoTipoGruasActivosById;
+    }
+
+    public static function CrearGrua($NombreGrua,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearGrua = DB::insert('INSERT INTO tipo_grua (NOMBRE_GRUA, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                        VALUES (?,?,?,?)',
+                                        [$NombreGrua,1,$fechaCreacion,$Usuario]);
+        return $CrearGrua;
+    }
+
+    public static function BuscarGruaName($NombreGrua){
+        $ListadoTipoGruas = DB::Select("SELECT * FROM tipo_grua WHERE NOMBRE_GRUA = '$NombreGrua'");
+        return $ListadoTipoGruas;
+    }
+
+    public static function BuscarGruaNameId($NombreGrua,$IdGrua){
+        $ListadoTipoGruas = DB::Select("SELECT * FROM tipo_grua
+        WHERE NOMBRE_GRUA = '$NombreGrua'
+        AND ID_GRUA NOT IN ($IdGrua)");
+        return $ListadoTipoGruas;
+    }
+
+    public static function ActualizarGrua($NombreGrua,$Estado,$Usuario,$IdGrua)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $ActualizarGrua = DB::update(
+            'UPDATE tipo_grua SET
+            NOMBRE_GRUA = ?,
+            ESTADO = ?,
+            FECHA_MODIFICACION = ?,
+            USUARIO_MODIFICACION = ?
+            WHERE ID_GRUA = ?',
+            [$NombreGrua, $Estado, $fechaCreacion, $Usuario, $IdGrua]
+        );
+        return $ActualizarGrua;
+    }
+
+    public static function ListarImagenGrua($IdGrua){
+        $ListarImagenGrua = DB::select('SELECT * FROM imagenes WHERE ID_GRUA = ? AND ESTADO = 1', [$IdGrua]);
+        return $ListarImagenGrua;
+    }
+
+    public static function ListadoImagenesOrganigrama(){
+        $ListadoImagenesOrganigrama = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 2 AND ID_SUBPAGINA = 5 AND ESTADO = 1');
+        return $ListadoImagenesOrganigrama;
+    }
+
+    public static function ListadoImagenesRetiro(){
+        $ListadoImagenesRetiro = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 12 AND ESTADO = 1');
+        return $ListadoImagenesRetiro;
+    }
+
+    public static function ListadoImagenesTarifa(){
+        $ListadoImagenesTarifa = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 13 AND ESTADO = 1');
+        return $ListadoImagenesTarifa;
+    }
+
+    public static function ListadoImagenesMonitoreo(){
+        $ListadoImagenesMonitoreo = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 10 AND ESTADO = 1');
+        return $ListadoImagenesMonitoreo;
+    }
+
+    public static function ListadoImagenesMensaje(){
+        $ListadoImagenesMonitoreo = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 9 AND ESTADO = 1');
+        return $ListadoImagenesMonitoreo;
+    }
+
+    public static function ListadoImagenesPago(){
+        $ListadoImagenesPago = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 5 AND ID_SUBPAGINA = 15 AND ESTADO = 1');
+        return $ListadoImagenesPago;
+    }
+
+    public static function ListadoImagenesRetiroId($IdImagen){
+        $ListadoImagenesRetiro = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 12 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesRetiro;
+    }
+
+    public static function ListadoImagenesTarifaId($IdImagen){
+        $ListadoImagenesTarifa = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 13 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesTarifa;
+    }
+
+    public static function ListadoImagenesPagoId($IdImagen){
+        $ListadoImagenesPago = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 5 AND ID_SUBPAGINA = 15 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesPago;
+    }
+
+    public static function ListadoImagenesMonitoreoId($IdImagen){
+        $ListadoImagenesMonitoreoId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 10 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesMonitoreoId;
+    }
+
+    public static function ListadoImagenesOrganigramaId($IdImagen){
+        $ListadoImagenesOrganigramaId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 2 AND ID_SUBPAGINA = 5 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesOrganigramaId;
+    }
+
+    public static function ListadoImagenesGruaId($OrdenImagen,$IdGrua,$IdImagen){
+        $ListadoImagenesGruaId = DB::select('SELECT * FROM imagenes
+                                            WHERE ID_PAGINA = 4
+                                            AND ID_SUBPAGINA = 8
+                                            AND ESTADO = 1
+                                            AND ORDEN_IMAGEN = ?
+                                            AND ID_GRUA = ?
+                                            AND ID_IMAGEN NOT IN (?)',[$OrdenImagen,$IdGrua,$IdImagen]);
+        return $ListadoImagenesGruaId;
     }
 }

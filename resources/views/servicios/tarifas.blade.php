@@ -33,16 +33,29 @@
 @endsection
 
 @section('contenido')
-<section class="ftco-section" id="sectionPage">
-    <div class="container" id="imagePage">
-        <picture>
-            <source srcset="{{asset("images/servicios/tarifas/tarifas.webp") }}" type="image/webp"/>
-            <source srcset="{{asset("images/servicios/tarifas/tarifas.jpg") }}" type="image/jpg"/>
-            <img src="{{asset("images/servicios/tarifas/tarifas.webp") }}" id="imagenPagina" alt="Tarifas"/>
-        </picture>
-        <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
-    </div>
-    </section>
+    @if($ImgTarifas)
+        @foreach($ImgTarifas as $images)
+            <section class="ftco-section" id="sectionPage">
+                <div class="container" id="imagePage">
+                    @if(strpos($images->UBICACION, '.jpg') !== false)
+                        <picture>
+                            <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                            <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
+                            <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Tarifas"/>
+                        </picture>
+                    @else
+                        <picture>
+                            <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                            <source srcset="{{ $images->UBICACION }}" type="image/png"/>
+                            <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Tarifas"/>
+                        </picture>
+                    @endif
+                    <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                </div>
+            </section>
+            <br>
+        @endforeach
+    @endif
     <br>
 @endsection
 

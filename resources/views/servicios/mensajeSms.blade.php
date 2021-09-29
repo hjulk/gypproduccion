@@ -42,22 +42,31 @@
     <section class="ftco-section" id="sectionPage">
         <div class="container" id="imagePage">
             <div class="row">
-                <div class="col-md-6">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/mensajes/C0086T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/mensajes/C0086T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/mensajes/C0086T01.webp") }}" id="imagenPagina" alt="Mensaje de texto de alerta"/>
-                    </picture>
-                    <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-                <div class="col-md-6">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/mensajes/mensaje_1.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/mensajes/mensaje_1.png") }}" type="image/png"/>
-                        <img src="{{asset("images/servicios/mensajes/mensaje_1.webp") }}" id="imagenPagina" alt="Mensaje de texto de alerta"/>
-                    </picture>
-                    <p>Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
+                @if($ImgMensajes)
+                    @foreach($ImgMensajes as $images)
+                        @if(strpos($images->UBICACION, '.jpg') !== false)
+                            <div class="col-md-6">
+                                <picture>
+                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
+                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Mensaje de texto de alerta"/>
+                                </picture>
+                                <br>
+                                <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                            </div>
+                        @else
+                            <div class="col-md-6">
+                                <picture>
+                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                                    <source srcset="{{ $images->UBICACION }}" type="image/png"/>
+                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Mensaje de texto de alerta"/>
+                                </picture>
+                                <br>
+                                <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
             </div>
         </div>
     </section>

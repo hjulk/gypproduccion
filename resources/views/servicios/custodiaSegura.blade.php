@@ -57,93 +57,38 @@
         </div>
     </section>
     <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">
-                        <font style="color:#879225;">1.</font> <font style="color:#879225;">Más de 4.500 m<sup>2</sup> de espacio cubierto</font> para las motocicletas.
-                    </p>
+    @if($ImagenesCustodia)
+        @foreach($ImagenesCustodia as $images)
+            <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
+                <div class="container">
+                    <div class="row" id="pageImage">
+                        <div class="col-md-12">
+                            {!! $images->TEXTO_IMAGEN !!}
+                        </div>
+                    </div>
+                    <div class="row" id="imagesCustodia">
+                        <div class="col-md-12" id="pageImage">
+                            @if(strpos($images->UBICACION, '.jpg') !== false)
+                                <picture>
+                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
+                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Custodia"/>
+                                </picture>
+                            @else
+                                <picture>
+                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                                    <source srcset="{{ $images->UBICACION }}" type="image/png"/>
+                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Custodia"/>
+                                </picture>
+                            @endif
+                            <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row" id="imagesCustodia">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/custodia_segura/C0106T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/custodia_segura/C0106T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/custodia_segura/C0106T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">
-                        <font style="color:#879225;">2.</font> <font style="color:#879225;">Monitoreo</font> continuo del vehículo inmovilizado.
-                    </p>
-                </div>
-            </div>
-            <div class="row" id="imagesCustodia">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/custodia_segura/C0084T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/custodia_segura/C0084T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/custodia_segura/C0084T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">
-                        <font style="color:#879225;">3.</font> Oficina de atención al ciudadano donde puedes exponer <font style="color:#879225;">quejas y reclamos.</font>
-                    </p>
-                </div>
-            </div>
-            <div class="row" id="imagesCustodia">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/custodia_segura/atencion_ciudadano.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/custodia_segura/atencion_ciudadano.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/custodia_segura/atencion_ciudadano.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section class="ftco-section" id="why-us-section" id="sectionServiciosSub">
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <p id="subTitleImage">
-                        <font style="color:#879225;">4.</font> Personal capacitado y disponible <font style="color:#879225;">24/7.</font>
-                    </p>
-                </div>
-            </div>
-            <div class="row" id="imagesCustodia">
-                <div class="col-md-12" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/servicios/custodia_segura/C0080T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/servicios/custodia_segura/C0080T01.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/servicios/custodia_segura/C0080T01.webp") }}" id="imagenPagina" alt="Custodia Segura"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+            <br>
+        @endforeach
+    @endif
     <br>
 @endsection
 

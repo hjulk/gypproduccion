@@ -447,6 +447,70 @@ class AdministracionController extends Controller
         }
     }
 
+    public function CrearTipoGrua(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_grua' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoGrua')->withErrors($validator)->withInput();
+        }else{
+            $NombreGrua = $request->nombre_grua;
+            $Usuario = (int)Session::get('IdUsuario');
+            $BuscarGrua = Administracion::BuscarGruaName($NombreGrua);
+            if($BuscarGrua){
+                $verrors = array();
+                array_push($verrors, 'Nombre de grua ya existe');
+                return Redirect::to($url.'tipoGrua')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $CrearGrua = Administracion::CrearGrua($NombreGrua,$Usuario);
+                if($CrearGrua){
+                    $verrors = 'Se creo el tipo de grua '.$NombreGrua.' con éxito.';
+                    return Redirect::to($url.'tipoGrua')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear el tipo de grua');
+                    return Redirect::to($url.'tipoGrua')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarTipoGrua(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_grua_upd' => 'required',
+            'estado_upd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoGrua')->withErrors($validator)->withInput();
+        }else{
+            $NombreGrua = $request->nombre_grua_upd;
+            $Usuario = (int)Session::get('IdUsuario');
+            $Estado = (int)$request->estado_upd;
+            $IdGrua = (int)$request->id_tipoGrua;
+            $BuscarGrua = Administracion::BuscarGruaNameId($NombreGrua,$IdGrua);
+            if($BuscarGrua){
+                $verrors = array();
+                array_push($verrors, 'Nombre de grua ya existe');
+                return Redirect::to($url.'tipoGrua')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarGrua = Administracion::ActualizarGrua($NombreGrua,$Estado,$Usuario,$IdGrua);
+                if($ActualizarGrua){
+                    $verrors = 'Se actualizo el tipo de grua '.$NombreGrua.' con éxito.';
+                    return Redirect::to($url.'tipoGrua')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar el nombre de  grua');
+                    return Redirect::to($url.'tipoGrua')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
     public static function FindUrl(){
         $RolUser = (int)Session::get('Rol');
         if($RolUser === 1){

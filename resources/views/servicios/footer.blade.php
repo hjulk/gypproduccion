@@ -18,7 +18,9 @@
                     <li><a href="../normatividad">Normatividad</a></li>
                     <li><a href="../puntosAtencion">Puntos de Atención</a></li>
                     <li><a href="../contacto">Contáctenos</a></li>
-                    <li><a href="{{asset("documentos/POLITICA_INTEGRADA_HSEQ.pdf")}}" target="_blank">Política HSEQ</a></li>
+                    @if($PoliticaHSEQ)
+                        {!! $PoliticaHSEQ !!}
+                    @endif
                     <li><a href="../mapaSitio">Mapa del Sitio</a></li>
                 </ul>
             </div>

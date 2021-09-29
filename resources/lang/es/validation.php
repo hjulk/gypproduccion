@@ -127,6 +127,16 @@ return array(
         'imagen' => 'Archivo de la imagen',
         'imagen_upd' => 'Archivo de la imagen',
         'contenidoDesfijacion' => 'Texto Desfijación',
-        'contenidoDesfijacion_upd' => 'Texto Desfijación'
+        'contenidoDesfijacion_upd' => 'Texto Desfijación',
+        'id_ordenPagina' => 'Orden ubicación imagen',
+        'id_ordenPagina_upd' => 'Orden ubicación imagen',
+        'textoImagenForm' => 'Texto Imagen',
+        'textoImagenForm_upd' => 'Texto Imagen',
+        'pie_imagen' => 'Pie de Imagen',
+        'pie_imagen_upd' => 'Pie de Imagen',
+        'id_tipo_grua' => 'Tipo de Grua',
+        'id_tipo_grua_upd' => 'Tipo de Grua',
+        'nombre_grua' => 'Nombre Grúa',
+        'nombre_grua_upd' => 'Nombre Grúa'
     ),
 );
