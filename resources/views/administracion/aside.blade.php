@@ -16,7 +16,7 @@
                         <p>Inicio</p>
                     </a>
                 </li>
-                @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
+                @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 4))
                 <li class="nav-item" id="asideInicio">
                     <a href="documentos" class="nav-link">
                         <i class="fas fa-file nav-icon" id="enlace"></i>

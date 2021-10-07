@@ -1,10 +1,10 @@
-<div class="modal fade bd-example-modal-xl" id="modal-notificacionUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="modal-notificacionUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title modal-title-primary">Actualizar Notificación</h4>
             </div>
-            {!! Form::open(['url' => 'actualizarNotificacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-rol_upd']) !!}
+            {!! Form::open(['url' => 'actualizarNotificacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion_upd']) !!}
             @csrf
             <div class="modal-body">
                 <div class="row">
@@ -16,7 +16,7 @@
                         <label>Placa Vehículo</label>
                         {!! Form::text('placa_upd',null,['class'=>'form-control','id'=>'mod_placa','placeholder'=>'Placa Vehículo','required','maxlength="6" oninput="if(this.value.length > this.maxLength)
                         this.value = this.value.slice(0, this.maxLength)";','onkeypress="return check(event);"']) !!}
-                        <div align="right"><small class="text-muted">Escriba la placa sin guión.</small><span id="cntDescripHechos" align="right"> </span></div>
+                        <div align="right"><small class="text-muted">Escriba la placa sin guion.</small><span id="cntDescripHechos" align="right"> </span></div>
                     </div>
                     <div class="col-md-3">
                         <label>Año de Reporte</label>
@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label for="exampleInputEmail1">Estado</label>
-                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado']) !!}
+                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado','required']) !!}
                         </div>
                     </div>
                 </div>

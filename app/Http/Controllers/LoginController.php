@@ -100,7 +100,7 @@ class LoginController extends Controller
 
             }else{
                 $verrors = array();
-                array_push($verrors, 'Usuario incorrecto');
+                array_push($verrors, 'El usuario '.$user.' No se encuentra en la base de datos');
                 return Redirect::to('login')->withErrors(['errors' => $verrors]);
             }
         }

@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-xl" id="modal-recuperarPass" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="modal-recuperarPass" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -79,7 +79,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="solicitudError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="solicitudError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="modalInicio" style="background-color: #FFFFFF !important;border: none !important;margin-top: 100px !important;">
             <div class="container" id="imageModal">

@@ -68,7 +68,7 @@ $(document).ready(function () {
                     }
                 }),
                 renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-                    tableClass: 'table'
+                    tableClass: 'tabledisplay table dt-responsive nowrap'
                 })
             }
         },
@@ -113,7 +113,7 @@ $(document).ready(function () {
     $('#hojasVidaDashboard').DataTable({
         columnDefs: [
             { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: -2 }],
+            { responsivePriority: 2, targets: -1 }],
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.modal({
@@ -1551,6 +1551,7 @@ $(document).ready(function () {
             }
         }
     });
+
 });
 
 function obtener_datos_dependencia(id) {
@@ -1694,10 +1695,12 @@ function obtener_datos_documento(id) {
     var NombreDocumento = $("#nombre_documento" + id).val();
     var TipoDocumento = $("#tipo_documento" + id).val();
     var Estado = $("#estado_activo" + id).val();
+    var NombreTipoDocumento = $("#nombre_tipo_documento" + id).val();
 
     $("#idDocumento_upd").val(id);
     $("#mod_nombre_documento").val(NombreDocumento);
     $("#mod_tipo_documento").val(TipoDocumento);
+    $("#mod_nombre_tipo_documento").val(NombreTipoDocumento);
     $("#mod_estado").val(Estado);
 }
 
@@ -1742,11 +1745,15 @@ function subpaginaFuncion() {
                 }
                 document.getElementById("id_subpagina").value = '';
                 document.getElementById("id_subpagina").required = true;
+                document.getElementById("inputGrua").style.display = "none";
+                document.getElementById("id_tipo_grua").style.display = "none";
             } else {
                 document.getElementById("inputSubpagina").style.display = "none";
                 select.options.length = 0;
                 document.getElementById("id_subpagina").value = '';
                 document.getElementById("id_subpagina").required = false;
+                document.getElementById("inputGrua").style.display = "none";
+                document.getElementById("id_tipo_grua").style.display = "none";
             }
         }
     });
@@ -1788,11 +1795,15 @@ function subpaginaFuncionUpd() {
                 }
                 document.getElementById("mod_id_subpagina").value = '';
                 document.getElementById("mod_id_subpagina").required = true;
+                document.getElementById("inputGruaUpd").style.display = "none";
+                document.getElementById("mod_id_tipo_grua").style.display = "none";
             } else {
                 document.getElementById("inputSubpaginaUpd").style.display = "none";
                 select.options.length = 0;
                 document.getElementById("mod_id_subpagina").value = '';
                 document.getElementById("mod_id_subpagina").required = false;
+                document.getElementById("inputGruaUpd").style.display = "none";
+                document.getElementById("mod_id_tipo_grua").style.display = "none";
             }
         }
     });
@@ -1817,6 +1828,9 @@ function obtener_datos_imagen(id) {
     var Estado = $("#estado_activo" + id).val();
     var PieImagen = $("#pie_imagen" + id).val();
     var Grua = $("#id_grua" + id).val();
+    var NombreSubpagina  = $("#nombre_subpagina" + id).val();
+    var NombreGrua = $("#nombre_grua" + id).val();
+    var NombrePagina = $("#nombre_pagina" + id).val();
 
     $("#idImagen_upd").val(id);
     $("#mod_nombre_imagen").val(NombreImagen);
@@ -1826,7 +1840,25 @@ function obtener_datos_imagen(id) {
     $("#mod_textoImagenForm").summernote('code', TextoImagen);
     $("#mod_id_ordenPagina").val(OrdenImagen);
     $("#mod_pie_imagen").val(PieImagen);
-    $("#mod_id_grua").val(Grua);
+    $("#mod_id_tipo_grua").val(Grua);
+    $("#mod_nombre_pagina").val(NombrePagina);
+    if(IdSubpagina > 0){
+        document.getElementById("inputSubpaginaUpd").style.display = "block";
+        $("#mod_nombre_subpagina").val(NombreSubpagina);
+    }else{
+        document.getElementById("inputSubpaginaUpd").style.display = "none";
+    }
+    if(Grua > 0){
+        document.getElementById("inputGruaUpd").style.display = "block";
+        $("#mod_nombre_grua").val(NombreGrua);
+    }else{
+        document.getElementById("inputGruaUpd").style.display = "none";
+    }
+    if(TextoImagen){
+        document.getElementById("activacionTextoUpd").style.display = "block";
+    }else{
+        document.getElementById("activacionTextoUpd").style.display = "none";
+    }
 }
 
 function obtener_datos_desfijacion(id) {
@@ -1870,7 +1902,7 @@ function activarTextoImagenUpd() {
     }
 }
 
-function mostrarGrua() {
+function mostrarGrua(IdSubpagina) {
     var selectPage = document.getElementById("id_pagina");
     var selectPageValue = selectPage.options[selectPage.selectedIndex].value;
     var selectSubPage = document.getElementById("id_subpagina");
@@ -1916,21 +1948,29 @@ function mostrarGrua() {
             document.getElementById("campoOrdenImagen").style.display = "none";
             document.getElementById("id_tipo_grua").required = false;
             document.getElementById("id_ordenPagina").required = false;
+            document.getElementById("inputGrua").style.display = "none";
+            document.getElementById("id_tipo_grua").style.display = "none";
         } else if (selectSubPageValue == 13) {
             document.getElementById("activacionTexto").style.display = "none";
             document.getElementById("campoOrdenImagen").style.display = "none";
             document.getElementById("id_tipo_grua").required = false;
             document.getElementById("id_ordenPagina").required = false;
+            document.getElementById("inputGrua").style.display = "none";
+            document.getElementById("id_tipo_grua").style.display = "none";
         } else if (selectSubPageValue == 10) {
             document.getElementById("activacionTexto").style.display = "none";
             document.getElementById("campoOrdenImagen").style.display = "none";
             document.getElementById("id_tipo_grua").required = false;
             document.getElementById("id_ordenPagina").required = false;
+            document.getElementById("inputGrua").style.display = "none";
+            document.getElementById("id_tipo_grua").style.display = "none";
         } else if (selectSubPageValue == 9) {
             document.getElementById("activacionTexto").style.display = "none";
             document.getElementById("campoOrdenImagen").style.display = "none";
             document.getElementById("id_tipo_grua").required = false;
             document.getElementById("id_ordenPagina").required = false;
+            document.getElementById("inputGrua").style.display = "none";
+            document.getElementById("id_tipo_grua").style.display = "none";
         } else {
             document.getElementById("activacionTexto").style.display = "block";
             document.getElementById("inputGrua").style.display = "none";
@@ -1941,30 +1981,40 @@ function mostrarGrua() {
             document.getElementById("id_ordenPagina").required = true;
         }
             break;
-        case '5': if (selectSubPageValue == 15) {
-            document.getElementById("activacionTexto").style.display = "none";
-            document.getElementById("campoOrdenImagen").style.display = "none";
-            document.getElementById("id_tipo_grua").required = false;
-            document.getElementById("id_ordenPagina").required = false;
-        } else {
-            document.getElementById("activacionTexto").style.display = "block";
-            document.getElementById("inputGrua").style.display = "none";
-            document.getElementById("id_tipo_grua").style.display = "none";
-            document.getElementById("campoOrdenImagen").style.display = "block";
+        case '5':
+            if (selectSubPageValue == 15) {
+                document.getElementById("activacionTexto").style.display = "none";
+                document.getElementById("campoOrdenImagen").style.display = "none";
+                document.getElementById("id_tipo_grua").required = false;
+                document.getElementById("id_ordenPagina").required = false;
+                document.getElementById("inputGrua").style.display = "none";
+                document.getElementById("id_tipo_grua").style.display = "none";
+            } else {
+                document.getElementById("activacionTexto").style.display = "block";
+                document.getElementById("inputGrua").style.display = "none";
+                document.getElementById("id_tipo_grua").style.display = "none";
+                document.getElementById("campoOrdenImagen").style.display = "block";
+                document.getElementById("id_tipo_grua").value = '';
+                document.getElementById("id_tipo_grua").required = false;
+                document.getElementById("id_ordenPagina").required = true;
+            }
+            break;
+        case '6':
+            document.getElementById("inputGrua").style.display = "none !important";
+            document.getElementById("id_tipo_grua").style.display = "none !important";
+            document.getElementById("activacionTexto").style.display = "none !important";
             document.getElementById("id_tipo_grua").value = '';
             document.getElementById("id_tipo_grua").required = false;
-            document.getElementById("id_ordenPagina").required = true;
-        }
             break;
-        case '6': document.getElementById("inputGrua").style.display = "none";
-            document.getElementById("id_tipo_grua").style.display = "none";
+        default: document.getElementById("inputGrua").style.display = "none !important";
+            document.getElementById("id_tipo_grua").style.display = "none !important";
             document.getElementById("id_tipo_grua").value = '';
             document.getElementById("id_tipo_grua").required = false;
             break;
     }
 }
 
-function mostrarGruaUpd() {
+function mostrarGruaUpd(IdSubpaginaUpd) {
     var selectPage = document.getElementById("mod_id_pagina");
     var selectPageValue = selectPage.options[selectPage.selectedIndex].value;
     var selectSubPage = document.getElementById("mod_id_subpagina");
@@ -2020,11 +2070,15 @@ function mostrarGruaUpd() {
             document.getElementById("campoOrdenImagenUpd").style.display = "none";
             document.getElementById("mod_id_tipo_grua").required = false;
             document.getElementById("mod_id_ordenPagina").required = false;
+            document.getElementById("inputGruaUpd").style.display = "none";
+            document.getElementById("mod_id_tipo_grua").style.display = "none";
         } else if (selectSubPageValue == 9) {
             document.getElementById("activacionTextoUpd").style.display = "none";
             document.getElementById("campoOrdenImagenUpd").style.display = "none";
             document.getElementById("mod_id_tipo_grua").required = false;
             document.getElementById("mod_id_ordenPagina").required = false;
+            document.getElementById("inputGruaUpd").style.display = "none";
+            document.getElementById("mod_id_tipo_grua").style.display = "none";
         } else {
             document.getElementById("activacionTextoUpd").style.display = "block";
             document.getElementById("inputGruaUpd").style.display = "none";
@@ -2052,6 +2106,11 @@ function mostrarGruaUpd() {
             break;
         case '6': document.getElementById("inputGruaUpd").style.display = "none";
             document.getElementById("mod_id_tipo_grua").style.display = "none";
+            document.getElementById("mod_id_tipo_grua").value = '';
+            document.getElementById("mod_id_tipo_grua").required = false;
+            break;
+        default: document.getElementById("inputGruaUpd").style.display = "none !important";
+            document.getElementById("mod_id_tipo_grua").style.display = "none !important";
             document.getElementById("mod_id_tipo_grua").value = '';
             document.getElementById("mod_id_tipo_grua").required = false;
             break;
@@ -2106,5 +2165,58 @@ $(function () {
         unhighlight: function (element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         }
+    });
+    $('#form-notificacion-manual').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $('#form-notificacion_upd').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $('#form-desfijaciones').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $('#form-desfijaciones_upd').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+
     });
 });

@@ -47,7 +47,7 @@ Imágenes
                                             </div>
                                             <div class="col-md-3" id="inputSubpagina">
                                                 <label>Subpágina</label>
-                                                {!! Form::select('id_subpagina',$ListadoSubpaginas,null,['class'=>'form-control','id'=>'id_subpagina','onchange'=>'mostrarGrua();']) !!}
+                                                {!! Form::select('id_subpagina',$ListadoSubpaginas,null,['class'=>'form-control','id'=>'id_subpagina','onchange'=>'mostrarGrua(this);']) !!}
                                             </div>
                                             <div class="col-md-3" id="inputGrua">
                                                 <label>Tipo Grúa</label>
@@ -77,7 +77,7 @@ Imágenes
                                             <div class="col-md-6">
                                                 <label>Archivo de Imagen</label>
                                                 <input type="file" name="imagen" id="imagen" accept=".jpg,.png" required class="form-control" size="2048" required>
-                                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
+                                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
                                                 <span id="field2_area" hidden><input type="file" id="imagen1" name="imagen1" class="form-control"/></span>
                                             </div>
                                             <div class="col-md-6">
@@ -137,6 +137,9 @@ Imágenes
                                         <input type="hidden" value="{{$value['id_ordenPagina']}}" id="id_ordenPagina{{$value['id']}}">
                                         <input type="hidden" value="{{$value['pie_imagen']}}" id="pie_imagen{{$value['id']}}">
                                         <input type="hidden" value="{{$value['id_grua']}}" id="id_grua{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['nombre_pagina']}}" id="nombre_pagina{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['nombre_subpagina']}}" id="nombre_subpagina{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['nombre_grua']}}" id="nombre_grua{{$value['id']}}">
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -173,30 +176,31 @@ Imágenes
 </script>
 <script>
 
-     $(document).ready(function() {
+    $(document).ready(function() {
         // Summernote
         $('#textoImagenForm').summernote({
-  toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']]
-  ]
-});
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
         $('#mod_textoImagenForm').summernote({
-  toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']]
-  ]
-});
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
+
     });
 </script>
 @endsection

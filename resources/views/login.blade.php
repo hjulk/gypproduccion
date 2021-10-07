@@ -22,7 +22,7 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body">
-                {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-create_user']) !!}
+                {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-login']) !!}
                 @csrf
                     <div class="input-group mb-3">
                         {!! Form::text('usuario',null,['class'=>'form-control','id'=>'usuario','placeholder'=>'Usuario','required']) !!}
@@ -62,6 +62,8 @@
     <script src="{{asset("adminlte/js/adminlte.min.js")}}"></script>
     <script src="{{asset("js/toastr.min.js")}}"></script>
     <script src="{{asset("adminlte/js/login.js")}}"></script>
+    <script src="{{asset("adminlte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
+    <script src="{{asset("adminlte/plugins/jquery-validation/additional-methods.min.js")}}"></script>
     <script>
         @if (session("mensaje"))
             $("#loginExitoso").modal("show");

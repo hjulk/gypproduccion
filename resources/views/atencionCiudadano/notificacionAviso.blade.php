@@ -77,6 +77,7 @@
                     </div>
                 </div>
             </div>
+            @if($Notificaciones)
             <div class="row">
                 <div class="col-md-12">
                     <table id="notificaciones" class="display table-striped responsive no-wrap">
@@ -97,6 +98,7 @@
                     </table>
                 </div>
             </div>
+            @endif
         </div>
     </section>
 @endsection

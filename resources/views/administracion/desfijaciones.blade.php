@@ -33,7 +33,7 @@ Nesfijaciones
                         <h3 class="card-title" id="tituloCard"><strong>Crear Aviso de Desfijación</strong></h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['url' => 'crearDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-desfijacion']) !!}
+                        {!! Form::open(['url' => 'crearDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-desfijaciones']) !!}
                         @csrf
                             <div class="form-group">
                                 <div class="row">
@@ -114,30 +114,42 @@ Nesfijaciones
 </script>
 <script>
 
-     $(document).ready(function() {
+    $(document).ready(function() {
         // Summernote
         $('#contenidoDesfijacion').summernote({
-  toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']]
-  ]
-});
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
         $('#mod_contenidoDesfijacion').summernote({
-  toolbar: [
-    // [groupName, [list of button]]
-    ['style', ['bold', 'italic', 'underline', 'clear']],
-    ['font', ['strikethrough', 'superscript', 'subscript']],
-    ['fontsize', ['fontsize']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['height', ['height']]
-  ]
-});
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
+        $('#form-desfijaciones_upd').on('submit', function(e) {
+            if($('#mod_contenidoDesfijacion').summernote('isEmpty')) {
+                alert('Contenido de texto de desfijación es obligatorio');
+                e.preventDefault();
+            }
+        });
+        $('#form-desfijaciones').on('submit', function(e) {
+            if($('#contenidoDesfijacion').summernote('isEmpty')) {
+                alert('Contenido de texto de desfijación es obligatorio');
+                e.preventDefault();
+            }
+        });
     });
 </script>
 @endsection

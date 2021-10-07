@@ -1,10 +1,10 @@
-<div class="modal fade bd-example-modal-xl" id="modal-desfijacionUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="modal-desfijacionUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title modal-title-primary">Actualizar Aviso de Desfijación</h4>
             </div>
-            {!! Form::open(['url' => 'actualizarDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-rol_upd']) !!}
+            {!! Form::open(['url' => 'actualizarDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-desfijaciones_upd']) !!}
             @csrf
             <div class="modal-body">
                 <div class="row">
@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <label for="exampleInputEmail1">Estado</label>
-                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado']) !!}
+                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado', 'required']) !!}
                         </div>
                     </div>
                 </div>

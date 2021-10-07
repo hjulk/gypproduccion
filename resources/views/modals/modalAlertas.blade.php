@@ -20,12 +20,12 @@
                 <br>
             </div>
             <div class="modal-footer" id="modalFooter">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</a>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="location.reload()">Cerrar</a>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="modalInicio">
             <div class="container" id="imageModal">
@@ -47,7 +47,7 @@
                 <br>
             </div>
             <div class="modal-footer" id="modalFooter">
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="location.reload()">Cerrar</button>
             </div>
         </div>
     </div>

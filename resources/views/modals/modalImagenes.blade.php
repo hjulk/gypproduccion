@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-xl" id="modal-imagenUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="modal-imagenUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,6 +9,9 @@
             <div class="modal-body">
                 <div class="form-group">
                     <input type="hidden" name="id_imagen" id="idImagen_upd">
+                    <input type="hidden" name="id_pagina_upd" id="mod_id_pagina">
+                    <input type="hidden" name="id_subpagina_upd" id="mod_id_subpagina">
+                    <input type="hidden" name="id_tipo_grua_upd" id="mod_id_tipo_grua">
                     <div class="row">
                         <div class="col-md-3">
                             <label for="exampleInputEmail1">Nombre Imagen</label>
@@ -16,15 +19,15 @@
                         </div>
                         <div class="col-md-3">
                             <label>Página Principal</label>
-                            {!! Form::select('id_pagina_upd',$ListaPaginas,null,['class'=>'form-control','id'=>'mod_id_pagina','required','onchange'=>'subpaginaFuncionUpd();']) !!}
+                            {!! Form::text('nombre_pagina',null,['class'=>'form-control','id'=>'mod_nombre_pagina','required','readonly']) !!}
                         </div>
                         <div class="col-md-3" id="inputSubpaginaUpd">
                             <label>Subpágina</label>
-                            {!! Form::select('id_subpagina_upd',$ListadoSubpaginas,null,['class'=>'form-control','id'=>'mod_id_subpagina','onchange'=>'mostrarGruaUpd();']) !!}
+                            {!! Form::text('nombre_subpagina',null,['class'=>'form-control','id'=>'mod_nombre_subpagina','readonly']) !!}
                         </div>
                         <div class="col-md-3" id="inputGruaUpd">
                             <label>Tipo Grúa</label>
-                            {!! Form::select('id_tipo_grua_upd',$TipoGruas,null,['class'=>'form-control','id'=>'mod_id_tipo_grua']) !!}
+                            {!! Form::text('nombre_grua',null,['class'=>'form-control','id'=>'mod_nombre_grua','readonly']) !!}
                         </div>
                     </div>
                 </div>
@@ -59,7 +62,7 @@
                         <div class="col-md-6" id="imageUpdate">
                             <label>Archivo en formato jpg o png</label>
                             <input type="file" name="imagen_upd" id="mod_imagen_upd" accept="image/jpg,image/png" class="form-control" size="2048">
-                            <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado.</small><span id="cntDescripHechos" align="right"> </span></div>
+                            <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
                             <span id="field2_area1" hidden><input type="file" id="imagen2" name="imagen2" class="form-control"/></span>
                         </div>
                         <div class="col-md-3">
@@ -68,7 +71,7 @@
                         </div>
                         <div class="col-md-3">
                             <label for="exampleInputEmail1">Estado</label>
-                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado']) !!}
+                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado','required']) !!}
                         </div>
                     </div>
                 </div>

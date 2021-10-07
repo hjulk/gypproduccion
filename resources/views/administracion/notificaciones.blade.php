@@ -115,9 +115,8 @@ Notificaciones
                             <div class="row">
                                 <div class="col-md-5">
                                     <label>Placa Vehículo</label>
-                                    {!! Form::text('placa',null,['class'=>'form-control','id'=>'placa','placeholder'=>'Placa Vehículo','required','maxlength="6" oninput="if(this.value.length > this.maxLength)
-                                    this.value = this.value.slice(0, this.maxLength)";','onkeypress="return check(event);"']) !!}
-                                    <div align="right"><small class="text-muted">Escriba la placa sin guión.</small><span id="cntDescripHechos" align="right"> </span></div>
+                                    {!! Form::text('placa',null,['class'=>'form-control','id'=>'placa','placeholder'=>'Placa Vehículo','required']) !!}
+                                    <div align="right"><small class="text-muted">Escriba la placa sin guion.</small><span id="cntDescripHechos" align="right"> </span></div>
                                 </div>
                                 <div class="col-md-5">
                                     <label>Año de Reporte</label>

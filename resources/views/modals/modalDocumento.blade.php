@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-xl" id="modal-documentoUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" id="modal-documentoUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,6 +9,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <input type="hidden" name="id_documento" id="idDocumento_upd">
+                    <input type="hidden" name="tipo_documento_upd" id="mod_tipo_documento">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="exampleInputEmail1">Nombre Documento</label>
@@ -16,11 +17,11 @@
                         </div>
                         <div class="col-md-6">
                             <label for="exampleInputEmail1">Tipo Documento</label>
-                            {!! Form::select('tipo_documento_upd',$TipoDocumentos,null,['class'=>'form-control','id'=>'mod_tipo_documento']) !!}
+                            {!! Form::text('nombre_tipo_documento',null,['class'=>'form-control','id'=>'mod_nombre_tipo_documento','readonly','required']) !!}
                         </div>
                         <div class="col-md-6">
                             <label for="exampleInputEmail1">Estado</label>
-                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado']) !!}
+                            {!! Form::select('estado_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado','required']) !!}
                         </div>
                     </div>
                 </div>

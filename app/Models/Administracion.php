@@ -841,6 +841,11 @@ class Administracion extends Model
         return $ListarImagenGrua;
     }
 
+    public static function ListarGruaById($IdGrua){
+        $ListarGruaById = DB::select('SELECT * FROM tipo_grua WHERE ID_GRUA = ?', [$IdGrua]);
+        return $ListarGruaById;
+    }
+
     public static function ListadoImagenesOrganigrama(){
         $ListadoImagenesOrganigrama = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 2 AND ID_SUBPAGINA = 5 AND ESTADO = 1');
         return $ListadoImagenesOrganigrama;
@@ -905,5 +910,10 @@ class Administracion extends Model
                                             AND ID_GRUA = ?
                                             AND ID_IMAGEN NOT IN (?)',[$OrdenImagen,$IdGrua,$IdImagen]);
         return $ListadoImagenesGruaId;
+    }
+
+    public static function BuscarDesfijacionActiva($IdDesfijacion){
+        $BuscarDesfijacionActiva = DB::select('SELECT * FROM desfijaciones WHERE ESTADO = 1 AND ID_DESFIJACION NOT IN (?)',[$IdDesfijacion]);
+        return $BuscarDesfijacionActiva;
     }
 }

@@ -55,7 +55,7 @@ class UsuariosController extends Controller
                 $cont           = 0;
                 // Administracion::InactivarNotificaciones();
                 foreach ($arrayArchivo as $linea_num => $linea) {
-                    $datos = explode(",", $linea);
+                    $datos = explode(";", $linea);
                     $nombre_ciudadano   = utf8_encode(trim($datos[0]));
                     $placa              = utf8_encode(trim($datos[1], ' '));
                     $year               = (int)trim($datos[2]);
@@ -91,7 +91,7 @@ class UsuariosController extends Controller
             return Redirect::to($url . 'notificaciones')->withErrors($validator)->withInput();
         } else {
             $nombre_ciudadano   = strtoupper($request->nombre_ciudadano);
-            $placa              = strtoupper($request->placa);
+            $placa              = strtoupper(str_replace('-','',$request->placa));
             $year               = (int)$request->year_notification;
             $Estado             = 1;
             $buscarPlaca = Administracion::ListarNotificacionPlaca($placa);
@@ -208,14 +208,26 @@ class UsuariosController extends Controller
             $Contenido  = $request->contenidoDesfijacion_upd;
             $Estado     = (int)$request->estado_upd;
             $IdDesfijacion  = (int)$request->id_desfijacion;
-            $ActualizarDesfijacion = Administracion::ActualizarDesfijacion($Contenido, $Estado, $IdUser, $IdDesfijacion);
-            if ($ActualizarDesfijacion) {
-                $verrors = 'Se actualizó con exito la desfijación';
-                return Redirect::to($url . 'desfijaciones')->with('mensaje', $verrors);
-            } else {
+            if($Estado === 1){
+                $BuscarDesfijacionActiva = Administracion::BuscarDesfijacionActiva($IdDesfijacion);
+            }else{
+                $BuscarDesfijacionActiva = null;
+            }
+
+            if($BuscarDesfijacionActiva){
                 $verrors = array();
-                array_push($verrors, 'Hubo un problema al actualizar la desfijación');
+                array_push($verrors, 'Para activar esta desfijación, debe inactivar la desfijación existente.');
                 return Redirect::to($url . 'desfijaciones')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarDesfijacion = Administracion::ActualizarDesfijacion($Contenido, $Estado, $IdUser, $IdDesfijacion);
+                if ($ActualizarDesfijacion) {
+                    $verrors = 'Se actualizó con exito la desfijación';
+                    return Redirect::to($url . 'desfijaciones')->with('mensaje', $verrors);
+                } else {
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar la desfijación');
+                    return Redirect::to($url . 'desfijaciones')->withErrors(['errors' => $verrors])->withInput();
+                }
             }
         }
     }

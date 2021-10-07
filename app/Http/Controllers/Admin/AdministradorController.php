@@ -606,7 +606,7 @@ class AdministradorController extends Controller
                     if($value['PAGINA'] === '/'){
                         $value['PAGINA'] = 'inicio';
                     }else{
-                        $value['PAGINA'] = str_replace("/",'',$value['PAGINA']);
+                        $value['PAGINA'] = substr($value['PAGINA'],1);
                     }
                     // if ($value['PAGINA'] === '/gypproduccion/') {
                     //     $value['PAGINA'] = 'inicio';
@@ -771,10 +771,23 @@ class AdministradorController extends Controller
                             $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
                         }
                     }
+                    if ((int)$value->ID_GRUA === 0) {
+                        $Imagenes[$cont]['nombre_grua'] = 'SIN NOMBRE DE GRÚA';
+                    } else {
+                        $ListarGruaById = Administracion::ListarGruaById((int)$value->ID_GRUA);
+                        if ($ListarGruaById) {
+                            foreach ($ListarGruaById as $rows) {
+                                $Imagenes[$cont]['nombre_grua'] = $rows->NOMBRE_GRUA;
+                            }
+                        } else {
+                            $Imagenes[$cont]['nombre_grua'] = 'SIN NOMBRE DE GRÚA';
+                        }
+                    }
                     $Imagenes[$cont]['textoImagenForm'] = $value->TEXTO_IMAGEN;
                     $Imagenes[$cont]['id_ordenPagina'] = (int)$value->ORDEN_IMAGEN;
                     $Imagenes[$cont]['pie_imagen'] = $value->PIE_IMAGEN;
                     $Imagenes[$cont]['id_grua'] = (int)$value->ID_GRUA;
+
                     $cont++;
                 }
                 $OrdenImagenes = array();
@@ -892,6 +905,80 @@ class AdministradorController extends Controller
                     $cont++;
                 }
                 return view('administracion.tipoGrua',['Estado' => $Estado,'TipoGruas' => $TipoGruas]);
+            }
+        }
+    }
+
+    public function ConsultaNotificaciones()
+    {
+        $RolUser        = (int)Session::get('Rol');
+        if ($RolUser === 0) {
+            return Redirect::to('/');
+        } else {
+            if ($RolUser == 1) {
+                return view('administracion.consultaNotificaciones');
+            } else if ($RolUser > 3) {
+                return Redirect::to('user/home');
+            } else {
+                return Redirect::to('user/home');
+            }
+        }
+    }
+
+    public function ConsultaNotificacion(Request $request)
+    {
+        $RolUser = (int)Session::get('Rol');
+        if ($RolUser === 1) {
+            $url = 'admin/';
+        } else {
+            $url = 'user/';
+        }
+        $validator = Validator::make($request->all(), [
+            'fechaInicio'  =>  'required',
+            'fechaFin'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            $verrors = $validator->errors();
+            return Response::json(['valido' => 'false', 'errors' => $verrors]);
+        } else {
+            $fechaInicial = $request->fechaInicio;
+            $fechaFinal   = $request->fechaFin;
+            if ($fechaFinal < $fechaInicial) {
+                $verrors = array();
+                array_push($verrors, 'Fecha Final es menor a Fecha Incial');
+                return Response::json(['valido' => 'false', 'errors' => $verrors]);
+            } else {
+                $ConsultaNotificacion = Administracion::ConsultarNotificaciones($fechaInicial, $fechaFinal);
+                $resultado = json_decode(json_encode($ConsultaNotificacion), true);
+                foreach ($resultado as &$value) {
+                    if ($value['FECHA_MODIFICACION']) {
+                        $value['FECHA_MODIFICACION']    = date('d/m/Y h:i A', strtotime($value['FECHA_MODIFICACION']));
+                    } else {
+                        $value['FECHA_MODIFICACION']    = 'SIN FECHA DE MODIFICACIÓN';
+                    }
+                    $value['FECHA_CREACION']    = date('d/m/Y h:i A', strtotime($value['FECHA_CREACION']));
+                    if ($value['ESTADO'] == 1) {
+                        $value['ESTADO']  = 'ACTIVO EN PÁGINA';
+                    } else {
+                        $value['ESTADO']   = 'INACTIVO EN PÁGINA';
+                    }
+                }
+
+                $aResultado = json_encode($resultado);
+                Session::put('results', $aResultado);
+                if ($ConsultaNotificacion) {
+                    if ($aResultado) {
+                        return Response::json(['valido' => 'true', 'results' => $aResultado]);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'No hay datos que mostrar');
+                        return Response::json(['valido' => 'false', 'errors' => $verrors]);
+                    }
+                } else {
+                    $verrors = array();
+                    array_push($verrors, 'No hay datos que mostrar');
+                    return Response::json(['valido' => 'false', 'errors' => $verrors]);
+                }
             }
         }
     }

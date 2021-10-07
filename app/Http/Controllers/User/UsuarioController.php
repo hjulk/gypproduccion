@@ -332,7 +332,7 @@ class UsuarioController extends Controller
         } else {
             if ($RolUser == 1) {
                 return Redirect::to('admin/home');
-            } else if ($RolUser >= 3) {
+            } else if ($RolUser === 3) {
                 return Redirect::to('user/home');
             } else {
                 $Estado = array();
@@ -577,7 +577,7 @@ class UsuarioController extends Controller
                     if($value['PAGINA'] === '/'){
                         $value['PAGINA'] = 'inicio';
                     }else{
-                        $value['PAGINA'] = str_replace("/",'',$value['PAGINA']);
+                        $value['PAGINA'] = substr($value['PAGINA'],1);
                     }
                     // if ($value['PAGINA'] === '/gypproduccion/') {
                     //     $value['PAGINA'] = 'inicio';
@@ -613,7 +613,7 @@ class UsuarioController extends Controller
         } else {
             if ($RolUser == 1) {
                 return Redirect::to('admin/home');
-            } else if ($RolUser >= 3) {
+            } else if ($RolUser === 3) {
                 return Redirect::to('user/home');
             } else {
                 $Estado = array();
@@ -672,6 +672,18 @@ class UsuarioController extends Controller
                             }
                         } else {
                             $Imagenes[$cont]['nombre_subpagina'] = 'SIN NOMBRE DE SUBPÁGINA';
+                        }
+                    }
+                    if ((int)$value->ID_GRUA === 0) {
+                        $Imagenes[$cont]['nombre_grua'] = 'SIN NOMBRE DE GRÚA';
+                    } else {
+                        $ListarGruaById = Administracion::ListarGruaById((int)$value->ID_GRUA);
+                        if ($ListarGruaById) {
+                            foreach ($ListarGruaById as $rows) {
+                                $Imagenes[$cont]['nombre_grua'] = $rows->NOMBRE_GRUA;
+                            }
+                        } else {
+                            $Imagenes[$cont]['nombre_grua'] = 'SIN NOMBRE DE GRÚA';
                         }
                     }
                     $Imagenes[$cont]['textoImagenForm'] = $value->TEXTO_IMAGEN;

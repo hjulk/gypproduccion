@@ -105,6 +105,7 @@ Documentos
                                         <input type="hidden" value="{{$value['nombre_documento']}}" id="nombre_documento{{$value['id']}}">
                                         <input type="hidden" value="{{$value['tipo_documento']}}" id="tipo_documento{{$value['id']}}">
                                         <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['nombre_tipo_documento']}}" id="nombre_tipo_documento{{$value['id']}}">
                                     </tr>
                                 @endforeach
                             </tbody>
