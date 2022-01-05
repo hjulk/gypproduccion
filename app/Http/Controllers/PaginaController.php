@@ -25,6 +25,7 @@ class PaginaController extends Controller
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
         $Organigrama = PaginaController::Organigrama();
         $yearNow = date('Y');
+
         return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow]);
     }
 
