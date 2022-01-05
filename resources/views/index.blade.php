@@ -107,7 +107,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4" id="tarifasIcon">
-                    <a href="tarifas"><img src="{{asset("images/tarifas.png")}}" alt="tarifas" class="img-responsive" id="tarifasImg">
+                    <a href="servicios/tarifas"><img src="{{asset("images/tarifas.png")}}" alt="tarifas" class="img-responsive" id="tarifasImg">
                     </a>
                 </div>
                 <div class="col-md-8">
@@ -120,7 +120,7 @@
                         de parqueadero y Grúas prestados así:
                         <br>
                         <br>
-                        <a href="tarifas" id="tarifasEnlace">Ver tarifas aplicables al
+                        <a href="servicios/tarifas" id="tarifasEnlace">Ver tarifas aplicables al
                         servicio de inmovilización de vehículos para el año {{ $YearNow }}</a>
                     </p>
                 </div>
