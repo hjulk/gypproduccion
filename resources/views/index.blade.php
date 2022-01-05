@@ -116,12 +116,12 @@
                         De acuerdo con lo establecido en el artículo segundo y subsiguientes de la <b>Resolución 62 de 2018,
                         modificada por la Resolución 172 de 2019</b> expedidas por la Secretaría de Movilidad en concordancia
                         con lo dispuesto por el Gobierno Nacional en lo referente al nuevo <b>Salario Mínimo Legal Mensual</b>,
-                        le informamos que a partir del 1 de enero de 2021 se cobrarán los siguientes valores por los servicios
+                        le informamos que a partir del 1 de enero de {{ $YearNow }} se cobrarán los siguientes valores por los servicios
                         de parqueadero y Grúas prestados así:
                         <br>
                         <br>
                         <a href="tarifas" id="tarifasEnlace">Ver tarifas aplicables al
-                        servicio de inmovilización de vehículos para el año 2021</a>
+                        servicio de inmovilización de vehículos para el año {{ $YearNow }}</a>
                     </p>
                 </div>
             </div>
