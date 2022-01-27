@@ -18,14 +18,15 @@ class PaginaController extends Controller
 {
     public function Inicio()
     {
-        $ObtenerVisitas         = GYPBogota::GetVisitas();
+        $ObtenerVisitas = GYPBogota::GetVisitas();
         foreach ($ObtenerVisitas as $value) {
             $Visitas = (int)$value->CONTADOR;
         }
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
         $Organigrama = PaginaController::Organigrama();
         $yearNow = date('Y');
-        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow]);
+        $ImgInicio = GYPBogota::ImgInicio();
+        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio]);
     }
 
     public function Trabajo()
@@ -213,7 +214,8 @@ class PaginaController extends Controller
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQSer();
         $Organigrama = PaginaController::OrganigramaSer();
-        return view('servicios.nuestrosServicios', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama]);
+        $ImgNuestrosServicios = GYPBogota::ImgNuestrosServicios();
+        return view('servicios.nuestrosServicios', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'ImgNuestrosServicios' => $ImgNuestrosServicios]);
     }
 
     public function ProcesoInmovilizacion()

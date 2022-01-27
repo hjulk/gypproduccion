@@ -152,6 +152,11 @@ class GYPBogota extends Model
         return $GruaPlanchon;
     }
 
+    public static function ImgInicio(){
+        $ImgInicio = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 0 AND ID_PAGINA = 1 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgInicio;
+    }
+
     public static function ImgProcesoInmovilizacion(){
         $ImgProcesoInmovilizacion = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 11 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
         return $ImgProcesoInmovilizacion;
@@ -175,6 +180,11 @@ class GYPBogota extends Model
     public static function ImgMensajes(){
         $ImgMensajes = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 9 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
         return $ImgMensajes;
+    }
+
+    public static function ImgNuestrosServicios(){
+        $ImgNuestrosServicios = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 16 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $ImgNuestrosServicios;
     }
 
     public static function ImgPagoLinea(){

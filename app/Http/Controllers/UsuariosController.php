@@ -400,6 +400,11 @@ class UsuariosController extends Controller
             $BuscarImagenMonitoreo = null;
             $BuscarImagenMensajes = null;
             $BuscarImagenOrganigrama = null;
+            $BuscarImagenNServicios = null;
+            $BuscarImagenInicio = null;
+            if($IdPagina === 1){
+                $BuscarImagenInicio = Administracion::ListadoImagenesInicio();
+            }
             switch ($IdSubpagina) {
                 Case 5:
                     $BuscarImagenOrganigrama = Administracion::ListadoImagenesOrganigrama();
@@ -428,8 +433,16 @@ class UsuariosController extends Controller
                 Case 15:
                     $BuscarImagenPago = Administracion::ListadoImagenesPago();
                     break;
+                Case 16:
+                    $BuscarImagenNServicios = Administracion::ListadoImagenesNServicios();
+                    break;
                 default:
                     break;
+            }
+            if ($BuscarImagenInicio) {
+                $verrors = array();
+                array_push($verrors, 'Para cargar una nueva imagen de pagina de inicio, debe inactivar la imagen actual');
+                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
             }
             if ($BuscarImagenRetiro) {
                 $verrors = array();
@@ -439,6 +452,11 @@ class UsuariosController extends Controller
             if ($BuscarImagenTarifas) {
                 $verrors = array();
                 array_push($verrors, 'Para cargar una nueva imagen de tarifas, debe inactivar la imagen actual');
+                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
+            }
+            if ($BuscarImagenNServicios) {
+                $verrors = array();
+                array_push($verrors, 'Para cargar una nueva imagen de nuestros servicios, debe inactivar la imagen actual');
                 return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
             }
             if ($BuscarImagenPago) {
@@ -660,6 +678,11 @@ class UsuariosController extends Controller
                 $BuscarImagenGrua = null;
                 $BuscarImagenMonitoreo = null;
                 $BuscarImagenOrganigrama = null;
+                $BuscarImagenNServicios = null;
+                $BuscarImagenInicio = null;
+                if($IdPagina === 1){
+                    $BuscarImagenInicio = Administracion::ListadoImagenesInicioId($IdImagen);
+                }
                 $buscarOrden = Administracion::ListarOrdenSubpaginaId($OrdenImagen, $IdPagina, $IdSubpagina, $IdImagen);
                 switch ($IdSubpagina) {
                     Case 5:
@@ -681,8 +704,16 @@ class UsuariosController extends Controller
                     Case 15:
                         $BuscarImagenPago = Administracion::ListadoImagenesPagoId($IdImagen);
                         break;
+                    Case 16:
+                        $BuscarImagenNServicios = Administracion::ListadoImagenesNServiciosId($IdImagen);
+                        break;
                     default:
                         break;
+                }
+                if ($BuscarImagenInicio) {
+                    $verrors = array();
+                    array_push($verrors, 'Para activar esta imagen de pagina de incio, debe inactivar la imagen actual');
+                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
                 }
                 if ($BuscarImagenRetiro) {
                     $verrors = array();
@@ -692,6 +723,11 @@ class UsuariosController extends Controller
                 if ($BuscarImagenTarifas) {
                     $verrors = array();
                     array_push($verrors, 'Para activar esta imagen de tarifas, debe inactivar la imagen actual');
+                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
+                }
+                if ($BuscarImagenNServicios) {
+                    $verrors = array();
+                    array_push($verrors, 'Para activar esta imagen de nuestros servicios, debe inactivar la imagen actual');
                     return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
                 }
                 if ($BuscarImagenPago) {
@@ -912,6 +948,10 @@ class UsuariosController extends Controller
                     break;
                 case 15:
                     $complemento = 'tramites/pago_linea/';
+                    break;
+                case 16:
+                    $complemento = 'servicios/nuestros_servicios/';
+                    break;
             }
         } else {
             switch ($IdPagina) {

@@ -1730,6 +1730,13 @@ function subpaginaFuncion() {
     var tipo = 'post';
     var select = document.getElementById("id_subpagina");
 
+    if (selectedValue == '1') {
+        document.getElementById("activacionTexto").style.display = "none";
+        document.getElementById("campoOrdenImagen").style.display = "none";
+        document.getElementById("id_tipo_grua").required = false;
+        document.getElementById("id_ordenPagina").required = false;
+    }
+
     $.ajax({
         url: 'buscarSubpagina',
         type: "get",
@@ -1780,6 +1787,13 @@ function subpaginaFuncionUpd() {
     var tipo = 'post';
     var select = document.getElementById("mod_id_subpagina");
 
+    if (selectedValue == '1') {
+        document.getElementById("activacionTextoUpd").style.display = "none";
+        document.getElementById("campoOrdenImagenUpd").style.display = "none";
+        document.getElementById("mod_id_tipo_grua").required = false;
+        document.getElementById("mod_id_ordenPagina").required = false;
+    }
+
     $.ajax({
         url: 'buscarSubpagina',
         type: "get",
@@ -1828,7 +1842,7 @@ function obtener_datos_imagen(id) {
     var Estado = $("#estado_activo" + id).val();
     var PieImagen = $("#pie_imagen" + id).val();
     var Grua = $("#id_grua" + id).val();
-    var NombreSubpagina  = $("#nombre_subpagina" + id).val();
+    var NombreSubpagina = $("#nombre_subpagina" + id).val();
     var NombreGrua = $("#nombre_grua" + id).val();
     var NombrePagina = $("#nombre_pagina" + id).val();
 
@@ -1842,21 +1856,21 @@ function obtener_datos_imagen(id) {
     $("#mod_pie_imagen").val(PieImagen);
     $("#mod_id_tipo_grua").val(Grua);
     $("#mod_nombre_pagina").val(NombrePagina);
-    if(IdSubpagina > 0){
+    if (IdSubpagina > 0) {
         document.getElementById("inputSubpaginaUpd").style.display = "block";
         $("#mod_nombre_subpagina").val(NombreSubpagina);
-    }else{
+    } else {
         document.getElementById("inputSubpaginaUpd").style.display = "none";
     }
-    if(Grua > 0){
+    if (Grua > 0) {
         document.getElementById("inputGruaUpd").style.display = "block";
         $("#mod_nombre_grua").val(NombreGrua);
-    }else{
+    } else {
         document.getElementById("inputGruaUpd").style.display = "none";
     }
-    if(TextoImagen){
+    if (TextoImagen) {
         document.getElementById("activacionTextoUpd").style.display = "block";
-    }else{
+    } else {
         document.getElementById("activacionTextoUpd").style.display = "none";
     }
 }
@@ -1950,7 +1964,7 @@ function mostrarGrua(IdSubpagina) {
             document.getElementById("id_ordenPagina").required = false;
             document.getElementById("inputGrua").style.display = "none";
             document.getElementById("id_tipo_grua").style.display = "none";
-        } else if (selectSubPageValue == 13) {
+        } else if (selectSubPageValue == 13 || selectSubPageValue == 16) {
             document.getElementById("activacionTexto").style.display = "none";
             document.getElementById("campoOrdenImagen").style.display = "none";
             document.getElementById("id_tipo_grua").required = false;

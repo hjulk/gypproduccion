@@ -851,6 +851,11 @@ class Administracion extends Model
         return $ListadoImagenesOrganigrama;
     }
 
+    public static function ListadoImagenesInicio(){
+        $ListadoImagenesInicio = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND ESTADO = 1');
+        return $ListadoImagenesInicio;
+    }
+
     public static function ListadoImagenesRetiro(){
         $ListadoImagenesRetiro = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 12 AND ESTADO = 1');
         return $ListadoImagenesRetiro;
@@ -859,6 +864,11 @@ class Administracion extends Model
     public static function ListadoImagenesTarifa(){
         $ListadoImagenesTarifa = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 13 AND ESTADO = 1');
         return $ListadoImagenesTarifa;
+    }
+
+    public static function ListadoImagenesNServicios(){
+        $ListadoImagenesNServicios = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 16 AND ESTADO = 1');
+        return $ListadoImagenesNServicios;
     }
 
     public static function ListadoImagenesMonitoreo(){
@@ -891,6 +901,11 @@ class Administracion extends Model
         return $ListadoImagenesPago;
     }
 
+    public static function ListadoImagenesNServiciosId($IdImagen){
+        $ListadoImagenesNServiciosId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 16 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesNServiciosId;
+    }
+
     public static function ListadoImagenesMonitoreoId($IdImagen){
         $ListadoImagenesMonitoreoId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 4 AND ID_SUBPAGINA = 10 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
         return $ListadoImagenesMonitoreoId;
@@ -899,6 +914,11 @@ class Administracion extends Model
     public static function ListadoImagenesOrganigramaId($IdImagen){
         $ListadoImagenesOrganigramaId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 2 AND ID_SUBPAGINA = 5 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
         return $ListadoImagenesOrganigramaId;
+    }
+
+    public static function ListadoImagenesInicioId($IdImagen){
+        $ListadoImagenesInicioId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesInicioId;
     }
 
     public static function ListadoImagenesGruaId($OrdenImagen,$IdGrua,$IdImagen){

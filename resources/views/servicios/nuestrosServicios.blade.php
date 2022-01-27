@@ -33,16 +33,29 @@
 @endsection
 
 @section('contenido')
-    <section class="ftco-section" id="sectionPage">
-        <div class="container" style="text-align: center;">
-            <picture>
-                <source srcset="{{asset("images/servicios/nuestros_servicios/nuestros_servicios.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/servicios/nuestros_servicios/nuestros_servicios.JPG") }}" type="image/jpg"/>
-                <img src="{{asset("images/servicios/nuestros_servicios/nuestros_servicios.webp") }}" id="imagenPagina" alt="Nuestros Servicios"/>
-            </picture>
-            <p style="text-align: center;">Foto: GyP Bogotá S.A.S - Año: 2021</p>
-        </div>
-    </section>
+    @if($ImgNuestrosServicios)
+        @foreach($ImgNuestrosServicios as $images)
+            <section class="ftco-section" id="sectionPage">
+                <div class="container" id="imagePage">
+                    @if(strpos($images->UBICACION, '.jpg') !== false)
+                        <picture>
+                            <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                            <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
+                            <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Nuestros Servicios"/>
+                        </picture>
+                    @else
+                        <picture>
+                            <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
+                            <source srcset="{{ $images->UBICACION }}" type="image/png"/>
+                            <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Nuestros Servicios"/>
+                        </picture>
+                    @endif
+                    <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
+                </div>
+            </section>
+            <br>
+        @endforeach
+    @endif
     <section class="site-section" id="services-section">
         <div class="container">
             <div class="row mb-5 justify-content-center">
