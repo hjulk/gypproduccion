@@ -111,7 +111,8 @@ class PaginaController extends Controller
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
         $Organigrama = PaginaController::Organigrama();
-        return view('gyp.nosotros', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama]);
+        $yearNow = date('Y');
+        return view('gyp.nosotros', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow]);
     }
 
     // ATENCIÓN AL CIUDADANO

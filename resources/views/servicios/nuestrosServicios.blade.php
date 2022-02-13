@@ -33,7 +33,7 @@
 @endsection
 
 @section('contenido')
-    @if($ImgNuestrosServicios)
+    {{-- @if($ImgNuestrosServicios)
         @foreach($ImgNuestrosServicios as $images)
             <section class="ftco-section" id="sectionPage">
                 <div class="container" id="imagePage">
@@ -55,7 +55,7 @@
             </section>
             <br>
         @endforeach
-    @endif
+    @endif --}}
     <section class="site-section" id="services-section">
         <div class="container">
             <div class="row mb-5 justify-content-center">

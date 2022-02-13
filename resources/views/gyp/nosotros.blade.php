@@ -132,15 +132,15 @@
                         <source srcset="{{asset("images/gyp/nosotros/parqueadero.jpg") }}" type="image/jpg"/>
                         <img src="{{asset("images/gyp/nosotros/parqueadero.webp") }}" id="imagenPagina" alt="Nosotros"/>
                     </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
+                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
                 </div>
                 <div class="col-md-6" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/gyp/nosotros/gruas.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gyp/nosotros/gruas.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gyp/nosotros/gruas.webp") }}" id="imagenPagina" alt="Nosotros"/>
+                        <source srcset="{{asset("images/gyp/nosotros/IMG_1806.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/IMG_1806.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/gyp/nosotros/IMG_1806.webp") }}" id="imagenPagina" alt="Nosotros"/>
                     </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
+                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
                 </div>
             </div>
             <div class="row">
@@ -150,15 +150,15 @@
                         <source srcset="{{asset("images/gyp/nosotros/C0106T01.JPG") }}" type="image/jpg"/>
                         <img src="{{asset("images/gyp/nosotros/C0106T01.webp") }}" id="imagenPagina" alt="Nosotros"/>
                     </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
+                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
                 </div>
                 <div class="col-md-6" id="pageImage">
                     <picture>
-                        <source srcset="{{asset("images/gyp/nosotros/C0080T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gyp/nosotros/C0080T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gyp/nosotros/C0080T01.webp") }}" id="imagenPagina" alt="Nosotros"/>
+                        <source srcset="{{asset("images/gyp/nosotros/IMG_1805.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/IMG_1805.JPG") }}" type="image/jpg"/>
+                        <img src="{{asset("images/gyp/nosotros/IMG_1805.webp") }}" id="imagenPagina" alt="Nosotros"/>
                     </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2021</p>
+                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
                 </div>
             </div>
         </div>
