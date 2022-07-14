@@ -65,8 +65,7 @@
 <div class="modal fade" id="solicitudError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="modalInicio" style="background-color: #FFFFFF !important;border: none !important;margin-top: 100px !important;">
-            <div class="container" id="imageModal">
-                <br><br>
+            <div class="modal-header" style="border-bottom: none !important;">
                 <center>
                     <picture>
                         <source srcset="{{asset("images/uncheck.webp")}}" type="image/webp"/>
@@ -89,4 +88,3 @@
         </div>
     </div>
 </div>
-

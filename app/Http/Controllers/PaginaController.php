@@ -46,7 +46,7 @@ class PaginaController extends Controller
     public function MapaSitio()
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        $Organigrama = PaginaController::Organigrama();
+        $Organigrama = PaginaController::OrganigramaMS();
         return view('mapaSitio', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama]);
     }
 
@@ -535,6 +535,22 @@ class PaginaController extends Controller
         }
         return $Organigrama;
     }
+
+    public static function OrganigramaMS()
+    {
+        $ListarOrganigrama = GYPBogota::ImagenOrganigrama();
+        $Organigrama = null;
+        if ($ListarOrganigrama) {
+            foreach ($ListarOrganigrama as $value) {
+                $imagen = str_replace('../', '', $value->UBICACION);
+            }
+            $Organigrama = '<a href="' . $imagen . '" target="_blank" title="Organigrama" id="linkMapaSitio">Organigrama</a>';
+        } else {
+            $Organigrama = '<a href="#" target="_blank" title="Organigrama" id="linkMapaSitio">Organigrama</a>';
+        }
+        return $Organigrama;
+    }
+
 
     public static function OrganigramaSer()
     {

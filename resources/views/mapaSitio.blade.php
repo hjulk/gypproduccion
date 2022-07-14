@@ -47,7 +47,9 @@
                   <div class="row">
                     <ul>
                       <li style="font-size: medium;"> <a href="nosotros" id="linkMapaSitio">Nosotros</a></li>
-                      <li style="font-size: medium;"> <a href="{{asset("images/Organigrama.jpg")}}" target="_blank" title="Organigrama" id="linkMapaSitio">Organigrama</a></li>
+                      <li style="font-size: medium;"> @if($Organigrama)
+                                    {!! $Organigrama !!}
+                                @endif</li>
                       <li style="font-size: medium;"> <a href="normatividad" id="linkMapaSitio">Normatividad</a></li>
                     </ul>
                   </div>

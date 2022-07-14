@@ -40,11 +40,15 @@
                     <span style="cursor:pointer;font-size:8px;" onclick="setFSize(0)">A</span>&nbsp;&nbsp;|&nbsp;
                     <a href="#" class=""><span class="contraste" style="cursor: pointer;" onclick="switchContraste()">Contraste</span></a>&nbsp;|&nbsp;
                     <span>
-                        <form action="#" method="post" class="footer-suscribe-form" style="display: inline-block;">
+                        <form action="https://www.google.com.co/search" method="get" class="footer-suscribe-form" style="display: inline-block;" target="_blank">
+			<input type="hidden" name="ie" value="UTF-8" />
+		        <input type="hidden" name="oe" value="UTF-8" />                    
                             <div class="input-group">
-                                <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Buscar en la página" style="height: auto;font-size: 0.78rem;">
+                                <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Buscar en la página" style="height: auto;font-size: 0.78rem;" id="s" name="q">
+				<input type="hidden" name="domains" value="https://gruasyparqueaderosbogota.com/" /><br> 
+				<input type="radio" name="sitesearch" value="https://gruasyparqueaderosbogota.com/" checked hidden/> 
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary text-white" type="button" id="button-addon2">Buscar</button>
+                                    <button class="btn btn-primary text-white" type="submit" id="x" name="btnG">Buscar</button>
                                 </div>
                             </div>
                         </form>

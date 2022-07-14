@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <title>Grúas y Parqueaderos Bogotá @yield('titulo')</title>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-G5RS7NZJQG"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'G-G5RS7NZJQG');
+		</script>        
+		<title>Grúas y Parqueaderos Bogotá @yield('titulo')</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link type="image/x-icon" rel="icon" href="{{asset("images/favicon.png")}}">
@@ -70,7 +79,7 @@
                 }
             </script>
             <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-            <script src="{{asset("adminlte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
+	<script src="{{asset("adminlte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
             <script src="{{asset("adminlte/plugins/jquery-validation/additional-methods.min.js")}}"></script>
             @yield("scripts")
         </div>
