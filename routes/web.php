@@ -69,7 +69,7 @@ Route::get('puntosAtencion',[PaginaController::class, 'PuntosAtencion'])->name('
 Route::get('PUNTOSATENCION',[PaginaController::class, 'PuntosAtencion'])->name('PUNTOSATENCION');
 Route::get('Puntosatencion',[PaginaController::class, 'PuntosAtencion'])->name('Puntosatencion');
 
-Auth::routes();
+// Auth::routes();
 Route::get('login',[LoginController::class, 'Login'])->name('login');
 Route::post('acceso',[LoginController::class, 'Acceso'])->name('acceso');
 Route::post('recuperarAcceso',[LoginController::class, 'RecuperarAcceso'])->name('recuperarAcceso');
@@ -155,4 +155,3 @@ Route::post('crearImagen',[UsuariosController::class, 'CrearImagen'])->name('cre
 Route::post('actualizarImagen',[UsuariosController::class, 'ActualizarImagen'])->name('actualizarImagen');
 Route::post('crearDesfijacion',[UsuariosController::class, 'CrearDesfijacion'])->name('crearDesfijacion');
 Route::post('actualizarDesfijacion',[UsuariosController::class, 'ActualizarDesfijacion'])->name('actualizarDesfijacion');
-

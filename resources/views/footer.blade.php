@@ -14,7 +14,7 @@
                 <ul class="list-unstyled">
                     <li><a href="nosotros">Nosotros</a></li>
                     <li><a href="nuestrosServicios">Servicios</a></li>
-                    <li><a href="tarifas">Tarifas</a></li>
+                    <li><a href="servicios/tarifas">Tarifas</a></li>
                     <li><a href="normatividad">Normatividad</a></li>
                     <li><a href="puntosAtencion">Puntos de Atención</a></li>
                     <li><a href="contacto">Contáctenos</a></li>

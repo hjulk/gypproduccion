@@ -101,6 +101,11 @@
         </div>
     </section>
     @include("ModalAlertas")
+
+    {!! htmlScriptTagJsApi([
+        'callback_then' => 'callbackThen',
+        'callback_catch' => 'callbackCatch'
+    ]) !!}
 @endsection
 
 @section('scripts')
@@ -122,5 +127,17 @@
                 document.getElementById("errorAlert").innerHTML = "{{ $error }}";
             @endforeach
         @endif
+
+        function callbackThen(response){
+            console.log(response.status);
+            response.json().then(function(data){
+                console.log(data);
+            });
+        }
+
+        function callbackCatch(error){
+            console.error('Error:', error)
+        }
     </script>
+    
 @endsection

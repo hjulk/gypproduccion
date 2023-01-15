@@ -67,7 +67,12 @@ return array(
       | specify a specific custom language line for a given attribute rule.
       |
      */
-    'custom' => array(),
+    'custom' => array(
+        'g-recaptcha-response' => [
+            'required' => 'Por favor marca la casilla "No soy un robot".',
+            'captcha' => 'Error de verificación de la captcha para robots. Inténtalo más tarde o contacta con nosotros.',
+        ],
+    ),
     /*
       |--------------------------------------------------------------------------
       | Custom Validation Attributes

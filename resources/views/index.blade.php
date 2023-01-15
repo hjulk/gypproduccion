@@ -22,10 +22,27 @@
 @endsection
 
 @section('contenido')
+    @php
+        date_default_timezone_set('America/Bogota');
+        $fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
+        $fecha_enero = strtotime("01-01-2023 00:00:00");
+    @endphp
+    @if ($fecha_actual < $fecha_enero)
+        <section class="ftco-section" id="sectionPage">
+            <div class="container" id="imagePage">
+                <picture>
+                    <source srcset="{{asset("images/home/banner_principal.webp")}}" type="image/webp"/>
+                    <source srcset="{{asset("images/home/banner_principal.jpg")}}" type="image/jpg"/>
+                    <img src="{{asset("images/home/banner_principal.webp")}}" id="imagenPagina" alt="Inicio"/>
+                </picture>
+                <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2022</p>
+            </div>
+        </section>
+    @endif
     @if($ImgInicio)
         @foreach($ImgInicio as $images)
             <section class="ftco-section" id="sectionPage">
-                <div class="container" id="imagePage">
+                <div class="container" id="imagePageAviso">
                     @if(strpos($images->UBICACION, '.jpg') !== false)
                         <picture>
                             <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>

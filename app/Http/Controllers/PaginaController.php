@@ -292,6 +292,7 @@ class PaginaController extends Controller
 
     public function Contactenos(Request $request)
     {
+
         date_default_timezone_set('America/Bogota');
 
         $validator = Validator::make($request->all(), [
@@ -318,7 +319,7 @@ class PaginaController extends Controller
                 'Emails.CorreoContacto',
                 ['NombreUsuario' => $NombreUsuario, 'Email' => $Correo, 'Mensaje' => $Mensaje],
                 function ($msj) use ($subject, $Correo, $NombreUsuario, $CorreoDestino) {
-                    $msj->from($Correo, "Gruas y Parqueaderos Bogotá S.A.S");
+                    $msj->from($CorreoDestino, "Gruas y Parqueaderos Bogotá S.A.S");
                     $msj->subject($subject);
                     $msj->addCC($Correo);
                     $msj->to($CorreoDestino);
@@ -396,7 +397,7 @@ class PaginaController extends Controller
                 'Emails.CorreoTrabajo',
                 ['NombreUsuario' => $NombreUsuario, 'Email' => $Correo, 'TipoDocumento' => $NombreDocumento, 'Identificacion' => $Documento, 'Direccion' => $Direccion, 'Telefono' => $Telefono, 'Profesion' => $Profesion],
                 function ($msj) use ($subject, $Correo, $filename, $NombreUsuario, $CorreoDestino) {
-                    $msj->from($Correo, "Gruas y Parqueaderos Bogotá S.A.S");
+                    $msj->from($CorreoDestino, "Gruas y Parqueaderos Bogotá S.A.S");
                     $msj->subject($subject);
                     $msj->addCC($Correo);
                     $msj->to($CorreoDestino);

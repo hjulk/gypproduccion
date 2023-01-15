@@ -982,4 +982,19 @@ class AdministradorController extends Controller
             }
         }
     }
+
+    public function BaseDatos(){
+        $RolUser        = (int)Session::get('Rol');
+        if ($RolUser === 0) {
+            return Redirect::to('/');
+        } else {
+            if ($RolUser == 1) {
+                return view('administracion.baseDatos');
+            } else if ($RolUser > 3) {
+                return Redirect::to('user/home');
+            } else {
+                return Redirect::to('user/home');
+            }
+        }
+    }
 }

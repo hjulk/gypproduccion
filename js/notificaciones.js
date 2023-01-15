@@ -11,7 +11,7 @@ $(document).ready(function () {
         autoWidth   : false,
         rowReorder  : false,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-        order: [[ 0, "asc" ]],
+        order: [[ 0, "desc" ]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
@@ -22,7 +22,7 @@ $(document).ready(function () {
             infoPostFix: "",
             loadingRecords: "Cargando...",
             zeroRecords: "No se encontraron resultados",
-            emptyTable: "NingÃºn dato disponible en esta tabla",
+            emptyTable: "Ningún dato disponible en esta tabla",
             row: "Registro",
             export: "Exportar",
             paginate: {
@@ -42,4 +42,4 @@ $(document).ready(function () {
         }
       }
     );
-});
+  });
