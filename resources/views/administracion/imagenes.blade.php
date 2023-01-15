@@ -45,6 +45,9 @@ Imágenes
                                                 <label>Página Principal</label>
                                                 {!! Form::select('id_pagina',$ListaPaginas,null,['class'=>'form-control','id'=>'id_pagina','required','onchange'=>'subpaginaFuncion();']) !!}
                                             </div>
+                                            <div class="col-md-3" id="inputFinAno">
+                                                <input type="checkbox" id="activarFinAno" name="activarFinAno"/> Imágen para horario de fin de año
+                                            </div>
                                             <div class="col-md-3" id="inputSubpagina">
                                                 <label>Subpágina</label>
                                                 {!! Form::select('id_subpagina',$ListadoSubpaginas,null,['class'=>'form-control','id'=>'id_subpagina','onchange'=>'mostrarGrua(this);']) !!}
@@ -140,6 +143,7 @@ Imágenes
                                         <input type="hidden" value="{{$value['nombre_pagina']}}" id="nombre_pagina{{$value['id']}}">
                                         <input type="hidden" value="{{$value['nombre_subpagina']}}" id="nombre_subpagina{{$value['id']}}">
                                         <input type="hidden" value="{{$value['nombre_grua']}}" id="nombre_grua{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['fin_ano']}}" id="fin_ano{{$value['id']}}">
                                     </tr>
                                 @endforeach
                             </tbody>

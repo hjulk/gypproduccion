@@ -1735,6 +1735,9 @@ function subpaginaFuncion() {
         document.getElementById("campoOrdenImagen").style.display = "none";
         document.getElementById("id_tipo_grua").required = false;
         document.getElementById("id_ordenPagina").required = false;
+        document.getElementById("inputFinAno").style.display = "block";
+    }else{
+        document.getElementById("inputFinAno").style.display = "none";
     }
 
     $.ajax({
@@ -1792,6 +1795,9 @@ function subpaginaFuncionUpd() {
         document.getElementById("campoOrdenImagenUpd").style.display = "none";
         document.getElementById("mod_id_tipo_grua").required = false;
         document.getElementById("mod_id_ordenPagina").required = false;
+        document.getElementById("inputFinAnoUpd").style.display = "block";
+    }else{
+        document.getElementById("inputFinAnoUpd").style.display = "none";
     }
 
     $.ajax({
@@ -1845,6 +1851,7 @@ function obtener_datos_imagen(id) {
     var NombreSubpagina = $("#nombre_subpagina" + id).val();
     var NombreGrua = $("#nombre_grua" + id).val();
     var NombrePagina = $("#nombre_pagina" + id).val();
+    var FinAno = $("#fin_ano" + id).val();
 
     $("#idImagen_upd").val(id);
     $("#mod_nombre_imagen").val(NombreImagen);
@@ -1856,6 +1863,7 @@ function obtener_datos_imagen(id) {
     $("#mod_pie_imagen").val(PieImagen);
     $("#mod_id_tipo_grua").val(Grua);
     $("#mod_nombre_pagina").val(NombrePagina);
+    $("#mod_fin_ano").val(FinAno);
     if (IdSubpagina > 0) {
         document.getElementById("inputSubpaginaUpd").style.display = "block";
         $("#mod_nombre_subpagina").val(NombreSubpagina);

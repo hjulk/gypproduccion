@@ -157,6 +157,11 @@ class GYPBogota extends Model
         return $ImgInicio;
     }
 
+    public static function imagesFinAno(){
+        $imagesFinAno = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 0 AND ID_PAGINA = 1 AND FIN_ANO = 1 AND ESTADO = 1 ORDER BY 13 ASC');
+        return $imagesFinAno;
+    }
+
     public static function ImgProcesoInmovilizacion(){
         $ImgProcesoInmovilizacion = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 11 AND ID_PAGINA = 4 AND ESTADO = 1 ORDER BY 13 ASC');
         return $ImgProcesoInmovilizacion;

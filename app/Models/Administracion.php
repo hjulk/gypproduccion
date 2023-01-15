@@ -581,34 +581,44 @@ class Administracion extends Model
         return $ListadoImagenesId;
     }
 
-    public static function CrearImagen($Nombre, $carpeta, $path1,$IdPagina, $IdSubpagina, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua)
+    public static function CrearImagen($Nombre, $carpeta, $path1,$IdPagina, $IdSubpagina, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno)
     {
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i');
         $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        if($FinAno === 1){
+            $EndYear = date('Y') + 1;
+        }else{
+            $EndYear = null;
+        }
         if($TextoImagen){
             $CrearImagen = DB::insert(
                 'INSERT INTO imagenes (NOMBRE_IMAGEN,UBICACION,UBICACION_WEBP,ID_PAGINA,ID_SUBPAGINA,ESTADO,
-                FECHA_CREACION,USUARIO_CREACION,TEXTO_IMAGEN,ORDEN_IMAGEN,PIE_IMAGEN,ID_GRUA)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
-                [$Nombre, $path1, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua]
+                FECHA_CREACION,USUARIO_CREACION,TEXTO_IMAGEN,ORDEN_IMAGEN,PIE_IMAGEN,ID_GRUA,FIN_ANO,END_YEAR)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                [$Nombre, $path1, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno, $EndYear]
             );
         }else{
             $CrearImagen = DB::insert(
                 'INSERT INTO imagenes (NOMBRE_IMAGEN,UBICACION,UBICACION_WEBP,ID_PAGINA,ID_SUBPAGINA,ESTADO,
-                FECHA_CREACION,USUARIO_CREACION,ORDEN_IMAGEN,PIE_IMAGEN,ID_GRUA)
-                VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-                [$Nombre, $path1, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser, $OrdenImagen, $pieImagen, $IdGrua]
+                FECHA_CREACION,USUARIO_CREACION,ORDEN_IMAGEN,PIE_IMAGEN,ID_GRUA,FIN_ANO,END_YEAR)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                [$Nombre, $path1, $carpeta, $IdPagina, $IdSubpagina, 1, $fechaCreacion, $IdUser, $OrdenImagen, $pieImagen, $IdGrua, $FinAno, $EndYear]
             );
         }
         return $CrearImagen;
     }
 
-    public static function ActualizarImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua)
+    public static function ActualizarImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno)
     {
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i:s');
         $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
+        if($FinAno === 1){
+            $EndYear = date('Y') + 1;
+        }else{
+            $EndYear = null;
+        }
         if ($path) {
             $ActualizarImagen = DB::update(
                 'UPDATE imagenes SET
@@ -623,9 +633,11 @@ class Administracion extends Model
             TEXTO_IMAGEN = ?,
             ORDEN_IMAGEN = ?,
             PIE_IMAGEN = ?,
-            ID_GRUA = ?
+            ID_GRUA = ?,
+            FIN_ANO = ?,
+            END_YEAR = ?
             WHERE ID_IMAGEN = ?',
-                [$Nombre, $path, $path1, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $IdImagen]
+                [$Nombre, $path, $path1, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno, $EndYear, $IdImagen]
             );
         } else {
             $ActualizarImagen = DB::update(
@@ -639,9 +651,11 @@ class Administracion extends Model
             TEXTO_IMAGEN = ?,
             ORDEN_IMAGEN = ?,
             PIE_IMAGEN = ?,
-            ID_GRUA = ?
+            ID_GRUA = ?,
+            FIN_ANO = ?,
+            END_YEAR = ?
             WHERE ID_IMAGEN = ?',
-                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $IdImagen]
+                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $IdPagina, $IdSubpagina, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua,  $FinAno, $EndYear, $IdImagen]
             );
         }
         return $ActualizarImagen;
@@ -765,21 +779,39 @@ class Administracion extends Model
         return $ListarOrdenSubpagina;
     }
 
-    public static function ListarOrdenPagina($OrdenImagen,$IdPagina){
-        $ListarOrdenPagina = DB::select('SELECT * FROM imagenes WHERE ORDEN_IMAGEN = ? AND ID_PAGINA = ? AND ESTADO = 1 AND ID_SUBPAGINA = 0',
-                                [$OrdenImagen,$IdPagina]);
-        return $ListarOrdenPagina;
+    public static function ListarOrdenPagina($OrdenImagen,$IdPagina,$OrdenFinAno){
+        if($OrdenFinAno === 1){
+            $ListarOrdenPagina = DB::select('SELECT * FROM imagenes WHERE ORDEN_IMAGEN = ? AND ID_PAGINA = ? AND FIN_ANO = ? AND ESTADO = 1 AND ID_SUBPAGINA = 0',
+                                [$OrdenImagen,$IdPagina,$OrdenFinAno]);
+            return $ListarOrdenPagina;
+        }else{
+            $ListarOrdenPagina = DB::select('SELECT * FROM imagenes WHERE ORDEN_IMAGEN = ? AND ID_PAGINA = ? AND ESTADO = 1 AND ID_SUBPAGINA = 0',
+                                    [$OrdenImagen,$IdPagina]);
+            return $ListarOrdenPagina;
+        }
     }
 
-    public static function ListarOrdenSubpaginaId($OrdenImagen,$IdPagina,$IdSubpagina,$IdImagen){
-        $ListarOrdenSubpagina = DB::select('SELECT * FROM imagenes
-                                WHERE ORDEN_IMAGEN = ?
-                                AND ID_PAGINA = ?
-                                AND ID_SUBPAGINA = ?
-                                AND ESTADO = 1
-                                AND ID_IMAGEN NOT IN (?)',
-                                [$OrdenImagen,$IdPagina,$IdSubpagina,$IdImagen]);
-        return $ListarOrdenSubpagina;
+    public static function ListarOrdenSubpaginaId($OrdenImagen,$IdPagina,$IdSubpagina,$IdImagen,$OrdenFinAno){
+        if($OrdenFinAno === 1){
+            $ListarOrdenSubpagina = DB::select('SELECT * FROM imagenes
+            WHERE ORDEN_IMAGEN = ?
+            AND ID_PAGINA = ?
+            AND ID_SUBPAGINA = ?
+            AND FIN_ANO = ?
+            AND ESTADO = 1
+            AND ID_IMAGEN NOT IN (?)',
+            [$OrdenImagen,$IdPagina,$IdSubpagina,$OrdenFinAno,$IdImagen]);
+            return $ListarOrdenSubpagina;
+        }else{
+            $ListarOrdenSubpagina = DB::select('SELECT * FROM imagenes
+                                    WHERE ORDEN_IMAGEN = ?
+                                    AND ID_PAGINA = ?
+                                    AND ID_SUBPAGINA = ?
+                                    AND ESTADO = 1
+                                    AND ID_IMAGEN NOT IN (?)',
+                                    [$OrdenImagen,$IdPagina,$IdSubpagina,$IdImagen]);
+            return $ListarOrdenSubpagina;
+        }
     }
 
     public static function ListadoTipoGruas(){
@@ -852,8 +884,13 @@ class Administracion extends Model
     }
 
     public static function ListadoImagenesInicio(){
-        $ListadoImagenesInicio = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND ESTADO = 1');
+        $ListadoImagenesInicio = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND FIN_ANO = NULL AND ESTADO = 1');
         return $ListadoImagenesInicio;
+    }
+
+    public static function ListadoImagenesFinAno(){
+        $ListadoImagenesFinAno = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND FIN_ANO = 1 AND ESTADO = 1');
+        return $ListadoImagenesFinAno;
     }
 
     public static function ListadoImagenesRetiro(){
@@ -917,7 +954,12 @@ class Administracion extends Model
     }
 
     public static function ListadoImagenesInicioId($IdImagen){
-        $ListadoImagenesInicioId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND ESTADO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        $ListadoImagenesInicioId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND ESTADO = 1 AND FIN_ANO = NULL AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
+        return $ListadoImagenesInicioId;
+    }
+
+    public static function ListadoImagenesInicioFinAnoId($IdImagen){
+        $ListadoImagenesInicioId = DB::select('SELECT * FROM imagenes WHERE ID_PAGINA = 1 AND ID_SUBPAGINA = 0 AND ESTADO = 1 AND FIN_ANO = 1 AND ID_IMAGEN NOT IN (?)',[$IdImagen]);
         return $ListadoImagenesInicioId;
     }
 

@@ -12,6 +12,7 @@
                     <input type="hidden" name="id_pagina_upd" id="mod_id_pagina">
                     <input type="hidden" name="id_subpagina_upd" id="mod_id_subpagina">
                     <input type="hidden" name="id_tipo_grua_upd" id="mod_id_tipo_grua">
+                    <input type="hidden" name="id_fin_ano" id="mod_fin_ano">
                     <div class="row">
                         <div class="col-md-3">
                             <label for="exampleInputEmail1">Nombre Imagen</label>

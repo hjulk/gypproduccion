@@ -363,10 +363,16 @@ class UsuariosController extends Controller
             $IdPagina = (int)$request->id_pagina;
             $pieImagen = $request->pie_imagen;
             $ActivarTexto = $request->activarTexto;
+            $ActivarFinAno = $request->activarFinAno;
             if ($ActivarTexto === 'on') {
                 $TextoImagen = str_replace('<p>', '<p id="subTitleImage">', $request->textoImagenForm);
             } else {
                 $TextoImagen = null;
+            }
+            if ($ActivarFinAno === 'on') {
+                $FinAno = 1;
+            } else {
+                $FinAno = 0;
             }
             $OrdenImagen = (int)$request->id_ordenPagina;
             if ($request->id_subpagina) {
@@ -374,7 +380,7 @@ class UsuariosController extends Controller
                 $buscarOrden = Administracion::ListarOrdenSubpagina($OrdenImagen, $IdSubpagina);
             } else {
                 $IdSubpagina = 0;
-                $buscarOrden = Administracion::ListarOrdenPagina($OrdenImagen, $IdPagina);
+                $buscarOrden = Administracion::ListarOrdenPagina($OrdenImagen, $IdPagina, $FinAno);
             }
             if ($request->id_tipo_grua) {
                 $IdGrua = (int)$request->id_tipo_grua;
@@ -402,8 +408,10 @@ class UsuariosController extends Controller
             $BuscarImagenOrganigrama = null;
             $BuscarImagenNServicios = null;
             $BuscarImagenInicio = null;
+            $BuscarImagenFinAno = null;
             if($IdPagina === 1){
                 $BuscarImagenInicio = Administracion::ListadoImagenesInicio();
+                $BuscarImagenFinAno = Administracion::ListadoImagenesFinAno();
             }
             switch ($IdSubpagina) {
                 Case 5:
@@ -442,6 +450,11 @@ class UsuariosController extends Controller
             if ($BuscarImagenInicio) {
                 $verrors = array();
                 array_push($verrors, 'Para cargar una nueva imagen de pagina de inicio, debe inactivar la imagen actual');
+                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
+            }
+            if ($BuscarImagenFinAno) {
+                $verrors = array();
+                array_push($verrors, 'Para cargar una nueva imagen de pagina de información de horario de fin de año, debe inactivar la imagen actual');
                 return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
             }
             if ($BuscarImagenRetiro) {
@@ -605,7 +618,7 @@ class UsuariosController extends Controller
                     $nom_adj1   = $tmp;
                     $path       = '../' . $carpeta . $nom_adj1;
                     $path1  = '../' . $path1;
-                    $CrearImagen = Administracion::CrearImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua);
+                    $CrearImagen = Administracion::CrearImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno);
                     if ($CrearImagen) {
                         $verrors = 'Se cargo con éxito la imagen ' . strtoupper($Nombre);
                         return Redirect::to($url . 'imagenes')->with('mensaje', $verrors);
@@ -640,6 +653,7 @@ class UsuariosController extends Controller
             $pieImagen = $request->pie_imagen_upd;
             $ActivarTexto = $request->activarTextoUpd;
             $OrdenImagen = (int)$request->id_ordenPagina_upd;
+            $FinAno = (int)$request->id_fin_ano;
             $BuscarImagen = Administracion::ListadoImagenesNameId($Nombre, $IdImagen);
             if ($BuscarImagen) {
                 $verrors = array();
@@ -680,10 +694,12 @@ class UsuariosController extends Controller
                 $BuscarImagenOrganigrama = null;
                 $BuscarImagenNServicios = null;
                 $BuscarImagenInicio = null;
+                $BuscarImagenFinAno = null;
                 if($IdPagina === 1){
                     $BuscarImagenInicio = Administracion::ListadoImagenesInicioId($IdImagen);
+                    $BuscarImagenFinAno = Administracion::ListadoImagenesInicioFinAnoId($IdImagen);
                 }
-                $buscarOrden = Administracion::ListarOrdenSubpaginaId($OrdenImagen, $IdPagina, $IdSubpagina, $IdImagen);
+                $buscarOrden = Administracion::ListarOrdenSubpaginaId($OrdenImagen, $IdPagina, $IdSubpagina, $IdImagen, $FinAno);
                 switch ($IdSubpagina) {
                     Case 5:
                         $BuscarImagenOrganigrama = Administracion::ListadoImagenesOrganigramaId($IdImagen);
@@ -709,6 +725,11 @@ class UsuariosController extends Controller
                         break;
                     default:
                         break;
+                }
+                if ($BuscarImagenFinAno) {
+                    $verrors = array();
+                    array_push($verrors, 'Para activar esta imagen de pagina de incio, debe inactivar la imagen actual');
+                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
                 }
                 if ($BuscarImagenInicio) {
                     $verrors = array();
@@ -884,7 +905,7 @@ class UsuariosController extends Controller
                         $path1  = null;
                     }
 
-                    $ActualizarImagen = Administracion::ActualizarImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua);
+                    $ActualizarImagen = Administracion::ActualizarImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno);
                     if ($ActualizarImagen) {
                         $verrors = 'Se actualizó con éxito la imagen ' . strtoupper($Nombre);
                         return Redirect::to($url . 'imagenes')->with('mensaje', $verrors);

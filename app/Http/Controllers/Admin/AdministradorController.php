@@ -787,6 +787,7 @@ class AdministradorController extends Controller
                     $Imagenes[$cont]['id_ordenPagina'] = (int)$value->ORDEN_IMAGEN;
                     $Imagenes[$cont]['pie_imagen'] = $value->PIE_IMAGEN;
                     $Imagenes[$cont]['id_grua'] = (int)$value->ID_GRUA;
+                    $Imagenes[$cont]['fin_ano'] = (int)$value->FIN_ANO;
 
                     $cont++;
                 }

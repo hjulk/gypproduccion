@@ -41,7 +41,7 @@
 #imgAlerts{max-width: -webkit-fill-available;width:-moz-available;width: 20%}
 #exitoAlert,#errorAlert,#exitoTrabajo{text-align:center;font-size:2vh;font-weight: 600;}
 /* #panelResultado{display: none;} */
-#inputSubpagina,#mod_inputSubpagina,#imageUpdate,#campoTextoImagen,#campoTextoImagenUpd,#id_tipo_grua,#inputGrua,#activacionTexto,#inputGruaUpd,#inputSubpaginaUpd,#activacionTextoUpd,#campoOrdenImagenUpd{display: none;}
+#inputSubpagina,#mod_inputSubpagina,#imageUpdate,#campoTextoImagen,#campoTextoImagenUpd,#id_tipo_grua,#inputGrua,#activacionTexto,#inputGruaUpd,#inputSubpaginaUpd,#activacionTextoUpd,#campoOrdenImagenUpd,#inputFinAno,#inputFinAnoUpd{display: none;}
 #cerrarModal{
     color: #FFFFFF !important;
 }

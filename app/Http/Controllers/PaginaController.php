@@ -26,7 +26,16 @@ class PaginaController extends Controller
         $Organigrama = PaginaController::Organigrama();
         $yearNow = date('Y');
         $ImgInicio = GYPBogota::ImgInicio();
-        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio]);
+        $imagesFinAno = GYPBogota::imagesFinAno();
+        if($imagesFinAno){
+            foreach($imagesFinAno as $row){
+                $ano = (int)$row->END_YEAR;
+            }
+        }else{
+            $ano = date('Y');
+        }
+        $fecha_enero = strtotime("01-01-$ano 00:00:00");
+        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio, 'imagesFinAno' => $imagesFinAno, 'fecha_enero' => $fecha_enero]);
     }
 
     public function Trabajo()
