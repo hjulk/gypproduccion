@@ -1,183 +1,303 @@
-@extends("layout")
+@extends('layout')
 
 @section('titulo')
-
 @endsection
 
 @section('styles')
-
 @endsection
 
 @section('barraInformacion')
-    <div class="ftco-cover-1 overlay">
+    <section class="ftco-section" id="sectionPageBanner">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1 id="tituloInicio"><b>Grúas y Parqueaderos Bogotá S.A.S</b></h1>
-                    <p class="mb-5" id="subtituloInicio">Servicio de Grúas y Parqueaderos</p>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
-
-@section('contenido')
-    @php
-        date_default_timezone_set('America/Bogota');
-        $fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
-    @endphp
-    @if($fecha_actual < $fecha_enero)
-        @if($imagesFinAno)
-            @foreach($imagesFinAno as $imageFinAno)
-                <section class="ftco-section" id="sectionPage">
-                    <div class="container" id="imagePage">
-                        @if(strpos($imageFinAno->UBICACION, '.jpg') !== false)
+            <div class="row align-items-center" id="imagenBannerPrincipal">
+                <div class="col-md-12">
+                    <a href="https://vus.circulemosdigital.com.co/#login/" target="_blank">
+                        @handheld
                             <picture>
-                                <source srcset="{{ $imageFinAno->UBICACION_WEBP }}" type="image/webp"/>
-                                <source srcset="{{ $imageFinAno->UBICACION }}" type="image/jpg"/>
-                                <img src="{{ $imageFinAno->UBICACION_WEBP }}" id="imagenPagina" alt="Inicio"/>
+                                <source srcset="{{ asset('images/home/banner_home_movil.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/home/banner_home_movil.') }}" type="image/png" />
+                                <img src="{{ asset('images/home/banner_home_movil.webp') }}" id="imagenPagina" alt="Inicio"
+                                    class="bannerHome mx-auto" />
                             </picture>
-                        @else
+                        @elsehandheld
                             <picture>
-                                <source srcset="{{ $imageFinAno->UBICACION_WEBP }}" type="image/webp"/>
-                                <source srcset="{{ $imageFinAno->UBICACION }}" type="image/png"/>
-                                <img src="{{ $imageFinAno->UBICACION_WEBP }}" id="imagenPagina" alt="Inicio"/>
+                                <source srcset="{{ asset('images/home/banner_home.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/home/banner_home.png') }}" type="image/png" />
+                                <img src="{{ asset('images/home/banner_home.webp') }}" id="imagenPagina" alt="Inicio"
+                                    class="bannerHome mx-auto" />
                             </picture>
-                        @endif
-                        <p id="footerImage">{!! $imageFinAno->PIE_IMAGEN!!}</p>
-                    </div>
-                </section>
-            @endforeach
-        @endif
-    @endif
-    @if($ImgInicio)
-        @foreach($ImgInicio as $images)
-            <section class="ftco-section" id="sectionPage">
-                <div class="container" id="imagePageAviso">
-                    @if(strpos($images->UBICACION, '.jpg') !== false)
-                        <picture>
-                            <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
-                            <source srcset="{{ $images->UBICACION }}" type="image/jpg"/>
-                            <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Inicio"/>
-                        </picture>
-                    @else
-                        <picture>
-                            <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp"/>
-                            <source srcset="{{ $images->UBICACION }}" type="image/png"/>
-                            <img src="{{ $images->UBICACION_WEBP }}" id="imagenPagina" alt="Inicio"/>
-                        </picture>
-                    @endif
-                    <p id="footerImage">{!! $images->PIE_IMAGEN!!}</p>
-                </div>
-            </section>
-            <br>
-        @endforeach
-    @endif
-    <section class="site-section" id="services-section">
-        <div class="container">
-            <div class="row mb-5 justify-content-center">
-                <div class="col-md-7 text-center">
-                    <div class="block-heading-1">
-                        <h3 id="serviciosIndex"><b>Nuestros Servicios</b></h3>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="block__35630">
-                        <div class="icon mb-0" id="iconoServicios">
-                            <a href="servicios/gruas"><img src="{{asset("images/tow-truck.png")}}" alt="grúa" id="imagenServicios"></a>
-                        </div>
-                        <br>
-                        <h4 class="mb-3">Grúas</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block__35630">
-                        <div class="icon mb-0" id="iconoServicios">
-                            <a href="puntosAtencion"><img src="{{asset("images/car.png")}}" alt="punto atención" id="imagenServicios"></a>
-                        </div>
-                        <br>
-                        <h4 class="mb-3">Puntos de atención</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block__35630">
-                        <div class="icon mb-0" id="iconoServicios">
-                            <a href="servicios/procesoRetiro"><img src="{{asset("images/24-hours.png")}}" alt="retiro" id="imagenServicios"></a>
-                        </div>
-                        <br>
-                        <h4 class="mb-3">Retiro de vehículo 24/7</h4>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="block__35630">
-                        <div class="icon mb-0" id="iconoServicios">
-                            <a href="servicios/monitoreoCamaras"><img src="{{asset("images/cctv.png")}}" alt="monitoreo" id="imagenServicios"></a>
-                        </div>
-                        <br>
-                        <h4 class="mb-3">Monitoreo con cámaras</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block__35630">
-                        <div class="icon mb-0" id="iconoServicios">
-                            <a href="servicios/mensajeSms"><img src="{{asset("images/sms.png")}}" alt="sms" id="imagenServicios"></a>
-                        </div>
-                        <br>
-                        <h4 class="mb-3">Mensaje de texto de alerta</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="block__35630">
-                        <div class="icon mb-0" id="iconoServicios">
-                            <a href="pagoLinea"><img src="{{asset("images/BotonPSE.png")}}" alt="pago en línea" id="iconoPago"></a>
-                        </div>
-                        <br>
-                        <h4 class="mb-3">Liquidación pagos en línea</h4>
-                    </div>
+                        @endhandheld
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-    <section class="block__73694 site-section border-top" id="why-us-section">
+@endsection
+
+@section('contenido')
+    <section class="ftco-section" id="sectionPage">
+        <div class="container" id="imagePageAviso">
+            <div id="derechosDeberes" class="carousel slide carousel-fade" data-ride="carousel">
+                <ol class="carousel-indicators" tabindex="0">
+                    <li data-target="#derechosDeberes" data-slide-to="0" class="active"></li>
+                    <li data-target="#derechosDeberes" data-slide-to="1"></li>
+                    <li data-target="#derechosDeberes" data-slide-to="2"></li>
+                    <li data-target="#derechosDeberes" data-slide-to="3"></li>
+                    <li data-target="#derechosDeberes" data-slide-to="4"></li>
+                </ol>
+                @handheld
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="videos/home_video.mp4" id="videoHomeLink">
+                                <picture>
+                                    <source srcset="{{ asset('images/carousel/carousel_movil_1.webp') }}" type="image/webp" />
+                                    <source srcset="{{ asset('images/carousel/carousel_movil_1.png') }}" type="image/png" />
+                                    <img src="{{ asset('images/carousel/carousel_movil_1.webp') }}" class="d-block w-100"
+                                        alt="GYP 2023" id="imgCarruselGyp" />
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="https://vus.circulemosdigital.com.co/#login/" target="_blank">
+                                <picture>
+                                    <source srcset="{{ asset('images/carousel/carousel_movil_2.webp') }}" type="image/webp" />
+                                    <source srcset="{{ asset('images/carousel/carousel_movil_2.png') }}" type="image/png" />
+                                    <img src="{{ asset('images/carousel/carousel_movil_2.') }}" class="d-block w-100"
+                                        alt="GYP 2023" id="imgCarruselGyp" />
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/carousel/carousel_movil_3.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/carousel/carousel_movil_3.png') }}" type="image/png" />
+                                <img src="{{ asset('images/carousel/carousel_movil_3.webp') }}" class="d-block w-100"
+                                    alt="GYP 2023" id="imgCarruselGyp" />
+                            </picture>
+                        </div>
+                        <div class="carousel-item">
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/carousel/carousel_movil_4.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/carousel/carousel_movil_4.png') }}" type="image/png" />
+                                <img src="{{ asset('images/carousel/carousel_movil_4.webp') }}" class="d-block w-100"
+                                    alt="GYP 2023" id="imgCarruselGyp" />
+                            </picture>
+                        </div>
+                        <div class="carousel-item">
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/carousel/carousel_movil_5.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/carousel/carousel_movil_5.png') }}" type="image/png" />
+                                <img src="{{ asset('images/carousel/carousel_movil_5.webp') }}" class="d-block w-100"
+                                    alt="GYP 2023" id="imgCarruselGyp" />
+                            </picture>
+                        </div>
+                    </div>
+                @elsehandheld
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="videos/home_video.mp4" id="videoHomeLink">
+                                <picture>
+                                    <source srcset="{{ asset('images/carousel/carousel_1.webp') }}" type="image/webp" />
+                                    <source srcset="{{ asset('images/carousel/carousel_1.png') }}" type="image/png" />
+                                    <img src="{{ asset('images/carousel/carousel_1.webp') }}" class="d-block w-100"
+                                        alt="GYP 2023" id="imgCarruselGyp" />
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="https://vus.circulemosdigital.com.co/#login/" target="_blank">
+                                <picture>
+                                    <source srcset="{{ asset('images/carousel/carousel_2.webp') }}" type="image/webp" />
+                                    <source srcset="{{ asset('images/carousel/carousel_2.png') }}" type="image/png" />
+                                    <img src="{{ asset('images/carousel/carousel_2.webp') }}" class="d-block w-100"
+                                        alt="GYP 2023" id="imgCarruselGyp" />
+                                </picture>
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/carousel/carousel_3.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/carousel/carousel_3.png') }}" type="image/png" />
+                                <img src="{{ asset('images/carousel/carousel_3.webp') }}" class="d-block w-100"
+                                    alt="GYP 2023" id="imgCarruselGyp" />
+                            </picture>
+                        </div>
+                        <div class="carousel-item">
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/carousel/carousel_4.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/carousel/carousel_4.png') }}" type="image/png" />
+                                <img src="{{ asset('images/carousel/carousel_4.webp') }}" class="d-block w-100"
+                                    alt="GYP 2023" id="imgCarruselGyp" />
+                            </picture>
+                        </div>
+                        <div class="carousel-item">
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/carousel/carousel_5.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/carousel/carousel_5.png') }}" type="image/png" />
+                                <img src="{{ asset('images/carousel/carousel_5.webp') }}" class="d-block w-100"
+                                    alt="GYP 2023" id="imgCarruselGyp" />
+                            </picture>
+                        </div>
+                    </div>
+                @endhandheld
+                <a class="carousel-control-prev" href="#derechosDeberes" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" tabindex="0"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#derechosDeberes" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true" tabindex="0"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <br>
+    <section class="ftco-section" id="sectionPageVideo">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4" id="tarifasIcon">
-                    <a href="servicios/tarifas"><img src="{{asset("images/tarifas.png")}}" alt="tarifas" class="img-responsive" id="tarifasImg">
+            <br>
+            <div class="row" id="ciudadanoRecuerda">
+                <div class="col-md-2" id=imgCiudadanoRecuerda>
+                    <picture tabindex="0">
+                        <source srcset="{{ asset('images/home/icon_home.webp') }}" type="image/webp" />
+                        <source srcset="{{ asset('images/home/icon_home.png') }}" type="image/png" />
+                        <img src="{{ asset('images/home/icon_home.webp') }}" id="iconHome" alt="Inicio" />
+                    </picture>
+                </div>
+                <div class="col-md-10">
+                    <p id="subtitleBannerVideo" tabindex="0">¡Ciudadano, recuerda!</p>
+                    <p id="textBannerVideo" tabindex="0">Los trámites y asesorías correspondientes al retiro del
+                        vehículo inmovilizado en patio, son gratuitos,
+                        no requieren tramitadores.<br>
+                        Si has sido victima de estafa, presenta tu denuncia en <a
+                            href="mailto:denuncias@gypbogota.com">denuncias@gypbogota.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="row align-items-center" id="franjaTituloPagina">
+                <div class="col-md-12">
+                    <h3 id="tituloSubPaginaHome" tabindex="0">Información de interés</h2>
+                </div>
+            </div>
+            <br>
+            <div class="grid-container-infoInteres">
+                <div>
+                    <a href="servicios/gruas">
+                        <picture>
+                            <source srcset="{{ asset('images/home/informacion_interes_1.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/informacion_interes_1.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/informacion_interes_1.webp') }}" id="imagenServicios"
+                                alt="Grúas" />
+                        </picture>
+                    </a>
+                </div>
+                <div>
+                    <a href="puntosAtencion">
+                        <picture>
+                            <source srcset="{{ asset('images/home/informacion_interes_2.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/informacion_interes_2.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/informacion_interes_2.webp') }}" id="imagenServicios"
+                                alt="Puntos Atención" />
+                        </picture>
+                    </a>
+                </div>
+                <div>
+                    <a href="servicios/procesoRetiro">
+                        <picture>
+                            <source srcset="{{ asset('images/home/informacion_interes_3.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/informacion_interes_3.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/informacion_interes_3.webp') }}" id="imagenServicios"
+                                alt="Proceso Retiro" />
+                        </picture>
+                    </a>
+                </div>
+                <div>
+                    <a href="servicios/monitoreoCamaras">
+                        <picture>
+                            <source srcset="{{ asset('images/home/informacion_interes_4.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/informacion_interes_4.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/informacion_interes_4.webp') }}" id="imagenServicios"
+                                alt="Monitoreo con cámaras" />
+                        </picture>
+                    </a>
+                </div>
+                <div>
+                    <a href="documentos/Tarifas_Subsanación_2023.pdf" target="_blank">
+                        <picture>
+                            <source srcset="{{ asset('images/home/informacion_interes_5.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/informacion_interes_5.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/informacion_interes_5.webp') }}" id="imagenServicios"
+                                alt="Tarifas de servicio mecánica" />
+                        </picture>
+                    </a>
+                </div>
+                <div>
+                    <a href="pagoLinea">
+                        <picture>
+                            <source srcset="{{ asset('images/home/informacion_interes_6.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/informacion_interes_6.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/informacion_interes_6.webp') }}" id="imagenServicios"
+                                alt="Liquidación de servicios" />
+                        </picture>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="row align-items-center" id="franjaTituloPagina">
+                <div class="col-lg-6">
+                    <h3 id="tituloSubPaginaHome" tabindex="0">Nuestras tarifas</h2>
+                </div>
+            </div>
+            <div class="row" id="NuestrosServiciosDescripcion">
+                <div class="col-md-4">
+                    <a href="servicios/tarifas">
+                        <picture>
+                            <source srcset="{{ asset('images/home/tarifas.webp') }}" type="image/webp" />
+                            <source srcset="{{ asset('images/home/tarifas.png') }}" type="image/png" />
+                            <img src="{{ asset('images/home/tarifas.webp') }}" id="imagenServicios"
+                                alt="Nuestras Tarifas" />
+                        </picture>
                     </a>
                 </div>
                 <div class="col-md-8">
-                    <h4 class="text-primary" id="tarifasTitle">Nuestras Tarifas</h4><br>
-                    <p id="tarifasText">
+                    <p id="tarifasText" tabindex="0">
                         De acuerdo con lo establecido en el artículo segundo y subsiguientes de la <b>Resolución 62 de 2018,
-                        modificada por la Resolución 172 de 2019</b> expedidas por la Secretaría de Movilidad en concordancia
-                        con lo dispuesto por el Gobierno Nacional en lo referente al nuevo <b>Salario Mínimo Legal Mensual</b>,
-                        le informamos que a partir del 1 de enero de {{ $YearNow }} se cobrarán los siguientes valores por los servicios
+                            modificada por la Resolución 172 de 2019</b> expedidas por la Secretaría de Movilidad en
+                        concordancia
+                        con lo dispuesto por el Gobierno Nacional en lo referente al nuevo <b>Salario Mínimo Legal
+                            Mensual</b>,
+                        le informamos que a partir del 1 de enero de {{ $YearNow }} se cobrarán los siguientes valores
+                        por los servicios
                         de parqueadero y Grúas prestados así:
                         <br>
                         <br>
-                        <a href="servicios/tarifas" id="tarifasEnlace">Ver tarifas aplicables al
-                        servicio de inmovilización de vehículos para el año {{ $YearNow }}</a>
+                        <a href="servicios/tarifas" id="tarifasEnlace">
+                            <picture>
+                                <source srcset="{{ asset('images/home/boton_tarifas.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/home/boton_tarifas.png') }}" type="image/png" />
+                                <img src="{{ asset('images/home/boton_tarifas.webp') }}" alt="Nuestras Tarifas"
+                                    id="imagenTarifasHome" />
+                            </picture>
+                        </a>
                     </p>
                 </div>
             </div>
         </div>
     </section>
+    <br>
     <section class="ftco-section" id="sectionPage">
         <div class="container" id="imagePage">
             <span id="contadorVisitas">
-            {{ $Visitas }}</span><br>
+                {{ $Visitas }}</span><br>
             <p>Visitas a la página</p>
         </div>
     </section>
 @endsection
 
 @section('scripts')
-
 @endsection
-

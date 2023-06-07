@@ -120,7 +120,8 @@ function myFunction() {
     newSS.href = styles;
     document.getElementsByTagName("head")[0].appendChild(newSS);
     jQuery(".escudo").css("background", "url(/web/sites/all/themes/sdmtheme/images/escudo_col_contraste.png)");
-    jQuery(".logo-navbar-img").prop("src", "../images/MARCA-BOGOTA-EMPRESA-BLACK.png");
+    jQuery(".logo-navbar-img").prop("src", "../images/logo_header_blanco.png");
+    jQuery("#logoNavbar").prop("src", "../images/logo_header_blanco.png");
     jQuery("#MarcaEmpresa").prop("src", "../images/MARCA-BOGOTA-EMPRESA-BLACK.png");
     jQuery("#logoNavbar2").prop("src", "../images/LOGO_GYP_black.png");
     jQuery("#logoNosotros").prop("src", "../images/LOGO_GYP_V2.png");
@@ -139,6 +140,8 @@ function myFunction() {
     jQuery(".nav-link").css("color", "#ff0 !important");
     jQuery(".ftco-footer .overlay").css("background", "black");
     jQuery(".ftco-navbar-light").css("background-color", "black");
+    jQuery("#tarifaServicio tbody tr").css("background-color", "black");
+    jQuery("#tarifaGruas tbody tr").css("background-color", "black");
     jQuery(".ftco-cover-1.overlay").removeClass("ftco-cover-1 overlay").addClass("ftco-cover-1-contraste");
     console.log("Se activo contraste!!!");
   }

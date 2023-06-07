@@ -29,9 +29,11 @@ class PaginaController extends Controller
         $imagesFinAno = GYPBogota::imagesFinAno();
         if($imagesFinAno){
             foreach($imagesFinAno as $row){
+                $id_image = (int)$row->ID_IMAGEN;
                 $ano = (int)$row->END_YEAR;
             }
         }else{
+            $imagesFinAno = false;
             $ano = date('Y');
         }
         $fecha_enero = strtotime("01-01-$ano 00:00:00");
@@ -185,6 +187,14 @@ class PaginaController extends Controller
         $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
         $Organigrama = PaginaController::Organigrama();
         return view('atencionCiudadano.notificacionAviso', ['Notificaciones' => $Notificaciones, 'Desfijacion' => $Desfijacion, 'BotonDesfijacion' => $BotonDesfijacion, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama]);
+    }
+
+    public function PreguntasFrecuentes()
+    {
+        $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
+        $Organigrama = PaginaController::Organigrama();
+        $yearNow = date('Y');
+        return view('atencionCiudadano.preguntasFrecuentes',['Organigrama' => $Organigrama, 'PoliticaHSEQ' => $PoliticaHSEQ]);
     }
 
     // SERVICIOS
@@ -524,9 +534,9 @@ class PaginaController extends Controller
             foreach ($ListarDocumento as $value) {
                 $documento = str_replace('../', '', $value->UBICACION);
             }
-            $ubicacion = '<a href="' . $documento . '" style="color: #000000 !important;font-weight: 600;" target="_blank">aquí</a>.';
+            $ubicacion = '<a href="' . $documento . '" id="proteccionDatos" target="_blank">aquí</a>.';
         } else {
-            $ubicacion = '<a href="#" style="color: #000000 !important;font-weight: 600;">aquí</a>.';
+            $ubicacion = '<a href="#" id="proteccionDatos">aquí</a>.';
         }
         return $ubicacion;
     }

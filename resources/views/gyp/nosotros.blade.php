@@ -9,161 +9,190 @@
 @endsection
 
 @section('barraInformacion')
-    <div class="ftco-cover-1 overlay" id="franjaSubpagina">
-        <div class="container">
-            <div class="row align-items-center" id="franjaTituloPagina">
-                <div class="col-lg-6">
-                    <h2 id="tituloSubPagina">Nosotros</h2>
-                </div>
+<div class="overlay" id="franjaSubpagina">
+    <div class="container">
+        <div class="row align-items-center" id="franjaTituloCabecera">
+            <div class="col-lg-6">
+                <h2 id="tituloSubPagina">Nosotros</h2>
             </div>
         </div>
     </div>
-    <div class="ftco-cover-1" id="franjaSubpaginaTitulo">
-        <div class="container-md" id="franjaRutaPagina">
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ url('/') }}" id="rutaPagina">Inicio</a>
-                    <span class="icon icon-chevron-right" id="iconoRutaPagina"></span> Nosotros
-                </div>
+</div>
+<div class="ftco-cover-1" id="franjaSubpaginaTitulo">
+    <div class="container-md" id="franjaRutaPagina">
+        <div class="row" id="rutaPagina">
+            <div class="col-md-12">
+                <a href="{{ url('/') }}">Inicio</a>
+                <span id="iconoRutaPagina"><b>></b></span> Nosotros
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('contenido')
-    <section class="ftco-section" style="padding: 2em 0 2em 0 !important;">
-        <div class="container" id="pageImage">
-            <picture>
-                <source srcset="{{asset("images/gyp/nosotros/Nosotros.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/gyp/nosotros/Nosotros.png") }}" type="image/png"/>
-                <img src="{{asset("images/gyp/nosotros/Nosotros.webp") }}" id="logoNosotros" alt="Nosotros" class="nosotros-logo"/>
-            </picture>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="row" id="pageImage">
+                <div class="col-md-12">
+                    @handheld
+                        <picture tabindex="0">
+                            <source srcset="images/gyp/nosotros/logo_nosotros_movil.webp" type="image/webp"/>
+                            <source srcset="images/gyp/nosotros/logo_nosotros_movil.png" type="image/png"/>
+                            <img src="images/gyp/nosotros/logo_nosotros_movil.webp" alt="Inicio" id="imagenPagina" class="bannerPasosRetiro"/>
+                        </picture>
+                    @elsehandheld
+                        <picture tabindex="0">
+                            <source srcset="images/gyp/nosotros/logo_nosotros_nuevo.webp" type="image/webp"/>
+                            <source srcset="images/gyp/nosotros/logo_nosotros_nuevo.png" type="image/png"/>
+                            <img src="images/gyp/nosotros/logo_nosotros_nuevo.webp" alt="Inicio" id="imagenPagina" class="bannerPasosRetiro"/>
+                        </picture>
+                    @endhandheld
+                </div>
+            </div>
         </div>
     </section>
-    <section class="site-section" id="faq-section">
+
+    <section class="site-section" id="sectionPage">
         <div class="container">
-            <div class="row mb-5">
-                <div class="block-heading-1 col-12 text-center">
-                    <h3 id="titleNosotros">Quiénes Somos</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="mb-5">
-                        <p id="textNosotros">Somos una empresa especializada en el servicio de transporte de vehículos inmovilizados, servicios de parqueaderos y custodia que busca satisfacer las necesidades de movilización en la ciudad de Bogotá D.C., con altos estándares de calidad, seguridad y puntualidad, velando por los intereses de nuestros usuarios y demás partes interesadas, a través de la prestación de un servicio de calidad.<br>
-                        Poseemos una eficiente flota de grúas para toda clase de vehículos inmovilizados. Contamos con la experiencia de un equipo de trabajo idóneo comprometido y capacitado constantemente para brindar un excelente servicio y lograr la satisfacción de nuestros clientes.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-5">
-                <div class="block-heading-1 col-12 text-center">
-                    <h3 id="titleNosotros">Misión</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="mb-5">
-                        <p id="textNosotros">Somos una empresa dedicada a la inmovilización, traslado y custodia de vehículos en la ciudad de Bogotá D.C, atendiendo entidades públicas y colocando a disposición un moderno parque automotor y personal idóneo brindando un excelente servicio, buscando siempre la mejora continua en todos los procesos de la organización.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-5">
-                <div class="block-heading-1 col-12 text-center">
-                    <h3 id="titleNosotros">Visión</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="mb-5">
-                        <p id="textNosotros">En el año 2024 seremos reconocidos como empresa líder de la prestación de servicio de inmovilización, traslado y custodia de vehículos en la ciudad de Bogotá, promoviendo el desarrollo empresarial, ofreciendo: calidad y eficiencia en el servicio a nuestros clientes, comprometidos con el medio ambiente y brindándoles seguridad a los miembros de nuestra organización.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-5">
-                <div class="block-heading-1 col-12 text-center">
-                    <h3 id="titleNosotros">Principios</h3>
-                </div>
-            </div>
-            <div class="row" id="pageImage">
-                <div class="col-md-3">
-                    <img src="images/servicio-al-cliente.png" alt="">
-                    <p id="principios"><b>Servicio al cliente</b></p>
-                </div>
-                <div class="col-md-3">
-                    <img src="images/trabajo-equipo.png" alt="">
-                    <p id="principios"><b>Trabajo en equipo</b></p>
-                </div>
-                <div class="col-md-3">
-                    <img src="images/seguridad.png" alt="">
-                    <p id="principios"><b>Seguridad</b></p>
-                </div>
-                <div class="col-md-3">
-                    <img src="images/responsabilidad.png" alt="">
-                    <p id="principios"><b>Responsabilidad</b></p>
+            <div class="row align-items-center" id="franjaTituloPagina">
+                <div class="col-md-12">
+                    <h3 id="tituloSubPaginaHome" tabindex="0">Quiénes Somos</h2>
                 </div>
             </div>
             <br>
-            <div class="row" id="pageImage">
-                <div class="col-md-3">
-                    <img src="images/puntualidad.png" alt="">
-                    <p id="principios"><b>Puntualidad</b></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <p id="textNosotros" tabindex="0">Somos una empresa especializada en el servicio de transporte de vehículos inmovilizados, servicios de parqueaderos y custodia que busca satisfacer las necesidades de movilización en la ciudad de Bogotá D.C., con altos estándares de calidad, seguridad y puntualidad, velando por los intereses de nuestros usuarios y demás partes interesadas, a través de la prestación de un servicio de calidad.<br>
+                        Poseemos una eficiente flota de grúas para toda clase de vehículos inmovilizados. Contamos con la experiencia de un equipo de trabajo idóneo comprometido y capacitado constantemente para brindar un excelente servicio y lograr la satisfacción de nuestros clientes.
+                    </p>
                 </div>
-                <div class="col-md-3">
-                    <img src="images/mejoramiento.png" alt="">
-                    <p id="principios"><b>Mejoramiento Continuo</b></p>
+            </div>
+        </div>
+    </section>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="row align-items-center" id="franjaTituloPagina">
+                <div class="col-lg-12">
+                    <h3 id="tituloSubPaginaHome" tabindex="0">Misión</h2>
                 </div>
-                <div class="col-md-3">
-                    <img src="images/calidad-servicio.png" alt="">
-                    <p id="principios"><b>Calidad de Servicio</b></p>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p id="textNosotros" tabindex="0">Somos una empresa dedicada a la inmovilización, traslado y custodia de vehículos en la ciudad de Bogotá D.C, atendiendo entidades públicas y colocando a disposición un moderno parque automotor y personal idóneo brindando un excelente servicio, buscando siempre la mejora continua en todos los procesos de la organización.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="row align-items-center" id="franjaTituloPagina">
+                <div class="col-lg-12">
+                    <h3 id="tituloSubPaginaHome" tabindex="0">Visión</h2>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <p id="textNosotros" tabindex="0">En el año 2024 seremos reconocidos como empresa líder de la prestación de servicio de inmovilización, traslado y custodia de vehículos en la ciudad de Bogotá, promoviendo el desarrollo empresarial, ofreciendo: calidad y eficiencia en el servicio a nuestros clientes, comprometidos con el medio ambiente y brindándoles seguridad a los miembros de nuestra organización.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="row align-items-center" id="franjaTituloPagina">
+                <div class="col-lg-12">
+                    <h3 id="tituloSubPaginaHome" tabindex="0">Principios</h2>
+                </div>
+            </div>
+            <br>
+
+            <div class="nosotros-gallery">
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/servicio_cliente.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/servicio_cliente.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/servicio_cliente.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/trabajo_equipo.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/trabajo_equipo.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/trabajo_equipo.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/seguridad.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/seguridad.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/seguridad.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/responsabilidad.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/responsabilidad.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/responsabilidad.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/puntualidad.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/puntualidad.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/puntualidad.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/mejoramiento_continuo.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/mejoramiento_continuo.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/mejoramiento_continuo.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/calidad_servicio.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/calidad_servicio.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/calidad_servicio.webp") }}" id="principios" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
                 </div>
             </div>
           <br>
-          <br>
+        </div>
+    </section>
+    <section class="site-section" id="sectionPage">
+        <div class="container">
+            <div class="grid-container-infoInteres">
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_1.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_1.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/nosotros_foto_1.webp") }}" id="imgNosotros" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_2.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_2.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/nosotros_foto_2.webp") }}" id="imgNosotros" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+                <div>
+                    <picture tabindex="0">
+                        <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_3.webp") }}" type="image/webp"/>
+                        <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_3.png") }}" type="image/png"/>
+                        <img src="{{asset("images/gyp/nosotros/nosotros_foto_3.webp") }}" id="imgNosotros" alt="Nosotros" class="nosotros-logo"/>
+                    </picture>
+                </div>
+            </div>
         </div>
     </section>
     <br>
-    <section class="ftco-section" id="imageNosotros">
-        <div class="container" id="pageImage">
-            <div class="row">
-                <div class="col-md-6" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/gyp/nosotros/parqueadero.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gyp/nosotros/parqueadero.jpg") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gyp/nosotros/parqueadero.webp") }}" id="imagenPagina" alt="Nosotros"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
-                </div>
-                <div class="col-md-6" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/gyp/nosotros/IMG_1806.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gyp/nosotros/IMG_1806.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gyp/nosotros/IMG_1806.webp") }}" id="imagenPagina" alt="Nosotros"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/gyp/nosotros/C0106T01.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gyp/nosotros/C0106T01.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gyp/nosotros/C0106T01.webp") }}" id="imagenPagina" alt="Nosotros"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
-                </div>
-                <div class="col-md-6" id="pageImage">
-                    <picture>
-                        <source srcset="{{asset("images/gyp/nosotros/IMG_1805.webp") }}" type="image/webp"/>
-                        <source srcset="{{asset("images/gyp/nosotros/IMG_1805.JPG") }}" type="image/jpg"/>
-                        <img src="{{asset("images/gyp/nosotros/IMG_1805.webp") }}" id="imagenPagina" alt="Nosotros"/>
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: {{ $YearNow }}</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br><br>
 @endsection
 
 @section('scripts')

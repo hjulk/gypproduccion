@@ -1,7 +1,7 @@
 @extends("layout")
 
 @section('titulo')
-- Trabaje con Nosotros
+- Trabaje con Trabaje con nosotros
 @endsection
 
 @section('styles')
@@ -9,35 +9,50 @@
 @endsection
 
 @section('barraInformacion')
-    <div class="ftco-cover-1 overlay" id="franjaSubpagina">
-        <div class="container">
-            <div class="row align-items-center" id="franjaTituloPagina">
-                <div class="col-lg-6">
-                    <h2 id="tituloSubPagina">Trabaje con Nosotros</h2>
-                </div>
+<div class="overlay" id="franjaSubpagina">
+    <div class="container">
+        <div class="row align-items-center" id="franjaTituloCabecera">
+            <div class="col-lg-6">
+                <h2 id="tituloSubPagina">Trabaje con nosotros</h2>
             </div>
         </div>
     </div>
-    <div class="ftco-cover-1" id="franjaSubpaginaTitulo">
-        <div class="container-md" id="franjaRutaPagina">
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{ url('/') }}" id="rutaPagina">Inicio</a>
-                    <span class="icon icon-chevron-right" id="iconoRutaPagina"></span> Trabaje con Nosotros
-                </div>
+</div>
+<div class="ftco-cover-1" id="franjaSubpaginaTitulo">
+    <div class="container-md" id="franjaRutaPagina">
+        <div class="row" id="rutaPagina">
+            <div class="col-md-12">
+                <a href="{{ url('/') }}">Inicio</a>
+                <span id="iconoRutaPagina"><b>></b></span> Trabaje con nosotros
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('contenido')
     <section class="site-section bg-light" id="contact-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-5" data-aos-delay="200">
+                <div class="col-md-12" data-aos-delay="200">
+
+                        <p id="textTrabajo" tabindex="0">
+                            Somos una empresa joven, sólida, orgullosamente
+                            Colombiana, especializada en el servicio de transporte de vehículos inmovilizados y
+                            servicios de parqueaderos que busca satisfacer las necesidades de movilización en la
+                            ciudad de Bogotá D.C. con altos estándares de calidad, seguridad y puntualidad,
+                            velando por los intereses de nuestros usuarios y demás partes interesadas, a través
+                            de la prestación de un servicio de calidad.
+                        </p>
+
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                {{-- <div class="col-md-5" data-aos-delay="200">
                     <div class="bg-white p-3 p-md-5">
                         <h4 class="text-black mb-4" id="titleTrabajo">
-                            Trabaje con Nosotros
+                            Trabaje con Trabaje con nosotros
                         </h4>
                         <p id="textTrabajo">
                             Somos una empresa joven, sólida, orgullosamente
@@ -48,8 +63,8 @@
                             de la prestación de un servicio de calidad.
                         </p>
                     </div>
-                </div>
-                <div class="col-md-7">
+                </div> --}}
+                <div class="col-md-12">
                     {!! Form::open(['url' => 'trabajoNosotros', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-trabajo']) !!}
                     @csrf
                         <div class="form-group row">
@@ -109,7 +124,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-md-6 mr-auto">
+                            <div class="col-md-3 mr-auto">
                                 <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Enviar Mensaje">
                             </div>
                         </div>

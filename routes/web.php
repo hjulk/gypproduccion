@@ -44,6 +44,9 @@ Route::get('Contacto',[PaginaController::class, 'Contacto'])->name('Contacto');
 Route::get('notificacionAviso',[PaginaController::class, 'NotificacionAviso'])->name('notificacionAviso');
 Route::get('NOTIFICACIONAVISO',[PaginaController::class, 'NotificacionAviso'])->name('NOTIFICACIONAVISO');
 Route::get('Notificacionaviso',[PaginaController::class, 'NotificacionAviso'])->name('Notificacionaviso');
+Route::get('preguntasFrecuentes',[PaginaController::class, 'PreguntasFrecuentes'])->name('preguntasFrecuentes');
+Route::get('PREGUNTASFRECUENTES',[PaginaController::class, 'PreguntasFrecuentes'])->name('PREGUNTASFRECUENTES');
+Route::get('Preguntasfrecuentes',[PaginaController::class, 'PreguntasFrecuentes'])->name('Preguntasfrecuentes');
 
 // SERVICIOS
 Route::group(['prefix' => 'servicios'],function(){

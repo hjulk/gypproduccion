@@ -9,10 +9,14 @@
 		  gtag('js', new Date());
 
 		  gtag('config', 'G-G5RS7NZJQG');
-		</script>        
+		</script>
 		<title>Grúas y Parqueaderos Bogotá @yield('titulo')</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Last-Modified" content="0">
+        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+        <meta http-equiv="Pragma" content="no-cache">
         <link type="image/x-icon" rel="icon" href="{{asset("images/favicon.png")}}">
         <meta name="description" content="Somos una empresa especializada en el servicio de transporte de vehículos inmovilizados y
         servicios de parqueaderos.">
@@ -56,7 +60,6 @@
             @include("menu")
             <div class="ftco-blocks-cover-1">
                 @yield("barraInformacion")
-                <br>
                 @yield("contenido")
             </div>
             @include("footer")
@@ -79,7 +82,7 @@
                 }
             </script>
             <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-	<script src="{{asset("adminlte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
+	        <script src="{{asset("adminlte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
             <script src="{{asset("adminlte/plugins/jquery-validation/additional-methods.min.js")}}"></script>
             @yield("scripts")
         </div>

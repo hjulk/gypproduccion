@@ -3,21 +3,11 @@
         <div class="row align-items-center position-relative">
             <div class="col-12">
                 <a href="{{ url('/') }}">
-                    <script src="{{asset("js/logoServicios.js")}}"></script>
+                    <img src="{{ asset('images/logo_header.png') }}" id="logoNavbar" alt="Logo GYP" tabindex="0" />
                 </a>
                 <nav class="site-navigation text-right ml-auto " role="navigation">
                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                         <li><a href="{{ url('/') }}" class="nav-link">Inicio</a></li>
-                        <li class="has-children">
-                            <a href="" class="nav-link" id="navLinkMenu">GyP</a>
-                            <ul class="dropdown arrow-top">
-                                <li><a href="../normatividad" class="nav-link">Normatividad</a></li>
-                                <li><a href="../nosotros" class="nav-link">Nosotros</a></li>
-                                <li>@if($Organigrama)
-                                    {!! $Organigrama !!}
-                                @endif</li>
-                            </ul>
-                        </li>
                         <li class="has-children">
                             <a href="" class="nav-link" id="navLinkMenu">Atención al Ciudadano</a>
                             <ul class="dropdown arrow-top">
@@ -33,12 +23,22 @@
                             </ul>
                         </li>
                         <li class="has-children">
+                            <a href="" class="nav-link" id="navLinkMenu">GyP</a>
+                            <ul class="dropdown arrow-top">
+                                <li><a href="../normatividad" class="nav-link">Normatividad</a></li>
+                                <li><a href="../nosotros" class="nav-link">Nosotros</a></li>
+                                <li>@if($Organigrama)
+                                    {!! $Organigrama !!}
+                                @endif</li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
                             <a href="" class="nav-link" id="navLinkMenu">Servicios</a>
                             <ul class="dropdown arrow-top">
                                 <li><a href="beneficios" class="nav-link">Beneficios</a></li>
                                 <li><a href="custodiaSegura" class="nav-link">Custodia Segura</a></li>
                                 <li><a href="gruas" class="nav-link">Grúas</a></li>
-                                <li><a href="nuestrosServicios" class="nav-link">Nuestros Servicios</a></li>
+                                <li><a href="monitoreoCamaras" class="nav-link">Monitoreo Cámaras</a></li>
                                 <li><a href="procesoInmovilizacion" class="nav-link">Proceso Inmovilización</a></li>
                                 <li><a href="procesoRetiro" class="nav-link">Proceso Retiro</a></li>
                                 <li><a href="tarifas" class="nav-link">Tarifas</a></li>
