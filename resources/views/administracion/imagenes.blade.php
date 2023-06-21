@@ -25,6 +25,167 @@ Imágenes
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesHomePage" id="tituloCard"><h3 class="card-title"><b>Menú Imágenes Página de Inicio <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_inicio.png") }}" alt="">
+                                    <br><br>
+                                        <p>Página de inicio</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesUs" id="tituloCard"><h3 class="card-title"><b>Menú Imágenes Página Nosotros <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_nosotros.png") }}" alt="">
+                                    <br><br>
+                                        <p>Página Nosotros</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesOrganigrama" id="tituloCard"><h3 class="card-title"><b>Menú Organigrama <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_organigrama.png") }}" alt="">
+                                    <br><br>
+                                        <p>Organigrama</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesSettlementConsultation" id="tituloCard"><h3 class="card-title"><b>Menú Consulta Liquidación <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_consulta_liquidacion.png") }}" alt="">
+                                    <br><br>
+                                        <p>Consulta Liquidación</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h1 class="m-0 text-dark"><i class="fas fa-file nav-icon" id="enlace"></i> Imágenes Servicios</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesBenefits" id="tituloCard"><h3 class="card-title"><b>Menú Imágenes Página Beneficios <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_beneficios.png") }}" alt="">
+                                    <br><br>
+                                        <p>Beneficios</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesTows" id="tituloCard"><h3 class="card-title"><b>Menú Imágenes Página Grúas <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_gruas.png") }}" alt="">
+                                    <br><br>
+                                        <p>Grúas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="imagesMonitoringCameras" id="tituloCard"><h3 class="card-title"><b>Menú Imágenes Página Monitoreo con Cámaras <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/pagina_monitoreo_camaras.png") }}" alt="">
+                                    <br><br>
+                                        <p>Monitoreo con Cámaras</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">

@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{asset("DataTables/RowReorder/css/rowReorder.dataTables.min.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/RowReorder/css/rowReorder.bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
+    <link rel="stylesheet" href="{{asset("css/administracion.css")}}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     @yield('styles')
 </head>

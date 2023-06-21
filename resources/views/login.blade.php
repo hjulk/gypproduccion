@@ -10,14 +10,15 @@
     <link rel="stylesheet" href="{{asset("adminlte/css/adminlte.min.css")}}">
     <link rel="stylesheet" href="{{asset("adminlte/css/login.css")}}">
     <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
+    <link rel="stylesheet" href="{{asset("css/style.css")}}">
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
             <picture>
-                <source srcset="{{asset("images/Nosotros.webp") }}" type="image/webp"/>
-                <source srcset="{{asset("images/Nosotros.png") }}" type="image/png"/>
-                <img src="{{asset("images/Nosotros.webp") }}" id="logoLogin" alt="Login" class="user-image"/>
+                <source srcset="{{asset("images/logo_header.webp") }}" type="image/webp"/>
+                <source srcset="{{asset("images/logo_header.png") }}" type="image/png"/>
+                <img src="{{asset("images/logo_header.webp") }}" id="logoLogin" alt="Login" class="user-image"/>
             </picture>
         </div>
         <div class="card">

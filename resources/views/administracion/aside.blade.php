@@ -3,7 +3,7 @@
         <picture>
             <source srcset="{{asset("images/logo_admin.webp") }}" type="image/webp"/>
             <source srcset="{{asset("images/logo_admin.png") }}" type="image/png"/>
-            <img src="{{asset("images/logo_admin.webp") }}" id="logoNosotros" alt="Nosotros" class="brand-image img-circle elevation-3" style="opacity: .8"/>
+            <img src="{{asset("images/logo_admin.webp") }}" id="logoNosotros" alt="Nosotros" class="brand-image img-circle elevation-3"/>
         </picture>
         <span class="brand-text font-weight-light"><b>GyP Bogotá</b></span>
     </a>
@@ -23,11 +23,65 @@
                         <p>Documentos</p>
                     </a>
                 </li>
-                <li class="nav-item" id="asideInicio">
-                    <a href="imagenes" class="nav-link">
+                <li class="nav-item has-treeview" id="asideInicio">
+                    <a href="#" class="nav-link">
                         <i class="fas fa-file-image nav-icon" id="enlace"></i>
-                        <p>Imágenes</p>
+                        <p>Imágenes<i class="right fas fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview" id="asideInicio">
+                        <li class="nav-item" id="asideInicio">
+                            <a href="imagesHomePage" class="nav-link">
+                                <i class="fas fa-file nav-icon" id="enlace"></i>
+                                <p>Página Inicio</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="imagesUs" class="nav-link">
+                                <i class="fas fa-file nav-icon" id="enlace"></i>
+                                <p>Página Nosotros</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="imagesOrganigrama" class="nav-link">
+                                <i class="fas fa-file nav-icon" id="enlace"></i>
+                                <p>Organigrama</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="imagesSettlementConsultation" class="nav-link">
+                                <i class="fas fa-file nav-icon" id="enlace"></i>
+                                <p>Consulta Liquidación</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-list-alt nav-icon" id="enlace"></i>
+                                <p>Imágenes Servicios<i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview" style="display: none;">
+                                <li class="nav-item" id="asideInicio">
+                                    <a href="imagesBenefits" class="nav-link">
+                                        <i class="fas fa-file nav-icon" id="enlace"></i>
+                                        <p>Beneficios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="asideInicio">
+                                    <a href="imagesTows" class="nav-link">
+                                        <i class="fas fa-file nav-icon" id="enlace"></i>
+                                        <p>Grúas</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="asideInicio">
+                                    <a href="imagesMonitoringCameras" class="nav-link">
+                                        <i class="fas fa-file nav-icon" id="enlace"></i>
+                                        <p>Monitoreo Cámaras</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
                 @endif
                 @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 3))
