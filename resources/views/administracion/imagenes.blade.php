@@ -35,7 +35,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_inicio.png") }}" alt="">
+                                        <a href="imagesHomePage"><img src="{{asset("images/pagina_inicio.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Página de inicio</p>
                                     </div>
@@ -55,7 +55,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_nosotros.png") }}" alt="">
+                                        <a href="imagesUs"><img src="{{asset("images/pagina_nosotros.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Página Nosotros</p>
                                     </div>
@@ -75,7 +75,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_organigrama.png") }}" alt="">
+                                        <a href="imagesOrganigrama"><img src="{{asset("images/pagina_organigrama.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Organigrama</p>
                                     </div>
@@ -95,7 +95,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_consulta_liquidacion.png") }}" alt="">
+                                        <a href="imagesSettlementConsultation"><img src="{{asset("images/pagina_consulta_liquidacion.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Consulta Liquidación</p>
                                     </div>
@@ -130,7 +130,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_beneficios.png") }}" alt="">
+                                        <a href="imagesBenefits"><img src="{{asset("images/pagina_beneficios.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Beneficios</p>
                                     </div>
@@ -150,7 +150,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_gruas.png") }}" alt="">
+                                        <a href="imagesTows"><img src="{{asset("images/pagina_gruas.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Grúas</p>
                                     </div>
@@ -170,7 +170,7 @@ Imágenes
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="imgCard">
-                                        <img src="{{asset("images/pagina_monitoreo_camaras.png") }}" alt="">
+                                        <a href="imagesMonitoringCameras"><img src="{{asset("images/pagina_monitoreo_camaras.png") }}" alt=""></a>
                                     <br><br>
                                         <p>Monitoreo con Cámaras</p>
                                     </div>

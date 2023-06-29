@@ -63,6 +63,7 @@
     <script src="{{asset("DataTables/RowReorder/js/dataTables.rowReorder.min.js")}}"></script>
     <script src="{{asset("js/toastr.min.js")}}"></script>
     <script src="{{asset("adminlte/js/administracion.js")}}"></script>
+    <script src="{{asset("adminlte/js/imagenes.js")}}"></script>
     <script src="{{asset("adminlte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
     <script src="{{asset("adminlte/plugins/jquery-validation/additional-methods.min.js")}}"></script>
 

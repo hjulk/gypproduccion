@@ -181,6 +181,12 @@
                             </a>
                         </li>
                         <li class="nav-item" id="asideInicio">
+                            <a href="tipoImagen" class="nav-link">
+                                <i class="fas fa-file-image nav-icon" id="enlace"></i>
+                                <p>Tipos de Imágenes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
                             <a href="tipoGrua" class="nav-link">
                                 <i class="fas fa-truck nav-icon" id="enlace"></i>
                                 <p>Tipos de Grúa</p>

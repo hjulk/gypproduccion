@@ -10,6 +10,7 @@ use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\Admin\AdministradorController;
 use App\Http\Controllers\Admin\ImagesController;
 use App\Http\Controllers\AdministracionController;
+use App\Http\Controllers\ImagenesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\User\UsuarioController;
 use App\Http\Controllers\UsuariosController;
@@ -107,6 +108,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('imagesMonitoringCameras',[ImagesController::class, 'ImagesMonitoringCameras'])->name('imagesMonitoringCameras');
     Route::get('buscarSubpagina',[AdministradorController::class, 'BuscarSubpagina'])->name('buscarSubpagina');
     Route::get('tipoDocumento',[AdministradorController::class, 'TipoDocumento'])->name('tipoDocumento');
+    Route::get('tipoImagen',[ImagesController::class, 'TipoImagen'])->name('tipoImagen');
     Route::get('tipoGrua',[AdministradorController::class, 'TipoGrua'])->name('tipoGrua');
     Route::get('logout', function() {
         Auth::logout();
@@ -154,6 +156,10 @@ Route::post('crearTipoDocumento',[AdministracionController::class, 'CrearTipoDoc
 Route::post('actualizarTipoDocumento',[AdministracionController::class, 'ActualizarTipoDocumento'])->name('actualizarTipoDocumento');
 Route::post('crearTipoGrua',[AdministracionController::class, 'CrearTipoGrua'])->name('crearTipoGrua');
 Route::post('actualizarTipoGrua',[AdministracionController::class, 'ActualizarTipoGrua'])->name('actualizarTipoGrua');
+Route::post('crearTipoImagenInicio',[ImagenesController::class, 'CrearTipoImagenInicio'])->name('crearTipoImagenInicio');
+Route::post('actualizarTipoImagenInicio',[ImagenesController::class, 'ActualizarTipoImagenInicio'])->name('actualizarTipoImagenInicio');
+Route::post('crearTipoImagenServicio',[ImagenesController::class, 'CrearTipoImagenServicio'])->name('crearTipoImagenServicio');
+Route::post('actualizarTipoImagenServicio',[ImagenesController::class, 'ActualizarTipoImagenServicio'])->name('actualizarTipoImagenServicio');
 
 Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])->name('actualizarPerfil');
 Route::post('cargarNotificacion',[UsuariosController::class, 'CargarNotificacion'])->name('cargarNotificacion');
@@ -166,3 +172,6 @@ Route::post('crearImagen',[UsuariosController::class, 'CrearImagen'])->name('cre
 Route::post('actualizarImagen',[UsuariosController::class, 'ActualizarImagen'])->name('actualizarImagen');
 Route::post('crearDesfijacion',[UsuariosController::class, 'CrearDesfijacion'])->name('crearDesfijacion');
 Route::post('actualizarDesfijacion',[UsuariosController::class, 'ActualizarDesfijacion'])->name('actualizarDesfijacion');
+
+Route::post('crearImagenSettlementConsultation',[ImagenesController::class, 'CrearImagenSettlementConsultation'])->name('crearImagenSettlementConsultation');
+Route::post('actualizarImagenSettlementConsultation',[ImagenesController::class, 'ActualizarImagenSettlementConsultation'])->name('actualizarImagenSettlementConsultation');

@@ -1829,16 +1829,6 @@ function subpaginaFuncionUpd() {
     });
 }
 
-function actualizarImagen() {
-    if (document.getElementById('activarImagen_upd').checked) {
-        document.getElementById("imageUpdate").style.display = "block";
-        document.getElementById("mod_imagen_upd").required = true;
-    } else {
-        document.getElementById("imageUpdate").style.display = "none";
-        document.getElementById("mod_imagen_upd").required = false;
-    }
-}
-
 function obtener_datos_imagen(id) {
     var NombreImagen = $("#nombre_imagen" + id).val();
     var IdPagina = $("#id_pagina" + id).val();
