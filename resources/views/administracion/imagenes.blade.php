@@ -183,7 +183,7 @@ Imágenes
         </div>
     </div>
 </section>
-<section class="content">
+{{-- <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -314,7 +314,7 @@ Imágenes
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 @include("modals.modalImagenes")
 @include("modals.modalAlertas")
 @endsection

@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="col-md-6" id="imageUpdate">
                             <label>Archivo en formato jpg o png</label>
-                            <input type="file" name="imagen_upd" id="mod_imagen_upd" accept="image/jpg,image/png" class="form-control" size="2048">
+                            <input type="file" name="imagen_upd" id="mod_imagen_upd" accept=".jpg,.png" class="form-control" size="2048">
                             <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
                             <span id="field2_area1" hidden><input type="file" id="imagen2" name="imagen2" class="form-control"/></span>
                         </div>
@@ -86,11 +86,12 @@
     </div>
 </div> --}}
 
+{{-- Consulta liquidación --}}
 <div class="modal fade bd-example-modal-xl" id="modal-settlementConsultationUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title modal-title-primary">Actualizar Imagen</h4>
+                <h4 class="modal-title modal-title-primary">Actualizar Imagen Consulta Liquidación</h4>
             </div>
             {!! Form::open(['url' => 'actualizarImagenSettlementConsultation', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-imagen_upd']) !!}
             @csrf
@@ -123,7 +124,7 @@
                     <div class="row">
                         <div class="col-md-12" id="imageUpdate">
                             <label>Archivo en formato jpg o png</label>
-                            <input type="file" name="imagen_upd" id="mod_imagen_upd" accept="image/jpg,image/png" class="form-control" size="2048">
+                            <input type="file" name="imagen_upd" id="mod_imagen_upd" accept=".jpg,.png" class="form-control" size="2048">
                             <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
                             <span id="field2_area1" hidden><input type="file" id="imagen2" name="imagen2" class="form-control"/></span>
                         </div>
@@ -133,6 +134,56 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-success">Actualizar Imagen</button>
+            </div>
+            {!!  Form::close() !!}
+        </div>
+    </div>
+</div>
+
+{{-- Organigrama --}}
+<div class="modal fade bd-example-modal-xl" id="modal-organigramaUpd" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title modal-title-primary">Actualizar Archivo Organigrama</h4>
+            </div>
+            {!! Form::open(['url' => 'actualizarImagenOrganigrama', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-imagen_upd']) !!}
+            @csrf
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" name="id_imagenOrganigrama" id="idOrganigrama_upd">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for="exampleInputEmail1">Nombre Imagen</label>
+                            {!! Form::text('nombre_archivo_upd',null,['class'=>'form-control','id'=>'mod_nombre_archivo','placeholder'=>'Nombre Imagen','required']) !!}
+                        </div>
+                        <div class="col-md-4">
+                            <label for="exampleInputEmail1">Estado</label>
+                            {!! Form::select('estado_archivo_upd',$Estado,null,['class'=>'form-control','id'=>'mod_estado_archivo','required']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="checkbox" id="activarArchivo_upd" name="activarArchivo_upd" onclick="actualizarArchivo();"/> Cambiar Archivo
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12" id="archivoUpdate">
+                            <label>Archivo en formato jpg, png o pdf</label>
+                            <input type="file" name="archivo_upd" id="mod_archivo_upd" accept=".jpg,.png,.pdf" class="form-control" size="2048">
+                            <div align="right"><small class="text-muted">Tamaño maximo en total permitido (1MB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg, png y pdf.</small><span id="cntDescripHechos" align="right"> </span></div>
+                            <span id="field2_area1" hidden><input type="file" id="imagen2" name="imagen2" class="form-control"/></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-success">Actualizar Organigrama</button>
             </div>
             {!!  Form::close() !!}
         </div>

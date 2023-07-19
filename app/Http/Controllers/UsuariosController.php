@@ -1049,4 +1049,69 @@ class UsuariosController extends Controller
         }
         return $url;
     }
+
+    public function CrearPregunta(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'titulo_pregunta'  =>  'required',
+            'contenidoPregunta'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'preguntas')->withErrors($validator)->withInput();
+        } else {
+            $tituloPregunta = $request->titulo_pregunta;
+            $contenido      = $request->contenidoPregunta;
+            $consultaPregunta = Administracion::ConsultaTituloPregunta($tituloPregunta);
+            if($consultaPregunta){
+                $verrors = array();
+                array_push($verrors, 'Título de pregunta ya se encuentra creado');
+                return Redirect::to($url.'preguntas')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $crearPregunta = Administracion::CrearPregunta($tituloPregunta, $contenido, $IdUser);
+                if($crearPregunta){
+                    $verrors = 'Se cargo con éxito la pregunta ' . $tituloPregunta;
+                    return Redirect::to($url . 'preguntas')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear la pregunta');
+                    return Redirect::to($url . 'preguntas')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarPregunta(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'titulo_pregunta_upd'  =>  'required',
+            'contenidoPregunta_upd'  =>  'required',
+            'estado_upd' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'preguntas')->withErrors($validator)->withInput();
+        } else {
+            $tituloPregunta = $request->titulo_pregunta_upd;
+            $contenido      = $request->contenidoPregunta_upd;
+            $estado         = $request->estado_upd;
+            $idPregunta     = $request->id_pregunta;
+            $consultaPregunta = Administracion::ConsultaTituloPreguntaId($tituloPregunta, $idPregunta);
+            if($consultaPregunta){
+                $verrors = array();
+                array_push($verrors, 'Título de pregunta ya se encuentra creado');
+                return Redirect::to($url.'preguntas')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $actualizarPregunta = Administracion::ActualizarPregunta($idPregunta, $tituloPregunta, $contenido, $estado, $IdUser);
+                if($actualizarPregunta){
+                    $verrors = 'Se actualizó con éxito la pregunta ' . $tituloPregunta;
+                    return Redirect::to($url . 'preguntas')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar la pregunta');
+                    return Redirect::to($url . 'preguntas')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
 }

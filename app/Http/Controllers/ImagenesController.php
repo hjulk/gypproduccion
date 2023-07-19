@@ -10,6 +10,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\Imagenes;
+use App\Models\Administracion;
 
 class ImagenesController extends Controller
 {
@@ -191,7 +192,7 @@ class ImagenesController extends Controller
         date_default_timezone_set('America/Bogota');
         $validator  = Validator::make($request->all(), [
             'nombre_imagen'  =>  'required',
-            'imagen' => 'required|max:2048',
+            'imagen' => 'required|max:400|dimensions:max_width=350,max_height=220',
             'pie_imagen' => 'required'
         ]);
         if ($validator->fails()) {
@@ -212,7 +213,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 14, $IdUser, null, null, $pieImagen, null, null);
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 14, $IdUser, null, null, $pieImagen, null, null, null, null);
                     if ($crearImagen) {
                         $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesSettlementConsultation')->with('mensaje', $verrors);
@@ -236,6 +237,8 @@ class ImagenesController extends Controller
         date_default_timezone_set('America/Bogota');
         $validator = Validator::make($request->all(), [
             'nombre_imagen_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:400|dimensions:max_width=350,max_height=220',
             'pie_imagen_upd' => 'required'
         ]);
         if ($validator->fails()) {
@@ -264,14 +267,14 @@ class ImagenesController extends Controller
                 if($listadoSettlementConsultation){
                     $verrors = array();
                     array_push($verrors, 'Para activar esta imágen, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
+                    return Redirect::to($url . 'imagesSettlementConsultation')->withErrors(['errors' => $verrors])->withInput();
                 }else{
                     $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 14);
                     $errorImagen = (int)$path['error'];
                     $directorio  = $path['path'];
                     $directorio1 = $path['path1'];
                     if($errorImagen == 2){
-                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 14, $IdUser, $Estado, $IdImagen, null, null, $pieImagen, null, null);
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 14, $IdUser, $Estado, $IdImagen, null, null, $pieImagen, null, null, null, null);
                         if ($actualizarImagen) {
                             $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
                             return Redirect::to($url . 'imagesSettlementConsultation')->with('mensaje', $verrors);
@@ -287,6 +290,1049 @@ class ImagenesController extends Controller
                     }
                 }
             }
+        }
+    }
+
+    public function CrearImagenOrganigrama(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_archivo'  =>  'required',
+            'archivo' => 'required|max:1024'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesOrganigrama')->withErrors($validator)->withInput();
+        } else {
+            $archivo = $request->hasFile('archivo');
+            $nombre = $request->nombre_archivo;
+            $nombre1 = ImagenesController::eliminar_tildes($nombre);
+            $file          = $request->file('archivo');
+            $extension     = $file->getClientOriginalExtension();
+            $nombreArchivo = $nombre1 . '_' . date("Ymd_Hi").'.'.$extension;
+            $buscarArchivo = Imagenes::ListadoImagenesName($nombre, 3);
+            if ($buscarArchivo) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de archivo ya se encuentra creado');
+                return Redirect::to($url . 'imagesOrganigrama')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $directorio  = ImagenesController::CarpetaImagen(5);
+                $rtOriginal1 = $_FILES['archivo']['tmp_name'];
+                move_uploaded_file($rtOriginal1,$directorio.$nombreArchivo);
+                $directorioCreado = '../'.$directorio.$nombreArchivo;
+                $crearArchivo = Imagenes::CrearImagen($nombre, $directorioCreado, null, 5, $IdUser, null, null, null, null, null, null, null);
+                if ($crearArchivo) {
+                    $verrors = 'Se cargo con éxito el archivo ' . strtoupper($nombre);
+                    return Redirect::to($url . 'imagesOrganigrama')->with('mensaje', $verrors);
+                } else {
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al cargar el archivo');
+                    return Redirect::to($url . 'imagesOrganigrama')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenOrganigrama(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_archivo_upd'  =>  'required',
+            'estado_archivo_upd'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesOrganigrama')->withErrors($validator)->withInput();
+        } else {
+            $directorioCreado   = null;
+            $nombre             = $request->nombre_archivo_upd;
+            $nombre1            = ImagenesController::eliminar_tildes($nombre);
+            $nombreArchivo      = $nombre1 . '_' . date("Ymd_Hi");
+            $IdArchivo          = (int)$request->id_imagenOrganigrama;
+            $Estado             = (int)$request->estado_archivo_upd;
+            $buscarArchivo      = Imagenes::ListadoImagenesNameId($nombre, $IdArchivo, 3);
+            if($buscarArchivo){
+                $verrors = array();
+                array_push($verrors, 'Nombre de archivo ya se encuentra creado');
+                return Redirect::to($url . 'imagesOrganigrama')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $buscarInfoArchivo = Imagenes::ListadoImagenesId($IdArchivo, 3);
+                foreach ($buscarInfoArchivo as $row) {
+                    $Nombre_imagen = $row->NOMBRE_ARCHIVO;
+                    $Ubicacion = str_replace("../", "", $row->UBICACION);
+                }
+                $listadoOrganigrama  = Imagenes::ListadoOrganigramaById($IdArchivo);
+                if($listadoOrganigrama){
+                    $verrors = array();
+                    array_push($verrors, 'Para activar este archivo, debe inactivar el archivo actual');
+                    return Redirect::to($url . 'imagesOrganigrama')->withErrors(['errors' => $verrors])->withInput();
+                }else{
+                    if ($request->hasFile('archivo_upd')){
+                        $file               = $request->file('archivo_upd');
+                        $extension          = $file->getClientOriginalExtension();
+                        $nombreArchivo      = $nombre1 . '_' . date("Ymd_Hi").'.'.$extension;
+                        $directorio         = ImagenesController::CarpetaImagen(5);
+                        $rtOriginal1        = $_FILES['archivo_upd']['tmp_name'];
+                        move_uploaded_file($rtOriginal1,$directorio.$nombreArchivo);
+                        $directorioCreado   = '../'.$directorio.$nombreArchivo;
+                    }
+                    $actualizarArchivo = Imagenes::ActualizarImagen($nombre, $directorioCreado, null, 5, $IdUser, $Estado, $IdArchivo, null, null, null, null, null, null, null);
+                    if ($actualizarArchivo) {
+                        $verrors = 'Se actualizo con éxito el archivo ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesOrganigrama')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al actualizar el archivo');
+                        return Redirect::to($url . 'imagesOrganigrama')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }
+            }
+        }
+    }
+
+    public function CrearImagenNosotros(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen'  =>  'required',
+            'imagen' => 'required|max:400|dimensions:max_width=350,max_height=240',
+            'pie_imagen' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesUs')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $pieImagen = $request->pie_imagen;
+            $imagen = $request->hasFile('imagen');
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 2);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesUs')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 4);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 4, $IdUser, null, null, $pieImagen, null, null, null, null);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesUs')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesUs')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesUs')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenNosotros(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:400|dimensions:max_width=350,max_height=240',
+            'pie_imagen_upd' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesUs')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen = (int)$request->id_imagenNosotros;
+            $Estado = (int)$request->estado_upd;
+            $pieImagen = $request->pie_imagen_upd;
+            $BuscarImagen = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 2);
+            if($BuscarImagen){
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesUs')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 2);
+                foreach ($buscarInfoImagen as $row) {
+                    $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                    $Ubicacion = str_replace("../", "", $row->UBICACION);
+                    $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                    $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                    $Pie  = $row->PIE_IMAGEN;
+                }
+                $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 4);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 4, $IdUser, $Estado, $IdImagen, null, null, $pieImagen, null, null, null, null);
+                    if ($actualizarImagen) {
+                        $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesUs')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                        return Redirect::to($url . 'imagesUs')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesUs')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function CrearImagenBanner(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_banner'  =>  'required',
+            'imagen' => 'required|max:1024|dimensions:max_width=1200,max_height=260'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesBanner')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_banner;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $imagen = $request->hasFile('imagen');
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 5);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 17);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 17, $IdUser, null, null, null, null, null, 1, 2);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesBanner')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenBanner(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:1024|dimensions:max_width=1200,max_height=260'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesBanner')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen = (int)$request->id_imagenBanner;
+            $Estado = (int)$request->estado_upd;
+            $BuscarImagen = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 5);
+            if($BuscarImagen){
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 5);
+                foreach ($buscarInfoImagen as $row) {
+                    $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                    $Ubicacion = str_replace("../", "", $row->UBICACION);
+                    $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                    $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                    $Pie  = $row->PIE_IMAGEN;
+                }
+                $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 17);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 17, $IdUser, $Estado, $IdImagen, null, null, null, null, null, 1, 2);
+                    if ($actualizarImagen) {
+                        $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesBanner')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                        return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function CrearImagenBannerMovil(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_bannerMovil'  =>  'required',
+            'imagen' => 'required|max:1024|dimensions:max_width=710,max_height=150'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesBannerM')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_bannerMovil;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 6);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesBannerM')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 17);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 17, $IdUser, null, null, null, null, null, 1, 1);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesBannerM')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesBannerM')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesBannerM')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenBannerMovil(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:1024|dimensions:max_width=710,max_height=150'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesBannerM')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen = (int)$request->id_imagenBannerMovil;
+            $Estado = (int)$request->estado_upd;
+            $BuscarImagen = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 6);
+            if($BuscarImagen){
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesBanner')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 6);
+                foreach ($buscarInfoImagen as $row) {
+                    $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                    $Ubicacion = str_replace("../", "", $row->UBICACION);
+                    $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                    $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                    $Pie  = $row->PIE_IMAGEN;
+                }
+                $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 17);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 17, $IdUser, $Estado, $IdImagen, null, null, null, null, null, 1, 1);
+                    if ($actualizarImagen) {
+                        $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesBannerM')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                        return Redirect::to($url . 'imagesBannerM')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesBannerM')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function CrearImagenCarousel(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_carousel'  =>  'required',
+            'orden'  =>  'required',
+            'imagen' => 'required|max:1024|dimensions:max_width=1110,max_height=210'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesCarousel')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_carousel;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $imagen = $request->hasFile('imagen');
+            $orden = (int)$request->orden;
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 7);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 19);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 19, $IdUser, null, $orden, null, null, null, null, 2);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesCarousel')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenCarousel(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'orden_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:1024|dimensions:max_width=1110,max_height=210'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesCarousel')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen = (int)$request->id_imagenCarousel;
+            $Orden = (int)$request->orden_upd;
+            $Estado = (int)$request->estado_upd;
+            $BuscarImagen   = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 7);
+            $BuscarOrden    = Imagenes::ListadoImagenesOrderId($IdImagen, 7, $Orden);
+            if($BuscarOrden){
+                $verrors = array();
+                array_push($verrors, 'Para cambiar de orden la imágen, debe inactivar la imágen que tiene el orden No. '.$Orden);
+                return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                if($BuscarImagen){
+                    $verrors = array();
+                    array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                    return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+                }else{
+                    $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 7);
+                    foreach ($buscarInfoImagen as $row) {
+                        $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                        $Ubicacion = str_replace("../", "", $row->UBICACION);
+                        $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                        $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                        $Pie  = $row->PIE_IMAGEN;
+                    }
+                    $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 19);
+                    $errorImagen = (int)$path['error'];
+                    $directorio  = $path['path'];
+                    $directorio1 = $path['path1'];
+                    if($errorImagen == 2){
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 19, $IdUser, $Estado, $IdImagen, null, $Orden, null, null, null, null, 2);
+                        if ($actualizarImagen) {
+                            $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                            return Redirect::to($url . 'imagesCarousel')->with('mensaje', $verrors);
+                        } else {
+                            $verrors = array();
+                            array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                            return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+                        }
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                        return Redirect::to($url . 'imagesCarousel')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }
+            }
+        }
+    }
+
+    public function CrearImagenCarouselMovil(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_carouselMovil'  =>  'required',
+            'orden'  =>  'required',
+            'imagen' => 'required|max:1024|dimensions:max_width=700,max_height=210'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesCarouselM')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_carouselMovil;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $imagen = $request->hasFile('imagen');
+            $orden = (int)$request->orden;
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 8);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 19);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 19, $IdUser, null, $orden, null, null, null, null, 1);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesCarouselM')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenCarouselMovil(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'orden_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:1024|dimensions:max_width=700,max_height=210'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesCarouselM')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen = (int)$request->id_imagenCarouselMovil;
+            $Orden = (int)$request->orden_upd;
+            $Estado = (int)$request->estado_upd;
+            $BuscarImagen   = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 8);
+            $BuscarOrden    = Imagenes::ListadoImagenesOrderId($IdImagen, 8, $Orden);
+            if($BuscarOrden){
+                $verrors = array();
+                array_push($verrors, 'Para cambiar de orden la imágen, debe inactivar la imágen que tiene el orden No. '.$Orden);
+                return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                if($BuscarImagen){
+                    $verrors = array();
+                    array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                    return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+                }else{
+                    $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 8);
+                    foreach ($buscarInfoImagen as $row) {
+                        $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                        $Ubicacion = str_replace("../", "", $row->UBICACION);
+                        $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                        $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                        $Pie  = $row->PIE_IMAGEN;
+                    }
+                    $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 19);
+                    $errorImagen = (int)$path['error'];
+                    $directorio  = $path['path'];
+                    $directorio1 = $path['path1'];
+                    if($errorImagen == 2){
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 19, $IdUser, $Estado, $IdImagen, null, $Orden, null, null, null, null, 1);
+                        if ($actualizarImagen) {
+                            $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                            return Redirect::to($url . 'imagesCarouselM')->with('mensaje', $verrors);
+                        } else {
+                            $verrors = array();
+                            array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                            return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+                        }
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                        return Redirect::to($url . 'imagesCarouselM')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }
+            }
+        }
+    }
+
+    public function CrearImagenBenefits(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_benefits'  =>  'required',
+            'texto_imagen'  =>  'required',
+            'orden'  =>  'required',
+            'imagen' => 'required|max:400|dimensions:max_width=950,max_height=600'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesBenefits')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_benefits;
+            $textoImagen = $request->texto_imagen;
+            $pieImagen = $request->pie_imagen;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $imagen = $request->hasFile('imagen');
+            $orden = (int)$request->orden;
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 1);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 6);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 6, $IdUser, $textoImagen, $orden, $pieImagen, null, null, null, 1);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesBenefits')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenBenefits(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'orden_upd'  =>  'required',
+            'texto_imagen_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:400|dimensions:max_width=950,max_height=600'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesBenefits')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $texto_imagen = $request->texto_imagen_upd;
+            $pieImagen = $request->pie_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen = (int)$request->id_imagenBenefits;
+            $Orden = (int)$request->orden_upd;
+            $Estado = (int)$request->estado_upd;
+            $BuscarImagen   = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 1);
+            $BuscarOrden    = Imagenes::ListadoImagenesOrderId($IdImagen, 1, $Orden);
+            if($BuscarOrden){
+                $verrors = array();
+                array_push($verrors, 'Para cambiar de orden la imágen, debe inactivar la imágen que tiene el orden No. '.$Orden);
+                return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                if($BuscarImagen){
+                    $verrors = array();
+                    array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                    return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+                }else{
+                    $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 1);
+                    foreach ($buscarInfoImagen as $row) {
+                        $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                        $Ubicacion = str_replace("../", "", $row->UBICACION);
+                        $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                        $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                        $Pie  = $row->PIE_IMAGEN;
+                    }
+                    $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 6);
+                    $errorImagen = (int)$path['error'];
+                    $directorio  = $path['path'];
+                    $directorio1 = $path['path1'];
+                    if($errorImagen == 2){
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 6, $IdUser, $Estado, $IdImagen, $texto_imagen, $Orden, $pieImagen, null, null, 1, null);
+                        if ($actualizarImagen) {
+                            $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                            return Redirect::to($url . 'imagesBenefits')->with('mensaje', $verrors);
+                        } else {
+                            $verrors = array();
+                            array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                            return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+                        }
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                        return Redirect::to($url . 'imagesBenefits')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }
+            }
+        }
+    }
+
+    public function CrearImagenTows(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_tows'  =>  'required',
+            'tipo_grua'  =>  'required',
+            'imagen' => 'required|max:400|dimensions:max_width=790,max_height=560'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesTows')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_tows;
+            $tipoGrua = (int)$request->tipo_grua;
+            $pieImagen = $request->pie_imagen;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $imagen = $request->hasFile('imagen');
+            if ($tipoGrua%2==0){
+                $orden = 2;
+            }else{
+                $orden = 1;
+            }
+            $buscarImagen = Imagenes::ListadoImagenesGruasName($nombre, $tipoGrua);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 8);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 8, $IdUser, null, $orden, $pieImagen, $tipoGrua, null, null, 1);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesTows')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenTows(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'tipo_grua_upd'  =>  'required',
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:400|dimensions:max_width=790,max_height=560'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesTows')->withErrors($validator)->withInput();
+        } else {
+            $nombre         = $request->nombre_imagen_upd;
+            $tipo_grua      = $request->tipo_grua_upd;
+            $pieImagen      = $request->pie_imagen_upd;
+            $nombreImagen   = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen       = (int)$request->id_imagenTows;
+            $Estado         = (int)$request->estado_upd;
+            if ($tipo_grua%2==0){
+                $Orden = 2;
+            }else{
+                $Orden = 1;
+            }
+            $BuscarImagen   = Imagenes::ListadoImagenesNameGruaId($nombre, $IdImagen, $tipo_grua);
+            $BuscarOrden    = Imagenes::ListadoImagenesOrderGruaId($IdImagen, $Orden, $tipo_grua);
+            if($BuscarOrden){
+                $tipoGrua = Administracion::ListarGruaById($tipo_grua);
+                if($tipoGrua){
+                    foreach($tipoGrua as $row){
+                        $nombreGrua = $row->NOMBRE_GRUA;
+                    }
+                }
+                $verrors = array();
+                array_push($verrors, 'Para cambiar de orden la imágen, debe inactivar la imágen que tiene el tipo de grua '.$nombreGrua);
+                return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                if($BuscarImagen){
+                    $verrors = array();
+                    array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                    return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+                }else{
+                    $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 1);
+                    foreach ($buscarInfoImagen as $row) {
+                        $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                        $Ubicacion = str_replace("../", "", $row->UBICACION);
+                        $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                        $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                        $Pie  = $row->PIE_IMAGEN;
+                    }
+                    $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 8);
+                    $errorImagen = (int)$path['error'];
+                    $directorio  = $path['path'];
+                    $directorio1 = $path['path1'];
+                    if($errorImagen == 2){
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 8, $IdUser, $Estado, $IdImagen, null, $Orden, $pieImagen, $tipo_grua, null, 1, null);
+                        if ($actualizarImagen) {
+                            $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                            return Redirect::to($url . 'imagesTows')->with('mensaje', $verrors);
+                        } else {
+                            $verrors = array();
+                            array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                            return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+                        }
+                    }else{
+                        $verrors = array();
+                        array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                        return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }
+            }
+        }
+    }
+
+    public function CrearImagenMonitoringCameras(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_monitoringCameras'  =>  'required',
+            'imagen' => 'required|max:400|dimensions:max_width=950,max_height=600'
+            // 'orden'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesMonitoringCameras')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_monitoringCameras;
+            $pieImagen = $request->pie_imagen;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $orden = (int)$request->orden;
+            $imagen = $request->hasFile('imagen');
+            $buscarImagen = Imagenes::ListadoImagenesName($nombre, 9);
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesMonitoringCameras')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 10);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 10, $IdUser, null, null, $pieImagen, null, null, null, 4);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesMonitoringCameras')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesMonitoringCameras')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesMonitoringCameras')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenMonitoringCameras(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd' =>  'required',
+            'estado_upd'        =>  'required',
+            // 'orden_upd'         => 'required',
+            'imagen_upd'        => 'max:400|dimensions:max_width=950,max_height=600',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesMonitoringCameras')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_upd;
+            $pieImagen = $request->pie_imagen_upd;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $orden = (int)$request->orden_upd;
+            $IdImagen = (int)$request->id_imagenMonitoringCameras;
+            $Estado = (int)$request->estado_upd;
+            $BuscarImagen   = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 9);
+            if($BuscarImagen){
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesMonitoringCameras')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 9);
+                foreach ($buscarInfoImagen as $row) {
+                    $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                    $Ubicacion = str_replace("../", "", $row->UBICACION);
+                    $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                    $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                    $Pie  = $row->PIE_IMAGEN;
+                }
+                $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 10);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 10, $IdUser, $Estado, $IdImagen, null, null, $pieImagen, null, null, 4, null);
+                    if ($actualizarImagen) {
+                        $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesMonitoringCameras')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                        return Redirect::to($url . 'imagesMonitoringCameras')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesMonitoringCameras')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }            
+        }
+    }
+
+    public function CrearImagenHomePage(Request $request){
+        $url        = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator  = Validator::make($request->all(), [
+            'nombre_imagen_homePage'  =>  'required',
+            'tipo_imagen'  =>  'required',
+            'imagen' => 'required|max:1024'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
+        } else {
+            $nombre = $request->nombre_imagen_homePage;
+            $tipoImagen = (int)$request->tipo_imagen;
+            $pieImagen = $request->pie_imagen;
+            $nombreImagen = $nombre . '_' . date("Ymd_Hi");
+            $imagen = $request->hasFile('imagen');            
+            $buscarImagen = Imagenes::ListadoImagenesHomePageName($nombre, $tipoImagen);            
+            if ($buscarImagen) {
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesHomePage')->withErrors(['errors' => $verrors])->withInput();
+            } else {
+                $path = ImagenesController::CargarNuevaImagen($request, $nombreImagen, 17);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 20, $IdUser, null, null, $pieImagen, null, null, $tipoImagen, 2);
+                    if ($crearImagen) {
+                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesHomePage')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al cargar la imagen');
+                        return Redirect::to($url . 'imagesHomePage')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesHomePage')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarImagenHomePage(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_imagen_upd'  =>  'required',
+            'tipo_imagen_upd'  =>  'required',
+            'estado_upd'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
+        } else {
+            $nombre         = $request->nombre_imagen_upd;
+            $tipoImagen     = $request->tipo_imagen_upd;
+            $pieImagen      = $request->pie_imagen_upd;
+            $nombreImagen   = $nombre . '_' . date("Ymd_Hi");
+            $IdImagen       = (int)$request->id_imagenHomePage;
+            $Estado         = (int)$request->estado_upd;
+            $BuscarImagen = Imagenes::ListadoImagenesNameHomePageId($nombre, $IdImagen, $tipoImagen);           
+            if($BuscarImagen){
+                $verrors = array();
+                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
+                return Redirect::to($url . 'imagesHomePage')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $buscarInfoImagen = Imagenes::ListadoImagenesHomePageId($IdImagen, $tipoImagen);
+                foreach ($buscarInfoImagen as $row) {
+                    $Nombre_imagen = $row->NOMBRE_IMAGEN;
+                    $Ubicacion = str_replace("../", "", $row->UBICACION);
+                    $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
+                    $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
+                    $Pie  = $row->PIE_IMAGEN;
+                }
+                $path = ImagenesController::CargarNuevaImagenUpdate($request, $nombreImagen, $Ubicacion, $UbicacionJpg, $UbicacionPng, 17);
+                $errorImagen = (int)$path['error'];
+                $directorio  = $path['path'];
+                $directorio1 = $path['path1'];
+                if($errorImagen == 2){
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 20, $IdUser, $Estado, $IdImagen, null, null, $pieImagen, null, null, $tipoImagen, 2);
+                    if ($actualizarImagen) {
+                        $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
+                        return Redirect::to($url . 'imagesHomePage')->with('mensaje', $verrors);
+                    } else {
+                        $verrors = array();
+                        array_push($verrors, 'Hubo un problema al actualizar la imagen');
+                        return Redirect::to($url . 'imagesHomePage')->withErrors(['errors' => $verrors])->withInput();
+                    }
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
+                    return Redirect::to($url . 'imagesHomePage')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }            
         }
     }
 
@@ -350,11 +1396,11 @@ class ImagenesController extends Controller
                         $lienzo1 = imagecreatetruecolor($ancho_final1, $alto_final1);
                         imagecopyresampled($lienzo1, $original1, 0, 0, 0, 0, $ancho_final1, $alto_final1, $ancho1, $alto1);
                         if ($_FILES['imagen1']['type'] == 'image/png') {
-                            imagepng($lienzo1, $path1);
+                            imagejpeg($original1, $path1, 9);
                         } else if ($_FILES['imagen1']['type'] == 'image/jpg') {
-                            imagejpeg($lienzo1, $path1);
+                            imagejpeg($lienzo1, $path1, 80);
                         } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                            imagejpeg($lienzo1, $path1);
+                            imagejpeg($lienzo1, $path1, 80);
                         }
                     }
                 }
@@ -392,16 +1438,16 @@ class ImagenesController extends Controller
                     imagecopyresampled($lienzo, $original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
                     $cal = 8;
                     if ($_FILES['imagen']['type'] == 'image/png') {
-                        imagepng($lienzo, $path);
+                        imagejpeg($original, $path1, 9);
                     } else if ($_FILES['imagen']['type'] == 'image/jpg') {
-                        imagejpeg($lienzo, $path);
+                        imagejpeg($lienzo, $path, 80);
                     } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                        imagejpeg($lienzo, $path);
+                        imagejpeg($lienzo, $path, 80);
                     }
                     $cont = ob_get_contents();
                     ob_end_clean();
                     imagepalettetotruecolor($image);
-                    imagewebp($image, $path, 65);
+                    imagewebp($image, $path, 9);
                     imagedestroy($image);
                 }
             }
@@ -416,7 +1462,7 @@ class ImagenesController extends Controller
         $carpeta = ImagenesController::CarpetaImagen($IdPagina);
         $path   = null;
         $path1  = null;
-        $error  = 2;
+        $error  = 2;        
         if ($request->hasFile('imagen_upd')) {
             if (file_exists($Ubicacion)) {
                 unlink($Ubicacion);
@@ -483,11 +1529,11 @@ class ImagenesController extends Controller
                         $lienzo1 = imagecreatetruecolor($ancho_final1, $alto_final1);
                         imagecopyresampled($lienzo1, $original1, 0, 0, 0, 0, $ancho_final1, $alto_final1, $ancho1, $alto1);
                         if ($_FILES['imagen2']['type'] == 'image/png') {
-                            imagepng($lienzo1, $path1);
+                            imagejpeg($original1, $path1, 9);
                         } else if ($_FILES['imagen2']['type'] == 'image/jpg') {
-                            imagejpeg($lienzo1, $path1);
+                            imagejpeg($lienzo1, $path1, 80);
                         } else if ($_FILES['imagen2']['type'] == 'image/jpeg') {
-                            imagejpeg($lienzo1, $path1);
+                            imagejpeg($lienzo1, $path1, 80);
                         }
                     }
                 }
@@ -525,16 +1571,16 @@ class ImagenesController extends Controller
                     imagecopyresampled($lienzo, $original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
                     $cal = 8;
                     if ($_FILES['imagen_upd']['type'] == 'image/png') {
-                        imagepng($lienzo, $path);
+                        imagejpeg($original, $path1, 9);
                     } else if ($_FILES['imagen_upd']['type'] == 'image/jpg') {
-                        imagejpeg($lienzo, $path);
+                        imagejpeg($lienzo, $path, 80);
                     } else if ($_FILES['imagen_upd']['type'] == 'image/jpeg') {
-                        imagejpeg($lienzo, $path);
+                        imagejpeg($lienzo, $path, 80);
                     }
                     $cont = ob_get_contents();
                     ob_end_clean();
                     imagepalettetotruecolor($image);
-                    imagewebp($image, $path, 65);
+                    imagewebp($image, $path, 9);
                     imagedestroy($image);
                 }
                 $nom_adj1   = $tmp;
@@ -546,580 +1592,7 @@ class ImagenesController extends Controller
         return array('path' => $path, 'path1' => $path1, 'error' => $error);
     }
 
-    public function CrearImagen(Request $request)
-    {
-        $url        = UsuariosController::FindUrl();
-        $IdUser     = (int)Session::get('IdUsuario');
-        date_default_timezone_set('America/Bogota');
-        $validator  = Validator::make($request->all(), [
-            'nombre_imagen'  =>  'required',
-            'id_pagina' => 'required',
-            'imagen' => 'required|max:2048',
-            'pie_imagen' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return Redirect::to($url . 'imagenes')->withErrors($validator)->withInput();
-        } else {
-            $Nombre = $request->nombre_imagen;
-            $NombreImagen = $request->nombre_imagen . '_' . date("Ymd_Hi");
-            $IdPagina = (int)$request->id_pagina;
-            $pieImagen = $request->pie_imagen;
-            $ActivarTexto = $request->activarTexto;
-            $ActivarFinAno = $request->activarFinAno;
-            if ($ActivarTexto === 'on') {
-                $TextoImagen = str_replace('<p>', '<p id="subTitleImage">', $request->textoImagenForm);
-            } else {
-                $TextoImagen = null;
-            }
-            if ($ActivarFinAno === 'on') {
-                $FinAno = 1;
-            } else {
-                $FinAno = 0;
-            }
-            $OrdenImagen = (int)$request->id_ordenPagina;
-            if ($request->id_subpagina) {
-                $IdSubpagina = (int)$request->id_subpagina;
-                $buscarOrden = Administracion::ListarOrdenSubpagina($OrdenImagen, $IdSubpagina);
-            } else {
-                $IdSubpagina = 0;
-                $buscarOrden = Administracion::ListarOrdenPagina($OrdenImagen, $IdPagina, $FinAno);
-            }
-            if ($request->id_tipo_grua) {
-                $IdGrua = (int)$request->id_tipo_grua;
-                $buscarOrdenGrua = Administracion::ListarImagenGrua($IdGrua);
-                if(count($buscarOrdenGrua) === 1){
-                    $verrors = array();
-                    array_push($verrors, 'Solo se permiten una imagen por tipo de grúa');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if (($IdGrua % 2) == 0) {
-                    $OrdenImagen = 2;
-                } else {
-                    $OrdenImagen = 1;
-                }
-            } else {
-                $IdGrua = 0;
-                $buscarOrdenGrua = null;
-            }
-            $BuscarImagen = Administracion::ListadoImagenesName($Nombre);
-            $BuscarImagenRetiro = null;
-            $BuscarImagenTarifas = null;
-            $BuscarImagenPago = null;
-            $BuscarImagenMonitoreo = null;
-            $BuscarImagenMensajes = null;
-            $BuscarImagenOrganigrama = null;
-            $BuscarImagenNServicios = null;
-            $BuscarImagenInicio = null;
-            $BuscarImagenFinAno = null;
-            if($IdPagina === 1){
-                $BuscarImagenInicio = Administracion::ListadoImagenesInicio();
-                $BuscarImagenFinAno = Administracion::ListadoImagenesFinAno();
-            }
-            switch ($IdSubpagina) {
-                Case 5:
-                    $BuscarImagenOrganigrama = Administracion::ListadoImagenesOrganigrama();
-                    break;
-                Case 9:
-                    $BuscarImagenMensajes = Administracion::ListadoImagenesMensaje();
-                    if(count($BuscarImagenMensajes) === 2){
-                        $verrors = array();
-                        array_push($verrors, 'Solo se permiten dos imagenes para mensaje de texto');
-                        return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                    }else if(count($BuscarImagenMensajes) === 0){
-                        $OrdenImagen = 1;
-                    }else{
-                        $OrdenImagen = 2;
-                    }
-                    break;
-                Case 10:
-                    $BuscarImagenMonitoreo = Administracion::ListadoImagenesMonitoreo();
-                    break;
-                Case 12:
-                    $BuscarImagenRetiro = Administracion::ListadoImagenesRetiro();
-                    break;
-                Case 13:
-                    $BuscarImagenTarifas = Administracion::ListadoImagenesTarifa();
-                    break;
-                Case 15:
-                    $BuscarImagenPago = Administracion::ListadoImagenesPago();
-                    break;
-                Case 16:
-                    $BuscarImagenNServicios = Administracion::ListadoImagenesNServicios();
-                    break;
-                default:
-                    break;
-            }
-            if ($BuscarImagenInicio) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de pagina de inicio, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenFinAno) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de pagina de información de horario de fin de año, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenRetiro) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de proceso retiro, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenTarifas) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de tarifas, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenNServicios) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de nuestros servicios, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenPago) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de pago en línea, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenMonitoreo) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de monitoreo de cámaras, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagenOrganigrama) {
-                $verrors = array();
-                array_push($verrors, 'Para cargar una nueva imagen de organigrama, debe inactivar la imagen actual');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            }
-            if ($BuscarImagen) {
-                $verrors = array();
-                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            } else {
-                if ($buscarOrden) {
-                    $verrors = array();
-                    array_push($verrors, 'Orden de imagen ya se encuentra configurado');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                } else if ($buscarOrdenGrua) {
-                    $verrors = array();
-                    array_push($verrors, 'Imagen de grúa ya se encuentra registrada');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                } else {
-                    $carpeta = UsuariosController::CarpetaImagen($IdPagina, $IdSubpagina);
-                    if ($request->hasFile('imagen')) {
-                        $file          = $request->file('imagen');
-                        $extension     = $file->getClientOriginalExtension();
-                        if ($extension === 'JPG' || $extension === 'PNG') {
-                            $verrors = array();
-                            array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
-                            return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                        } else {
-                            $max_ancho = 2287;
-                            $max_alto = 810;
-                            $tmp = str_replace(" ", "_", $NombreImagen . '.' . $extension);
-                            $tmp = str_replace("'", "", $tmp);
-                            $tmp = str_replace("-", "_", $tmp);
-                            $tmp = str_replace("/", "_", $tmp);
-                            $tmp = str_replace("#", "", $tmp);
-                            $tmp = str_replace(array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'), array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'), $tmp);
-                            $tmp = str_replace(array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'), array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'), $tmp);
-                            $tmp = str_replace(array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'), array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'), $tmp);
-                            $tmp = str_replace(array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'), array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'), $tmp);
-                            $tmp = str_replace(array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'), array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'), $tmp);
-                            $tmp = str_replace(array('ñ', 'Ñ', 'ç', 'Ç'), array('n', 'N', 'c', 'C'), $tmp);
-                            $tmp = str_replace(array(' ', '-', '?', '¿', '#'), array('_', '_', '', '', ''), $tmp);
-                            $nom_adj = $tmp;
-                            $path1       = $carpeta . $nom_adj;
-                            $rutaImagen1 = "img/" . $nom_adj;
-                            if ($request->hasFile('imagen1')) {
-                                if ($_FILES['imagen1']['type'] == 'image/png' || $_FILES['imagen1']['type'] == 'image/jpg' || $_FILES['imagen1']['type'] == 'image/jpeg') {
 
-                                    $medidasimagen1 = getimagesize($_FILES['imagen1']['tmp_name']);
-                                    $nombrearchivo1 = $_FILES['imagen1']['name'];
-                                    $rtOriginal1 = $_FILES['imagen1']['tmp_name'];
-                                    if ($_FILES['imagen1']['type'] == 'image/png') {
-                                        $original1 = imagecreatefrompng($rtOriginal1);
-                                    } else if ($_FILES['imagen1']['type'] == 'image/jpg') {
-                                        $original1 = imagecreatefromjpeg($rtOriginal1);
-                                    } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                                        $original1 = imagecreatefromjpeg($rtOriginal1);
-                                    }
-                                    list($ancho1, $alto1) = getimagesize($rtOriginal1);
-
-                                    $x_ratio1 = $max_ancho / $ancho1;
-
-                                    $y_ratio1 = $max_alto / $alto1;
-
-                                    if (($ancho1 <= $max_ancho) && ($alto1 <= $max_alto)) {
-                                        $ancho_final1 = $ancho1;
-                                        $alto_final1 = $alto1;
-                                    } elseif (($x_ratio1 * $alto1) < $max_alto) {
-                                        $alto_final1 = ceil($x_ratio1 * $alto1);
-                                        $ancho_final1 = $max_ancho;
-                                    } else {
-                                        $ancho_final1 = ceil($y_ratio1 * $ancho1);
-                                        $alto_final1 = $max_alto;
-                                    }
-                                    $lienzo1 = imagecreatetruecolor($ancho_final1, $alto_final1);
-                                    imagecopyresampled($lienzo1, $original1, 0, 0, 0, 0, $ancho_final1, $alto_final1, $ancho1, $alto1);
-                                    if ($_FILES['imagen1']['type'] == 'image/png') {
-                                        imagepng($lienzo1, $path1);
-                                    } else if ($_FILES['imagen1']['type'] == 'image/jpg') {
-                                        imagejpeg($lienzo1, $path1);
-                                    } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                                        imagejpeg($lienzo1, $path1);
-                                    }
-                                }
-                            }
-                            if ($_FILES['imagen']['type'] == 'image/png' || $_FILES['imagen']['type'] == 'image/jpg' || $_FILES['imagen']['type'] == 'image/jpeg') {
-                                $medidasimagen = getimagesize($_FILES['imagen']['tmp_name']);
-                                $nombrearchivo = $_FILES['imagen']['name'];
-                                $rtOriginal = $_FILES['imagen']['tmp_name'];
-                                if ($_FILES['imagen']['type'] == 'image/png') {
-                                    $original = imagecreatefrompng($rtOriginal);
-                                } else if ($_FILES['imagen']['type'] == 'image/jpg') {
-                                    $original = imagecreatefromjpeg($rtOriginal);
-                                } else if ($_FILES['imagen']['type'] == 'image/jpeg') {
-                                    $original = imagecreatefromjpeg($rtOriginal);
-                                }
-                                list($ancho, $alto) = getimagesize($rtOriginal);
-                                $x_ratio = $max_ancho / $ancho;
-                                $y_ratio = $max_alto / $alto;
-                                if (($ancho <= $max_ancho) && ($alto <= $max_alto)) {
-                                    $ancho_final = $ancho;
-                                    $alto_final = $alto;
-                                } elseif (($x_ratio * $alto) < $max_alto) {
-                                    $alto_final = ceil($x_ratio * $alto);
-                                    $ancho_final = $max_ancho;
-                                } else {
-                                    $ancho_final = ceil($y_ratio * $ancho);
-                                    $alto_final = $max_alto;
-                                }
-                                $tmp        = str_replace(array('.jpeg', '.png', '.gif', '.jpg'), array('.webp', '.webp', '.webp', '.webp', '.webp'), $tmp);
-                                $nom_adj1   = $tmp;
-                                $path       = $carpeta . $nom_adj1;
-                                $rutaImagen = 'img/' . $nom_adj1;
-                                $image      = imagecreatefromstring(file_get_contents($_FILES['imagen']['tmp_name']));
-                                ob_start();
-                                $lienzo     = imagecreatetruecolor($ancho_final, $alto_final);
-                                imagecopyresampled($lienzo, $original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
-                                $cal = 8;
-                                if ($_FILES['imagen']['type'] == 'image/png') {
-                                    imagepng($lienzo, $path);
-                                } else if ($_FILES['imagen']['type'] == 'image/jpg') {
-                                    imagejpeg($lienzo, $path);
-                                } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                                    imagejpeg($lienzo, $path);
-                                }
-                                $cont = ob_get_contents();
-                                ob_end_clean();
-                                imagepalettetotruecolor($image);
-                                imagewebp($image, $path, 65);
-                                imagedestroy($image);
-                            }
-                        }
-                    }
-                    $nom_adj1   = $tmp;
-                    $path       = '../' . $carpeta . $nom_adj1;
-                    $path1  = '../' . $path1;
-                    $CrearImagen = Administracion::CrearImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno);
-                    if ($CrearImagen) {
-                        $verrors = 'Se cargo con éxito la imagen ' . strtoupper($Nombre);
-                        return Redirect::to($url . 'imagenes')->with('mensaje', $verrors);
-                    } else {
-                        $verrors = array();
-                        array_push($verrors, 'Hubo un problema al cargar la imagen');
-                        return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                    }
-                }
-            }
-        }
-    }
-
-    public function ActualizarImagen(Request $request)
-    {
-        $url = UsuariosController::FindUrl();
-        $IdUser     = (int)Session::get('IdUsuario');
-        date_default_timezone_set('America/Bogota');
-        $validator = Validator::make($request->all(), [
-            'nombre_imagen_upd'  =>  'required',
-            'id_pagina_upd' => 'required',
-            'pie_imagen_upd' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return Redirect::to($url . 'imagenes')->withErrors($validator)->withInput();
-        } else {
-            $Nombre = $request->nombre_imagen_upd;
-            $NombreImagen = $request->nombre_imagen_upd . '_' . date("Ymd_Hi");
-            $IdPagina = (int)$request->id_pagina_upd;
-            $IdImagen = (int)$request->id_imagen;
-            $Estado = (int)$request->estado_upd;
-            $pieImagen = $request->pie_imagen_upd;
-            $ActivarTexto = $request->activarTextoUpd;
-            $OrdenImagen = (int)$request->id_ordenPagina_upd;
-            $FinAno = (int)$request->id_fin_ano;
-            $BuscarImagen = Administracion::ListadoImagenesNameId($Nombre, $IdImagen);
-            if ($BuscarImagen) {
-                $verrors = array();
-                array_push($verrors, 'Nombre de imagen ya se encuentra creado');
-                return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-            } else {
-                $buscarInfoImagen = Administracion::ListadoImagenesId($IdImagen);
-                foreach ($buscarInfoImagen as $row) {
-                    $Nombre_imagen = $row->NOMBRE_IMAGEN;
-                    $Ubicacion = str_replace("../", "", $row->UBICACION);
-                    $UbicacionJpg = str_replace(array('../', '.webp'), array('', '.jpg'), $row->UBICACION);
-                    $UbicacionPng = str_replace(array('../', '.webp'), array('', '.png'), $row->UBICACION);
-                    $Subpagina = $row->ID_SUBPAGINA;
-                    $Grua  = $row->ID_GRUA;
-                    $Pie  = $row->PIE_IMAGEN;
-                    $Texto = $row->TEXTO_IMAGEN;
-                }
-                if ($ActivarTexto === 'on') {
-                    $TextoImagen = str_replace('<p>', '<p id="subTitleImage">', $request->textoImagenForm_upd);
-                } else {
-                    $TextoImagen = $Texto;
-                }
-                if ($request->id_subpagina_upd) {
-                    $IdSubpagina = (int)$request->id_subpagina_upd;
-                } else {
-                    $IdSubpagina = $Subpagina;
-                }
-                if ($request->id_tipo_grua_upd) {
-                    $IdGrua = (int)$request->id_tipo_grua_upd;
-                } else {
-                    $IdGrua = $Grua;
-                }
-                $BuscarImagenRetiro = null;
-                $BuscarImagenTarifas = null;
-                $BuscarImagenPago = null;
-                $BuscarImagenGrua = null;
-                $BuscarImagenMonitoreo = null;
-                $BuscarImagenOrganigrama = null;
-                $BuscarImagenNServicios = null;
-                $BuscarImagenInicio = null;
-                $BuscarImagenFinAno = null;
-                if($IdPagina === 1){
-                    $BuscarImagenInicio = Administracion::ListadoImagenesInicioId($IdImagen);
-                    $BuscarImagenFinAno = Administracion::ListadoImagenesInicioFinAnoId($IdImagen);
-                }
-                $buscarOrden = Administracion::ListarOrdenSubpaginaId($OrdenImagen, $IdPagina, $IdSubpagina, $IdImagen, $FinAno);
-                switch ($IdSubpagina) {
-                    Case 5:
-                        $BuscarImagenOrganigrama = Administracion::ListadoImagenesOrganigramaId($IdImagen);
-                        break;
-                    Case 8:
-                        $BuscarImagenGrua = Administracion::ListadoImagenesGruaId($OrdenImagen, $IdGrua, $IdImagen);
-                        $buscarOrden = null;
-                        break;
-                    Case 10:
-                        $BuscarImagenMonitoreo = Administracion::ListadoImagenesMonitoreoId($IdImagen);
-                        break;
-                    Case 12:
-                        $BuscarImagenRetiro = Administracion::ListadoImagenesRetiroId($IdImagen);
-                        break;
-                    Case 13:
-                        $BuscarImagenTarifas = Administracion::ListadoImagenesTarifaId($IdImagen);
-                        break;
-                    Case 15:
-                        $BuscarImagenPago = Administracion::ListadoImagenesPagoId($IdImagen);
-                        break;
-                    Case 16:
-                        $BuscarImagenNServicios = Administracion::ListadoImagenesNServiciosId($IdImagen);
-                        break;
-                    default:
-                        break;
-                }
-                if ($BuscarImagenFinAno) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de pagina de incio, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenInicio) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de pagina de incio, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenRetiro) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de proceso retiro, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenTarifas) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de tarifas, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenNServicios) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de nuestros servicios, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenPago) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de pago en línea, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenMonitoreo) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de monitoreo con cámaras, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenOrganigrama) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de organigrama, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($BuscarImagenGrua) {
-                    $verrors = array();
-                    array_push($verrors, 'Para activar esta imagen de grúa, debe inactivar la imagen actual');
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                }
-                if ($buscarOrden) {
-                    $verrors = array();
-                    array_push($verrors, 'Orden de imagen ya se encuentra configurado, inactive primero la imagen que esta asignada al orden ' . $OrdenImagen);
-                    return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                } else {
-                    $carpeta = ImagenesController::CarpetaImagen($IdPagina, $IdSubpagina);
-                    if ($request->hasFile('imagen_upd')) {
-                        if (file_exists($Ubicacion)) {
-                            unlink($Ubicacion);
-                        }
-                        if (file_exists($UbicacionJpg)) {
-                            unlink($UbicacionJpg);
-                        }
-                        if (file_exists($UbicacionPng)) {
-                            unlink($UbicacionPng);
-                        }
-                        $file          = $request->file('imagen_upd');
-                        $extension     = $file->getClientOriginalExtension();
-                        if ($extension === 'JPG' || $extension === 'PNG') {
-                            $verrors = array();
-                            array_push($verrors, 'Extensión de imagen no valido, debe ser jpg o png en minúscula');
-                            return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                        } else {
-                            $max_ancho = 2287;
-                            $max_alto = 810;
-                            $tmp = str_replace(" ", "_", $NombreImagen . '.' . $extension);
-                            $tmp = str_replace("'", "", $tmp);
-                            $tmp = str_replace("-", "_", $tmp);
-                            $tmp = str_replace("/", "_", $tmp);
-                            $tmp = str_replace("#", "", $tmp);
-                            $tmp = str_replace(array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'), array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'), $tmp);
-                            $tmp = str_replace(array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'), array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'), $tmp);
-                            $tmp = str_replace(array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'), array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'), $tmp);
-                            $tmp = str_replace(array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'), array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'), $tmp);
-                            $tmp = str_replace(array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'), array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'), $tmp);
-                            $tmp = str_replace(array('ñ', 'Ñ', 'ç', 'Ç'), array('n', 'N', 'c', 'C'), $tmp);
-                            $tmp = str_replace(array(' ', '-', '?', '¿', '#'), array('_', '_', '', '', ''), $tmp);
-                            $nom_adj = $tmp;
-                            $path1       = $carpeta . $nom_adj;
-                            $rutaImagen1 = "img/" . $nom_adj;
-                            if ($request->hasFile('imagen2')) {
-                                if ($_FILES['imagen2']['type'] == 'image/png' || $_FILES['imagen2']['type'] == 'image/jpg' || $_FILES['imagen2']['type'] == 'image/jpeg') {
-                                    $medidasimagen2 = getimagesize($_FILES['imagen2']['tmp_name']);
-                                    $nombrearchivo1 = $_FILES['imagen2']['name'];
-                                    $rtOriginal1 = $_FILES['imagen2']['tmp_name'];
-                                    if ($_FILES['imagen2']['type'] == 'image/png') {
-                                        $original1 = imagecreatefrompng($rtOriginal1);
-                                    } else if ($_FILES['imagen2']['type'] == 'image/jpg') {
-                                        $original1 = imagecreatefromjpeg($rtOriginal1);
-                                    } else if ($_FILES['imagen2']['type'] == 'image/jpeg') {
-                                        $original1 = imagecreatefromjpeg($rtOriginal1);
-                                    }
-                                    list($ancho1, $alto1) = getimagesize($rtOriginal1);
-
-                                    $x_ratio1 = $max_ancho / $ancho1;
-
-                                    $y_ratio1 = $max_alto / $alto1;
-
-                                    if (($ancho1 <= $max_ancho) && ($alto1 <= $max_alto)) {
-                                        $ancho_final1 = $ancho1;
-                                        $alto_final1 = $alto1;
-                                    } elseif (($x_ratio1 * $alto1) < $max_alto) {
-                                        $alto_final1 = ceil($x_ratio1 * $alto1);
-                                        $ancho_final1 = $max_ancho;
-                                    } else {
-                                        $ancho_final1 = ceil($y_ratio1 * $ancho1);
-                                        $alto_final1 = $max_alto;
-                                    }
-                                    $lienzo1 = imagecreatetruecolor($ancho_final1, $alto_final1);
-                                    imagecopyresampled($lienzo1, $original1, 0, 0, 0, 0, $ancho_final1, $alto_final1, $ancho1, $alto1);
-                                    if ($_FILES['imagen2']['type'] == 'image/png') {
-                                        imagepng($lienzo1, $path1);
-                                    } else if ($_FILES['imagen2']['type'] == 'image/jpg') {
-                                        imagejpeg($lienzo1, $path1);
-                                    } else if ($_FILES['imagen2']['type'] == 'image/jpeg') {
-                                        imagejpeg($lienzo1, $path1);
-                                    }
-                                }
-                            }
-                            if ($_FILES['imagen_upd']['type'] == 'image/png' || $_FILES['imagen_upd']['type'] == 'image/jpg' || $_FILES['imagen_upd']['type'] == 'image/jpeg') {
-                                $medidasimagen_upd = getimagesize($_FILES['imagen_upd']['tmp_name']);
-                                $nombrearchivo = $_FILES['imagen_upd']['name'];
-                                $rtOriginal = $_FILES['imagen_upd']['tmp_name'];
-                                if ($_FILES['imagen_upd']['type'] == 'image/png') {
-                                    $original = imagecreatefrompng($rtOriginal);
-                                } else if ($_FILES['imagen_upd']['type'] == 'image/jpg') {
-                                    $original = imagecreatefromjpeg($rtOriginal);
-                                } else if ($_FILES['imagen_upd']['type'] == 'image/jpeg') {
-                                    $original = imagecreatefromjpeg($rtOriginal);
-                                }
-                                list($ancho, $alto) = getimagesize($rtOriginal);
-                                $x_ratio = $max_ancho / $ancho;
-                                $y_ratio = $max_alto / $alto;
-                                if (($ancho <= $max_ancho) && ($alto <= $max_alto)) {
-                                    $ancho_final = $ancho;
-                                    $alto_final = $alto;
-                                } elseif (($x_ratio * $alto) < $max_alto) {
-                                    $alto_final = ceil($x_ratio * $alto);
-                                    $ancho_final = $max_ancho;
-                                } else {
-                                    $ancho_final = ceil($y_ratio * $ancho);
-                                    $alto_final = $max_alto;
-                                }
-                                $tmp        = str_replace(array('.jpeg', '.png', '.gif', '.jpg'), array('.webp', '.webp', '.webp', '.webp', '.webp'), $tmp);
-                                $nom_adj1   = $tmp;
-                                $path       = $carpeta . $nom_adj1;
-                                $rutaImagen = 'img/' . $nom_adj1;
-                                $image      = imagecreatefromstring(file_get_contents($_FILES['imagen_upd']['tmp_name']));
-                                ob_start();
-                                $lienzo     = imagecreatetruecolor($ancho_final, $alto_final);
-                                imagecopyresampled($lienzo, $original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
-                                $cal = 8;
-                                if ($_FILES['imagen_upd']['type'] == 'image/png') {
-                                    imagepng($lienzo, $path);
-                                } else if ($_FILES['imagen_upd']['type'] == 'image/jpg') {
-                                    imagejpeg($lienzo, $path);
-                                } else if ($_FILES['imagen_upd']['type'] == 'image/jpeg') {
-                                    imagejpeg($lienzo, $path);
-                                }
-                                $cont = ob_get_contents();
-                                ob_end_clean();
-                                imagepalettetotruecolor($image);
-                                imagewebp($image, $path, 65);
-                                imagedestroy($image);
-                            }
-                            $nom_adj1   = $tmp;
-                            $path       = '../' . $carpeta . $nom_adj1;
-                            $path1       = '../' . $path1;
-                        }
-                    } else {
-                        $path   = null;
-                        $path1  = null;
-                    }
-
-                    $ActualizarImagen = Administracion::ActualizarImagen($Nombre, $path, $path1, $IdPagina, $IdSubpagina, $IdUser, $Estado, $IdImagen, $TextoImagen, $OrdenImagen, $pieImagen, $IdGrua, $FinAno);
-                    if ($ActualizarImagen) {
-                        $verrors = 'Se actualizó con éxito la imagen ' . strtoupper($Nombre);
-                        return Redirect::to($url . 'imagenes')->with('mensaje', $verrors);
-                    } else {
-                        $verrors = array();
-                        array_push($verrors, 'Hubo un problema al actualizar la imagen');
-                        return Redirect::to($url . 'imagenes')->withErrors(['errors' => $verrors])->withInput();
-                    }
-                }
-            }
-        }
-    }
 
     public static function CarpetaImagen($IdPagina)
     {
@@ -1175,18 +1648,15 @@ class ImagenesController extends Controller
             case 16:
                 $complemento = 'servicios/nuestros_servicios/';
                 break;
-            case 1:
+            case 17:
                 $complemento = 'home/';
                 break;
-            case 6:
+            case 18:
                 $complemento = 'trabajo/';
                 break;
-            case 3:
+            case 19:
                 $complemento = 'carousel/';
-                break;
-            case 4:
-                $complemento = 'home/';
-                break;
+                break;            
         }
 
         $carpetaCargue = $carpeta . $complemento;

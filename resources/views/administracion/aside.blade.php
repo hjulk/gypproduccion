@@ -83,6 +83,12 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item" id="asideInicio">
+                    <a href="preguntas" class="nav-link">
+                        <i class="fas fa-question nav-icon" id="enlace"></i>
+                        <p>Preguntas Frecuentes</p>
+                    </a>
+                </li>
                 @endif
                 @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1) || (Session::get('Rol') === 3))
                 <li class="nav-item has-treeview" id="asideInicio">
@@ -192,7 +198,7 @@
                                 <p>Tipos de Grúa</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="asideInicio">
                             <a href="usuarios" class="nav-link">
                                 <i class="fas fa-users nav-icon" id="enlace"></i>
                                 <p>Usuarios</p>

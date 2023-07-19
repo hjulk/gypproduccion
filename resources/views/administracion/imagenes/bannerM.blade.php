@@ -1,7 +1,7 @@
 @extends("administracion.layout")
 
 @section('titulo')
-Imágenes Pagina Grúas
+Imágenes Sección Banner
 @endsection
 @section('styles')
     <link rel="stylesheet" href="{{asset("adminlte/plugins/summernote/summernote-bs4.css")}}">
@@ -11,12 +11,13 @@ Imágenes Pagina Grúas
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><i class="fas fa-file nav-icon" id="enlace"></i> Imágenes Página Grúas</h1>
+                <h1 class="m-0 text-dark"><i class="fas fa-file nav-icon" id="enlace"></i> Imágenes Sección Banner Versión Móvil</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home">Inicio</a></li>
                     <li class="breadcrumb-item active"><a href="imagenes">Imagenes</a></li>
+                    <li class="breadcrumb-item active"><a href="imagesHomePage">Imagenes Página Inicio</a></li>
                 </ol>
             </div>
         </div>
@@ -24,40 +25,23 @@ Imágenes Pagina Grúas
 </section>
 <br>
 <section class="content">
-    <div class="container-fluid">
+    <div class="container-fluid">        
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <h3 class="card-title" id="tituloCard"><strong>Cargar Imagen</strong></h3>
+                        <h3 class="card-title" id="tituloCard"><strong>Cargar Imagen Banner Versión Móvil</strong></h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                {!! Form::open(['url' => 'crearImagenTows', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-imagen']) !!}
+                                {!! Form::open(['url' => 'crearImagenBannerMovil', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-imagen']) !!}
                                 @csrf
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Nombre Imagen</label>
-                                                {!! Form::text('nombre_imagen_tows',null,['class'=>'form-control','id'=>'nombre_imagen_tows','placeholder'=>'Nombre Imagen','required']) !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="exampleInputEmail1">Tipo y ubicación Imagen</label>
-                                                {!! Form::select('tipo_grua',$TipoGrua,null,['class'=>'form-control','id'=>'tipo_grua','required']) !!}
-                                                <div align="left"><small class="text-muted">El numero que se encuentra a cada lado del tipo de la grúa, es la ubicación en la página 1 (izquierda) y 2 (derecha).</small><span id="cntDescripHechos" align="right"> </span></div>                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Pie de Imagen</label>
-                                                {!! Form::text('pie_imagen',$PiePagina,['class'=>'form-control','id'=>'pie_imagen','placeholder'=>'Pie de Imagen','required']) !!}
+                                                {!! Form::text('nombre_imagen_bannerMovil',null,['class'=>'form-control','id'=>'nombre_imagen_bannerMovil','placeholder'=>'Nombre Imagen','required']) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -65,9 +49,9 @@ Imágenes Pagina Grúas
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Archivo de Imagen</label>
-                                                <input type="file" name="imagen" id="imagen" accept=".jpg,.png" required class="form-control" size="2048" required>
+                                                <input type="file" name="imagen" id="imagen" accept="image/jpg,image/png" required class="form-control" size="2048" required>
                                                 <div align="right"><small class="text-muted">Tamaño maximo en total permitido (250kB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
-                                                <span id="field2_area" hidden><input type="file" id="imagen1" name="imagen1" class="form-control"/></span>
+                                                <span id="field2_area" hidden><input type="file" id="imagenB" name="imagenB" class="form-control"/></span>
                                             </div>
                                         </div>
                                     </div>
@@ -83,13 +67,12 @@ Imágenes Pagina Grúas
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <table id="tows" class="display table dt-responsive nowrap" style="width: 100%;">
+                        <table id="bannerMovil" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre Imagen</th>
                                     <th>Descargar</th>
-                                    <th>Tipo Grúa</th>
                                     <th>Estado</th>
                                     <th>Fecha de Cargue</th>
                                     <th>Fecha Actualización</th>
@@ -97,21 +80,18 @@ Imágenes Pagina Grúas
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($Gruas as $value)
+                                @foreach($BannerMovil as $value)
                                     <tr>
                                         <td>{{$value['id']}}</td>
                                         <td>{{$value['nombre_imagen']}}</td>
                                         <td style="text-align: center;"><a href="{{$value['ubicacion']}}" target="_blank"><i class="fas fa-download"></i></a></td>
-                                        <td>{{$value['grua']}}</td>
                                         <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>
                                         <td>{{$value['fecha_cargue']}}</td>
                                         <td>{{$value['fecha_modificacion']}}</td>
-                                        <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-towsUpd" onclick="obtener_datos_imagen_tows('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
+                                        <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-bannerMovilUpd" onclick="obtener_datos_imagen_bannerMovil('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
                                         <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['nombre_imagen']}}" id="nombre_imagen{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['pie_imagen']}}" id="pie_imagen{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['tipo_grua']}}" id="tipo_grua{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['nombre_imagen']}}" id="nombre_imagen_bannerMovil{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">                                        
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -122,7 +102,7 @@ Imágenes Pagina Grúas
         </div>
     </div>
 </section>
-@include("modals.modalImagenTows")
+@include("modals.modalImagenBannerMovil")
 @include("modals.modalAlertas")
 @endsection
 @section('scripts')

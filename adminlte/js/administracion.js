@@ -1883,6 +1883,18 @@ function obtener_datos_desfijacion(id) {
     $('#mod_contenidoDesfijacion').summernote('code', Contenido);
 }
 
+function obtener_datos_pregunta(id) {
+    var Titulo = $("#titulo_pregunta" + id).val();
+    var Contenido = $("#contenido" + id).val();
+    var Estado = $("#estado_activo" + id).val();
+
+    $("#idPregunta_upd").val(id);
+    $("#mod_titulo_pregunta").val(Titulo);
+    $("#mod_contenidoPregunta").val(Contenido);
+    $("#mod_estado").val(Estado);
+    $('#mod_contenidoPregunta').summernote('code', Contenido);
+}
+
 function obtener_datos_tipoDocumento(id) {
     var Nombre = $("#nombre_documento" + id).val();
     var Estado = $("#estado_activo" + id).val();
@@ -2218,6 +2230,33 @@ $(function () {
         }
     });
     $('#form-desfijaciones_upd').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+
+    });
+    $('#form-preguntas').validate({
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        }
+    });
+    $('#form-preguntas_upd').validate({
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');

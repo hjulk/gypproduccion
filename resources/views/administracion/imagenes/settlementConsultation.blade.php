@@ -1,7 +1,7 @@
 @extends("administracion.layout")
 
 @section('titulo')
-Imágenes Pagina Nosotros
+Imágenes Consulta Liquidación
 @endsection
 @section('styles')
     <link rel="stylesheet" href="{{asset("adminlte/plugins/summernote/summernote-bs4.css")}}">
@@ -16,7 +16,7 @@ Imágenes Pagina Nosotros
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home">Inicio</a></li>
-                    <li class="breadcrumb-item active">Imagenes</li>
+                    <li class="breadcrumb-item active"><a href="imagenes">Imagenes</a></li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,7 @@ Imágenes Pagina Nosotros
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="card">
                     <div class="card-header" id="principalCard">
                         <h3 class="card-title" id="tituloCard"><strong>Cargar Imagen</strong></h3>
@@ -38,11 +38,15 @@ Imágenes Pagina Nosotros
                                 @csrf
                                     <div class="form-group">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Nombre Imagen</label>
                                                 {!! Form::text('nombre_imagen',null,['class'=>'form-control','id'=>'nombre_imagen','placeholder'=>'Nombre Imagen','required']) !!}
                                             </div>
-                                            <div class="col-md-6">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label>Pie de Imagen</label>
                                                 {!! Form::text('pie_imagen',$PiePagina,['class'=>'form-control','id'=>'pie_imagen','placeholder'=>'Pie de Imagen','required']) !!}
                                             </div>
@@ -53,7 +57,7 @@ Imágenes Pagina Nosotros
                                             <div class="col-md-12">
                                                 <label>Archivo de Imagen</label>
                                                 <input type="file" name="imagen" id="imagen" accept=".jpg,.png" required class="form-control" size="2048" required>
-                                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (2MB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
+                                                <div align="right"><small class="text-muted">Tamaño maximo en total permitido (250kB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
                                                 <span id="field2_area" hidden><input type="file" id="imagen1" name="imagen1" class="form-control"/></span>
                                             </div>
                                         </div>
@@ -67,7 +71,7 @@ Imágenes Pagina Nosotros
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <table id="settlementConsultation" class="display table dt-responsive nowrap" style="width: 100%;">

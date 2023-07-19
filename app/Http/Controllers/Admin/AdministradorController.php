@@ -816,6 +816,47 @@ class AdministradorController extends Controller
         }
     }
 
+    public function Preguntas(){
+        $RolUser        = (int)Session::get('Rol');
+        if ($RolUser === 0) {
+            return Redirect::to('/');
+        } else {
+            if ($RolUser != 1) {
+                return Redirect::to('user/home');
+            } else {
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activa';
+                $Estado[2]  = 'Inactiva';
+                $listadoPreguntas = Administracion::PreguntasFrecuentes();
+                $Preguntas = array();
+                $contPreguntas = 0;
+                foreach($listadoPreguntas as $value){
+                    $Preguntas[$contPreguntas]['id']                = (int)$value->ID_PREGUNTA;
+                    $Preguntas[$contPreguntas]['titulo_pregunta']   = $value->TITULO_PREGUNTA;
+                    $Preguntas[$contPreguntas]['contenido']         = $value->CONTENIDO;
+                    $Preguntas[$contPreguntas]['fecha_creacion']      = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if ($value->FECHA_MODIFICACION) {
+                        $Preguntas[$contPreguntas]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_MODIFICACION));
+                    } else {
+                        $Preguntas[$contPreguntas]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $Preguntas[$contPreguntas]['estado_activo']   = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if ($State === 1) {
+                        $Preguntas[$contPreguntas]['estado']   = 'ACTIVO EN PÁGINA';
+                        $Preguntas[$contPreguntas]['label']    = 'badge badge-success';
+                    } else {
+                        $Preguntas[$contPreguntas]['estado']   = 'INACTIVO EN PÁGINA';
+                        $Preguntas[$contPreguntas]['label']    = 'badge badge-danger';
+                    }
+                    $contPreguntas++;
+                }
+                return view('administracion.preguntas',['Estado' => $Estado, 'Preguntas' => $Preguntas]);
+            }
+        }
+    }
+
     public function buscarSubpagina(Request $request)
     {
         $idPagina   = (int)$request->id_pagina;

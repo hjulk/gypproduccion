@@ -65,6 +65,26 @@ Dashboard
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" id="principalCard">
+                                <a href="preguntas" id="tituloCard"><h3 class="card-title"><b>Ingresar Menú Preguntas Frecuentes <i class="fa fa-arrow-circle-right"></i></b></h3></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12" id="imgCard">
+                                        <img src="{{asset("images/preguntas_frecuentes.png") }}" alt="">
+                                    <br><br>
+                                        <p>Administración de las preguntas frecuentes que se encuentran en la página</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @if((Session::get('Rol') === 2) || (Session::get('Rol') === 1))
             <div class="col-md-4">
                 <div class="row">

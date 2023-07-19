@@ -1,7 +1,7 @@
 @extends("administracion.layout")
 
 @section('titulo')
-Desfijaciones
+Preguntas Frecuentes
 @endsection
 
 @section('styles')
@@ -13,12 +13,12 @@ Desfijaciones
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><i class="fas fa-file-download nav-icon" id="enlace"></i> Desfijación de notificaciones</h1>
+                <h1 class="m-0 text-dark"><i class="fas fa-question nav-icon" id="enlace"></i> Preguntas Frecuentes</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="home">Inicio</a></li>
-                    <li class="breadcrumb-item active">Desfijación de notificaciones</li>
+                    <li class="breadcrumb-item active">Preguntas Frecuentes</li>
                 </ol>
             </div>
         </div>
@@ -30,16 +30,24 @@ Desfijaciones
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header" id="principalCard">
-                        <h3 class="card-title" id="tituloCard"><strong>Crear Aviso de Desfijación</strong></h3>
+                        <h3 class="card-title" id="tituloCard"><strong>Crear Pregunta Frecuente</strong></h3>
                     </div>
                     <div class="card-body">
-                        {!! Form::open(['url' => 'crearDesfijacion', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-desfijaciones']) !!}
+                        {!! Form::open(['url' => 'crearPregunta', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-desfijaciones']) !!}
                         @csrf
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Título pregunta</label>
+                                    {!! Form::text('titulo_pregunta',null,['class'=>'form-control','id'=>'titulo_pregunta','placeholder'=>'Pregunta frecuente','required']) !!}
+                                </div>
+                            </div>
+                        </div>
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label>A continuación escriba el texto de la desfijación a publicar en la página</label>
-                                        {!! Form::textarea('contenidoDesfijacion',null,['class'=>'form-control','id'=>'contenidoDesfijacion','placeholder'=>'Ingrese el contenido la desfijación','rows'=>'10', 'cols' => '100','required']) !!}
+                                        <label>A continuación escriba el texto de la pregunta frecuente a publicar en la página</label>
+                                        {!! Form::textarea('contenidoPregunta',null,['class'=>'form-control','id'=>'contenidoPregunta','placeholder'=>'Ingrese el contenido la pregunta frecuente','rows'=>'10', 'cols' => '100','required']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -55,11 +63,11 @@ Desfijaciones
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="desfijaciones" class="display table dt-responsive nowrap" style="width: 100%;">
+                        <table id="preguntaFrecuente" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Texto desfijación</th>
+                                    <th>Titulo pregunta frecuente</th>
                                     <th>Fecha Cargue</th>
                                     <th>Fecha Actualización</th>
                                     <th>Estado</th>
@@ -67,16 +75,17 @@ Desfijaciones
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($Desfijaciones as $value)
+                                @foreach($Preguntas as $value)
                                     <tr>
                                         <td>{{$value['id']}}</td>
-                                        <td style="text-align: justify !important;">{!!$value['contenido']!!}</td>
+                                        <td style="text-align: justify !important;">{!!$value['titulo_pregunta']!!}</td>
                                         <td>{{$value['fecha_creacion']}}</td>
                                         <td>{{$value['fecha_modificacion']}}</td>
                                         <td><span class="{{$value['label']}}" style="font-size:13px;"><b>{{$value['estado']}}</b></span></td>
-                                        <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-desfijacionUpd" onclick="obtener_datos_desfijacion('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
+                                        <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-preguntaUpd" onclick="obtener_datos_pregunta('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
                                         <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
                                         <input type="hidden" value="{{$value['contenido']}}" id="contenido{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['titulo_pregunta']}}" id="titulo_pregunta{{$value['id']}}">
                                         <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
                                     </tr>
                                 @endforeach
@@ -88,7 +97,7 @@ Desfijaciones
         </div>
     </div>
 </section>
-@include("modals.modalDesfijaciones")
+@include("modals.modalPreguntas")
 @include("modals.modalAlertas")
 @endsection
 @section('scripts')
@@ -116,7 +125,7 @@ Desfijaciones
 
     $(document).ready(function() {
         // Summernote
-        $('#contenidoDesfijacion').summernote({
+        $('#contenidoPregunta').summernote({
             toolbar: [
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -127,7 +136,7 @@ Desfijaciones
                 ['height', ['height']]
             ]
         });
-        $('#mod_contenidoDesfijacion').summernote({
+        $('#mod_contenidoPregunta').summernote({
             toolbar: [
                 // [groupName, [list of button]]
                 ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -139,14 +148,14 @@ Desfijaciones
             ]
         });
         $('#form-desfijaciones_upd').on('submit', function(e) {
-            if($('#mod_contenidoDesfijacion').summernote('isEmpty')) {
-                alert('Contenido de texto de desfijación es obligatorio');
+            if($('#mod_contenidoPregunta').summernote('isEmpty')) {
+                alert('Contenido de texto de pregunta frecuente es obligatorio');
                 e.preventDefault();
             }
         });
         $('#form-desfijaciones').on('submit', function(e) {
-            if($('#contenidoDesfijacion').summernote('isEmpty')) {
-                alert('Contenido de texto de desfijación es obligatorio');
+            if($('#contenidoPregunta').summernote('isEmpty')) {
+                alert('Contenido de texto de pregunta frecuente es obligatorio');
                 e.preventDefault();
             }
         });

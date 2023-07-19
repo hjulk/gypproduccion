@@ -100,6 +100,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('paginas',[AdministradorController::class, 'Paginas'])->name('paginas');
     Route::get('imagenes',[AdministradorController::class, 'Imagenes'])->name('imagenes');
     Route::get('imagesHomePage',[ImagesController::class, 'ImagesHomePage'])->name('imagesHomePage');
+    Route::get('imagesBanner',[ImagesController::class, 'ImagesBanner'])->name('imagesBanner');
+    Route::get('imagesCarousel',[ImagesController::class, 'ImagesCarousel'])->name('imagesCarousel');
+    Route::get('imagesBannerM',[ImagesController::class, 'ImagesBannerM'])->name('imagesBannerM');
+    Route::get('imagesCarouselM',[ImagesController::class, 'ImagesCarouselM'])->name('imagesCarouselM');
     Route::get('imagesUs',[ImagesController::class, 'ImagesUs'])->name('imagesUs');
     Route::get('imagesOrganigrama',[ImagesController::class, 'ImagesOrganigrama'])->name('imagesOrganigrama');
     Route::get('imagesSettlementConsultation',[ImagesController::class, 'ImagesSettlementConsultation'])->name('imagesSettlementConsultation');
@@ -110,6 +114,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('tipoDocumento',[AdministradorController::class, 'TipoDocumento'])->name('tipoDocumento');
     Route::get('tipoImagen',[ImagesController::class, 'TipoImagen'])->name('tipoImagen');
     Route::get('tipoGrua',[AdministradorController::class, 'TipoGrua'])->name('tipoGrua');
+    Route::get('preguntas',[AdministradorController::class, 'Preguntas'])->name('preguntas');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -134,7 +139,19 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::get('reporteVisitas',[UsuarioController::class, 'ReporteVisitas'])->name('reporteVisitas');
     Route::post('consultaVisitas',[UsuarioController::class, 'ConsultaVisitas'])->name('consultaVisitas');
     Route::get('imagenes',[UsuarioController::class, 'Imagenes'])->name('imagenes');
+    Route::get('imagesHomePage',[UsuarioController::class, 'ImagesHomePage'])->name('imagesHomePage');
+    Route::get('imagesBanner',[UsuarioController::class, 'ImagesBanner'])->name('imagesBanner');
+    Route::get('imagesCarousel',[UsuarioController::class, 'ImagesCarousel'])->name('imagesCarousel');
+    Route::get('imagesBannerM',[UsuarioController::class, 'ImagesBannerM'])->name('imagesBannerM');
+    Route::get('imagesCarouselM',[UsuarioController::class, 'ImagesCarouselM'])->name('imagesCarouselM');
+    Route::get('imagesUs',[UsuarioController::class, 'ImagesUs'])->name('imagesUs');
+    Route::get('imagesOrganigrama',[UsuarioController::class, 'ImagesOrganigrama'])->name('imagesOrganigrama');
+    Route::get('imagesSettlementConsultation',[UsuarioController::class, 'ImagesSettlementConsultation'])->name('imagesSettlementConsultation');
+    Route::get('imagesBenefits',[UsuarioController::class, 'ImagesBenefits'])->name('imagesBenefits');
+    Route::get('imagesTows',[UsuarioController::class, 'ImagesTows'])->name('imagesTows');
+    Route::get('imagesMonitoringCameras',[UsuarioController::class, 'ImagesMonitoringCameras'])->name('imagesMonitoringCameras');
     Route::get('buscarSubpagina',[UsuarioController::class, 'BuscarSubpagina'])->name('buscarSubpagina');
+    Route::get('preguntas',[UsuarioController::class, 'Preguntas'])->name('preguntas');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -172,6 +189,28 @@ Route::post('crearImagen',[UsuariosController::class, 'CrearImagen'])->name('cre
 Route::post('actualizarImagen',[UsuariosController::class, 'ActualizarImagen'])->name('actualizarImagen');
 Route::post('crearDesfijacion',[UsuariosController::class, 'CrearDesfijacion'])->name('crearDesfijacion');
 Route::post('actualizarDesfijacion',[UsuariosController::class, 'ActualizarDesfijacion'])->name('actualizarDesfijacion');
+Route::post('crearPregunta',[UsuariosController::class, 'CrearPregunta'])->name('crearPregunta');
+Route::post('actualizarPregunta',[UsuariosController::class, 'ActualizarPregunta'])->name('actualizarPregunta');
 
 Route::post('crearImagenSettlementConsultation',[ImagenesController::class, 'CrearImagenSettlementConsultation'])->name('crearImagenSettlementConsultation');
 Route::post('actualizarImagenSettlementConsultation',[ImagenesController::class, 'ActualizarImagenSettlementConsultation'])->name('actualizarImagenSettlementConsultation');
+Route::post('crearImagenOrganigrama',[ImagenesController::class, 'CrearImagenOrganigrama'])->name('crearImagenOrganigrama');
+Route::post('actualizarImagenOrganigrama',[ImagenesController::class, 'ActualizarImagenOrganigrama'])->name('actualizarImagenOrganigrama');
+Route::post('crearImagenNosotros',[ImagenesController::class, 'CrearImagenNosotros'])->name('crearImagenNosotros');
+Route::post('actualizarImagenNosotros',[ImagenesController::class, 'ActualizarImagenNosotros'])->name('actualizarImagenNosotros');
+Route::post('crearImagenBanner',[ImagenesController::class, 'CrearImagenBanner'])->name('crearImagenBanner');
+Route::post('actualizarImagenBanner',[ImagenesController::class, 'ActualizarImagenBanner'])->name('actualizarImagenBanner');
+Route::post('crearImagenBannerMovil',[ImagenesController::class, 'CrearImagenBannerMovil'])->name('crearImagenBannerMovil');
+Route::post('actualizarImagenBannerMovil',[ImagenesController::class, 'ActualizarImagenBannerMovil'])->name('actualizarImagenBannerMovil');
+Route::post('crearImagenCarousel',[ImagenesController::class, 'CrearImagenCarousel'])->name('crearImagenCarousel');
+Route::post('actualizarImagenCarousel',[ImagenesController::class, 'ActualizarImagenCarousel'])->name('actualizarImagenCarousel');
+Route::post('crearImagenCarouselMovil',[ImagenesController::class, 'CrearImagenCarouselMovil'])->name('crearImagenCarouselMovil');
+Route::post('actualizarImagenCarouselMovil',[ImagenesController::class, 'ActualizarImagenCarouselMovil'])->name('actualizarImagenCarouselMovil');
+Route::post('crearImagenBenefits',[ImagenesController::class, 'CrearImagenBenefits'])->name('crearImagenBenefits');
+Route::post('actualizarImagenBenefits',[ImagenesController::class, 'ActualizarImagenBenefits'])->name('actualizarImagenBenefits');
+Route::post('crearImagenTows',[ImagenesController::class, 'CrearImagenTows'])->name('crearImagenTows');
+Route::post('actualizarImagenTows',[ImagenesController::class, 'ActualizarImagenTows'])->name('actualizarImagenTows');
+Route::post('crearImagenMonitoringCameras',[ImagenesController::class, 'CrearImagenMonitoringCameras'])->name('crearImagenMonitoringCameras');
+Route::post('actualizarImagenMonitoringCameras',[ImagenesController::class, 'ActualizarImagenMonitoringCameras'])->name('actualizarImagenMonitoringCameras');
+Route::post('crearImagenHomePage',[ImagenesController::class, 'CrearImagenHomePage'])->name('crearImagenHomePage');
+Route::post('actualizarImagenHomePage',[ImagenesController::class, 'ActualizarImagenHomePage'])->name('actualizarImagenHomePage');

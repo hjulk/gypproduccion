@@ -978,4 +978,45 @@ class Administracion extends Model
         $BuscarDesfijacionActiva = DB::select('SELECT * FROM desfijaciones WHERE ESTADO = 1 AND ID_DESFIJACION NOT IN (?)',[$IdDesfijacion]);
         return $BuscarDesfijacionActiva;
     }
+
+    public static function PreguntasFrecuentes(){
+        $PreguntasFrecuentes = DB::Select("SELECT * FROM preguntas_frecuentes");
+        return $PreguntasFrecuentes;
+    }
+
+    public static function ConsultaTituloPregunta($tituloPregunta){
+        // dd("SELECT * FROM preguntas_frecuentes WHERE TITULO_PREGUNTA = '$tituloPregunta' AND ESTADO = 1");
+        $ConsultaTituloPregunta = DB::Select("SELECT * FROM preguntas_frecuentes WHERE TITULO_PREGUNTA = '$tituloPregunta' AND ESTADO = 1");
+        return $ConsultaTituloPregunta;
+    }
+
+    public static function ConsultaTituloPreguntaId($tituloPregunta, $idPregunta){
+        $ConsultaTituloPreguntaId = DB::Select("SELECT * FROM preguntas_frecuentes WHERE TITULO_PREGUNTA LIKE '$tituloPregunta' AND ESTADO = 1 AND ID_PREGUNTA NOT IN ($idPregunta)");
+        return $ConsultaTituloPreguntaId;
+    }
+
+    public static function CrearPregunta($tituloPregunta, $contenido, $IdUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearPregunta = DB::insert('INSERT INTO preguntas_frecuentes (TITULO_PREGUNTA, CONTENIDO, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                        VALUES (?,?,?,?,?)',
+                                        [$tituloPregunta,$contenido,1,$fechaCreacion,$IdUser]);
+        return $CrearPregunta;
+    }
+
+    public static function ActualizarPregunta($idPregunta, $tituloPregunta, $contenido, $estado, $IdUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $ActualizarPagina = DB::Update('UPDATE preguntas_frecuentes SET
+                                        TITULO_PREGUNTA = ?,
+                                        CONTENIDO = ?,
+                                        ESTADO = ?,
+                                        FECHA_MODIFICACION = ?,
+                                        USUARIO_MODIFICACION = ?
+                                        WHERE ID_PREGUNTA = ?',
+                                        [$tituloPregunta, $contenido, $estado, $fechaCreacion, $IdUser, $idPregunta]);
+        return $ActualizarPagina;
+    }
 }
