@@ -134,7 +134,7 @@ Preguntas Frecuentes
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']],
-                ['insert', ['link', 'picture', 'video']]
+                ['insert', ['link']]
             ],
 	        lang: "es-ES"
         });
@@ -147,7 +147,7 @@ Preguntas Frecuentes
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']],
-                ['insert', ['link', 'picture', 'video']]
+                ['insert', ['link']]
             ],
 	        lang: "es-ES"
         });
