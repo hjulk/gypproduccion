@@ -133,8 +133,10 @@ Preguntas Frecuentes
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
-            ]
+                ['height', ['height']],
+                ['insert', ['link', 'picture', 'video']]
+            ],
+	        lang: "es-ES"
         });
         $('#mod_contenidoPregunta').summernote({
             toolbar: [
@@ -144,8 +146,10 @@ Preguntas Frecuentes
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']]
-            ]
+                ['height', ['height']],
+                ['insert', ['link', 'picture', 'video']]
+            ],
+	        lang: "es-ES"
         });
         $('#form-desfijaciones_upd').on('submit', function(e) {
             if($('#mod_contenidoPregunta').summernote('isEmpty')) {

@@ -20,16 +20,15 @@
                                         <li><a href="https://bogota.gov.co/sdqs/consultar-peticion" class="nav-link" target="_blank">Consulte su PQRS en Bogotá te Escucha</a></li>
                                     </ul>
                                 </li>
-                            </ul>
+                                <li><a href="../preguntasFrecuentes" class="nav-link">Preguntas Frecuentes</a></li>
+                            </ul>                            
                         </li>
                         <li class="has-children">
                             <a href="" class="nav-link" id="navLinkMenu">GyP</a>
                             <ul class="dropdown arrow-top">
                                 <li><a href="../normatividad" class="nav-link">Normatividad</a></li>
                                 <li><a href="../nosotros" class="nav-link">Nosotros</a></li>
-                                <li>@if($Organigrama)
-                                    {!! $Organigrama !!}
-                                @endif</li>
+                                <li>@if($Organigrama) {!! $Organigrama !!} @endif</li>
                             </ul>
                         </li>
                         <li class="has-children">

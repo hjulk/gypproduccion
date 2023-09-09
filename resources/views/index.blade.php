@@ -11,23 +11,79 @@
         <div class="container">
             <div class="row align-items-center" id="imagenBannerPrincipal">
                 <div class="col-md-12">
-                    <a href="https://vus.circulemosdigital.com.co/#login/" target="_blank">
-                        @handheld
-                            <picture>
-                                <source srcset="{{ asset('images/home/banner_home_movil.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/home/banner_home_movil.') }}" type="image/png" />
-                                <img src="{{ asset('images/home/banner_home_movil.webp') }}" id="imagenPagina" alt="Inicio"
-                                    class="bannerHome mx-auto" />
-                            </picture>
-                        @elsehandheld
-                            <picture>
-                                <source srcset="{{ asset('images/home/banner_home.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/home/banner_home.png') }}" type="image/png" />
-                                <img src="{{ asset('images/home/banner_home.webp') }}" id="imagenPagina" alt="Inicio"
-                                    class="bannerHome mx-auto" />
-                            </picture>
-                        @endhandheld
-                    </a>
+                    @handheld
+                        @if($BannerMovil)
+                            @foreach($BannerMovil as $images)
+                                @if($images->ENLACE)
+                                    <a href="{{ $images->ENLACE }}" target="_blank">
+                                        @if(strpos($images->UBICACION, '.jpg') !== false)
+                                            <picture tabindex="0">
+                                                <source srcset="{{  asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION)) }}" type="image/jpg"/>
+                                                <img src="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                            </picture>
+                                        @else
+                                            <picture tabindex="0">
+                                                <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION)) }}" type="image/png"/>
+                                                <img src="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                            </picture>
+                                        @endif
+                                    </a>
+                                @else
+                                    @if(strpos($images->UBICACION, '.jpg') !== false)
+                                        <picture tabindex="0">
+                                            <source srcset="{{  asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp"/>
+                                            <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION)) }}" type="image/jpg"/>
+                                            <img src="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                        </picture>
+                                    @else
+                                        <picture tabindex="0">
+                                            <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" type="image/webp"/>
+                                            <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION)) }}" type="image/png"/>
+                                            <img src="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                        </picture>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                    @elsehandheld
+                        @if($Banner)
+                            @foreach($Banner as $imagesB)
+                                @if($imagesB->ENLACE)
+                                    <a href="{{ $imagesB->ENLACE }}" target="_blank">
+                                        @if(strpos($imagesB->UBICACION, '.jpg') !== false)
+                                            <picture>
+                                                <source srcset="{{  asset(str_replace('../', '', $imagesB->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION)) }}" type="image/jpg"/>
+                                                <img src="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                            </picture>
+                                        @else
+                                            <picture>
+                                                <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION)) }}" type="image/png"/>
+                                                <img src="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                            </picture>
+                                        @endif
+                                    </a>
+                                @else
+                                    @if(strpos($imagesB->UBICACION, '.jpg') !== false)
+                                        <picture>
+                                            <source srcset="{{  asset(str_replace('../', '', $imagesB->UBICACION_WEBP)) }}" type="image/webp"/>
+                                            <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION)) }}" type="image/jpg"/>
+                                            <img src="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                        </picture>
+                                    @else
+                                        <picture>
+                                            <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" type="image/webp"/>
+                                            <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION)) }}" type="image/png"/>
+                                            <img src="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" id="imagenPagina" alt="Banner" class="bannerHome mx-auto"/>
+                                        </picture>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @endif
+                    @endhandheld
                 </div>
             </div>
         </div>
@@ -37,114 +93,108 @@
 @section('contenido')
     <section class="ftco-section" id="sectionPage">
         <div class="container" id="imagePageAviso">
-            <div id="derechosDeberes" class="carousel slide carousel-fade" data-ride="carousel">
-                <ol class="carousel-indicators" tabindex="0">
-                    <li data-target="#derechosDeberes" data-slide-to="0" class="active"></li>
-                    <li data-target="#derechosDeberes" data-slide-to="1"></li>
-                    <li data-target="#derechosDeberes" data-slide-to="2"></li>
-                    <li data-target="#derechosDeberes" data-slide-to="3"></li>
-                    <li data-target="#derechosDeberes" data-slide-to="4"></li>
-                </ol>
+            <div id="carruselPrincipal" class="carousel slide carousel-fade" data-ride="carousel">
+                
                 @handheld
+                    <ol class="carousel-indicators" tabindex="0">
+                        @if($ContadorCarruselMovil)
+                            @for($ContadorCM = 0; $ContadorCM < $ContadorCarruselMovil;$ContadorCM++)
+                                <li data-target="#carruselPrincipal" data-slide-to="{{ $ContadorCM}}" class="@if($ContadorCM === 0) active @endif"></li>
+                            @endfor
+                        @endif
+                    </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <a href="videos/home_video.mp4" id="videoHomeLink">
-                                <picture>
-                                    <source srcset="{{ asset('images/carousel/carousel_movil_1.webp') }}" type="image/webp" />
-                                    <source srcset="{{ asset('images/carousel/carousel_movil_1.png') }}" type="image/png" />
-                                    <img src="{{ asset('images/carousel/carousel_movil_1.webp') }}" class="d-block w-100"
-                                        alt="GYP 2023" id="imgCarruselGyp" />
-                                </picture>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="https://vus.circulemosdigital.com.co/#login/" target="_blank">
-                                <picture>
-                                    <source srcset="{{ asset('images/carousel/carousel_movil_2.webp') }}" type="image/webp" />
-                                    <source srcset="{{ asset('images/carousel/carousel_movil_2.png') }}" type="image/png" />
-                                    <img src="{{ asset('images/carousel/carousel_movil_2.') }}" class="d-block w-100"
-                                        alt="GYP 2023" id="imgCarruselGyp" />
-                                </picture>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <picture tabindex="0">
-                                <source srcset="{{ asset('images/carousel/carousel_movil_3.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/carousel/carousel_movil_3.png') }}" type="image/png" />
-                                <img src="{{ asset('images/carousel/carousel_movil_3.webp') }}" class="d-block w-100"
-                                    alt="GYP 2023" id="imgCarruselGyp" />
-                            </picture>
-                        </div>
-                        <div class="carousel-item">
-                            <picture tabindex="0">
-                                <source srcset="{{ asset('images/carousel/carousel_movil_4.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/carousel/carousel_movil_4.png') }}" type="image/png" />
-                                <img src="{{ asset('images/carousel/carousel_movil_4.webp') }}" class="d-block w-100"
-                                    alt="GYP 2023" id="imgCarruselGyp" />
-                            </picture>
-                        </div>
-                        <div class="carousel-item">
-                            <picture tabindex="0">
-                                <source srcset="{{ asset('images/carousel/carousel_movil_5.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/carousel/carousel_movil_5.png') }}" type="image/png" />
-                                <img src="{{ asset('images/carousel/carousel_movil_5.webp') }}" class="d-block w-100"
-                                    alt="GYP 2023" id="imgCarruselGyp" />
-                            </picture>
-                        </div>
+                        @if($CarruselMovil)
+                            @foreach($CarruselMovil as $index => $value)
+                                    <div class="carousel-item @if($index === 0) active @endif">
+                                        @if($value->ENLACE)
+                                            <a href="{{ $value->ENLACE }}" @if(strpos($value->ENLACE, 'videos') !== false) id="videoHomeLink" @else target="_blank" @endif>
+                                                @if(strpos($value->UBICACION, '.jpg') !== false)
+                                                    <picture>
+                                                        <source srcset="{{  asset(str_replace('../', '', $value->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                        <source srcset="{{ asset(str_replace('../', '/', $value->UBICACION)) }}" type="image/jpg"/>
+                                                        <img src="{{ asset(str_replace('../', '/', $value->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                    </picture>
+                                                @else
+                                                    <picture>
+                                                        <source srcset="{{ asset(str_replace('../', '/', $value->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                        <source srcset="{{ asset(str_replace('../', '/', $value->UBICACION)) }}" type="image/png"/>
+                                                        <img src="{{ asset(str_replace('../', '/', $value->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                    </picture>
+                                                @endif
+                                            </a>
+                                        @else
+                                            @if(strpos($value->UBICACION, '.jpg') !== false)
+                                                <picture>
+                                                    <source srcset="{{  asset(str_replace('../', '', $value->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                    <source srcset="{{ asset(str_replace('../', '/', $value->UBICACION)) }}" type="image/jpg"/>
+                                                    <img src="{{ asset(str_replace('../', '/', $value->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                </picture>
+                                            @else
+                                                <picture>
+                                                    <source srcset="{{ asset(str_replace('../', '/', $value->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                    <source srcset="{{ asset(str_replace('../', '/', $value->UBICACION)) }}" type="image/png"/>
+                                                    <img src="{{ asset(str_replace('../', '/', $value->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                </picture>
+                                            @endif
+                                        @endif
+                                    </div>
+                            @endforeach                        
+                        @endif
                     </div>
                 @elsehandheld
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <a href="videos/home_video.mp4" id="videoHomeLink">
-                                <picture>
-                                    <source srcset="{{ asset('images/carousel/carousel_1.webp') }}" type="image/webp" />
-                                    <source srcset="{{ asset('images/carousel/carousel_1.png') }}" type="image/png" />
-                                    <img src="{{ asset('images/carousel/carousel_1.webp') }}" class="d-block w-100"
-                                        alt="GYP 2023" id="imgCarruselGyp" />
-                                </picture>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="https://vus.circulemosdigital.com.co/#login/" target="_blank">
-                                <picture>
-                                    <source srcset="{{ asset('images/carousel/carousel_2.webp') }}" type="image/webp" />
-                                    <source srcset="{{ asset('images/carousel/carousel_2.png') }}" type="image/png" />
-                                    <img src="{{ asset('images/carousel/carousel_2.webp') }}" class="d-block w-100"
-                                        alt="GYP 2023" id="imgCarruselGyp" />
-                                </picture>
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <picture tabindex="0">
-                                <source srcset="{{ asset('images/carousel/carousel_3.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/carousel/carousel_3.png') }}" type="image/png" />
-                                <img src="{{ asset('images/carousel/carousel_3.webp') }}" class="d-block w-100"
-                                    alt="GYP 2023" id="imgCarruselGyp" />
-                            </picture>
-                        </div>
-                        <div class="carousel-item">
-                            <picture tabindex="0">
-                                <source srcset="{{ asset('images/carousel/carousel_4.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/carousel/carousel_4.png') }}" type="image/png" />
-                                <img src="{{ asset('images/carousel/carousel_4.webp') }}" class="d-block w-100"
-                                    alt="GYP 2023" id="imgCarruselGyp" />
-                            </picture>
-                        </div>
-                        <div class="carousel-item">
-                            <picture tabindex="0">
-                                <source srcset="{{ asset('images/carousel/carousel_5.webp') }}" type="image/webp" />
-                                <source srcset="{{ asset('images/carousel/carousel_5.png') }}" type="image/png" />
-                                <img src="{{ asset('images/carousel/carousel_5.webp') }}" class="d-block w-100"
-                                    alt="GYP 2023" id="imgCarruselGyp" />
-                            </picture>
-                        </div>
+                    <ol class="carousel-indicators" tabindex="0">
+                        @if($ContadorCarrusel)
+                            @for($Contador = 0; $Contador < $ContadorCarrusel;$Contador++)
+                                <li data-target="#carruselPrincipal" data-slide-to="{{ $Contador}}" class="@if($Contador === 0) active @endif"></li>
+                            @endfor                        
+                        @endif
+                    </ol>
+                    <div class="carousel-inner">                  
+                        @if($Carrusel)
+                            @foreach($Carrusel as $index => $imagen)
+                                    <div class="carousel-item @if($index === 0) active @endif">
+                                        @if($imagen->ENLACE)
+                                            <a href="{{ $imagen->ENLACE }}" @if(strpos($imagen->ENLACE, 'videos') !== false) id="videoHomeLink" @else target="_blank" @endif>
+                                                @if(strpos($imagen->UBICACION, '.jpg') !== false)
+                                                    <picture>
+                                                        <source srcset="{{  asset(str_replace('../', '', $imagen->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                        <source srcset="{{ asset(str_replace('../', '/', $imagen->UBICACION)) }}" type="image/jpg"/>
+                                                        <img src="{{ asset(str_replace('../', '/', $imagen->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                    </picture>
+                                                @else
+                                                    <picture>
+                                                        <source srcset="{{ asset(str_replace('../', '/', $imagen->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                        <source srcset="{{ asset(str_replace('../', '/', $imagen->UBICACION)) }}" type="image/png"/>
+                                                        <img src="{{ asset(str_replace('../', '/', $imagen->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                    </picture>
+                                                @endif
+                                            </a>
+                                        @else
+                                            @if(strpos($imagen->UBICACION, '.jpg') !== false)
+                                                <picture>
+                                                    <source srcset="{{  asset(str_replace('../', '', $imagen->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                    <source srcset="{{ asset(str_replace('../', '/', $imagen->UBICACION)) }}" type="image/jpg"/>
+                                                    <img src="{{ asset(str_replace('../', '/', $imagen->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                </picture>
+                                            @else
+                                                <picture>
+                                                    <source srcset="{{ asset(str_replace('../', '/', $imagen->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                    <source srcset="{{ asset(str_replace('../', '/', $imagen->UBICACION)) }}" type="image/png"/>
+                                                    <img src="{{ asset(str_replace('../', '/', $imagen->UBICACION_WEBP)) }}" id="imgCarruselGyp" alt="GYP 2023" class="d-block w-100"/>
+                                                </picture>
+                                            @endif
+                                        @endif
+                                    </div>
+                            @endforeach                        
+                        @endif
                     </div>
                 @endhandheld
-                <a class="carousel-control-prev" href="#derechosDeberes" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#carruselPrincipal" role="button" data-slide="prev"  tabindex="0">
                     <span class="carousel-control-prev-icon" aria-hidden="true" tabindex="0"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#derechosDeberes" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carruselPrincipal" role="button" data-slide="next"  tabindex="0">
                     <span class="carousel-control-next-icon" aria-hidden="true" tabindex="0"></span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -152,6 +202,34 @@
         </div>
     </section>
     <br>
+    @if($ImageEndYear)
+        <section class="site-section" id="sectionPage">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        @foreach($ImageEndYear as $imagesEY)
+                            @if(strpos($imagesEY->UBICACION, '.jpg') !== false)
+                                <picture tabindex="0">
+                                    <source srcset="{{  asset(str_replace('../', '', $imagesEY->UBICACION_WEBP)) }}" type="image/webp"/>
+                                    <source srcset="{{ asset(str_replace('../', '/', $imagesEY->UBICACION)) }}" type="image/jpg"/>
+                                    <img src="{{ asset(str_replace('../', '/', $imagesEY->UBICACION_WEBP)) }}" id="imagenServicios" alt="Fin de Año"/>
+                                    <p id="footerImage">{!! $imagesEY->PIE_IMAGEN !!}</p>
+                                </picture>
+                            @else
+                                <picture tabindex="0">
+                                    <source srcset="{{ asset(str_replace('../', '/', $imagesEY->UBICACION_WEBP)) }}" type="image/webp"/>
+                                    <source srcset="{{ asset(str_replace('../', '/', $imagesEY->UBICACION)) }}" type="image/png"/>
+                                    <img src="{{ asset(str_replace('../', '/', $imagesEY->UBICACION_WEBP)) }}" id="imagenServicios" alt="Fin de Año"/>
+                                    <p id="footerImage">{!! $imagesEY->PIE_IMAGEN !!}</p>
+                                </picture>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br>
+    @endif
     <section class="ftco-section" id="sectionPageVideo">
         <div class="container">
             <br>
@@ -174,6 +252,7 @@
             </div>
         </div>
     </section>
+    <br>
     <section class="site-section" id="sectionPage">
         <div class="container">
             <div class="row align-items-center" id="franjaTituloPagina">
@@ -256,12 +335,23 @@
             <div class="row" id="NuestrosServiciosDescripcion">
                 <div class="col-md-4">
                     <a href="servicios/tarifas">
-                        <picture>
-                            <source srcset="{{ asset('images/home/tarifas.webp') }}" type="image/webp" />
-                            <source srcset="{{ asset('images/home/tarifas.png') }}" type="image/png" />
-                            <img src="{{ asset('images/home/tarifas.webp') }}" id="imagenServicios"
-                                alt="Nuestras Tarifas" />
-                        </picture>
+                        @if($Tarifas)
+                            @foreach($Tarifas as $imagesT)
+                                @if(strpos($imagesT->UBICACION, '.jpg') !== false)
+                                    <picture tabindex="0">
+                                        <source srcset="{{  asset(str_replace('../', '', $imagesT->UBICACION_WEBP)) }}" type="image/webp"/>
+                                        <source srcset="{{ asset(str_replace('../', '/', $imagesT->UBICACION)) }}" type="image/jpg"/>
+                                        <img src="{{ asset(str_replace('../', '/', $imagesT->UBICACION_WEBP)) }}" id="imagenServicios" alt="Nuestras Tarifas"/>
+                                    </picture>
+                                @else
+                                    <picture tabindex="0">
+                                        <source srcset="{{ asset(str_replace('../', '/', $imagesT->UBICACION_WEBP)) }}" type="image/webp"/>
+                                        <source srcset="{{ asset(str_replace('../', '/', $imagesT->UBICACION)) }}" type="image/png"/>
+                                        <img src="{{ asset(str_replace('../', '/', $imagesT->UBICACION_WEBP)) }}" id="imagenServicios" alt="Nuestras Tarifas"/>
+                                    </picture>
+                                @endif
+                            @endforeach
+                        @endif
                     </a>
                 </div>
                 <div class="col-md-8">

@@ -48,6 +48,14 @@ Imágenes Sección Banner
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <label for="exampleInputEmail1">Enlace página web</label>
+                                                {!! Form::text('enlace',null,['class'=>'form-control','id'=>'enlace','placeholder'=>'Url de página web']) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label>Archivo de Imagen</label>
                                                 <input type="file" name="imagen" id="imagen" accept="image/jpg,image/png" required class="form-control" size="2048" required>
                                                 <div align="right"><small class="text-muted">Tamaño maximo en total permitido (250kB), si se supera este tamaño, su archivo no será cargado. Solo se permite formato jpg y png.</small><span id="cntDescripHechos" align="right"> </span></div>
@@ -91,7 +99,8 @@ Imágenes Sección Banner
                                         <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#modal-bannerMovilUpd" onclick="obtener_datos_imagen_bannerMovil('{{$value['id']}}');"><i class="fas fa-edit"></i></a></td>
                                         <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
                                         <input type="hidden" value="{{$value['nombre_imagen']}}" id="nombre_imagen_bannerMovil{{$value['id']}}">
-                                        <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">                                        
+                                        <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['enlace']}}" id="enlace{{$value['id']}}">                                      
                                     </tr>
                                 @endforeach
                             </tbody>

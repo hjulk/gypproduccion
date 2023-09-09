@@ -644,41 +644,49 @@ function obtener_datos_imagen_nosotros(id) {
 function obtener_datos_imagen_banner(id) {
     var NombreImagen = $("#nombre_imagen_banner" + id).val();
     var Estado = $("#estado_activo" + id).val();
+    var Enlace = $("#enlace" + id).val();
 
     $("#idImagenBanner_upd").val(id);
     $("#mod_nombre_imagen_banner").val(NombreImagen);
     $("#mod_estado_banner").val(Estado);
+    $("#mod_enlace_banner").val(Enlace);
 }
 
 function obtener_datos_imagen_bannerMovil(id) {
     var NombreImagen = $("#nombre_imagen_bannerMovil" + id).val();
     var Estado = $("#estado_activo" + id).val();
+    var Enlace = $("#enlace" + id).val();
 
     $("#idImagenBannerMovil_upd").val(id);
     $("#mod_nombre_imagen_bannerMovil").val(NombreImagen);
     $("#mod_estado_bannerMovil").val(Estado);
+    $("#mod_enlace_bannerMovil").val(Enlace);
 }
 
 function obtener_datos_imagen_carousel(id) {
     var NombreImagen = $("#nombre_imagen_carousel" + id).val();
     var Estado = $("#estado_activo" + id).val();
     var Orden = $("#orden" + id).val();
+    var Enlace = $("#enlace" + id).val();
 
     $("#idImagenCarousel_upd").val(id);
     $("#mod_nombre_imagen_carousel").val(NombreImagen);
     $("#mod_estado_carousel").val(Estado);
     $("#mod_orden_carousel").val(Orden);
+    $("#mod_enlace_carousel").val(Enlace);
 }
 
 function obtener_datos_imagen_carouselMovil(id) {
     var NombreImagen = $("#nombre_imagen_carouselMovil" + id).val();
     var Estado = $("#estado_activo" + id).val();
     var Orden = $("#orden" + id).val();
+    var Enlace = $("#enlace" + id).val();
 
     $("#idImagenCarouselMovil_upd").val(id);
     $("#mod_nombre_imagen_carouselMovil").val(NombreImagen);
     $("#mod_estado_carouselMovil").val(Estado);
     $("#mod_orden_carouselMovil").val(Orden);
+    $("#mod_enlace_carouselMovil").val(Enlace);
 }
 
 function obtener_datos_imagen_benefits(id) {

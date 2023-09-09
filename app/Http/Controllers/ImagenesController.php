@@ -504,6 +504,7 @@ class ImagenesController extends Controller
             $nombre = $request->nombre_imagen_banner;
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $imagen = $request->hasFile('imagen');
+            $enlace = $request->enlace;
             $buscarImagen = Imagenes::ListadoImagenesName($nombre, 5);
             if ($buscarImagen) {
                 $verrors = array();
@@ -515,7 +516,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 17, $IdUser, null, null, null, null, null, 1, 2);
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 17, $IdUser, $enlace, null, null, null, null, 1, 2);
                     if ($crearImagen) {
                         $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesBanner')->with('mensaje', $verrors);
@@ -549,6 +550,7 @@ class ImagenesController extends Controller
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $IdImagen = (int)$request->id_imagenBanner;
             $Estado = (int)$request->estado_upd;
+            $enlace = $request->enlace_upd;
             $BuscarImagen = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 5);
             if($BuscarImagen){
                 $verrors = array();
@@ -568,7 +570,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 17, $IdUser, $Estado, $IdImagen, null, null, null, null, null, 1, 2);
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 17, $IdUser, $Estado, $IdImagen, $enlace, null, null, null, null, 1, 2);
                     if ($actualizarImagen) {
                         $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesBanner')->with('mensaje', $verrors);
@@ -598,6 +600,7 @@ class ImagenesController extends Controller
             return Redirect::to($url . 'imagesBannerM')->withErrors($validator)->withInput();
         } else {
             $nombre = $request->nombre_imagen_bannerMovil;
+            $enlace = $request->enlace;
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $buscarImagen = Imagenes::ListadoImagenesName($nombre, 6);
             if ($buscarImagen) {
@@ -610,7 +613,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 17, $IdUser, null, null, null, null, null, 1, 1);
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 17, $IdUser, $enlace, null, null, null, null, 1, 1);
                     if ($crearImagen) {
                         $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesBannerM')->with('mensaje', $verrors);
@@ -644,6 +647,7 @@ class ImagenesController extends Controller
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $IdImagen = (int)$request->id_imagenBannerMovil;
             $Estado = (int)$request->estado_upd;
+            $enlace = $request->enlace_upd;
             $BuscarImagen = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 6);
             if($BuscarImagen){
                 $verrors = array();
@@ -663,7 +667,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 17, $IdUser, $Estado, $IdImagen, null, null, null, null, null, 1, 1);
+                    $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 17, $IdUser, $Estado, $IdImagen, $enlace, null, null, null, null, 1, 1);
                     if ($actualizarImagen) {
                         $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesBannerM')->with('mensaje', $verrors);
@@ -696,6 +700,7 @@ class ImagenesController extends Controller
             $nombre = $request->nombre_imagen_carousel;
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $imagen = $request->hasFile('imagen');
+            $enlace = $request->enlace;
             $orden = (int)$request->orden;
             $buscarImagen = Imagenes::ListadoImagenesName($nombre, 7);
             if ($buscarImagen) {
@@ -708,7 +713,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 19, $IdUser, null, $orden, null, null, null, null, 2);
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 19, $IdUser, $enlace, $orden, null, null, null, null, 2);
                     if ($crearImagen) {
                         $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesCarousel')->with('mensaje', $verrors);
@@ -744,6 +749,7 @@ class ImagenesController extends Controller
             $IdImagen = (int)$request->id_imagenCarousel;
             $Orden = (int)$request->orden_upd;
             $Estado = (int)$request->estado_upd;
+            $enlace = $request->enlace_upd;
             $BuscarImagen   = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 7);
             $BuscarOrden    = Imagenes::ListadoImagenesOrderId($IdImagen, 7, $Orden);
             if($BuscarOrden){
@@ -769,7 +775,7 @@ class ImagenesController extends Controller
                     $directorio  = $path['path'];
                     $directorio1 = $path['path1'];
                     if($errorImagen == 2){
-                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 19, $IdUser, $Estado, $IdImagen, null, $Orden, null, null, null, null, 2);
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 19, $IdUser, $Estado, $IdImagen, $enlace, $Orden, null, null, null, null, 2);
                         if ($actualizarImagen) {
                             $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
                             return Redirect::to($url . 'imagesCarousel')->with('mensaje', $verrors);
@@ -803,6 +809,7 @@ class ImagenesController extends Controller
             $nombre = $request->nombre_imagen_carouselMovil;
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $imagen = $request->hasFile('imagen');
+            $enlace = $request->enlace;
             $orden = (int)$request->orden;
             $buscarImagen = Imagenes::ListadoImagenesName($nombre, 8);
             if ($buscarImagen) {
@@ -815,7 +822,7 @@ class ImagenesController extends Controller
                 $directorio  = $path['path'];
                 $directorio1 = $path['path1'];
                 if($errorImagen == 2){
-                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 19, $IdUser, null, $orden, null, null, null, null, 1);
+                    $crearImagen = Imagenes::CrearImagen($nombre, $directorio, $directorio1, 19, $IdUser, $enlace, $orden, null, null, null, null, 1);
                     if ($crearImagen) {
                         $verrors = 'Se cargo con éxito la imagen ' . strtoupper($nombre);
                         return Redirect::to($url . 'imagesCarouselM')->with('mensaje', $verrors);
@@ -851,6 +858,7 @@ class ImagenesController extends Controller
             $IdImagen = (int)$request->id_imagenCarouselMovil;
             $Orden = (int)$request->orden_upd;
             $Estado = (int)$request->estado_upd;
+            $enlace = $request->enlace_upd;
             $BuscarImagen   = Imagenes::ListadoImagenesNameId($nombre, $IdImagen, 8);
             $BuscarOrden    = Imagenes::ListadoImagenesOrderId($IdImagen, 8, $Orden);
             if($BuscarOrden){
@@ -876,7 +884,7 @@ class ImagenesController extends Controller
                     $directorio  = $path['path'];
                     $directorio1 = $path['path1'];
                     if($errorImagen == 2){
-                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 19, $IdUser, $Estado, $IdImagen, null, $Orden, null, null, null, null, 1);
+                        $actualizarImagen = Imagenes::ActualizarImagen($nombre, $directorio, $directorio1, 19, $IdUser, $Estado, $IdImagen, $enlace, $Orden, null, null, null, null, 1);
                         if ($actualizarImagen) {
                             $verrors = 'Se actualizo con éxito la imagen ' . strtoupper($nombre);
                             return Redirect::to($url . 'imagesCarouselM')->with('mensaje', $verrors);
@@ -1242,13 +1250,28 @@ class ImagenesController extends Controller
         $validator  = Validator::make($request->all(), [
             'nombre_imagen_homePage'  =>  'required',
             'tipo_imagen'  =>  'required',
-            'imagen' => 'required|max:1024'
+            'imagen' => 'required|max:400'
         ]);
         if ($validator->fails()) {
             return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
         } else {
             $nombre = $request->nombre_imagen_homePage;
             $tipoImagen = (int)$request->tipo_imagen;
+            if($tipoImagen == 2){
+                $validator  = Validator::make($request->all(), [
+                    'imagen' => 'dimensions:max_width=960,max_height=320'
+                ]);
+                if ($validator->fails()) {
+                    return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
+                }
+            }else{
+                $validator  = Validator::make($request->all(), [
+                    'imagen' => 'dimensions:max_width=360,max_height=230'
+                ]);
+                if ($validator->fails()) {
+                    return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
+                }
+            }
             $pieImagen = $request->pie_imagen;
             $nombreImagen = $nombre . '_' . date("Ymd_Hi");
             $imagen = $request->hasFile('imagen');            
@@ -1288,13 +1311,29 @@ class ImagenesController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre_imagen_upd'  =>  'required',
             'tipo_imagen_upd'  =>  'required',
-            'estado_upd'  =>  'required'
+            'estado_upd'  =>  'required',
+            'imagen_upd' => 'max:400'
         ]);
         if ($validator->fails()) {
             return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
         } else {
             $nombre         = $request->nombre_imagen_upd;
             $tipoImagen     = $request->tipo_imagen_upd;
+            if($tipoImagen == 2){
+                $validator  = Validator::make($request->all(), [
+                    'imagen_upd' => 'dimensions:max_width=960,max_height=320'
+                ]);
+                if ($validator->fails()) {
+                    return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
+                }
+            }else{
+                $validator  = Validator::make($request->all(), [
+                    'imagen_upd' => 'dimensions:max_width=360,max_height=230'
+                ]);
+                if ($validator->fails()) {
+                    return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();
+                }
+            }
             $pieImagen      = $request->pie_imagen_upd;
             $nombreImagen   = $nombre . '_' . date("Ymd_Hi");
             $IdImagen       = (int)$request->id_imagenHomePage;
@@ -1396,11 +1435,11 @@ class ImagenesController extends Controller
                         $lienzo1 = imagecreatetruecolor($ancho_final1, $alto_final1);
                         imagecopyresampled($lienzo1, $original1, 0, 0, 0, 0, $ancho_final1, $alto_final1, $ancho1, $alto1);
                         if ($_FILES['imagen1']['type'] == 'image/png') {
-                            imagejpeg($original1, $path1, 9);
+                            imagepng($lienzo1, $path1);
                         } else if ($_FILES['imagen1']['type'] == 'image/jpg') {
-                            imagejpeg($lienzo1, $path1, 80);
+                            imagejpeg($lienzo1, $path1, 75);
                         } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                            imagejpeg($lienzo1, $path1, 80);
+                            imagejpeg($lienzo1, $path1, 75);
                         }
                     }
                 }
@@ -1438,16 +1477,16 @@ class ImagenesController extends Controller
                     imagecopyresampled($lienzo, $original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
                     $cal = 8;
                     if ($_FILES['imagen']['type'] == 'image/png') {
-                        imagejpeg($original, $path1, 9);
+                        imagepng($lienzo, $path);
                     } else if ($_FILES['imagen']['type'] == 'image/jpg') {
-                        imagejpeg($lienzo, $path, 80);
+                        imagejpeg($lienzo, $path, 75);
                     } else if ($_FILES['imagen1']['type'] == 'image/jpeg') {
-                        imagejpeg($lienzo, $path, 80);
+                        imagejpeg($lienzo, $path, 75);
                     }
                     $cont = ob_get_contents();
                     ob_end_clean();
                     imagepalettetotruecolor($image);
-                    imagewebp($image, $path, 9);
+                    imagewebp($image, $path, 80);
                     imagedestroy($image);
                 }
             }
@@ -1529,11 +1568,11 @@ class ImagenesController extends Controller
                         $lienzo1 = imagecreatetruecolor($ancho_final1, $alto_final1);
                         imagecopyresampled($lienzo1, $original1, 0, 0, 0, 0, $ancho_final1, $alto_final1, $ancho1, $alto1);
                         if ($_FILES['imagen2']['type'] == 'image/png') {
-                            imagejpeg($original1, $path1, 9);
+                            imagepng($lienzo1, $path1);
                         } else if ($_FILES['imagen2']['type'] == 'image/jpg') {
-                            imagejpeg($lienzo1, $path1, 80);
+                            imagejpeg($lienzo1, $path1, 75);
                         } else if ($_FILES['imagen2']['type'] == 'image/jpeg') {
-                            imagejpeg($lienzo1, $path1, 80);
+                            imagejpeg($lienzo1, $path1, 75);
                         }
                     }
                 }
@@ -1571,16 +1610,16 @@ class ImagenesController extends Controller
                     imagecopyresampled($lienzo, $original, 0, 0, 0, 0, $ancho_final, $alto_final, $ancho, $alto);
                     $cal = 8;
                     if ($_FILES['imagen_upd']['type'] == 'image/png') {
-                        imagejpeg($original, $path1, 9);
+                        imagepng($lienzo, $path);
                     } else if ($_FILES['imagen_upd']['type'] == 'image/jpg') {
-                        imagejpeg($lienzo, $path, 80);
+                        imagejpeg($lienzo, $path, 75);
                     } else if ($_FILES['imagen_upd']['type'] == 'image/jpeg') {
-                        imagejpeg($lienzo, $path, 80);
+                        imagejpeg($lienzo, $path, 75);
                     }
                     $cont = ob_get_contents();
                     ob_end_clean();
                     imagepalettetotruecolor($image);
-                    imagewebp($image, $path, 9);
+                    imagewebp($image, $path, 80);
                     imagedestroy($image);
                 }
                 $nom_adj1   = $tmp;

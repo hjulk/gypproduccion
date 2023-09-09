@@ -30,8 +30,7 @@
                             <ul class="dropdown arrow-top">
                                 <li><a href="normatividad" class="nav-link" tabindex="0">Normatividad</a></li>
                                 <li><a href="nosotros" class="nav-link" tabindex="0">Nosotros</a></li>
-                                <li><a href="{{ asset('images/gyp/organigrama/Organigrama.pdf') }}" target="_blank"
-                                        title="Organigrama" class="nav-link" tabindex="0">Organigrama</a></li>
+                                <li>@if($Organigrama) {!! $Organigrama !!} @endif</li>
                             </ul>
                         </li>
                         <li class="has-children" id="liMenu">

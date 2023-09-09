@@ -387,9 +387,9 @@ class Imagenes extends Model
                     }
                     $CrearImagen = DB::Insert(
                                     'INSERT INTO imagenes_inicio (NOMBRE_IMAGEN, UBICACION, UBICACION_WEBP, ESTADO,
-                                    FECHA_CREACION,USUARIO_CREACION,PIE_IMAGEN,TIPO_IMAGEN,MOVIL)
-                                    VALUES (?,?,?,?,?,?,?,?,?)',
-                                    [$Nombre, $path1, $carpeta, 1, $fechaCreacion, $IdUser, $pieImagen, $TipoImagen, $Movil]
+                                    FECHA_CREACION,USUARIO_CREACION,PIE_IMAGEN,TIPO_IMAGEN,MOVIL,ENLACE)
+                                    VALUES (?,?,?,?,?,?,?,?,?,?)',
+                                    [$Nombre, $path1, $carpeta, 1, $fechaCreacion, $IdUser, $pieImagen, $TipoImagen, $Movil, $TextoImagen]
                                     );
                     break;
             case 19: 
@@ -400,9 +400,9 @@ class Imagenes extends Model
                     }
                     $CrearImagen = DB::Insert(
                                     'INSERT INTO imagenes_carrusel (NOMBRE_IMAGEN, UBICACION, UBICACION_WEBP, ESTADO,
-                                    FECHA_CREACION,USUARIO_CREACION,PIE_IMAGEN,ORDEN,MOVIL)
-                                    VALUES (?,?,?,?,?,?,?,?,?)',
-                                    [$Nombre, $path1, $carpeta, 1, $fechaCreacion, $IdUser, $pieImagen, $OrdenImagen, $Movil]
+                                    FECHA_CREACION,USUARIO_CREACION,PIE_IMAGEN,ORDEN,MOVIL,ENLACE)
+                                    VALUES (?,?,?,?,?,?,?,?,?,?)',
+                                    [$Nombre, $path1, $carpeta, 1, $fechaCreacion, $IdUser, $pieImagen, $OrdenImagen, $Movil, $TextoImagen]
                                     );
                     break;
             case 20: 
@@ -432,6 +432,12 @@ class Imagenes extends Model
         $fechaActualizacion  = date('Y-m-d H:i:s', strtotime($fecha_sistema));
         $endYear = null;
         $nextYear = null;
+        if($IdPagina == 20){
+            if($TipoImagen == 2){
+                $nextYear = (date('Y')+1);
+                $endYear = 1;
+            } 
+        }
         switch($IdPagina){
             case 4: if($path){
                         $ActualizarImagen = DB::update(
@@ -596,9 +602,10 @@ class Imagenes extends Model
                             FECHA_MODIFICACION = ?,
                             USUARIO_MODIFICACION = ?,
                             TIPO_IMAGEN = ?,
-                            MOVIL = ?
+                            MOVIL = ?,
+                            ENLACE = ?
                             WHERE ID_IMAGEN = ?',
-                                [$Nombre, $path1, $path, $Estado, $fechaActualizacion, $IdUser, $TipoImagen, $Movil, $IdImagen]
+                                [$Nombre, $path1, $path, $Estado, $fechaActualizacion, $IdUser, $TipoImagen, $Movil, $TextoImagen, $IdImagen]
                             );
                     }else{
                         $ActualizarImagen = DB::update(
@@ -608,9 +615,10 @@ class Imagenes extends Model
                             FECHA_MODIFICACION = ?,
                             USUARIO_MODIFICACION = ?,
                             TIPO_IMAGEN = ?,
-                            MOVIL = ?
+                            MOVIL = ?,
+                            ENLACE = ?
                             WHERE ID_IMAGEN = ?',
-                                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $TipoImagen, $Movil, $IdImagen]
+                                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $TipoImagen, $Movil, $TextoImagen, $IdImagen]
                             );
                     }
                     break;
@@ -624,9 +632,10 @@ class Imagenes extends Model
                             FECHA_MODIFICACION = ?,
                             USUARIO_MODIFICACION = ?,
                             ORDEN = ?,
-                            MOVIL = ?
+                            MOVIL = ?,
+                            ENLACE = ?
                             WHERE ID_IMAGEN = ?',
-                                [$Nombre, $path1, $path, $Estado, $fechaActualizacion, $IdUser, $OrdenImagen, $Movil, $IdImagen]
+                                [$Nombre, $path1, $path, $Estado, $fechaActualizacion, $IdUser, $OrdenImagen, $Movil, $TextoImagen, $IdImagen]
                             );
                     }else{
                         $ActualizarImagen = DB::update(
@@ -636,17 +645,14 @@ class Imagenes extends Model
                             FECHA_MODIFICACION = ?,
                             USUARIO_MODIFICACION = ?,
                             ORDEN = ?,
-                            MOVIL = ?
+                            MOVIL = ?,
+                            ENLACE = ?
                             WHERE ID_IMAGEN = ?',
-                                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $OrdenImagen, $Movil, $IdImagen]
+                                [$Nombre, $Estado, $fechaActualizacion, $IdUser, $OrdenImagen, $Movil, $TextoImagen, $IdImagen]
                             );
                     }
                     break;
-            case 20:if($TipoImagen === 2){
-                        $nextYear = (date('Y')+1);
-                        $endYear = 1;
-                    } 
-                    if($path){
+            case 20:if($path){
                         $ActualizarImagen = DB::update(
                             'UPDATE imagenes_inicio SET
                             NOMBRE_IMAGEN = ?,

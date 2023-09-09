@@ -18,6 +18,7 @@ class PaginaController extends Controller
 {
     public function Inicio()
     {
+        date_default_timezone_set('America/Bogota');
         $ObtenerVisitas = GYPBogota::GetVisitas();
         foreach ($ObtenerVisitas as $value) {
             $Visitas = (int)$value->CONTADOR;
@@ -26,18 +27,30 @@ class PaginaController extends Controller
         $Organigrama = PaginaController::Organigrama();
         $yearNow = date('Y');
         $ImgInicio = GYPBogota::ImgInicio();
-        $imagesFinAno = GYPBogota::imagesFinAno();
-        if($imagesFinAno){
-            foreach($imagesFinAno as $row){
-                $id_image = (int)$row->ID_IMAGEN;
-                $ano = (int)$row->END_YEAR;
+        $Banner                 = GYPBogota::BannerHomeActive(1, 2);
+        $BannerMovil            = GYPBogota::BannerHomeActive(1, 1);
+        $Carrusel               = GYPBogota::CarouselHomeActive(2);
+        $CarruselMovil          = GYPBogota::CarouselHomeActive(1);
+        $ContadorCarrusel       = count($Carrusel);
+        $ContadorCarruselMovil  = count($CarruselMovil);
+        $Tarifas                = GYPBogota::TarifasHomeActive();
+        $ImageEndYear           = null;
+        $EndYear                = GYPBogota::EndYearHomeActive();        
+        if($EndYear){
+            foreach($EndYear as $value){
+                $ano = (int)$value->YEAR;
             }
-        }else{
-            $imagesFinAno = false;
-            $ano = date('Y');
-        }
-        $fecha_enero = strtotime("01-01-$ano 00:00:00");
-        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio, 'imagesFinAno' => $imagesFinAno, 'fecha_enero' => $fecha_enero]);
+            $fecha_enero    = strtotime("01-01-$ano 00:00:00");            
+            $fecha_actual   = strtotime(date("d-m-Y H:i:00",time()));
+            if($fecha_actual < $fecha_enero){
+                $ImageEndYear = $EndYear;
+            }else{
+                GypBogota::UpdateEndYearImage();
+            }
+        }        
+        return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio,
+        'Banner' => $Banner, 'BannerMovil' => $BannerMovil, 'Carrusel' => $Carrusel, 'CarruselMovil' => $CarruselMovil, 'ContadorCarrusel' => $ContadorCarrusel,
+        'ContadorCarruselMovil' => $ContadorCarruselMovil, 'Tarifas' => $Tarifas, 'ImageEndYear' => $ImageEndYear]);
     }
 
     public function Trabajo()
@@ -120,10 +133,11 @@ class PaginaController extends Controller
 
     public function Nosotros()
     {
-        $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        $Organigrama = PaginaController::Organigrama();
+        $PoliticaHSEQ   = PaginaController::PoliticaHSEQ();
+        $Organigrama    = PaginaController::Organigrama();
+        $Nosotros       = GYPBogota::NosotrosPageActive();
         $yearNow = date('Y');
-        return view('gyp.nosotros', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow]);
+        return view('gyp.nosotros', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow, 'Nosotros' => $Nosotros]);
     }
 
     // ATENCIÓN AL CIUDADANO
@@ -191,10 +205,11 @@ class PaginaController extends Controller
 
     public function PreguntasFrecuentes()
     {
-        $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        $Organigrama = PaginaController::Organigrama();
+        $PoliticaHSEQ           = PaginaController::PoliticaHSEQ();
+        $Organigrama            = PaginaController::Organigrama();
+        $PreguntasFrecuentes    = GYPBogota::PreguntasFrecuentes();
         $yearNow = date('Y');
-        return view('atencionCiudadano.preguntasFrecuentes',['Organigrama' => $Organigrama, 'PoliticaHSEQ' => $PoliticaHSEQ]);
+        return view('atencionCiudadano.preguntasFrecuentes',['Organigrama' => $Organigrama, 'PoliticaHSEQ' => $PoliticaHSEQ, 'PreguntasFrecuentes' => $PreguntasFrecuentes]);
     }
 
     // SERVICIOS
@@ -203,7 +218,7 @@ class PaginaController extends Controller
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQSer();
         $Organigrama = PaginaController::OrganigramaSer();
-        $ImagenesBeneficios = GYPBogota::ImagesBeneficios();
+        $ImagenesBeneficios = GYPBogota::ImgServicios(1);
         return view('servicios.beneficios', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama, 'ImagenesBeneficios' => $ImagenesBeneficios]);
     }
 
@@ -219,11 +234,11 @@ class PaginaController extends Controller
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQSer();
         $Organigrama = PaginaController::OrganigramaSer();
-        $ExtraPesado = GYPBogota::GruaExtraPesado();
-        $Pesado = GYPBogota::GruaPesado();
-        $Planchon = GYPBogota::GruaPlanchon();
-        $PlanchonMoto = GYPBogota::GruaPlanchonMoto();
-        $IzajeLateral = GYPBogota::GruaIzajeLateral();
+        $ExtraPesado = GYPBogota::ImgGruas('EP');
+        $Pesado = GYPBogota::ImgGruas('PE');
+        $Planchon = GYPBogota::ImgGruas('PL');
+        $PlanchonMoto = GYPBogota::ImgGruas('PM');
+        $IzajeLateral = GYPBogota::ImgGruas('IL');
         return view('servicios.gruas', [
             'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama, 'ExtraPesado' => $ExtraPesado, 'Pesado' => $Pesado,
             'Planchon' => $Planchon, 'PlanchonMoto' => $PlanchonMoto, 'IzajeLateral' => $IzajeLateral
@@ -266,7 +281,7 @@ class PaginaController extends Controller
     {
         $PoliticaHSEQ = PaginaController::PoliticaHSEQSer();
         $Organigrama = PaginaController::OrganigramaSer();
-        $ImgMonitoreo = GYPBogota::ImgMonitoreo();
+        $ImgMonitoreo = GYPBogota::ImgServicios(4);
         return view('servicios.monitoreoCamaras', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama, 'ImgMonitoreo' => $ImgMonitoreo]);
     }
 
@@ -282,9 +297,10 @@ class PaginaController extends Controller
 
     public function ConsultaLiquidacion()
     {
-        $PoliticaHSEQ = PaginaController::PoliticaHSEQ();
-        $Organigrama = PaginaController::Organigrama();
-        return view('tramites.consultaLiquidacion', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama]);
+        $PoliticaHSEQ   = PaginaController::PoliticaHSEQ();
+        $Organigrama    = PaginaController::Organigrama();
+        $ConsultaImg    = GYPBogota::ConsultaImg();
+        return view('tramites.consultaLiquidacion', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama, 'ConsultaImg' => $ConsultaImg]);
     }
 
     public function PagoLinea()
@@ -549,9 +565,9 @@ class PaginaController extends Controller
             foreach ($ListarOrganigrama as $value) {
                 $imagen = str_replace('../', '', $value->UBICACION);
             }
-            $Organigrama = '<a href="' . $imagen . '" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>.';
+            $Organigrama = '<a href="' . $imagen . '" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>';
         } else {
-            $Organigrama = '<a href="#" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>.';
+            $Organigrama = '<a href="#" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>';
         }
         return $Organigrama;
     }
@@ -580,9 +596,9 @@ class PaginaController extends Controller
             foreach ($ListarOrganigrama as $value) {
                 $imagen = $value->UBICACION;
             }
-            $Organigrama = '<a href="' . $imagen . '" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>.';
+            $Organigrama = '<a href="' . $imagen . '" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>';
         } else {
-            $Organigrama = '<a href="#" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>.';
+            $Organigrama = '<a href="#" target="_blank" title="Organigrama" class="nav-link">Organigrama</a>';
         }
         return $Organigrama;
     }

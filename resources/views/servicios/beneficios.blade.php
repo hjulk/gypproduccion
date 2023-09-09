@@ -38,106 +38,38 @@
         </div>
     </section>
     <br>
-    <section>
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <h5 tabindex="0">Monitoreo de los procesos por medio de GPS desde un centro de control.</h5>
+    @if ($ImagenesBeneficios)
+        @foreach($ImagenesBeneficios as $imagesB)
+            <section>
+                <div class="container">
+                    <div class="row" id="pageImage">
+                        <div class="col-md-12">
+                            <h5 tabindex="0">{!! $imagesB->TEXTO_IMAGEN !!}</h5>
+                        </div>
+                    </div>
+                    <div class="row" id="imagesBeneficios">
+                        <div class="col-md-12" id="pageImage">
+                            @if(strpos($imagesB->UBICACION, '.jpg') !== false)
+                                <picture tabindex="0">
+                                    <source srcset="{{ asset(str_replace('../', '', $imagesB->UBICACION_WEBP)) }}" type="image/webp"/>
+                                    <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION)) }}" type="image/jpg"/>
+                                    <img src="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" id="imagenServicios" alt="Beneficios"/>
+                                </picture>
+                            @else
+                                <picture tabindex="0">
+                                    <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" type="image/webp"/>
+                                    <source srcset="{{ asset(str_replace('../', '/', $imagesB->UBICACION)) }}" type="image/png"/>
+                                    <img src="{{ asset(str_replace('../', '/', $imagesB->UBICACION_WEBP)) }}" id="imagenServicios" alt="Beneficios"/>
+                                </picture>
+                            @endif
+                            <p id="footerImage">{!! $imagesB->PIE_IMAGEN !!}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture tabindex="0">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_1.webp") }}" type="image/webp">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_1.png") }}" type="image/png">
-                        <img src="{{asset("images/servicios/beneficios/beneficios_1.webp") }}" id="imagenPagina" alt="Beneficios">
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <h5 tabindex="0">Grúas nuevas y dotadas con cámaras para registrar en tiempo real el proceso de inmovilización.</h5>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture tabindex="0">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_2.webp") }}" type="image/webp">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_2.png") }}" type="image/png">
-                        <img src="{{asset("images/servicios/beneficios/beneficios_2.webp") }}" id="imagenPagina" alt="Beneficios">
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <h5 tabindex="0">Espacio amplio y seguro para las motocicletas.</h5>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture tabindex="0">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_3.webp") }}" type="image/webp">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_3.png") }}" type="image/png">
-                        <img src="{{asset("images/servicios/beneficios/beneficios_3.webp") }}" id="imagenPagina" alt="Beneficios">
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <h5 tabindex="0">Más de 46.000 m2 de parqueadero.</h5>
-                </div>
-            </div>
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture tabindex="0">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_4.webp") }}" type="image/webp">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_4.png") }}" type="image/png">
-                        <img src="{{asset("images/servicios/beneficios/beneficios_4.webp") }}" id="imagenPagina" alt="Beneficios">
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div class="container">
-            <div class="row" id="pageImage">
-                <div class="col-md-12">
-                    <h5 tabindex="0">Instalaciones amplias, cómodas y modernas para un óptimo servicio.</h5>
-                </div>
-            </div>
-
-            <div class="row" id="imagesBeneficios">
-                <div class="col-md-12" id="pageImage">
-                    <picture tabindex="0">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_5.webp") }}" type="image/webp">
-                        <source srcset="{{asset("images/servicios/beneficios/beneficios_5.png") }}" type="image/png">
-                        <img src="{{asset("images/servicios/beneficios/beneficios_5.webp") }}" id="imagenPagina" alt="Beneficios">
-                    </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+            <br>
+        @endforeach
+    @endif
     <br>
 @endsection
 

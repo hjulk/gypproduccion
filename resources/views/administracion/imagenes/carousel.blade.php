@@ -48,6 +48,14 @@ Imágenes Sección Carrusel
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <label for="exampleInputEmail1">Enlace página web</label>
+                                                {!! Form::text('enlace',null,['class'=>'form-control','id'=>'enlace','placeholder'=>'Url de página web']) !!}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <label for="exampleInputEmail1">Orden Imagen</label>
                                                 {!! Form::select('orden',$Orden,null,['class'=>'form-control','id'=>'orden','required']) !!}
                                             </div>
@@ -103,6 +111,7 @@ Imágenes Sección Carrusel
                                         <input type="hidden" value="{{$value['nombre_imagen']}}" id="nombre_imagen_carousel{{$value['id']}}">
                                         <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
                                         <input type="hidden" value="{{$value['orden']}}" id="orden{{$value['id']}}">
+                                        <input type="hidden" value="{{$value['enlace']}}" id="enlace{{$value['id']}}">
                                     </tr>
                                 @endforeach
                             </tbody>

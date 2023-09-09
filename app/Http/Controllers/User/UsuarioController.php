@@ -845,6 +845,7 @@ class UsuarioController extends Controller
                         $Banner[$contBanner]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
                     }
                     $Banner[$contBanner]['pie_imagen'] = $value->PIE_IMAGEN;
+                    $Banner[$contBanner]['enlace']      = $value->ENLACE;
                     $contBanner++;
                 }
                 
@@ -891,6 +892,7 @@ class UsuarioController extends Controller
                         $BannerMovil[$contBannerMovil]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
                     }
                     $BannerMovil[$contBannerMovil]['pie_imagen'] = $value->PIE_IMAGEN;
+                    $BannerMovil[$contBannerMovil]['enlace']      = $value->ENLACE;
                     $contBannerMovil++;
                 }
                 return view('administracion.imagenes.bannerM',['Estado' => $Estado,'PiePagina' => $PiePagina, 'BannerMovil' => $BannerMovil]);
@@ -956,7 +958,8 @@ class UsuarioController extends Controller
                     } else {
                         $Carousel[$contCarousel]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
                     }
-                    $Carousel[$contCarousel]['pie_imagen'] = $value->PIE_IMAGEN;
+                    $Carousel[$contCarousel]['pie_imagen']  = $value->PIE_IMAGEN;
+                    $Carousel[$contCarousel]['enlace']      = $value->ENLACE;
                     $contCarousel++;
                 }
                 return view('administracion.imagenes.carousel',['Estado' => $Estado,'PiePagina' => $PiePagina,'Orden' => $Orden,'OrdenUpd' => $OrdenUpd,
@@ -1020,6 +1023,7 @@ class UsuarioController extends Controller
                         $CarouselM[$contCarouselM]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
                     }
                     $CarouselM[$contCarouselM]['pie_imagen'] = $value->PIE_IMAGEN;
+                    $CarouselM[$contCarouselM]['enlace']     = $value->ENLACE;
                     $contCarouselM++;
                 }
                 return view('administracion.imagenes.carouselM',['Estado' => $Estado,'PiePagina' => $PiePagina,'Orden' => $Orden,'OrdenUpd' => $OrdenUpd,

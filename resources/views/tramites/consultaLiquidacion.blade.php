@@ -39,11 +39,29 @@
                     <div class="row">
                         <div class="col-md-12" id="pageImage">
                             <a href="https://cmovilgyp.com/wliquidacion/" target="_blank">
-                                <picture>
+                                @if($ConsultaImg)
+                                    @foreach($ConsultaImg as $imagesCL)
+                                        @if(strpos($imagesCL->UBICACION, '.jpg') !== false)
+                                            <picture tabindex="0">
+                                                <source srcset="{{  asset(str_replace('../', '', $imagesCL->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                <source srcset="{{ asset(str_replace('../', '/', $imagesCL->UBICACION)) }}" type="image/jpg"/>
+                                                <img src="{{ asset(str_replace('../', '/', $imagesCL->UBICACION_WEBP)) }}" id="consultaLiquidacionImg" alt="Consulta Liquidación" class="img-responsive"/>                                                
+                                            </picture>
+                                        @else
+                                            <picture tabindex="0">
+                                                <source srcset="{{ asset(str_replace('../', '/', $imagesCL->UBICACION_WEBP)) }}" type="image/webp"/>
+                                                <source srcset="{{ asset(str_replace('../', '/', $imagesCL->UBICACION)) }}" type="image/png"/>
+                                                <img src="{{ asset(str_replace('../', '/', $imagesCL->UBICACION_WEBP)) }}" id="consultaLiquidacionImg" alt="Consulta Liquidación" class="img-responsive"/>                                                
+                                            </picture>
+                                        @endif                        
+                                    @endforeach
+                                    <p id="footerImage">{!! $imagesCL->PIE_IMAGEN !!}</p>
+                                @endif
+                                {{-- <picture>
                                     <source srcset="{{asset("images/tramites/consulta_liquidacion/consulta_liquidacion.webp") }}" type="image/webp"/>
                                     <source srcset="{{asset("images/tramites/consulta_liquidacion/consulta_liquidacion.png") }}" type="image/png"/>
                                     <img src="{{asset("images/tramites/consulta_liquidacion/consulta_liquidacion.webp") }}" id="consultaLiquidacionImg" alt="Cunsulta Liquidación" class="img-responsive"/>
-                                </picture>
+                                </picture> --}}
                             </a>
                         </div>
                     </div>

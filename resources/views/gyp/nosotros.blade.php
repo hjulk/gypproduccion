@@ -168,7 +168,26 @@
     <section class="site-section" id="sectionPage">
         <div class="container">
             <div class="grid-container-infoInteres">
-                <div>
+                @if($Nosotros)
+                    @foreach($Nosotros as $imagesN)
+                        @if(strpos($imagesN->UBICACION, '.jpg') !== false)
+                            <picture tabindex="0">
+                                <source srcset="{{  asset(str_replace('../', '', $imagesN->UBICACION_WEBP)) }}" type="image/webp"/>
+                                <source srcset="{{ asset(str_replace('../', '/', $imagesN->UBICACION)) }}" type="image/jpg"/>
+                                <img src="{{ asset(str_replace('../', '/', $imagesN->UBICACION_WEBP)) }}" id="imgNosotros" alt="Nosotros"/>
+                                <p id="footerImage">{!! $imagesN->PIE_IMAGEN !!}</p>
+                            </picture>
+                        @else
+                            <picture tabindex="0">
+                                <source srcset="{{ asset(str_replace('../', '/', $imagesN->UBICACION_WEBP)) }}" type="image/webp"/>
+                                <source srcset="{{ asset(str_replace('../', '/', $imagesN->UBICACION)) }}" type="image/png"/>
+                                <img src="{{ asset(str_replace('../', '/', $imagesN->UBICACION_WEBP)) }}" id="imgNosotros" alt="Nosotros"/>
+                                <p id="footerImage">{!! $imagesN->PIE_IMAGEN !!}</p>
+                            </picture>
+                        @endif                        
+                    @endforeach
+                @endif
+                {{-- <div>
                     <picture tabindex="0">
                         <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_1.webp") }}" type="image/webp"/>
                         <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_1.png") }}" type="image/png"/>
@@ -188,7 +207,7 @@
                         <source srcset="{{asset("images/gyp/nosotros/nosotros_foto_3.png") }}" type="image/png"/>
                         <img src="{{asset("images/gyp/nosotros/nosotros_foto_3.webp") }}" id="imgNosotros" alt="Nosotros" class="nosotros-logo"/>
                     </picture>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>

@@ -46,12 +46,33 @@
         <div class="container">
             <div class="row" id="imagesBeneficios">
                 <div class="col-md-12" id="pageImage">
-                    <picture tabindex="0">
+                    @if ($ImgMonitoreo)
+                        @foreach ($ImgMonitoreo as $images)
+                            @if (strpos($images->UBICACION, '.jpg') !== false)                                
+                                <picture tabindex="0">
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp"/>
+                                    <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION)) }}" type="image/jpg"/>
+                                    <img src="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" id="imagenPagina" alt="Monitoreo con Cámaras"/>
+                                </picture>
+                                <br>
+                                <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>                                
+                            @else
+                                <picture tabindex="0">
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp"/>
+                                    <source srcset="{{ asset(str_replace('../', '/', $images->UBICACION)) }}" type="image/png"/>
+                                    <img src="{{ asset(str_replace('../', '/', $images->UBICACION_WEBP)) }}" id="imagenPagina" alt="Monitoreo con Cámaras"/>
+                                </picture>
+                                <br>
+                                <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>                                
+                            @endif
+                        @endforeach
+                    @endif
+                    {{-- <picture tabindex="0">
                         <source srcset="{{asset("images/servicios/monitoreo_camaras/monitoreo_camaras.webp") }}" type="image/webp">
                         <source srcset="{{asset("images/servicios/monitoreo_camaras/monitoreo_camaras.png") }}" type="image/png">
                         <img src="{{asset("images/servicios/monitoreo_camaras/monitoreo_camaras.webp") }}" id="imagenPagina" alt="Monitoreo con Cámaras">
                     </picture>
-                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p>
+                    <p id="footerImage">Foto: GyP Bogotá S.A.S - Año: 2023</p> --}}
                 </div>
             </div>
         </div>

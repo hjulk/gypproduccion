@@ -27,6 +27,14 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
+                            <label for="exampleInputEmail1">Enlace página web</label>
+                            {!! Form::text('enlace_upd',null,['class'=>'form-control','id'=>'mod_enlace_carousel','placeholder'=>'Url de página web']) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
                             <input type="checkbox" id="activarImagenCarousel_upd" name="activarImagen_upd" onclick="actualizarImagenCarousel();"/> Cambiar Imagen
                         </div>
                     </div>

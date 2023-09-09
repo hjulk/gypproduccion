@@ -85,9 +85,9 @@
                         @if (strpos($images->UBICACION, '.jpg') !== false)
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Gancho Extrapesado" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/jpg" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas" alt="Gancho Extrapesado" />
                                 </picture>
                                 <br>
                                 <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>
@@ -95,9 +95,9 @@
                         @else
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/png" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Gancho Extrapesado" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/png" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas" alt="Gancho Extrapesado" />
                                 </picture>
                                 <br>
                                 <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>
@@ -124,9 +124,9 @@
                         @if (strpos($images->UBICACION, '.jpg') !== false)
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Gancho Pesado" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/jpg" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas" alt="Gancho Pesado" />
                                 </picture>
                                 <br>
                                 <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>
@@ -134,9 +134,9 @@
                         @else
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/png" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Gancho Pesado" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/png" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas" alt="Gancho Pesado" />
                                 </picture>
                                 <br>
                                 <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>
@@ -163,9 +163,9 @@
                         @if (strpos($images->UBICACION, '.jpg') !== false)
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Gancho Planchon" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/jpg" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas" alt="Gancho Planchon" />
                                 </picture>
                                 <br>
                                 <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>
@@ -173,9 +173,9 @@
                         @else
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/png" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas" alt="Gancho Planchon" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/png" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas" alt="Gancho Planchon" />
                                 </picture>
                                 <br>
                                 <p id="footerImage">{!! $images->PIE_IMAGEN !!}</p>
@@ -203,9 +203,9 @@
                         @if (strpos($images->UBICACION, '.jpg') !== false)
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas"
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/jpg" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas"
                                         alt="Gancho Planchon Moto" />
                                 </picture>
                                 <br>
@@ -214,9 +214,9 @@
                         @else
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/png" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas"
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/png" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas"
                                         alt="Gancho Planchon Moto" />
                                 </picture>
                                 <br>
@@ -245,9 +245,9 @@
                         @if (strpos($images->UBICACION, '.jpg') !== false)
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/jpg" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas"
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/jpg" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas"
                                         alt="Gancho Izaje Lateral" />
                                 </picture>
                                 <br>
@@ -256,9 +256,9 @@
                         @else
                             <div class="col-md-6" style="align-self: center;">
                                 <picture tabindex="0">
-                                    <source srcset="{{ $images->UBICACION_WEBP }}" type="image/webp" />
-                                    <source srcset="{{ $images->UBICACION }}" type="image/png" />
-                                    <img src="{{ $images->UBICACION_WEBP }}" id="imagesGruas"
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" type="image/webp" />
+                                    <source srcset="{{ asset(str_replace('../', '', $images->UBICACION)) }}" type="image/png" />
+                                    <img src="{{ asset(str_replace('../', '', $images->UBICACION_WEBP)) }}" id="imagesGruas"
                                         alt="Gancho Izaje Lateral" />
                                 </picture>
                                 <br>

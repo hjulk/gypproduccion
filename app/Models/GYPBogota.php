@@ -198,7 +198,69 @@ class GYPBogota extends Model
     }
 
     public static function ImagenOrganigrama(){
-        $ImgagenOrganigrama = DB::select('SELECT * FROM imagenes WHERE ID_SUBPAGINA = 5 AND ID_PAGINA = 2 AND ESTADO = 1 ORDER BY 13 ASC');
+        $ImgagenOrganigrama = DB::select('SELECT * FROM imagenes_organigrama WHERE ESTADO = 1');
         return $ImgagenOrganigrama;
+    }
+
+    public static function BannerHomeActive($tipoPagina, $movil){
+        $BannerHomeActive = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN = $tipoPagina AND MOVIL = $movil AND ESTADO = 1");
+        return $BannerHomeActive;
+    }
+
+    public static function CarouselHomeActive($movil){
+        $CarouselHomeActive = DB::Select("SELECT * FROM imagenes_carrusel WHERE MOVIL = $movil AND ESTADO = 1 ORDER BY ORDEN ASC");
+        return $CarouselHomeActive;
+    }
+
+    public static function TarifasHomeActive(){
+        $TarifasHomeActive = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN = 3 AND MOVIL = 2 AND ESTADO = 1");
+        return $TarifasHomeActive;
+    }
+
+    public static function EndYearHomeActive(){
+        $EndYearHomeActive = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN = 2 AND MOVIL = 2 AND ESTADO = 1 AND END_YEAR = 1");
+        return $EndYearHomeActive;
+    }
+
+    public static function NosotrosPageActive(){
+        $NosotrosPageActive = DB::Select("SELECT * FROM imagenes_nosotros WHERE ESTADO = 1");
+        return $NosotrosPageActive;
+    }
+
+    public static function ConsultaImg(){
+        $ConsultaImg = DB::Select("SELECT * FROM imagenes_consulta_liquidacion WHERE ESTADO = 1");
+        return $ConsultaImg;
+    }
+
+    public static function ImgServicios($idSubPagina){
+        $ImgServicios = DB::Select("SELECT * FROM imagenes_servicios WHERE ID_SUBPAGINA = $idSubPagina AND ESTADO = 1 ORDER BY ORDEN_IMAGEN ASC");
+        return $ImgServicios;
+    }
+
+    public static function ImgGruas($tipoGrua){
+        $Grua = '';
+        switch($tipoGrua){
+            case 'EP' : $Grua = 'AND TIPO_GRUA IN (1,2)';
+                        break;
+            case 'PE' : $Grua = 'AND TIPO_GRUA IN (3,4)';
+                        break;
+            case 'PL' : $Grua = 'AND TIPO_GRUA IN (5,6)';
+                        break;
+            case 'PM' : $Grua = 'AND TIPO_GRUA IN (7,8)';
+                        break;
+            case 'IL' : $Grua = 'AND TIPO_GRUA IN (9,10)';
+                        break;
+        }
+        $ImgServicios = DB::Select("SELECT * FROM imagenes_gruas WHERE ESTADO = 1 $Grua ORDER BY ORDEN_IMAGEN ASC");
+        return $ImgServicios;
+    }
+
+    public static function PreguntasFrecuentes(){
+        $PreguntasFrecuentes = DB::Select("SELECT * FROM preguntas_frecuentes WHERE ESTADO = 1 ORDER BY ID_PREGUNTA ASC");
+        return $PreguntasFrecuentes;
+    }
+
+    public static function UpdateEndYearImage(){
+        DB::Update("UPDATE imagenes_inicio SET ESTADO = 2 WHERE TIPO_IMAGEN = 2 AND END_YEAR = 1 AND ESTADO 1");
     }
 }
