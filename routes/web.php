@@ -114,7 +114,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::get('tipoDocumento',[AdministradorController::class, 'TipoDocumento'])->name('tipoDocumento');
     Route::get('tipoImagen',[ImagesController::class, 'TipoImagen'])->name('tipoImagen');
     Route::get('tipoGrua',[AdministradorController::class, 'TipoGrua'])->name('tipoGrua');
+    Route::get('tipoTarifa',[AdministradorController::class, 'TipoTarifa'])->name('tipoTarifa');
     Route::get('preguntas',[AdministradorController::class, 'Preguntas'])->name('preguntas');
+    Route::get('tarifasG',[AdministradorController::class, 'TarifasG'])->name('tarifasG');
+    Route::get('tarifasP',[AdministradorController::class, 'TarifasP'])->name('tarifasP');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -152,6 +155,8 @@ Route::group(['prefix' => 'user','namespace' => 'User'],function(){
     Route::get('imagesMonitoringCameras',[UsuarioController::class, 'ImagesMonitoringCameras'])->name('imagesMonitoringCameras');
     Route::get('buscarSubpagina',[UsuarioController::class, 'BuscarSubpagina'])->name('buscarSubpagina');
     Route::get('preguntas',[UsuarioController::class, 'Preguntas'])->name('preguntas');
+    Route::get('tarifasG',[UsuarioController::class, 'TarifasG'])->name('tarifasG');
+    Route::get('tarifasP',[UsuarioController::class, 'TarifasP'])->name('tarifasP');
     Route::get('logout', function() {
         Auth::logout();
         Session::flush();
@@ -177,6 +182,10 @@ Route::post('crearTipoImagenInicio',[ImagenesController::class, 'CrearTipoImagen
 Route::post('actualizarTipoImagenInicio',[ImagenesController::class, 'ActualizarTipoImagenInicio'])->name('actualizarTipoImagenInicio');
 Route::post('crearTipoImagenServicio',[ImagenesController::class, 'CrearTipoImagenServicio'])->name('crearTipoImagenServicio');
 Route::post('actualizarTipoImagenServicio',[ImagenesController::class, 'ActualizarTipoImagenServicio'])->name('actualizarTipoImagenServicio');
+Route::post('crearTipoTarifa',[AdministracionController::class, 'CrearTipoTarifa'])->name('crearTipoTarifa');
+Route::post('actualizarTipoTarifa',[AdministracionController::class, 'ActualizarTipoTarifa'])->name('actualizarTipoTarifa');
+Route::post('crearNombreTarifa',[AdministracionController::class, 'CrearNombreTarifa'])->name('crearNombreTarifa');
+Route::post('actualizarNombreTarifa',[AdministracionController::class, 'ActualizarNombreTarifa'])->name('actualizarNombreTarifa');
 
 Route::post('actualizarPerfil',[UsuariosController::class, 'ActualizarPerfil'])->name('actualizarPerfil');
 Route::post('cargarNotificacion',[UsuariosController::class, 'CargarNotificacion'])->name('cargarNotificacion');
@@ -191,6 +200,10 @@ Route::post('crearDesfijacion',[UsuariosController::class, 'CrearDesfijacion'])-
 Route::post('actualizarDesfijacion',[UsuariosController::class, 'ActualizarDesfijacion'])->name('actualizarDesfijacion');
 Route::post('crearPregunta',[UsuariosController::class, 'CrearPregunta'])->name('crearPregunta');
 Route::post('actualizarPregunta',[UsuariosController::class, 'ActualizarPregunta'])->name('actualizarPregunta');
+Route::post('crearTarifaP',[UsuariosController::class, 'CrearTarifaP'])->name('crearTarifaP');
+Route::post('actualizarTarifaP',[UsuariosController::class, 'ActualizarTarifaP'])->name('actualizarTarifaP');
+Route::post('crearTarifaG',[UsuariosController::class, 'CrearTarifaG'])->name('crearTarifaG');
+Route::post('actualizarTarifaG',[UsuariosController::class, 'ActualizarTarifaG'])->name('actualizarTarifaG');
 
 Route::post('crearImagenSettlementConsultation',[ImagenesController::class, 'CrearImagenSettlementConsultation'])->name('crearImagenSettlementConsultation');
 Route::post('actualizarImagenSettlementConsultation',[ImagenesController::class, 'ActualizarImagenSettlementConsultation'])->name('actualizarImagenSettlementConsultation');

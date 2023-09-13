@@ -303,7 +303,7 @@ $(document).ready(function () {
         autoWidth: false,
         rowReorder: false,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-        order: [[01, "asc"]],
+        order: [[0, "asc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
@@ -556,7 +556,7 @@ $(document).ready(function () {
         autoWidth: false,
         rowReorder: false,
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-        order: [[01, "asc"]],
+        order: [[0, "asc"]],
         language: {
             processing: "Procesando...",
             search: "Buscar:",
@@ -1552,6 +1552,174 @@ $(document).ready(function () {
         }
     });
 
+    $('#tipoTarifa').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: true,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[1, "asc"]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
+
+    $('#nombreTarifa').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: true,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[2, "asc"],[1, "asc"]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
+
+    $('#tarifaP').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: true,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[2, "asc"],[1, "asc"]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
+
+    $('#tarifaG').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: true,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: false,
+        autoWidth: false,
+        rowReorder: false,
+        order: [[2, "asc"],[1, "asc"]],
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
+    });
+
 });
 
 function obtener_datos_dependencia(id) {
@@ -2271,3 +2439,68 @@ $(function () {
 
     });
 });
+
+function obtener_datos_tipoTarifa(id) {
+    var Nombre = $("#nombre_tipo_tarifa" + id).val();
+    var Estado = $("#estado_tipo_tarifa_activo" + id).val();
+
+    $("#idTipoTarifa_upd").val(id);
+    $("#mod_nombre_tipo_tarifa").val(Nombre);
+    $("#mod_estado_tipo_tarifa").val(Estado);
+}
+
+function obtener_datos_nombreTarifa(id) {
+    var Nombre = $("#nombre_tarifa" + id).val();
+    var Tipo = $("#tipo_tarifa" + id).val();
+    var Estado = $("#estado_nombre_tarifa_activo" + id).val();
+
+    $("#idNombreTarifa_upd").val(id);
+    $("#mod_nombre_tarifa").val(Nombre);
+    $("#mod_tipo_tarifa").val(Tipo);
+    $("#mod_estado_nombre_tarifa").val(Estado);
+}
+
+function numero(event) {
+    if (event.charCode >= 48 && event.charCode <= 57) {
+        return true;
+    }
+    return false;
+}
+
+function obtener_datos_tarifaP(id) {
+    var Tarifa = $("#tarifaP" + id).val();
+    var TipoTarifa = $("#tipo_tarifaP" + id).val();
+    var Valor1 = $("#valor_tarifa_1" + id).val();
+    var Valor2 = $("#valor_tarifa_2" + id).val();
+    var Valor3 = $("#valor_tarifa_3" + id).val();
+    var Valor4 = $("#valor_tarifa_4" + id).val();
+    var Valor5 = $("#valor_tarifa_5" + id).val();
+    var Year = $("#yearP" + id).val();
+    var Estado = $("#estado_tarifap_activo" + id).val();
+
+    $("#idTarifaP_upd").val(id);
+    $("#mod_tarifaP").val(Tarifa);
+    $("#mod_valor_tarifa_1").val(Valor1);
+    $("#mod_valor_tarifa_2").val(Valor2);
+    $("#mod_valor_tarifa_3").val(Valor3);
+    $("#mod_valor_tarifa_4").val(Valor4);
+    $("#mod_valor_tarifa_5").val(Valor5);
+    $("#mod_yearP").val(Year);
+    $("#mod_tipo_tarifaP").val(TipoTarifa);
+    $("#mod_estado_tarifaP").val(Estado);
+}
+
+function obtener_datos_tarifaG(id) {
+    var Tarifa = $("#tarifaG" + id).val();
+    var TipoTarifa = $("#tipo_tarifaG" + id).val();
+    var Valor1 = $("#valor_tarifa_unica" + id).val();
+    var Year = $("#yearG" + id).val();
+    var Estado = $("#estado_tarifag_activo" + id).val();
+
+    $("#idTarifaG_upd").val(id);
+    $("#mod_tarifaG").val(Tarifa);
+    $("#mod_valor_tarifa_unica").val(Valor1);
+    $("#mod_yearG").val(Year);
+    $("#mod_tipo_tarifaG").val(TipoTarifa);
+    $("#mod_estado_tarifaG").val(Estado);
+}

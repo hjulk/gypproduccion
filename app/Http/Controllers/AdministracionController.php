@@ -511,6 +511,138 @@ class AdministracionController extends Controller
         }
     }
 
+    public function CrearTipoTarifa(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_tipo_tarifa' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoTarifa')->withErrors($validator)->withInput();
+        }else{
+            $NombreTarifa = $request->nombre_tipo_tarifa;
+            $Usuario = (int)Session::get('IdUsuario');
+            $BuscarTarifa = Administracion::BuscarTipoTarifaName($NombreTarifa);
+            if($BuscarTarifa){
+                $verrors = array();
+                array_push($verrors, 'Nombre de tipo de tarifa ya existe');
+                return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $CrearTarifa = Administracion::CrearTipoTarifa($NombreTarifa,$Usuario);
+                if($CrearTarifa){
+                    $verrors = 'Se creo el tipo de tarifa '.$NombreTarifa.' con éxito.';
+                    return Redirect::to($url.'tipoTarifa')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear el tipo de tarifa');
+                    return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarTipoTarifa(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_tipo_tarifa_upd' => 'required',
+            'estado_tipo_tarifa_upd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoTarifa')->withErrors($validator)->withInput();
+        }else{
+            $NombreTarifa = $request->nombre_tipo_tarifa_upd;
+            $Usuario = (int)Session::get('IdUsuario');
+            $Estado = (int)$request->estado_tipo_tarifa_upd;
+            $IdTarifa = (int)$request->id_tipoTarifa;
+            $BuscarTarifa = Administracion::BuscarTipoTarifaNameId($NombreTarifa,$IdTarifa);
+            if($BuscarTarifa){
+                $verrors = array();
+                array_push($verrors, 'Nombre de tipo tarifa ya existe');
+                return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarTarifa = Administracion::ActualizarTipoTarifa($NombreTarifa,$Estado,$Usuario,$IdTarifa);
+                if($ActualizarTarifa){
+                    $verrors = 'Se actualizo el tipo de tarifa '.$NombreTarifa.' con éxito.';
+                    return Redirect::to($url.'tipoTarifa')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar el nombre de tipo tarifa');
+                    return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function CrearNombreTarifa(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_tarifa' => 'required',
+            'tipo_tarifa' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoTarifa')->withErrors($validator)->withInput();
+        }else{
+            $NombreTarifa = $request->nombre_tarifa;
+            $TipoTarifa = $request->tipo_tarifa;
+            $Usuario = (int)Session::get('IdUsuario');
+            $BuscarTarifa = Administracion::BuscarNombreTarifaName($NombreTarifa,$TipoTarifa);
+            if($BuscarTarifa){
+                $verrors = array();
+                array_push($verrors, 'Nombre de tipo de tarifa ya existe');
+                return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $CrearTarifa = Administracion::CrearNombreTarifa($NombreTarifa,$TipoTarifa,$Usuario);
+                if($CrearTarifa){
+                    $verrors = 'Se creo el tipo de tarifa '.$NombreTarifa.' con éxito.';
+                    return Redirect::to($url.'tipoTarifa')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear el tipo de tarifa');
+                    return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarNombreTarifa(Request $request){
+        $url = AdministracionController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_tarifa_upd' => 'required',
+            'tipo_tarifa_upd' => 'required',
+            'estado_nombre_tarifa_upd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'tipoTarifa')->withErrors($validator)->withInput();
+        }else{
+            $NombreTarifa = $request->nombre_tarifa_upd;
+            $TipoTarifa = $request->tipo_tarifa_upd;
+            $Usuario = (int)Session::get('IdUsuario');
+            $Estado = (int)$request->estado_nombre_tarifa_upd;
+            $IdTarifa = (int)$request->id_nombreTarifa;
+            $BuscarTarifa = Administracion::BuscarNombreTarifaNameId($NombreTarifa,$TipoTarifa,$IdTarifa);
+            if($BuscarTarifa){
+                $verrors = array();
+                array_push($verrors, 'Nombre de tarifa ya existe');
+                return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarTarifa = Administracion::ActualizarNombreTarifa($NombreTarifa,$TipoTarifa,$Estado,$Usuario,$IdTarifa);
+                if($ActualizarTarifa){
+                    $verrors = 'Se actualizo el nombre de tarifa '.$NombreTarifa.' con éxito.';
+                    return Redirect::to($url.'tipoTarifa')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar el nombre de tarifa');
+                    return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
     public static function FindUrl(){
         $RolUser = (int)Session::get('Rol');
         if($RolUser === 1){

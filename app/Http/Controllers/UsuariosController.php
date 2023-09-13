@@ -1114,4 +1114,178 @@ class UsuariosController extends Controller
             }
         }
     }
+
+    public function CrearTarifaP(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'tipo_vehiculo'  =>  'required',
+            'valor_tarifa_1'  =>  'required',
+            'valor_tarifa_2'  =>  'required',
+            'valor_tarifa_3'  =>  'required',
+            'valor_tarifa_4'  =>  'required',
+            'valor_tarifa_5'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'tarifasP')->withErrors($validator)->withInput();
+        } else {
+            $tipoVehiculo   = $request->tipo_vehiculo;
+            $valorTarifa1   = $request->valor_tarifa_1;
+            $valorTarifa2   = $request->valor_tarifa_2;
+            $valorTarifa3   = $request->valor_tarifa_3;
+            $valorTarifa4   = $request->valor_tarifa_4;
+            $valorTarifa5   = $request->valor_tarifa_5;
+            $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($tipoVehiculo);
+            if($BuscarNombreTarifa){
+                foreach($BuscarNombreTarifa as $row){
+                    $NombreTarifa = $row->NOMBRE_TARIFA;
+                }
+            }
+            $year = date('Y');
+            $consultaTarifaP = Administracion::ConsultaTarifa($tipoVehiculo, 1, $year);
+            if($consultaTarifaP){
+                $verrors = array();
+                array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
+                return Redirect::to($url.'tarifasP')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $crearTarifa = Administracion::CrearTarifa($tipoVehiculo, 1, $valorTarifa1, $valorTarifa2, $valorTarifa3, $valorTarifa4, $valorTarifa5, null, $IdUser);
+                if($crearTarifa){
+                    $verrors = 'Se cargo con éxito las tarifas para ' . $NombreTarifa.' del año '.$year;
+                    return Redirect::to($url . 'tarifasP')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear las tarifas para '.$NombreTarifa);
+                    return Redirect::to($url . 'tarifasP')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarTarifaP(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'tarifaP_upd'  =>  'required',
+            'valor_tarifa_1_upd'  =>  'required',
+            'valor_tarifa_2_upd'  =>  'required',
+            'valor_tarifa_3_upd'  =>  'required',
+            'valor_tarifa_4_upd'  =>  'required',
+            'valor_tarifa_5_upd'  =>  'required',
+            'estado_tarifaP_upd'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'tarifasP')->withErrors($validator)->withInput();
+        } else {
+            $tipoVehiculo   = $request->tarifaP_upd;
+            $valorTarifa1   = $request->valor_tarifa_1_upd;
+            $valorTarifa2   = $request->valor_tarifa_2_upd;
+            $valorTarifa3   = $request->valor_tarifa_3_upd;
+            $valorTarifa4   = $request->valor_tarifa_4_upd;
+            $valorTarifa5   = $request->valor_tarifa_5_upd;
+            $Estado         = $request->estado_tarifaP_upd;
+            $idTarifa       = $request->id_tarifaP;
+            $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($tipoVehiculo);
+            if($BuscarNombreTarifa){
+                foreach($BuscarNombreTarifa as $row){
+                    $NombreTarifa = $row->NOMBRE_TARIFA;
+                }
+            }
+            $year = date('Y');
+            $consultaTarifaP = Administracion::ConsultaTarifaUpd($tipoVehiculo, 1, $year, $idTarifa);
+            if($consultaTarifaP){
+                $verrors = array();
+                array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
+                return Redirect::to($url.'tarifasP')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $actualizarTarifa = Administracion::ActualizarTarifa($idTarifa, $tipoVehiculo, 1, $valorTarifa1, $valorTarifa2, $valorTarifa3, $valorTarifa4, $valorTarifa5, null, $IdUser, $Estado);
+                if($actualizarTarifa){
+                    $verrors = 'Se actualizo con éxito las tarifas para ' . $NombreTarifa.' del año '.$year;
+                    return Redirect::to($url . 'tarifasP')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar las tarifas para '.$NombreTarifa);
+                    return Redirect::to($url . 'tarifasP')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function CrearTarifaG(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'tipo_vehiculo'  =>  'required',
+            'valor_tarifa_unica'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'tarifasG')->withErrors($validator)->withInput();
+        } else {
+            $tipoVehiculo   = $request->tipo_vehiculo;
+            $valorTarifa    = $request->valor_tarifa_unica;
+            $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($tipoVehiculo);
+            if($BuscarNombreTarifa){
+                foreach($BuscarNombreTarifa as $row){
+                    $NombreTarifa = $row->NOMBRE_TARIFA;
+                }
+            }
+            $year = date('Y');
+            $consultaTarifaG = Administracion::ConsultaTarifa($tipoVehiculo, 2, $year);
+            if($consultaTarifaG){
+                $verrors = array();
+                array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
+                return Redirect::to($url.'tarifasG')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $crearTarifa = Administracion::CrearTarifa($tipoVehiculo, 2, null, null, null, null, null, $valorTarifa, $IdUser);
+                if($crearTarifa){
+                    $verrors = 'Se cargo con éxito la tarifa para ' . $NombreTarifa.' del año '.$year;
+                    return Redirect::to($url . 'tarifasG')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear la tarifa para '.$NombreTarifa);
+                    return Redirect::to($url . 'tarifasG')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
+
+    public function ActualizarTarifaG(Request $request){
+        $url = UsuariosController::FindUrl();
+        $IdUser     = (int)Session::get('IdUsuario');
+        $validator = Validator::make($request->all(), [
+            'tarifaG_upd'  =>  'required',
+            'valor_tarifa_unica_upd'  =>  'required',
+            'estado_tarifaG_upd'  =>  'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'tarifasG')->withErrors($validator)->withInput();
+        } else {
+            $tipoVehiculo   = $request->tarifaG_upd;
+            $valorTarifa    = $request->valor_tarifa_unica_upd;
+            $Estado         = $request->estado_tarifaG_upd;
+            $idTarifa       = $request->id_tarifaG;
+            $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($tipoVehiculo);
+            if($BuscarNombreTarifa){
+                foreach($BuscarNombreTarifa as $row){
+                    $NombreTarifa = $row->NOMBRE_TARIFA;
+                }
+            }
+            $year = date('Y');
+            $consultaTarifaG = Administracion::ConsultaTarifaUpd($tipoVehiculo, 2, $year, $idTarifa);
+            if($consultaTarifaG){
+                $verrors = array();
+                array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
+                return Redirect::to($url.'tarifasG')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $actualizarTarifa = Administracion::ActualizarTarifa($idTarifa, $tipoVehiculo, 2, null, null, null, null, null, $valorTarifa, $IdUser, $Estado);
+                if($actualizarTarifa){
+                    $verrors = 'Se actualizo con éxito la tarifa para ' . $NombreTarifa.' del año '.$year;
+                    return Redirect::to($url . 'tarifasG')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar la tarifa para '.$NombreTarifa);
+                    return Redirect::to($url . 'tarifasG')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }
+        }
+    }
 }

@@ -154,6 +154,29 @@
                     </a>
                 </li>
                 @endif
+                @if((Session::get('Rol') === 1))
+                <li class="nav-item has-treeview" id="asideInicio">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-invoice-dollar" id="enlace"></i>
+                        <p>Tarifas<i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview" id="asideInicio">
+                        <li class="nav-item" id="asideInicio">
+                            <a href="tarifasG" class="nav-link">
+                                <i class="fas fa-truck-pickup nav-icon" id="enlace"></i>
+                                <p>Tarifas Grúa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="tarifasP" class="nav-link">
+                                <i class="fas fa-parking nav-icon" id="enlace"></i>
+                                <p>Tarifas Parqueadero</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>                
+                @endif
                 @if(Session::get('Rol') === 1)
                 <li class="nav-item has-treeview" id="asideInicio">
                     <a href="#" class="nav-link">
@@ -196,6 +219,12 @@
                             <a href="tipoGrua" class="nav-link">
                                 <i class="fas fa-truck nav-icon" id="enlace"></i>
                                 <p>Tipos de Grúa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="asideInicio">
+                            <a href="tipoTarifa" class="nav-link">
+                                <i class="fas fa-comments-dollar nav-icon" id="enlace"></i>
+                                <p>Tipos de Tarifa</p>
                             </a>
                         </li>
                         <li class="nav-item" id="asideInicio">

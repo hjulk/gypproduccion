@@ -1040,4 +1040,244 @@ class AdministradorController extends Controller
             }
         }
     }
+
+    public function TipoTarifa(){
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('/');
+        }else{
+            if($RolUser != 1){
+                return Redirect::to('user/home');
+            }else{
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activo';
+                $Estado[2]  = 'Inactivo';
+                $ListadoTipoTarifas = Administracion::ListadoTipoTarifas();
+                $cont = 0;
+                $TipoTarifas = array();
+                foreach($ListadoTipoTarifas as $value){
+                    $TipoTarifas[$cont]['id'] = $value->ID_TIPO;
+                    $TipoTarifas[$cont]['nombre_tipo_tarifa'] = $value->NOMBRE_TIPO;
+                    $TipoTarifas[$cont]['estado_tipo_tarifa_activo']   = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if ($State === 1) {
+                        $TipoTarifas[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $TipoTarifas[$cont]['label']    = 'badge badge-success';
+                    } else {
+                        $TipoTarifas[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $TipoTarifas[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $TipoTarifas[$cont]['fecha_cargue']  = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_ACTUALIZACION){
+                        $TipoTarifas[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_ACTUALIZACION));
+                    }else{
+                        $TipoTarifas[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $cont++;
+                }
+                $ListadoNombreTarifas = Administracion::ListadoNombreTarifas();
+                $cont = 0;
+                $NombreTarifas = array();
+                foreach($ListadoNombreTarifas as $value){
+                    $NombreTarifas[$cont]['id'] = $value->ID_TARIFA;
+                    $NombreTarifas[$cont]['nombre_tarifa'] = $value->NOMBRE_TARIFA;
+		            $NombreTarifas[$cont]['tipo_tarifa'] = (int)$value->TIPO_TARIFA;
+                    $NombreTarifas[$cont]['estado_nombre_tarifa_activo'] = (int)$value->ESTADO;
+                    $tipoTarifa = (int)$value->TIPO_TARIFA;
+                    $BuscarTipoTarifaId = Administracion::BuscarTipoTarifaId($tipoTarifa);
+                    if($BuscarTipoTarifaId){
+                        foreach($BuscarTipoTarifaId as $row){
+                        $NombreTarifas[$cont]['nombre_tipo_tarifa'] = $row->NOMBRE_TIPO;
+                        }
+                    }else{
+                        $NombreTarifas[$cont]['nombre_tipo_tarifa'] = 'SIN TIPO DE TARIFA';
+                    }
+                    $State  = (int)$value->ESTADO;
+                    if ($State === 1) {
+                        $NombreTarifas[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $NombreTarifas[$cont]['label']    = 'badge badge-success';
+                    } else {
+                        $NombreTarifas[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $NombreTarifas[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $NombreTarifas[$cont]['fecha_cargue']  = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_ACTUALIZACION){
+                        $NombreTarifas[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_ACTUALIZACION));
+                    }else{
+                        $NombreTarifas[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $cont++;
+                }
+                $ListadoTipoTarifasActivo = Administracion::ListadoTipoTarifasActivo();
+                $TipoTarfifaActivo = array();
+                $TipoTarfifaActivo[''] = 'Seleccione:';
+                if ($ListadoTipoTarifasActivo) {
+                    foreach ($ListadoTipoTarifasActivo as $row) {
+                        $TipoTarfifaActivo[$row->ID_TIPO] = $row->NOMBRE_TIPO;
+                    }
+                }
+                return view('administracion.tipoTarifa',['TipoTarifa' => $TipoTarifas, 'Estado' => $Estado, 'TipoTarfifaActivo' => $TipoTarfifaActivo, 'NombreTarifa' => $NombreTarifas]);
+            }
+        }
+    }
+
+    public function TarifasP(){
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('/');
+        }else{
+            if($RolUser != 1){
+                return Redirect::to('user/home');
+            }else{
+                setlocale(LC_MONETARY, 'es_CO.UTF-8');
+                $yearNow = date('Y');
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activo';
+                $Estado[2]  = 'Inactivo';
+                $TipoTarifaP = array();
+                $TipoTarifaP[''] = 'Seleccione:';
+                $listadoTipoTarifa = Administracion::ListadoTipoTarifa(1);
+                if($listadoTipoTarifa){
+                    foreach($listadoTipoTarifa as $row){
+                        $TipoTarifaP[$row->ID_TARIFA] = $row->NOMBRE_TARIFA;
+                    }
+                }
+                $OrdenTarifaP = Administracion::OrdenTarifaPage(1,$yearNow);
+                if($OrdenTarifaP){
+                    foreach($OrdenTarifaP as $value){
+                        unset($TipoTarifaP[$value->TARIFA]);
+                    }
+                }
+                $listadoTipoTarifaP = Administracion::ListTipoTarifa(1);
+                $TarifaP = array();
+                $cont = 0;
+                foreach($listadoTipoTarifaP as $value){
+                    $TarifaP[$cont]['id'] = (int)$value->ID_TARIFA;
+                    $TarifaP[$cont]['tarifa'] = $value->TARIFA;
+                    $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($value->TARIFA);
+                    if($BuscarNombreTarifa){
+                        foreach($BuscarNombreTarifa as $row){
+                            $TarifaP[$cont]['nombre_tarifa'] = $row->NOMBRE_TARIFA;
+                        }
+                    }else{
+                        $TarifaP[$cont]['nombre_tarifa'] = 'SIN NOMBRE DE TARIFA';
+                    }
+		            $TarifaP[$cont]['tipo_tarifa'] = (int)$value->TIPO_TARIFA;
+                    $TarifaP[$cont]['estado_tarifap_activo'] = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if ($State === 1) {
+                        $TarifaP[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $TarifaP[$cont]['label']    = 'badge badge-success';
+                    } else {
+                        $TarifaP[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $TarifaP[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $TarifaP[$cont]['fecha_creacion']  = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_ACTUALIZACION){
+                        $TarifaP[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_ACTUALIZACION));
+                    }else{
+                        $TarifaP[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $TarifaP[$cont]['year'] = (int)$value->YEAR;
+                    $TarifaP[$cont]['valor_tarifa_1'] = $value->VALOR_TARIFA_1;
+                    $TarifaP[$cont]['valor_tarifa_2'] = $value->VALOR_TARIFA_2;
+                    $TarifaP[$cont]['valor_tarifa_3'] = $value->VALOR_TARIFA_3;
+                    $TarifaP[$cont]['valor_tarifa_4'] = $value->VALOR_TARIFA_4;
+                    $TarifaP[$cont]['valor_tarifa_5'] = $value->VALOR_TARIFA_5;
+                    $TarifaP[$cont]['valor_1'] = '$'.number_format((int)$value->VALOR_TARIFA_1,'0',',','.');
+                    $TarifaP[$cont]['valor_2'] = '$'.number_format((int)$value->VALOR_TARIFA_2,'0',',','.');
+                    $TarifaP[$cont]['valor_3'] = '$'.number_format((int)$value->VALOR_TARIFA_3,'0',',','.');
+                    $TarifaP[$cont]['valor_4'] = '$'.number_format((int)$value->VALOR_TARIFA_4,'0',',','.');
+                    $TarifaP[$cont]['valor_5'] = '$'.number_format((int)$value->VALOR_TARIFA_5,'0',',','.');
+                    $cont++;
+                }
+                $TipoTarifaPUpd = array();
+                $TipoTarifaPUpd[''] = 'Seleccione:';
+                $listadoTipoTarifaUpd = Administracion::ListadoTipoTarifa(1);
+                if($listadoTipoTarifaUpd){
+                    foreach($listadoTipoTarifaUpd as $row){
+                        $TipoTarifaPUpd[$row->ID_TARIFA] = $row->NOMBRE_TARIFA;
+                    }
+                }
+                return view('administracion.tarifasP',['Estado' => $Estado, 'TipoTarifaP' => $TipoTarifaP, 'TarifaP' => $TarifaP, 'yearNow' => $yearNow, 'TipoTarifaPUpd' => $TipoTarifaPUpd]);
+            }
+        }
+    }
+
+    public function TarifasG(){
+        $RolUser        = (int)Session::get('Rol');
+        if($RolUser === 0){
+            return Redirect::to('/');
+        }else{
+            if($RolUser != 1){
+                return Redirect::to('user/home');
+            }else{
+                $yearNow = date('Y');
+                $Estado = array();
+                $Estado[''] = 'Seleccione:';
+                $Estado[1]  = 'Activo';
+                $Estado[2]  = 'Inactivo';
+                $TipoTarifaG = array();
+                $TipoTarifaG[''] = 'Seleccione:';
+                $listadoTipoTarifa = Administracion::ListadoTipoTarifa(2);
+                if($listadoTipoTarifa){
+                    foreach($listadoTipoTarifa as $row){
+                        $TipoTarifaG[$row->ID_TARIFA] = $row->NOMBRE_TARIFA;
+                    }
+                }
+                $OrdenTarifaG = Administracion::OrdenTarifaPage(2,$yearNow);
+                if($OrdenTarifaG){
+                    foreach($OrdenTarifaG as $value){
+                        unset($TipoTarifaG[$value->TARIFA]);
+                    }
+                }
+                $listadoTipoTarifaG = Administracion::ListTipoTarifa(2);
+                $TarifaG = array();
+                $cont = 0;
+                foreach($listadoTipoTarifaG as $value){
+                    $TarifaG[$cont]['id'] = (int)$value->ID_TARIFA;
+                    $TarifaG[$cont]['tarifa'] = $value->TARIFA;
+                    $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($value->TARIFA);
+                    if($BuscarNombreTarifa){
+                        foreach($BuscarNombreTarifa as $row){
+                            $TarifaG[$cont]['nombre_tarifa'] = $row->NOMBRE_TARIFA;
+                        }
+                    }else{
+                        $TarifaG[$cont]['nombre_tarifa'] = 'SIN NOMBRE DE TARIFA';
+                    }
+		            $TarifaG[$cont]['tipo_tarifa'] = (int)$value->TIPO_TARIFA;
+                    $TarifaG[$cont]['estado_tarifag_activo'] = (int)$value->ESTADO;
+                    $State  = (int)$value->ESTADO;
+                    if ($State === 1) {
+                        $TarifaG[$cont]['estado']   = 'ACTIVO EN PÁGINA';
+                        $TarifaG[$cont]['label']    = 'badge badge-success';
+                    } else {
+                        $TarifaG[$cont]['estado']   = 'INACTIVO EN PÁGINA';
+                        $TarifaG[$cont]['label']    = 'badge badge-danger';
+                    }
+                    $TarifaG[$cont]['fecha_creacion']  = date('d/m/Y h:i A', strtotime($value->FECHA_CREACION));
+                    if($value->FECHA_ACTUALIZACION){
+                        $TarifaG[$cont]['fecha_modificacion']    = date('d/m/Y h:i A', strtotime($value->FECHA_ACTUALIZACION));
+                    }else{
+                        $TarifaG[$cont]['fecha_modificacion']    = 'SIN FECHA DE ACTUALIZACIÓN';
+                    }
+                    $TarifaG[$cont]['year'] = (int)$value->YEAR;
+                    $TarifaG[$cont]['valor_tarifa_unica'] = $value->VALOR_UNICO;
+                    $TarifaG[$cont]['valor_unico'] = '$'.number_format((int)$value->VALOR_UNICO,'0',',','.');
+                    $cont++;
+                }
+                $TipoTarifaGUpd = array();
+                $TipoTarifaGUpd[''] = 'Seleccione:';
+                $listadoTipoTarifaUpd = Administracion::ListadoTipoTarifa(2);
+                if($listadoTipoTarifaUpd){
+                    foreach($listadoTipoTarifaUpd as $row){
+                        $TipoTarifaGUpd[$row->ID_TARIFA] = $row->NOMBRE_TARIFA;
+                    }
+                }
+                return view('administracion.tarifasG',['Estado' => $Estado, 'TipoTarifaG' => $TipoTarifaG, 'yearNow' => $yearNow, 'TipoTarifaGUpd' => $TipoTarifaGUpd, 'TarifaG' => $TarifaG]);
+            }
+        }
+    }
 }

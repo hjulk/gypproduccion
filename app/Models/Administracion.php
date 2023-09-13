@@ -985,7 +985,6 @@ class Administracion extends Model
     }
 
     public static function ConsultaTituloPregunta($tituloPregunta){
-        // dd("SELECT * FROM preguntas_frecuentes WHERE TITULO_PREGUNTA = '$tituloPregunta' AND ESTADO = 1");
         $ConsultaTituloPregunta = DB::Select("SELECT * FROM preguntas_frecuentes WHERE TITULO_PREGUNTA = '$tituloPregunta' AND ESTADO = 1");
         return $ConsultaTituloPregunta;
     }
@@ -1019,4 +1018,197 @@ class Administracion extends Model
                                         [$tituloPregunta, $contenido, $estado, $fechaCreacion, $IdUser, $idPregunta]);
         return $ActualizarPagina;
     }
+
+    public static function ListadoTipoTarifas(){
+        $ListadoTipoTarifas = DB::Select("SELECT * FROM tipo_tarifa ORDER BY NOMBRE_TIPO");
+        return $ListadoTipoTarifas;
+    }
+
+    public static function ListadoTipoTarifasActivo(){
+        $ListadoTipoTarifas = DB::Select("SELECT * FROM tipo_tarifa WHERE ESTADO = 1 ORDER BY NOMBRE_TIPO");
+        return $ListadoTipoTarifas;
+    }
+
+    public static function BuscarTipoTarifaName($NombreTarifa){
+        $ListadoTipoTarifas = DB::Select("SELECT * FROM tipo_tarifa WHERE NOMBRE_TIPO = '$NombreTarifa'");
+        return $ListadoTipoTarifas;
+    }    
+
+    public static function CrearTipoTarifa($NombreTarifa,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearTarifa = DB::insert('INSERT INTO tipo_tarifa (NOMBRE_TIPO, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                        VALUES (?,?,?,?)',
+                                        [$NombreTarifa,1,$fechaCreacion,$Usuario]);
+        return $CrearTarifa;
+    }
+    
+    public static function BuscarTipoTarifaNameId($NombreTarifa,$IdTarifa){
+        $ListadoTipoTarifas = DB::Select("SELECT * FROM tipo_tarifa
+        WHERE NOMBRE_TIPO = '$NombreTarifa'
+        AND ID_TIPO NOT IN ($IdTarifa)");
+        return $ListadoTipoTarifas;
+    }
+
+    public static function ActualizarTipoTarifa($NombreTarifa,$Estado,$Usuario,$IdTarifa)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $ActualizarTarifa = DB::update(
+            'UPDATE tipo_tarifa SET
+            NOMBRE_TIPO = ?,
+            ESTADO = ?,
+            FECHA_ACTUALIZACION = ?,
+            USUARIO_ACTUALIZACION = ?
+            WHERE ID_TIPO = ?',
+            [$NombreTarifa, $Estado, $fechaCreacion, $Usuario, $IdTarifa]
+        );
+        return $ActualizarTarifa;
+    }
+
+    public static function ListadoNombreTarifas(){
+        $ListadoNombreTarifas = DB::Select("SELECT * FROM nombre_tarifas ORDER BY NOMBRE_TARIFA, TIPO_TARIFA");
+        return $ListadoNombreTarifas;
+    }
+
+    public static function ListadoNombreTarifasActivo(){
+        $ListadoNombreTarifas = DB::Select("SELECT * FROM nombre_tarifas WHERE ESTADO = 1 ORDER BY NOMBRE_TARIFA");
+        return $ListadoNombreTarifas;
+    }
+
+    public static function BuscarNombreTarifaName($NombreTarifa,$TipoTarifa){
+        $ListadoNombreTarifas = DB::Select("SELECT * FROM nombre_tarifas WHERE NOMBRE_TARIFA = '$NombreTarifa' AND TIPO_TARIFA = $TipoTarifa");
+        return $ListadoNombreTarifas;
+    }    
+
+    public static function CrearNombreTarifa($NombreTarifa,$TipoTarifa,$Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $CrearTarifa = DB::insert('INSERT INTO nombre_tarifas (NOMBRE_TARIFA, TIPO_TARIFA, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                   VALUES (?,?,?,?,?)',
+                                        [$NombreTarifa,$TipoTarifa,1,$fechaCreacion,$Usuario]);
+        return $CrearTarifa;
+    }
+
+    public static function BuscarTipoTarifaId($IdTarifa){
+        $ListadoTipoTarifas = DB::Select("SELECT * FROM tipo_tarifa WHERE ID_TIPO = $IdTarifa");
+        return $ListadoTipoTarifas;
+    }
+    
+    public static function BuscarNombreTarifaNameId($NombreTarifa,$TipoTarifa,$IdTarifa){
+        $ListadoNombreTarifas = DB::Select("SELECT * FROM nombre_tarifas
+        WHERE NOMBRE_TARIFA = '$NombreTarifa'
+        AND TIPO_TARIFA = $TipoTarifa
+        AND ID_TARIFA NOT IN ($IdTarifa)");
+        return $ListadoNombreTarifas;
+    }
+
+    public static function ActualizarNombreTarifa($NombreTarifa,$TipoTarifa,$Estado,$Usuario,$IdTarifa)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $ActualizarTarifa = DB::update(
+            'UPDATE nombre_tarifas SET
+            NOMBRE_TARIFA = ?,
+            TIPO_TARIFA = ?,
+            ESTADO = ?,
+            FECHA_ACTUALIZACION = ?,
+            USUARIO_ACTUALIZACION = ?
+            WHERE ID_TARIFA = ?',
+            [$NombreTarifa, $TipoTarifa, $Estado, $fechaCreacion, $Usuario, $IdTarifa]
+        );
+        return $ActualizarTarifa;
+    }
+
+    public static function OrdenTarifaPage($tipoTarifa,$year){
+        $OrdenTarifaPage = DB::Select("SELECT * FROM tarifas WHERE TIPO_TARIFA = $tipoTarifa AND ESTADO = 1 and YEAR = $year");
+        return $OrdenTarifaPage;
+    }
+
+    public static function ListadoTipoTarifa($tipoTarifa){
+        $ListadoTipoTarifa = DB::Select("SELECT * FROM nombre_tarifas WHERE TIPO_TARIFA = $tipoTarifa AND ESTADO = 1 ORDER BY NOMBRE_TARIFA");
+        return $ListadoTipoTarifa;
+    }
+
+    public static function ListTipoTarifa($tipoTarifa){
+        $ListadoTipoTarifa = DB::Select("SELECT * FROM tarifas WHERE TIPO_TARIFA = $tipoTarifa");
+        return $ListadoTipoTarifa;
+    }
+
+    public static function BuscarNombreTarifa($tarifa){
+        $ListadoTipoTarifa = DB::Select("SELECT * FROM nombre_tarifas WHERE ID_TARIFA = $tarifa");
+        return $ListadoTipoTarifa;
+    }
+
+    public static function ConsultaTarifa($tipoVehiculo, $tipoTarifa, $year){
+        $ConsultaTarifa = DB::Select("SELECT * FROM tarifas WHERE TARIFA = $tipoVehiculo AND TIPO_TARIFA = $tipoTarifa AND YEAR = $year AND ESTADO = 1");
+        return $ConsultaTarifa;
+    }
+
+    public static function CrearTarifa($tipoVehiculo, $tipoTarifa, $valor1, $valor2, $valor3, $valor4, $valor5, $vaorUnico, $Usuario){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $year = date('Y');
+        DB::Update("UPDATE tarifas SET ESTADO = 2, FECHA_ACTUALIZACION = '$fechaCreacion', USUARIO_MODIFICACION = $Usuario WHERE TARIFA = $tipoVehiculo AND YEAR < $year AND TIPO_TARIFA = $tipoTarifa");
+        switch($tipoTarifa){
+            case 1: $CrearTarifa = DB::Insert('INSERT INTO tarifas (TARIFA, TIPO_TARIFA, VALOR_TARIFA_1, VALOR_TARIFA_2, VALOR_TARIFA_3, VALOR_TARIFA_4, VALOR_TARIFA_5, YEAR, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                                VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                                                [$tipoVehiculo,$tipoTarifa,$valor1,$valor2,$valor3,$valor4,$valor5,$year,1,$fechaCreacion,$Usuario]);
+                    break;
+            case 2: $CrearTarifa = DB::Insert('INSERT INTO tarifas (TARIFA, TIPO_TARIFA, VALOR_UNICO, YEAR, ESTADO, FECHA_CREACION, USUARIO_CREACION)
+                                                VALUES (?,?,?,?,?,?,?)',
+                                                [$tipoVehiculo,$tipoTarifa,$vaorUnico,$year,1,$fechaCreacion,$Usuario]);
+                    break;
+        }
+
+        return $CrearTarifa;
+    }
+
+    public static function ConsultaTarifaUpd($tipoVehiculo, $tipoTarifa, $year, $idTarifa){
+        $ConsultaTarifa = DB::Select("SELECT * FROM tarifas WHERE TARIFA = $tipoVehiculo AND TIPO_TARIFA = $tipoTarifa AND YEAR = $year AND ESTADO = 1 AND ID_TARIFA NOT IN ($idTarifa)");
+        return $ConsultaTarifa;
+    }
+
+    public static function ActualizarTarifa($idTarifa, $tipoVehiculo, $tipoTarifa, $valor1, $valor2, $valor3, $valor4, $valor5, $vaorUnico, $Usuario, $Estado){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i');
+        $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
+        $year = date('Y');
+        switch($tipoTarifa){
+            case 1: $CrearTarifa = DB::Update('UPDATE tarifas
+                                                SET VALOR_TARIFA_1 = ?,
+                                                VALOR_TARIFA_2 = ?,
+                                                VALOR_TARIFA_3 = ?,
+                                                VALOR_TARIFA_4 = ?,
+                                                VALOR_TARIFA_5 = ?,
+                                                ESTADO = ?,
+                                                YEAR = ?,
+                                                FECHA_ACTUALIZACION = ?,
+                                                USUARIO_MODIFICACION = ?
+                                                WHERE TARIFA = ?
+                                                AND TIPO_TARIFA = ?
+                                                AND ID_TARIFA = ?',
+                                                [$valor1,$valor2,$valor3,$valor4,$valor5,$Estado,$year,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
+                    break;
+            case 2: $CrearTarifa = DB::Update('UPDATE tarifas
+                                            SET VALOR_UNICO = ?,
+                                            ESTADO = ?,
+                                            YEAR = ?,
+                                            FECHA_ACTUALIZACION = ?,
+                                            USUARIO_MODIFICACION = ?
+                                            WHERE TARIFA = ?
+                                            AND TIPO_TARIFA = ?
+                                            AND ID_TARIFA = ?',
+                                            [$vaorUnico,$Estado,$year,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
+                    break;
+        }
+
+        return $CrearTarifa;
+    }
+
 }
