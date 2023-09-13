@@ -263,4 +263,19 @@ class GYPBogota extends Model
     public static function UpdateEndYearImage(){
         DB::Update("UPDATE imagenes_inicio SET ESTADO = 2 WHERE TIPO_IMAGEN = 2 AND END_YEAR = 1 AND ESTADO 1");
     }
+
+    public static function ListNombreTarifa($tipoTarifa, $year){
+        $nombreTarifa = DB::Select("SELECT * FROM nombre_tarifas WHERE TIPO_TARIFA = $tipoTarifa AND ESTADO = 1 ORDER BY ID_TARIFA");
+        return $nombreTarifa;
+    }
+
+    public static function ListTipoTarifa($tipoTarifa, $year, $tarifa){
+        $ListTipoTarifa = DB::Select("SELECT * FROM tarifas WHERE TIPO_TARIFA = $tipoTarifa AND ESTADO = 1 AND YEAR = $year AND TARIFA = $tarifa");
+        return $ListTipoTarifa;
+    }
+
+    public static function BuscarNombreTarifa($tarifa){
+        $ListadoTipoTarifa = DB::Select("SELECT * FROM nombre_tarifas WHERE ID_TARIFA = $tarifa");
+        return $ListadoTipoTarifa;
+    }
 }

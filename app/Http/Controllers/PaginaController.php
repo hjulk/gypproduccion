@@ -274,7 +274,54 @@ class PaginaController extends Controller
         $PoliticaHSEQ = PaginaController::PoliticaHSEQSer();
         $Organigrama = PaginaController::OrganigramaSer();
         $ImgTarifas = GYPBogota::ImgTarifas();
-        return view('servicios.tarifas', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama, 'ImgTarifas' => $ImgTarifas]);
+        $year = date('Y');
+        $ListNombreTarifaP = GYPBogota::ListNombreTarifa(1, $year);
+        $ListNombreTarifaG = GYPBogota::ListNombreTarifa(2, $year);
+
+        $TarifaP = array();
+        $cont = 0;
+        foreach($ListNombreTarifaP as $value){
+            $listadoTipoTarifaP = GYPBogota::ListTipoTarifa(1, $year, $value->ID_TARIFA);
+            foreach($listadoTipoTarifaP as $row);{
+                $TarifaP[$cont]['ID_TARIFA'] = $row->ID_TARIFA;
+                $TarifaP[$cont]['TARIFA'] = $row->TARIFA;
+                $TarifaP[$cont]['VALOR_TARIFA_1'] = '$'.number_format((int)$row->VALOR_TARIFA_1,'0',',','.');
+                $TarifaP[$cont]['VALOR_TARIFA_2'] = '$'.number_format((int)$row->VALOR_TARIFA_2,'0',',','.');
+                $TarifaP[$cont]['VALOR_TARIFA_3'] = '$'.number_format((int)$row->VALOR_TARIFA_3,'0',',','.');
+                $TarifaP[$cont]['VALOR_TARIFA_4'] = '$'.number_format((int)$row->VALOR_TARIFA_4,'0',',','.');
+                $TarifaP[$cont]['VALOR_TARIFA_5'] = '$'.number_format((int)$row->VALOR_TARIFA_5,'0',',','.');
+                $BuscarNombreTarifa = GYPBogota::BuscarNombreTarifa($row->TARIFA);
+                if($BuscarNombreTarifa){
+                    foreach($BuscarNombreTarifa as $row){
+                        $TarifaP[$cont]['NOMBRE_TARIFA'] = $row->NOMBRE_TARIFA;
+                    }
+                }else{
+                    $TarifaP[$cont]['NOMBRE_TARIFA'] = 'SIN NOMBRE DE TARIFA';
+                }
+            }
+            $cont++;
+        }
+        $TarifaG = array();
+        $cont = 0;
+        foreach($ListNombreTarifaG as $value){
+            $listadoTipoTarifaG = GYPBogota::ListTipoTarifa(2, $year, $value->ID_TARIFA);
+            foreach($listadoTipoTarifaG as $row);{
+                $TarifaG[$cont]['ID_TARIFA'] = $row->ID_TARIFA;
+                $TarifaG[$cont]['TARIFA'] = $row->TARIFA;
+                $TarifaG[$cont]['VALOR_UNICO'] = '$'.number_format((int)$row->VALOR_UNICO,'0',',','.');
+                $BuscarNombreTarifa = GYPBogota::BuscarNombreTarifa($row->TARIFA);
+                if($BuscarNombreTarifa){
+                    foreach($BuscarNombreTarifa as $row){
+                        $TarifaG[$cont]['NOMBRE_TARIFA'] = $row->NOMBRE_TARIFA;
+                    }
+                }else{
+                    $TarifaG[$cont]['NOMBRE_TARIFA'] = 'SIN NOMBRE DE TARIFA';
+                }
+            }
+            $cont++;
+        }
+        return view('servicios.tarifas', ['PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama, 'ImgTarifas' => $ImgTarifas,
+                    'TarifaG' => $TarifaG, 'TarifaP' => $TarifaP]);
     }
 
     public function MonitoreoCamara()

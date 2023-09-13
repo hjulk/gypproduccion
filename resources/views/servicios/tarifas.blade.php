@@ -63,7 +63,17 @@
                             <td tabindex="0">Tarifa d&iacute;a 31+</td>
                         </thead>
                         <tbody>
-                            <tr>
+                            @foreach ($TarifaP as $value)
+                                <tr>
+                                    <td tabindex="0">{{ $value['NOMBRE_TARIFA'] }}</td>
+                                    <td tabindex="0"><b>{{ $value['VALOR_TARIFA_1'] }}</b></td>
+                                    <td tabindex="0"><b>{{ $value['VALOR_TARIFA_2'] }}</b></td>
+                                    <td tabindex="0"><b>{{ $value['VALOR_TARIFA_3'] }}</b></td>
+                                    <td tabindex="0"><b>{{ $value['VALOR_TARIFA_4'] }}</b></td>
+                                    <td tabindex="0"><b>{{ $value['VALOR_TARIFA_5'] }}</b></td>
+                                </tr>
+                            @endforeach
+                            {{-- <tr>
                                 <td tabindex="0">Motocicletas y similares</td>
                                 <td tabindex="0"><b>$36.000</b></td>
                                 <td tabindex="0"><b>$49.900</b></td>
@@ -110,7 +120,7 @@
                                 <td tabindex="0"><b>$10.900</b></td>
                                 <td tabindex="0"><b>$5.100</b></td>
                                 <td tabindex="0"><b>$1.600</b></td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -133,7 +143,13 @@
                             <td tabindex="0">Tarifa</td>
                         </thead>
                         <tbody>
-                            <tr>
+                            @foreach ($TarifaG as $value)
+                                <tr>
+                                    <td tabindex="0">{{ $value['NOMBRE_TARIFA'] }}</td>
+                                    <td tabindex="0">{{ $value['VALOR_UNICO'] }}</td>
+                                </tr>
+                            @endforeach
+                            {{-- <tr>
                                 <td tabindex="0">Patinetas con o sin motor</td>
                                 <td tabindex="0">$46.400</td>
                             </tr>
@@ -152,7 +168,7 @@
                             <tr>
                                 <td tabindex="0">Veh&iacute;culo pesado</td>
                                 <td tabindex="0">$398.300</td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>

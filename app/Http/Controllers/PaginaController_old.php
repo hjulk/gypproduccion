@@ -98,7 +98,7 @@ class PaginaController extends Controller
         return view('servicios.procesoRetiro');
     }
 
-    public function Tarifas(){
+    public function Tarifas(){        
         return view('servicios.tarifas');
     }
 
