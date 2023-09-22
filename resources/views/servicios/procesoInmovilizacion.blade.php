@@ -62,7 +62,7 @@
             <div id="pasosInmovilizacion2" class="reverse">
                 <div class="textPR">
                     <p id="textProcesoInmovilizacion" tabindex="0">
-                        Dirígete al lugar indicado en tu cita con los documentos solicitados para el trámite.
+                        Al llegar, el operador de grúa registra el estado del vehículo en video y genera un inventario digital del mismo.
                     </p>
                 </div>
                 <div class="imgPR">
@@ -83,14 +83,14 @@
                 </div>
                 <div class="textPR">
                     <p id="textProcesoInmovilizacion" tabindex="0">
-                        Realiza el pago por concepto de patios y grúas en las entidades bancarias (Banco de Occidente), corresponsales no bancarios o pago electrónico (PSE).
+                        El vehículo es sellado en las puertas, capó, baúl y tanque de combustible en las motocicletas.
                     </p>
                 </div>
             </div>
             <div id="pasosInmovilizacion2" class="reverse">
                 <div class="textPR">
                     <p id="textProcesoInmovilizacion" tabindex="0">
-                        Dirígete a nuestro parqueadero Transversal 93 # 53 - 35 con la orden de salida y la liquidación.
+                        Se procede a realizar un cargue seguro del vehículo y se traslada al patio donde es ubicado según su topología.
                     </p>
                 </div>
                 <div class="imgPR">

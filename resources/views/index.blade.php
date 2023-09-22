@@ -243,11 +243,7 @@
                 </div>
                 <div class="col-md-10">
                     <p id="subtitleBannerVideo" tabindex="0">¡Ciudadano, recuerda!</p>
-                    <p id="textBannerVideo" tabindex="0">Los trámites y asesorías correspondientes al retiro del
-                        vehículo inmovilizado en patio, son gratuitos,
-                        no requieren tramitadores.<br>
-                        Si has sido victima de estafa, presenta tu denuncia en <a
-                            href="mailto:denuncias@gypbogota.com">denuncias@gypbogota.com</a></p>
+                    <p id="textBannerVideoH" tabindex="0">Realizar el agendamiento para Salida de Patios es GRATIS y no requiere intermediarios.</p>
                 </div>
             </div>
         </div>

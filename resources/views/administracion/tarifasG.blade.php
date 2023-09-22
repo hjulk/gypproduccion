@@ -3,13 +3,12 @@
 @section('titulo')
 Tarifas Grúa
 @endsection
-
 @section('contenido')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><i class="fas fa-truck-pickup nav-icon" id="enlace"></i> Servicio de grúas en la ciudad de Bogotá.</h1>
+                <h1 class="m-0 text-dark"><i class="fas fa-file nav-icon" id="enlace"></i> Servicio de grúas en la ciudad de Bogotá.</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -20,52 +19,49 @@ Tarifas Grúa
         </div>
     </div>
 </section>
+<br>
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header" id="principalCard">
-                                <h3 class="card-title" id="tituloCard"><strong>Servicio de grúas en la ciudad de Bogotá.</strong></h3>
-                            </div>
-                            <div class="card-body">
-                                {!! Form::open(['url' => 'crearTarifaG', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion']) !!}
-                                @csrf
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Tipo Vehículo</label>
-                                                {!! Form::select('tipo_vehiculo',$TipoTarifaG,null,['class'=>'form-control','id'=>'tipo_vehiculo','required']) !!}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="exampleInputEmail1">Tarifa Grúa</label>
-                                                {!! Form::text('valor_tarifa_unica',null,['class'=>'form-control CurrencyInput','id'=>'valor_tarifa_unica','onkeypress'=>'return numero(event);']) !!}
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label>Año Tarifa</label>
-                                                {!! Form::text('year_tarifa',$yearNow,['class'=>'form-control','id'=>'year_tarifa','readonly']) !!}
-                                            </div>
-                                        </div>
+                <div class="card">
+                    <div class="card-header" id="principalCard">
+                        <h3 class="card-title" id="tituloCard"><strong>Servicio de grúas en la ciudad de Bogotá.</strong></h3>
+                    </div>
+                    <div class="card-body">
+                        {!! Form::open(['url' => 'crearTarifaG', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-notificacion']) !!}
+                        @csrf
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Tipo Vehículo</label>
+                                        {!! Form::select('tipo_vehiculo',$TipoTarifaG,null,['class'=>'form-control','id'=>'tipo_vehiculo','required']) !!}
                                     </div>
-                                    <div class="box-footer">
-                                        <button type="submit" class="btn btn-success float-left">Cargar</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="exampleInputEmail1">Tarifa Grúa</label>
+                                        {!! Form::text('valor_tarifa_unica',null,['class'=>'form-control CurrencyInput','id'=>'valor_tarifa_unica','onkeypress'=>'return numero(event);']) !!}
                                     </div>
-                                {!!  Form::close() !!}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Año Tarifa</label>
+                                        {!! Form::text('year_tarifa',$yearNow,['class'=>'form-control','id'=>'year_tarifa','readonly']) !!}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success float-left">Crear Tarifa de Grúa</button>
+                            </div>
+                        {!!  Form::close() !!}
                     </div>
                 </div>
-            </div>            
+            </div>
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <table id="tarifaG" class="display table dt-responsive nowrap" style="width: 100%;">
+                        <table id="organigrama" class="display table dt-responsive nowrap" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -102,7 +98,7 @@ Tarifas Grúa
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </section>
 @include("modals.modalTarifaG")

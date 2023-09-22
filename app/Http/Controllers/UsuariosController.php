@@ -1184,6 +1184,7 @@ class UsuariosController extends Controller
             $valorTarifa5   = $request->valor_tarifa_5_upd;
             $Estado         = $request->estado_tarifaP_upd;
             $idTarifa       = $request->id_tarifaP;
+            $yearTarifa     = $request->year_tarifa_upd;
             $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($tipoVehiculo);
             if($BuscarNombreTarifa){
                 foreach($BuscarNombreTarifa as $row){
@@ -1192,12 +1193,20 @@ class UsuariosController extends Controller
             }
             $year = date('Y');
             $consultaTarifaP = Administracion::ConsultaTarifaUpd($tipoVehiculo, 1, $year, $idTarifa);
+            $consultaTarifaP1 = Administracion::ConsultaTarifaUpd1($tipoVehiculo, 2, $year, $idTarifa);
             if($consultaTarifaP){
                 $verrors = array();
                 array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
                 return Redirect::to($url.'tarifasP')->withErrors(['errors' => $verrors])->withInput();
+            }else if($consultaTarifaP1){
+                foreach($consultaTarifaP1 as $row){
+                    $yearTarifa = $row->YEAR;
+                }
+                $verrors = array();
+                array_push($verrors, 'Tarifa para '.$NombreTarifa.' ya se encuentra creada para el año '.$yearTarifa.', para activar esta tarifa, por favor inactive la tarifa del año '.$yearTarifa);
+                return Redirect::to($url.'tarifasP')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $actualizarTarifa = Administracion::ActualizarTarifa($idTarifa, $tipoVehiculo, 1, $valorTarifa1, $valorTarifa2, $valorTarifa3, $valorTarifa4, $valorTarifa5, null, $IdUser, $Estado);
+                $actualizarTarifa = Administracion::ActualizarTarifa($idTarifa, $tipoVehiculo, 1, $valorTarifa1, $valorTarifa2, $valorTarifa3, $valorTarifa4, $valorTarifa5, null, $IdUser, $Estado, $yearTarifa);
                 if($actualizarTarifa){
                     $verrors = 'Se actualizo con éxito las tarifas para ' . $NombreTarifa.' del año '.$year;
                     return Redirect::to($url . 'tarifasP')->with('mensaje', $verrors);
@@ -1263,6 +1272,7 @@ class UsuariosController extends Controller
             $valorTarifa    = $request->valor_tarifa_unica_upd;
             $Estado         = $request->estado_tarifaG_upd;
             $idTarifa       = $request->id_tarifaG;
+            $yearTarifa     = $request->year_tarifa_upd;
             $BuscarNombreTarifa = Administracion::BuscarNombreTarifa($tipoVehiculo);
             if($BuscarNombreTarifa){
                 foreach($BuscarNombreTarifa as $row){
@@ -1271,12 +1281,20 @@ class UsuariosController extends Controller
             }
             $year = date('Y');
             $consultaTarifaG = Administracion::ConsultaTarifaUpd($tipoVehiculo, 2, $year, $idTarifa);
+            $consultaTarifaG1 = Administracion::ConsultaTarifaUpd1($tipoVehiculo, 2, $year, $idTarifa);
             if($consultaTarifaG){
                 $verrors = array();
-                array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
+                array_push($verrors, 'Tarifa para '.$NombreTarifa.' ya se encuentra creada para el año '.$year);
+                return Redirect::to($url.'tarifasG')->withErrors(['errors' => $verrors])->withInput();
+            }else if($consultaTarifaG1){
+                foreach($consultaTarifaG1 as $row){
+                    $yearTarifa = $row->YEAR;
+                }
+                $verrors = array();
+                array_push($verrors, 'Tarifa para '.$NombreTarifa.' ya se encuentra creada para el año '.$yearTarifa.', para activar esta tarifa, por favor inactive la tarifa del año '.$yearTarifa);
                 return Redirect::to($url.'tarifasG')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $actualizarTarifa = Administracion::ActualizarTarifa($idTarifa, $tipoVehiculo, 2, null, null, null, null, null, $valorTarifa, $IdUser, $Estado);
+                $actualizarTarifa = Administracion::ActualizarTarifa($idTarifa, $tipoVehiculo, 2, null, null, null, null, null, $valorTarifa, $IdUser, $Estado, $yearTarifa);
                 if($actualizarTarifa){
                     $verrors = 'Se actualizo con éxito la tarifa para ' . $NombreTarifa.' del año '.$year;
                     return Redirect::to($url . 'tarifasG')->with('mensaje', $verrors);

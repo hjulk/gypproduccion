@@ -70,7 +70,7 @@ Tarifas Parqueadero
                                         </div>
                                     </div>
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-success float-left">Cargar</button>
+                                        <button type="submit" class="btn btn-success float-left">Crear Tarifa de Parqueadero</button>
                                     </div>
                                 {!!  Form::close() !!}
                             </div>

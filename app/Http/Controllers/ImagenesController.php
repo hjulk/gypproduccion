@@ -1023,7 +1023,7 @@ class ImagenesController extends Controller
         $validator  = Validator::make($request->all(), [
             'nombre_imagen_tows'  =>  'required',
             'tipo_grua'  =>  'required',
-            'imagen' => 'required|max:400|dimensions:max_width=790,max_height=560'
+            'imagen' => 'required|max:400|dimensions:max_width=960,max_height=610'
         ]);
         if ($validator->fails()) {
             return Redirect::to($url . 'imagesTows')->withErrors($validator)->withInput();
@@ -1075,7 +1075,7 @@ class ImagenesController extends Controller
             'nombre_imagen_upd'  =>  'required',
             'tipo_grua_upd'  =>  'required',
             'estado_upd'  =>  'required',
-            'imagen_upd' => 'max:400|dimensions:max_width=790,max_height=560'
+            'imagen_upd' => 'max:400|dimensions:max_width=960,max_height=610'
         ]);
         if ($validator->fails()) {
             return Redirect::to($url . 'imagesTows')->withErrors($validator)->withInput();
@@ -1109,7 +1109,7 @@ class ImagenesController extends Controller
                     array_push($verrors, 'Nombre de imagen ya se encuentra creado');
                     return Redirect::to($url . 'imagesTows')->withErrors(['errors' => $verrors])->withInput();
                 }else{
-                    $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 1);
+                    $buscarInfoImagen = Imagenes::ListadoImagenesId($IdImagen, 10);
                     foreach ($buscarInfoImagen as $row) {
                         $Nombre_imagen = $row->NOMBRE_IMAGEN;
                         $Ubicacion = str_replace("../", "", $row->UBICACION);

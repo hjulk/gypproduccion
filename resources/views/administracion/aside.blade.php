@@ -153,8 +153,6 @@
                         <p>Visitas de Página</p>
                     </a>
                 </li>
-                @endif
-                @if((Session::get('Rol') === 1))
                 <li class="nav-item has-treeview" id="asideInicio">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar" id="enlace"></i>

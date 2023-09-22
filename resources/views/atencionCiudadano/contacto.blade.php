@@ -120,7 +120,7 @@
                                 <span>Transversal 93 # 53-35 Bogotá, Colombia</span>
                             </li>
                             <li class="d-block mb-3" id="infoContact" tabindex="0"><span
-                                    class="d-block text-black">Teléfono:</span><a href="tel:+5719279254" class="" tabindex="0" id="phoneContac"><span class="mr-2  icon-phone"></span> +57(1) 9279254</a>
+                                    class="d-block text-black">Teléfono:</span><a href="tel:+5719279254" class="" tabindex="0" id="phoneContac"><span class="mr-2  icon-phone"></span> (601) 9279254</a>
                             </li>
                             <li class="d-block mb-3" id="infoContact" tabindex="0"><span
                                     class="d-block text-black">Correo:</span><span><a href="mailto:denuncias@gypbogota.com"

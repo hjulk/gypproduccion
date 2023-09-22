@@ -5,7 +5,7 @@
                 <h2 class="footer-heading mb-4" id="titulofooter" tabindex="0">Grúas y Parqueaderos Bogotá S.A.S</h2>
                 <ul class="list-unstyled">
                     <li><a href="https://goo.gl/maps/X192voPg1tqL1Nny6" target="_blank"><span class="icon icon-map-marker"></span>&nbsp;Calle 55 # 73 - 19, Bogotá, Colombia</a></li>
-                    <li><a href="tel:+5719279254"><span class="icon icon-phone"></span>&nbsp;+57(1) 9279254</a> - <a href="tel:+5719279254">3124985077</a></li>
+                    <li><a href="tel:+5719279254"><span class="icon icon-phone"></span>&nbsp;(601) 9279254</a> - <a href="tel:+5719279254">3124985077</a></li>
                     <li><a href="mailto:denuncias@gypbogota.com"><span class="icon icon-envelope"></span>&nbsp;denuncias@gypbogota.com</a></li>
                 </ul>
             </div>

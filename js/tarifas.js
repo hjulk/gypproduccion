@@ -21,7 +21,7 @@ $(document).ready(function () {
             infoPostFix: "",
             loadingRecords: "Cargando...",
             zeroRecords: "No se encontraron resultados",
-            emptyTable: "Ning�n dato disponible en esta tabla",
+            emptyTable: "Ningun dato disponible en esta tabla",
             row: "Registro",
             export: "Exportar",
             paginate: {
@@ -63,7 +63,7 @@ $(document).ready(function () {
             infoPostFix: "",
             loadingRecords: "Cargando...",
             zeroRecords: "No se encontraron resultados",
-            emptyTable: "Ning�n dato disponible en esta tabla",
+            emptyTable: "Ningun dato disponible en esta tabla",
             row: "Registro",
             export: "Exportar",
             paginate: {

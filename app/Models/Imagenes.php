@@ -297,6 +297,8 @@ class Imagenes extends Model
                     break;
             case 9: $ListadoImagenesId = DB::Select("SELECT * FROM imagenes_servicios WHERE ID_IMAGEN = $IdImagen AND ID_SUBPAGINA = 4");
                     break;
+            case 10: $ListadoImagenesId = DB::Select("SELECT * FROM imagenes_gruas WHERE ID_IMAGEN = $IdImagen");
+                    break;
         }
         return $ListadoImagenesId;
     }
@@ -527,7 +529,7 @@ class Imagenes extends Model
                             USUARIO_MODIFICACION = ?,
                             ORDEN_IMAGEN = ?
                             WHERE ID_IMAGEN = ? AND TIPO_GRUA = ?',
-                                [$Nombre, $path1, $path, $Estado, $fechaActualizacion, $IdUser, $IdGrua, $OrdenImagen, $IdImagen, $IdGrua]
+                                [$Nombre, $path1, $path, $Estado, $fechaActualizacion, $IdUser, $OrdenImagen, $IdImagen, $IdGrua]
                             );
                     }else{
                         $ActualizarImagen = DB::update(
