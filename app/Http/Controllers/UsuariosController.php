@@ -1141,14 +1141,14 @@ class UsuariosController extends Controller
                     $NombreTarifa = $row->NOMBRE_TARIFA;
                 }
             }
-            $year = date('Y');
+            $year = $request->year_tarifa;
             $consultaTarifaP = Administracion::ConsultaTarifa($tipoVehiculo, 1, $year);
             if($consultaTarifaP){
                 $verrors = array();
                 array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
                 return Redirect::to($url.'tarifasP')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $crearTarifa = Administracion::CrearTarifa($tipoVehiculo, 1, $valorTarifa1, $valorTarifa2, $valorTarifa3, $valorTarifa4, $valorTarifa5, null, $IdUser);
+                $crearTarifa = Administracion::CrearTarifa($tipoVehiculo, 1, $valorTarifa1, $valorTarifa2, $valorTarifa3, $valorTarifa4, $valorTarifa5, null, $IdUser, $year);
                 if($crearTarifa){
                     $verrors = 'Se cargo con éxito las tarifas para ' . $NombreTarifa.' del año '.$year;
                     return Redirect::to($url . 'tarifasP')->with('mensaje', $verrors);
@@ -1191,7 +1191,7 @@ class UsuariosController extends Controller
                     $NombreTarifa = $row->NOMBRE_TARIFA;
                 }
             }
-            $year = date('Y');
+            $year = $yearTarifa;
             $consultaTarifaP = Administracion::ConsultaTarifaUpd($tipoVehiculo, 1, $year, $idTarifa);
             $consultaTarifaP1 = Administracion::ConsultaTarifaUpd1($tipoVehiculo, 2, $year, $idTarifa);
             if($consultaTarifaP){
@@ -1237,14 +1237,14 @@ class UsuariosController extends Controller
                     $NombreTarifa = $row->NOMBRE_TARIFA;
                 }
             }
-            $year = date('Y');
+            $year = $request->year_tarifa;
             $consultaTarifaG = Administracion::ConsultaTarifa($tipoVehiculo, 2, $year);
             if($consultaTarifaG){
                 $verrors = array();
                 array_push($verrors, 'Tarifas para '.$NombreTarifa.' ya se encuentran creadas para el año '.$year);
                 return Redirect::to($url.'tarifasG')->withErrors(['errors' => $verrors])->withInput();
             }else{
-                $crearTarifa = Administracion::CrearTarifa($tipoVehiculo, 2, null, null, null, null, null, $valorTarifa, $IdUser);
+                $crearTarifa = Administracion::CrearTarifa($tipoVehiculo, 2, null, null, null, null, null, $valorTarifa, $IdUser, $year);
                 if($crearTarifa){
                     $verrors = 'Se cargo con éxito la tarifa para ' . $NombreTarifa.' del año '.$year;
                     return Redirect::to($url . 'tarifasG')->with('mensaje', $verrors);
@@ -1279,7 +1279,7 @@ class UsuariosController extends Controller
                     $NombreTarifa = $row->NOMBRE_TARIFA;
                 }
             }
-            $year = date('Y');
+            $year = $yearTarifa;
             $consultaTarifaG = Administracion::ConsultaTarifaUpd($tipoVehiculo, 2, $year, $idTarifa);
             $consultaTarifaG1 = Administracion::ConsultaTarifaUpd1($tipoVehiculo, 2, $year, $idTarifa);
             if($consultaTarifaG){

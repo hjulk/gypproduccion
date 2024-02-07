@@ -278,4 +278,9 @@ class GYPBogota extends Model
         $ListadoTipoTarifa = DB::Select("SELECT * FROM nombre_tarifas WHERE ID_TARIFA = $tarifa");
         return $ListadoTipoTarifa;
     }
+
+    public static function TarifasSubHomeActive(){
+        $TarifasSubHomeActive = DB::Select("SELECT * FROM documentos WHERE ID_TYPE_DOCUMENT = 4");
+        return $TarifasSubHomeActive;
+    }
 }

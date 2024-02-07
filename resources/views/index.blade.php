@@ -242,13 +242,31 @@
                     </picture>
                 </div>
                 <div class="col-md-10">
-                    <p id="subtitleBannerVideo" tabindex="0">¡Ciudadano, recuerda!</p>
+                    <p id="subtitleBannerVideo" tabindex="0">¡Recuerda!</p>
                     <p id="textBannerVideoH" tabindex="0">Realizar el agendamiento para Salida de Patios es GRATIS y no requiere intermediarios.</p>
                 </div>
             </div>
         </div>
     </section>
     <br>
+    @if($AvisoPrensa)
+        <section>
+            <div class="container">
+                <div class="row" id="AvisoPrensa">
+                    <div class="col-md-12">
+                        <a href="{{ asset('documentos/Comunicado_prensa_septiembre_28_2023.pdf') }}" target="_blank" title="Aviso Prensa" onclick='return avisar()'>
+                            <picture tabindex="0">
+                                <source srcset="{{ asset('images/aviso.webp') }}" type="image/webp" />
+                                <source srcset="{{ asset('images/aviso.png') }}" type="image/png" />
+                                <img src="{{ asset('images/aviso.webp') }}" id="avisoPrensa" alt="Inicio" />
+                            </picture>                        
+                        </a>
+                    </div>                
+                </div>
+            </div>
+        </section>
+        <br>
+    @endif
     <section class="site-section" id="sectionPage">
         <div class="container">
             <div class="row align-items-center" id="franjaTituloPagina">
@@ -299,14 +317,25 @@
                     </a>
                 </div>
                 <div>
-                    <a href="documentos/Tarifas_Subsanación_2023.pdf" target="_blank">
+                    @if($TarifasSubsanacion)
+                        @foreach ($TarifasSubsanacion as $tarifaDoc)
+                            <a href=" {{ str_replace('../', '',$tarifaDoc->UBICACION) }}" target="_blank">
+                                <picture>
+                                    <source srcset="{{ asset('images/home/informacion_interes_5.webp') }}" type="image/webp" />
+                                    <source srcset="{{ asset('images/home/informacion_interes_5.png') }}" type="image/png" />
+                                    <img src="{{ asset('images/home/informacion_interes_5.webp') }}" id="imagenServicios"
+                                        alt="Tarifas de servicio mecánica" />
+                                </picture>
+                            </a>                            
+                        @endforeach                        
+                    @else
                         <picture>
                             <source srcset="{{ asset('images/home/informacion_interes_5.webp') }}" type="image/webp" />
                             <source srcset="{{ asset('images/home/informacion_interes_5.png') }}" type="image/png" />
                             <img src="{{ asset('images/home/informacion_interes_5.webp') }}" id="imagenServicios"
                                 alt="Tarifas de servicio mecánica" />
                         </picture>
-                    </a>
+                    @endif
                 </div>
                 <div>
                     <a href="pagoLinea">

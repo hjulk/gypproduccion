@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <label>Año Tarifa</label>
-                            {!! Form::text('year_tarifa_upd',$yearNow,['class'=>'form-control','id'=>'mod_yearP','readonly']) !!}
+                            {!! Form::text('year_tarifa_upd',$yearNow,['class'=>'form-control','id'=>'mod_yearP']) !!}
                         </div>
                         <div class="col-md-2">
                             <label for="exampleInputEmail1">Tarifa día 1</label>

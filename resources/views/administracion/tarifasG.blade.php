@@ -47,7 +47,8 @@ Tarifas Grúa
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label>Año Tarifa</label>
-                                        {!! Form::text('year_tarifa',$yearNow,['class'=>'form-control','id'=>'year_tarifa','readonly']) !!}
+                                        {!! Form::text('year_tarifa',$yearNow,['class'=>'form-control','id'=>'year_tarifa','onkeypress="return soloNumero(event)"','maxlength="4" oninput="if(this.value.length > this.maxLength)
+                                        this.value = this.value.slice(0, this.maxLength)";']) !!}
                                     </div>
                                 </div>
                             </div>

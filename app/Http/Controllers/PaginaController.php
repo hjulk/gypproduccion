@@ -34,23 +34,29 @@ class PaginaController extends Controller
         $ContadorCarrusel       = count($Carrusel);
         $ContadorCarruselMovil  = count($CarruselMovil);
         $Tarifas                = GYPBogota::TarifasHomeActive();
+        $TarifasSubsanacion     = GYPBogota::TarifasSubHomeActive();        
         $ImageEndYear           = null;
-        $EndYear                = GYPBogota::EndYearHomeActive();        
+        $EndYear                = GYPBogota::EndYearHomeActive();
+        $fecha_actual           = strtotime(date("d-m-Y H:i:00",time()));        
         if($EndYear){
             foreach($EndYear as $value){
                 $ano = (int)$value->YEAR;
             }
-            $fecha_enero    = strtotime("01-01-$ano 00:00:00");            
-            $fecha_actual   = strtotime(date("d-m-Y H:i:00",time()));
+            $fecha_enero    = strtotime("01-01-$ano 00:00:00");
             if($fecha_actual < $fecha_enero){
                 $ImageEndYear = $EndYear;
             }else{
                 GypBogota::UpdateEndYearImage();
             }
+        }
+        $AvisoPrensa = null;
+        if($fecha_actual < strtotime("05-10-2023 23:59:59")){
+            $AvisoPrensa = true;
         }        
         return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio,
         'Banner' => $Banner, 'BannerMovil' => $BannerMovil, 'Carrusel' => $Carrusel, 'CarruselMovil' => $CarruselMovil, 'ContadorCarrusel' => $ContadorCarrusel,
-        'ContadorCarruselMovil' => $ContadorCarruselMovil, 'Tarifas' => $Tarifas, 'ImageEndYear' => $ImageEndYear]);
+        'ContadorCarruselMovil' => $ContadorCarruselMovil, 'Tarifas' => $Tarifas, 'ImageEndYear' => $ImageEndYear, 'AvisoPrensa' => $AvisoPrensa,
+        'TarifasSubsanacion' => $TarifasSubsanacion]);
     }
 
     public function Trabajo()

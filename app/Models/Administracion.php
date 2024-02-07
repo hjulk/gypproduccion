@@ -1149,11 +1149,11 @@ class Administracion extends Model
         return $ConsultaTarifa;
     }
 
-    public static function CrearTarifa($tipoVehiculo, $tipoTarifa, $valor1, $valor2, $valor3, $valor4, $valor5, $vaorUnico, $Usuario){
+    public static function CrearTarifa($tipoVehiculo, $tipoTarifa, $valor1, $valor2, $valor3, $valor4, $valor5, $vaorUnico, $Usuario, $yearTarifa){
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i');
         $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
-        $year = date('Y');
+        $year = $yearTarifa;
         DB::Update("UPDATE tarifas SET ESTADO = 2, FECHA_ACTUALIZACION = '$fechaCreacion', USUARIO_MODIFICACION = $Usuario WHERE TARIFA = $tipoVehiculo AND YEAR < $year AND TIPO_TARIFA = $tipoTarifa AND ESTADO = 1");
         switch($tipoTarifa){
             case 1: $CrearTarifa = DB::Insert('INSERT INTO tarifas (TARIFA, TIPO_TARIFA, VALOR_TARIFA_1, VALOR_TARIFA_2, VALOR_TARIFA_3, VALOR_TARIFA_4, VALOR_TARIFA_5, YEAR, ESTADO, FECHA_CREACION, USUARIO_CREACION)
@@ -1183,26 +1183,13 @@ class Administracion extends Model
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i');
         $fechaCreacion  = date('Y-m-d H:i', strtotime($fecha_sistema));
-        $year = date('Y');
-        if($year === $yearTarifa){
-            switch($tipoTarifa){
-                case 1: $CrearTarifa = DB::Update('UPDATE tarifas
-                                                    SET VALOR_TARIFA_1 = ?,
-                                                    VALOR_TARIFA_2 = ?,
-                                                    VALOR_TARIFA_3 = ?,
-                                                    VALOR_TARIFA_4 = ?,
-                                                    VALOR_TARIFA_5 = ?,
-                                                    ESTADO = ?,
-                                                    YEAR = ?,
-                                                    FECHA_ACTUALIZACION = ?,
-                                                    USUARIO_MODIFICACION = ?
-                                                    WHERE TARIFA = ?
-                                                    AND TIPO_TARIFA = ?
-                                                    AND ID_TARIFA = ?',
-                                                    [$valor1,$valor2,$valor3,$valor4,$valor5,$Estado,$year,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
-                        break;
-                case 2: $CrearTarifa = DB::Update('UPDATE tarifas
-                                                SET VALOR_UNICO = ?,
+        switch($tipoTarifa){
+            case 1: $CrearTarifa = DB::Update('UPDATE tarifas
+                                                SET VALOR_TARIFA_1 = ?,
+                                                VALOR_TARIFA_2 = ?,
+                                                VALOR_TARIFA_3 = ?,
+                                                VALOR_TARIFA_4 = ?,
+                                                VALOR_TARIFA_5 = ?,
                                                 ESTADO = ?,
                                                 YEAR = ?,
                                                 FECHA_ACTUALIZACION = ?,
@@ -1210,38 +1197,21 @@ class Administracion extends Model
                                                 WHERE TARIFA = ?
                                                 AND TIPO_TARIFA = ?
                                                 AND ID_TARIFA = ?',
-                                                [$vaorUnico,$Estado,$year,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
-                        break;
-            }
-        }else{
-            switch($tipoTarifa){
-                case 1: $CrearTarifa = DB::Update('UPDATE tarifas
-                                                    SET VALOR_TARIFA_1 = ?,
-                                                    VALOR_TARIFA_2 = ?,
-                                                    VALOR_TARIFA_3 = ?,
-                                                    VALOR_TARIFA_4 = ?,
-                                                    VALOR_TARIFA_5 = ?,
-                                                    ESTADO = ?,
-                                                    FECHA_ACTUALIZACION = ?,
-                                                    USUARIO_MODIFICACION = ?
-                                                    WHERE TARIFA = ?
-                                                    AND TIPO_TARIFA = ?
-                                                    AND ID_TARIFA = ?',
-                                                    [$valor1,$valor2,$valor3,$valor4,$valor5,$Estado,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
-                        break;
-                case 2: $CrearTarifa = DB::Update('UPDATE tarifas
-                                                SET VALOR_UNICO = ?,
-                                                ESTADO = ?,
-                                                FECHA_ACTUALIZACION = ?,
-                                                USUARIO_MODIFICACION = ?
-                                                WHERE TARIFA = ?
-                                                AND TIPO_TARIFA = ?
-                                                AND ID_TARIFA = ?',
-                                                [$vaorUnico,$Estado,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
-                        break;
-            }
+                                                [$valor1,$valor2,$valor3,$valor4,$valor5,$Estado,$yearTarifa,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
+                    break;
+            case 2: $CrearTarifa = DB::Update('UPDATE tarifas
+                                            SET VALOR_UNICO = ?,
+                                            ESTADO = ?,
+                                            YEAR = ?,
+                                            FECHA_ACTUALIZACION = ?,
+                                            USUARIO_MODIFICACION = ?
+                                            WHERE TARIFA = ?
+                                            AND TIPO_TARIFA = ?
+                                            AND ID_TARIFA = ?',
+                                            [$vaorUnico,$Estado,$yearTarifa,$fechaCreacion,$Usuario,$tipoVehiculo,$tipoTarifa,$idTarifa]);
+                    break;
         }
-
+        
         return $CrearTarifa;
     }
 

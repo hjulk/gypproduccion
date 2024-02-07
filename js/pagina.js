@@ -209,3 +209,16 @@ $(document).ready(function(){
         return false;
     });
 });
+
+function avisar()
+{
+    var page = '/documentos/Comunicado_prensa_septiembre_28_2023.pdf';
+    var tipo = 'get';
+    $.ajax({
+        url: "crearVisita",
+        type: "get",
+        data: { _method: tipo, pagina: page },
+        success: function (data) {
+        }
+    });
+}

@@ -56,11 +56,11 @@
                     <table id="tarifaServicio" class="responsive table-bordered hover">
                         <thead>
                             <td tabindex="0">Tipo de veh&iacute;culo</td>
-                            <td tabindex="0">Tarifa d&iacute;a 1</td>
-                            <td tabindex="0">Tarifa d&iacute;a 2</td>
-                            <td tabindex="0">Tarifa d&iacute;a 3</td>
-                            <td tabindex="0">Tarifa d&iacute;a 4 a d&iacute;a 30</td>
-                            <td tabindex="0">Tarifa d&iacute;a 31+</td>
+                            <td tabindex="0">D&iacute;a 1</td>
+                            <td tabindex="0">D&iacute;a 2</td>
+                            <td tabindex="0">D&iacute;a 3</td>
+                            <td tabindex="0">D&iacute;a 4 a d&iacute;a 30</td>
+                            <td tabindex="0">D&iacute;a 31+</td>
                         </thead>
                         <tbody>
                             @foreach ($TarifaP as $value)
@@ -123,6 +123,12 @@
                             </tr> --}}
                         </tbody>
                     </table>
+                    <br>
+                    <div class="row" id="textoInformativoTarifa">
+                        <div class="col-md-12">
+                            <p>* El cobro del servicio de parqueadero se hace por día y es acumulable.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
