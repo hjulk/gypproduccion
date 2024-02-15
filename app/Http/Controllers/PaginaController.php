@@ -577,9 +577,9 @@ class PaginaController extends Controller
             foreach ($ListarDocumento as $value) {
                 $documento = str_replace('../', '', $value->UBICACION);
             }
-            $ubicacion = '<li><a href="' . $documento . '" target="_blank">Política HSEQ</a></li>';
+            $ubicacion = '<li><a href="' . $documento . '" target="_blank">Política Integrada</a></li>';
         } else {
-            $ubicacion = '<li><a href="#">Política HSEQ</a></li>';
+            $ubicacion = '<li><a href="#">Política Integrada</a></li>';
         }
         return $ubicacion;
     }
@@ -592,9 +592,9 @@ class PaginaController extends Controller
             foreach ($ListarDocumento as $value) {
                 $documento = $value->UBICACION;
             }
-            $ubicacion = '<li><a href="' . $documento . '" target="_blank">Política HSEQ</a></li>';
+            $ubicacion = '<li><a href="' . $documento . '" target="_blank">Política Integrada</a></li>';
         } else {
-            $ubicacion = '<li><a href="#">Política HSEQ</a></li>';
+            $ubicacion = '<li><a href="#">Política Integrada</a></li>';
         }
         return $ubicacion;
     }
