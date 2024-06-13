@@ -198,6 +198,11 @@ class ImagesController extends Controller
                 $Orden[3]  = 3;
                 $Orden[4]  = 4;
                 $Orden[5]  = 5;
+                $Orden[6]  = 6;
+                $Orden[7]  = 7;
+                $Orden[8]  = 8;
+                $Orden[9]  = 9;
+                $Orden[10]  = 10;
                 $OrdenCarousel = Imagenes::OrdenCarousel(2);
                 if($OrdenCarousel){
                     foreach($OrdenCarousel as $value){
@@ -211,6 +216,11 @@ class ImagesController extends Controller
                 $OrdenUpd[3]  = 3;
                 $OrdenUpd[4]  = 4;
                 $OrdenUpd[5]  = 5;
+                $OrdenUpd[6]  = 6;
+                $OrdenUpd[7]  = 7;
+                $OrdenUpd[8]  = 8;
+                $OrdenUpd[9]  = 9;
+                $OrdenUpd[10]  = 10;
                 $listadoCarousel  = Imagenes::Carousel(2);
                 $Carousel         = array();
                 $contCarousel     = 0;
@@ -259,7 +269,7 @@ class ImagesController extends Controller
                 $Estado[2]  = 'Inactivo en página';
                 $Orden = array();
                 $Orden[''] = 'Seleccione:';
-                for($i = 1; $i <= 5; $i++){
+                for($i = 1; $i <= 10; $i++){
                     $Orden[$i]  = $i;
                 }
                 $OrdenCarousel = Imagenes::OrdenCarousel(1);
@@ -270,7 +280,7 @@ class ImagesController extends Controller
                 }
                 $OrdenUpd = array();
                 $OrdenUpd[''] = 'Seleccione:';
-                for($i = 1; $i <= 5; $i++){
+                for($i = 1; $i <= 10; $i++){
                     $OrdenUpd[$i]  = $i;
                 }
                 $listadoCarouselM  = Imagenes::Carousel(1);
