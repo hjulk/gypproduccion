@@ -1266,7 +1266,7 @@ class ImagenesController extends Controller
                 }
             }else{
                 $validator  = Validator::make($request->all(), [
-                    'imagen' => 'dimensions:max_width=360,max_height=230'
+                    'imagen' => 'dimensions:max_width=550,max_height=230'
                 ]);
                 if ($validator->fails()) {
                     return Redirect::to($url . 'imagesHomePage')->withErrors($validator)->withInput();

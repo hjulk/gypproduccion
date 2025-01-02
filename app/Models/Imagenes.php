@@ -124,12 +124,12 @@ class Imagenes extends Model
     }
 
     public static function Inicio(){
-        $Inicio = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN IN (2,3) AND MOVIL = 2");
+        $Inicio = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN NOT IN (1) AND MOVIL = 2");
         return $Inicio;
     }
 
     public static function ListadoTipoImagen(){
-        $ListadoTipoImagen = DB::Select("SELECT * FROM tipo_imagen_inicio WHERE ID_TIPO IN (2,3)");
+        $ListadoTipoImagen = DB::Select("SELECT * FROM tipo_imagen_inicio WHERE ID_TIPO NOT IN (1)");
         return $ListadoTipoImagen;
     }
 

@@ -34,6 +34,7 @@ class PaginaController extends Controller
         $ContadorCarrusel       = count($Carrusel);
         $ContadorCarruselMovil  = count($CarruselMovil);
         $Tarifas                = GYPBogota::TarifasHomeActive();
+        $TarifasAnio            = GYPBogota::TarifasHomeActiveAnio();
         $TarifasSubsanacion     = GYPBogota::TarifasSubHomeActive();        
         $ImageEndYear           = null;
         $EndYear                = GYPBogota::EndYearHomeActive();
@@ -56,7 +57,7 @@ class PaginaController extends Controller
         return view('index', ['Visitas' => $Visitas, 'PoliticaHSEQ' => $PoliticaHSEQ, 'Organigrama' => $Organigrama,'YearNow' => $yearNow,'ImgInicio' => $ImgInicio,
         'Banner' => $Banner, 'BannerMovil' => $BannerMovil, 'Carrusel' => $Carrusel, 'CarruselMovil' => $CarruselMovil, 'ContadorCarrusel' => $ContadorCarrusel,
         'ContadorCarruselMovil' => $ContadorCarruselMovil, 'Tarifas' => $Tarifas, 'ImageEndYear' => $ImageEndYear, 'AvisoPrensa' => $AvisoPrensa,
-        'TarifasSubsanacion' => $TarifasSubsanacion]);
+        'TarifasSubsanacion' => $TarifasSubsanacion,'TarifasAnio' => $TarifasAnio]);
     }
 
     public function Trabajo()

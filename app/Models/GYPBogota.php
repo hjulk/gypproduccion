@@ -217,6 +217,12 @@ class GYPBogota extends Model
         return $TarifasHomeActive;
     }
 
+    public static function TarifasHomeActiveAnio(){
+        $TarifasHomeActive = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN = 4 AND MOVIL = 2 AND ESTADO = 1");
+        return $TarifasHomeActive;
+    }
+
+
     public static function EndYearHomeActive(){
         $EndYearHomeActive = DB::Select("SELECT * FROM imagenes_inicio WHERE TIPO_IMAGEN = 2 AND MOVIL = 2 AND ESTADO = 1 AND END_YEAR = 1");
         return $EndYearHomeActive;
